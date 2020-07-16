@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              flex: 4,
+              flex: 3,
               child: Text('Monday 25 September'),
             ),
             Expanded(

@@ -19,7 +19,7 @@ class CategoryCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(paddingLeft, 16.0, paddingRight, 32.0),
       child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: MediaQuery.of(context).size.width - 80.0,
         child: Card(
           child: Column(
             children: isEmpty
@@ -28,15 +28,36 @@ class CategoryCard extends StatelessWidget {
                     Text('Add Category'),
                   ]
                 : [
-                    Text(categoryName),
-                    Container(
-                      height: 200,
-                      color: Colors.green,
+                    Padding(
+                      padding:
+                          const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 32.0),
+                      child: Text(categoryName),
                     ),
-                    Divider(
-                      thickness: 2.0,
+                    Expanded(
+                      child: Container(
+                        height: 200,
+                        color: Colors.green,
+                      ),
                     ),
-                    Text('Add Task'),
+                    FlatButton(
+                      onPressed: () {},
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 80,
+                        height: 50,
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.add),
+                              Text(
+                                'Add Task',
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
           ),
         ),
