@@ -21,58 +21,60 @@ class CategoryCard extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(paddingLeft, 16.0, paddingRight, 32.0),
       child: SizedBox(
         width: _cardWidth,
-        child: InkWell(
-          onTap: () {},
-          child: Card(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: isEmpty
-                  ? [
-                      Column(
-                        children: [
-                          Icon(
-                            Icons.add,
-                            size: 30,
-                          ),
-                          Text(
-                            'Add Category',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ],
-                      ),
-                    ]
-                  : [
-                      Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 32.0),
-                        child: Text(categoryName),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 200,
-                          color: Colors.green,
+        child: Card(
+          child: Material(
+            borderRadius: BorderRadius.circular(8.0),
+            child: InkWell(
+              onTap: () {},
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: isEmpty
+                    ? [
+                        Column(
+                          children: [
+                            Icon(
+                              Icons.add,
+                              size: 30,
+                            ),
+                            Text(
+                              'Add Category',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
                         ),
-                      ),
-                      FlatButton(
-                        onPressed: () {},
-                        child: Container(
-                          width: _cardWidth,
-                          height: 50,
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.add),
-                                Text(
-                                  'Add Task',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ],
+                      ]
+                    : [
+                        Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 32.0),
+                          child: Text(categoryName),
+                        ),
+                        Expanded(
+                          child: Container(
+                            color: Colors.green,
+                          ),
+                        ),
+                        FlatButton(
+                          onPressed: () {},
+                          child: Container(
+                            width: _cardWidth,
+                            height: 50,
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.add),
+                                  Text(
+                                    'Add Task',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+              ),
             ),
           ),
         ),
