@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 itemCount: 4,
                 itemBuilder: (context, index) => CategoryCard(
-                  categoryName: 'index: $index',
+                  categoryName: 'Very long category name with index: $index',
                   isEmpty: index == 3 ? true : false,
                   paddingLeft: index == 0 ? 0.0 : 16.0,
                   paddingRight: index == 3 ? 0.0 : 16.0,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class CategoryCard extends StatelessWidget {
   final bool isEmpty;
@@ -44,10 +45,15 @@ class CategoryCard extends StatelessWidget {
                         ),
                       ]
                     : [
-                        Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 32.0),
-                          child: Text(categoryName),
+                        Container(
+                          width: _cardWidth,
+                          height: 100,
+                          padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 16.0),
+                          child: Text(
+                            categoryName,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 24),
+                          ),
                         ),
                         Expanded(
                           child: Container(
