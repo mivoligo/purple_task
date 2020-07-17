@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do/ui/screens/home_screen.dart';
+import 'package:to_do/ui/view_models/category_model.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,7 +29,12 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeScreen(),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<CategoryList>(create: (_) => CategoryList())
+        ],
+        child: HomeScreen(),
+      ),
     );
   }
 }

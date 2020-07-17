@@ -57,8 +57,8 @@ class CategoryCard extends StatelessWidget {
                         ),
                         Expanded(
                           child: Container(
-                            color: Colors.green,
-                          ),
+//                            color: Colors.green,
+                              ),
                         ),
                         FlatButton(
                           onPressed: () {},
