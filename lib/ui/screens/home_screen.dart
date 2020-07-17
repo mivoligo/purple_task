@@ -22,7 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: AnimatedContainer(
         duration: Duration(milliseconds: 300),
-        color: _color,
+//        color: _color,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.grey[850], _color, _color])),
         child: Flex(
           direction: _isPortrait ? Axis.vertical : Axis.horizontal,
           crossAxisAlignment: CrossAxisAlignment.stretch,
