@@ -16,49 +16,64 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double _cardWidth = MediaQuery.of(context).size.width - 80;
     return Padding(
       padding: EdgeInsets.fromLTRB(paddingLeft, 16.0, paddingRight, 32.0),
       child: SizedBox(
-        width: MediaQuery.of(context).size.width - 80.0,
-        child: Card(
-          child: Column(
-            children: isEmpty
-                ? [
-                    Text('+'),
-                    Text('Add Category'),
-                  ]
-                : [
-                    Padding(
-                      padding:
-                          const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 32.0),
-                      child: Text(categoryName),
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 200,
-                        color: Colors.green,
+        width: _cardWidth,
+        child: InkWell(
+          onTap: () {},
+          child: Card(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: isEmpty
+                  ? [
+                      Column(
+                        children: [
+                          Icon(
+                            Icons.add,
+                            size: 30,
+                          ),
+                          Text(
+                            'Add Category',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ],
                       ),
-                    ),
-                    FlatButton(
-                      onPressed: () {},
-                      child: Container(
-                        width: MediaQuery.of(context).size.width - 80,
-                        height: 50,
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.add),
-                              Text(
-                                'Add Task',
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ],
+                    ]
+                  : [
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 32.0),
+                        child: Text(categoryName),
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: 200,
+                          color: Colors.green,
+                        ),
+                      ),
+                      FlatButton(
+                        onPressed: () {},
+                        child: Container(
+                          width: _cardWidth,
+                          height: 50,
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.add),
+                                Text(
+                                  'Add Task',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+            ),
           ),
         ),
       ),
