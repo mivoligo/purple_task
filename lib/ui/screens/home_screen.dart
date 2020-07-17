@@ -9,6 +9,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   double _appWidth;
   double _appHeight;
+  Color _color = Colors.white70;
 
   bool get _isPortrait => _appWidth < _appHeight;
 
@@ -17,8 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Container(
-        color: Colors.blue,
+      body: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        color: _color,
         child: Flex(
           direction: _isPortrait ? Axis.vertical : Axis.horizontal,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -34,6 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   // keep the same padding for all sizes
                   viewportFraction: (_appWidth - 80) / _appWidth,
                 ),
+                onPageChanged: (int index) => setState(() {
+                  _color = Colors.amber;
+                }),
                 itemCount: 4,
                 itemBuilder: (context, index) => CategoryCard(
                   categoryName: 'Very long category name with index: $index',
