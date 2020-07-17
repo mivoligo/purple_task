@@ -29,14 +29,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
               flex: 6,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
+              child: PageView.builder(
+                controller: PageController(
+                  // keep the same padding for all sizes
+                  viewportFraction: (_appWidth - 80) / _appWidth,
+                ),
                 itemCount: 4,
                 itemBuilder: (context, index) => CategoryCard(
                   categoryName: 'index: $index',
                   isEmpty: index == 3 ? true : false,
-                  paddingLeft: index == 0 ? 32.0 : 16.0,
-                  paddingRight: index == 3 ? 32.0 : 16.0,
+                  paddingLeft: index == 0 ? 0.0 : 16.0,
+                  paddingRight: index == 3 ? 0.0 : 16.0,
                 ),
               ),
             ),
