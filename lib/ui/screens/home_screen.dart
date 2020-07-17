@@ -11,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   double _appWidth;
   double _appHeight;
-  Color _color = Colors.white70;
+  Color _color = Colors.deepPurple;
 
   bool get _isPortrait => _appWidth < _appHeight;
 
@@ -34,30 +34,35 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 6,
               child: Consumer<CategoryList>(
-                builder: (_, categoryListModel, __) => PageView.builder(
-                  controller: PageController(
-                    // keep the same padding for all sizes
-                    viewportFraction: (_appWidth - 80) / _appWidth,
-                  ),
-                  onPageChanged: (int index) => setState(() {
-                    _color = categoryListModel.categoryList.length > index
-                        ? categoryListModel.categoryList[index].color
-                        : Colors.black;
-                  }),
-                  itemCount: categoryListModel.categoryList.length + 1,
-                  itemBuilder: (context, index) => CategoryCard(
-                    categoryName: categoryListModel.categoryList.length > index
-                        ? '${categoryListModel.categoryList[index].name}'
-                        : '$index',
-                    isEmpty: index == categoryListModel.categoryList.length
-                        ? true
-                        : false,
-                    paddingLeft: index == 0 ? 0.0 : 16.0,
-                    paddingRight: index == categoryListModel.categoryList.length
-                        ? 0.0
-                        : 16.0,
-                  ),
-                ),
+                builder: (_, categoryListModel, __) {
+                  _color = categoryListModel.categoryList[0].color;
+                  return PageView.builder(
+                    controller: PageController(
+                      // keep the same padding for all sizes
+                      viewportFraction: (_appWidth - 80) / _appWidth,
+                    ),
+                    onPageChanged: (int index) => setState(() {
+                      _color = categoryListModel.categoryList.length > index
+                          ? categoryListModel.categoryList[index].color
+                          : Colors.black;
+                    }),
+                    itemCount: categoryListModel.categoryList.length + 1,
+                    itemBuilder: (context, index) => CategoryCard(
+                      categoryName:
+                          categoryListModel.categoryList.length > index
+                              ? '${categoryListModel.categoryList[index].name}'
+                              : '$index',
+                      isEmpty: index == categoryListModel.categoryList.length
+                          ? true
+                          : false,
+                      paddingLeft: index == 0 ? 0.0 : 16.0,
+                      paddingRight:
+                          index == categoryListModel.categoryList.length
+                              ? 0.0
+                              : 16.0,
+                    ),
+                  );
+                },
               ),
             ),
           ],
