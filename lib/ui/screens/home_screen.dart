@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/category_card.dart';
+import 'package:to_do/ui/widgets/greetings.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -35,7 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Expanded(
               flex: 3,
-              child: Text('Monday 25 September'),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(48.0, 32.0, 32.0, 16.0),
+                child: Greetings(),
+              ),
             ),
             Expanded(
               flex: 6,
