@@ -31,7 +31,6 @@ class CategoryCard extends StatelessWidget {
             child: InkWell(
               onTap: () {},
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
