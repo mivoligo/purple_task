@@ -63,6 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           index == categoryListModel.categoryList.length - 1
                               ? 0.0
                               : 8.0,
+                      categoryColor:
+                          categoryListModel.categoryList[index].color,
+                      categoryIcon: categoryListModel.categoryList[index].icon,
                     ),
                   );
                 },
