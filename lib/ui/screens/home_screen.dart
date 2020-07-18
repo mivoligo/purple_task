@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 3,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(48.0, 32.0, 32.0, 16.0),
+                padding: const EdgeInsets.fromLTRB(50.0, 32.0, 32.0, 8.0),
                 child: Greetings(),
               ),
             ),
@@ -62,11 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) => CategoryCard(
                       categoryName:
                           '${categoryListModel.categoryList[index].name}',
-                      paddingLeft: index == 0 ? 0.0 : 8.0,
-                      paddingRight:
-                          index == categoryListModel.categoryList.length - 1
-                              ? 0.0
-                              : 8.0,
                       categoryColor:
                           categoryListModel.categoryList[index].color,
                       categoryIcon: categoryListModel.categoryList[index].icon,

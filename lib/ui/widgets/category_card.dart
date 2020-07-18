@@ -3,16 +3,12 @@ import 'package:flutter/rendering.dart';
 
 class CategoryCard extends StatelessWidget {
   final String categoryName;
-  final double paddingLeft;
-  final double paddingRight;
   final Color categoryColor;
   final IconData categoryIcon;
 
   const CategoryCard({
     Key key,
     this.categoryName,
-    this.paddingLeft = 16.0,
-    this.paddingRight = 16.0,
     this.categoryColor,
     this.categoryIcon,
   }) : super(key: key);
@@ -21,7 +17,7 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double _cardWidth = MediaQuery.of(context).size.width - 80;
     return Padding(
-      padding: EdgeInsets.fromLTRB(paddingLeft, 16.0, paddingRight, 64.0),
+      padding: EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 64.0),
       child: SizedBox(
         width: _cardWidth,
         child: Card(
