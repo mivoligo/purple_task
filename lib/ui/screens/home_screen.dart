@@ -58,11 +58,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) => CategoryCard(
                       categoryName:
                           '${categoryListModel.categoryList[index].name}',
-                      paddingLeft: index == 0 ? 0.0 : 16.0,
+                      paddingLeft: index == 0 ? 0.0 : 8.0,
                       paddingRight:
                           index == categoryListModel.categoryList.length - 1
                               ? 0.0
-                              : 16.0,
+                              : 8.0,
                     ),
                   );
                 },
