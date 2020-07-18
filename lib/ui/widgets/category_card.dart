@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class CategoryCard extends StatelessWidget {
-  final bool isEmpty;
   final String categoryName;
   final double paddingLeft;
   final double paddingRight;
@@ -10,7 +9,6 @@ class CategoryCard extends StatelessWidget {
   const CategoryCard({
     Key key,
     this.categoryName,
-    this.isEmpty,
     this.paddingLeft = 16.0,
     this.paddingRight = 16.0,
   }) : super(key: key);
@@ -29,59 +27,44 @@ class CategoryCard extends StatelessWidget {
               onTap: () {},
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: isEmpty
-                    ? [
-                        Column(
+                children: [
+                  Container(
+                    width: _cardWidth,
+                    height: 100,
+                    padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 16.0),
+                    child: Text(
+                      categoryName,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(),
+                  ),
+                  Container(
+                    height: 0.5,
+                    color: Colors.grey,
+                  ),
+                  FlatButton(
+                    onPressed: () {},
+                    child: Container(
+                      width: _cardWidth,
+                      height: 50,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.add,
-                              size: 30,
-                            ),
+                            Icon(Icons.add),
                             Text(
-                              'Add Category',
-                              style: TextStyle(fontSize: 20),
+                              'Add Task',
+                              style: TextStyle(fontSize: 18),
                             ),
                           ],
                         ),
-                      ]
-                    : [
-                        Container(
-                          width: _cardWidth,
-                          height: 100,
-                          padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 16.0),
-                          child: Text(
-                            categoryName,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 24),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(),
-                        ),
-                        Container(
-                          height: 0.5,
-                          color: Colors.grey,
-                        ),
-                        FlatButton(
-                          onPressed: () {},
-                          child: Container(
-                            width: _cardWidth,
-                            height: 50,
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.add),
-                                  Text(
-                                    'Add Task',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

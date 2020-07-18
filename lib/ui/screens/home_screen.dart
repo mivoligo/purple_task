@@ -12,6 +12,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double _appWidth;
   double _appHeight;
   Color _color = Colors.deepPurple;
+  int _categoryIndex = 0;
 
   bool get _isPortrait => _appWidth < _appHeight;
 
@@ -19,10 +20,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
+    print('is rebuilding');
     return Scaffold(
       body: AnimatedContainer(
         duration: Duration(milliseconds: 300),
-//        color: _color,
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -40,29 +41,26 @@ class _HomeScreenState extends State<HomeScreen> {
               flex: 6,
               child: Consumer<CategoryList>(
                 builder: (_, categoryListModel, __) {
-                  _color = categoryListModel.categoryList[0].color;
+                  // set color based on category
+                  _color = categoryListModel.categoryList[_categoryIndex].color;
                   return PageView.builder(
                     controller: PageController(
                       // keep the same padding for all sizes
                       viewportFraction: (_appWidth - 80) / _appWidth,
                     ),
-                    onPageChanged: (int index) => setState(() {
-                      _color = categoryListModel.categoryList.length > index
-                          ? categoryListModel.categoryList[index].color
-                          : Colors.black;
-                    }),
-                    itemCount: categoryListModel.categoryList.length + 1,
+                    onPageChanged: (int index) => setState(
+                      () {
+                        _color = categoryListModel.categoryList[index].color;
+                        _categoryIndex = index;
+                      },
+                    ),
+                    itemCount: categoryListModel.categoryList.length,
                     itemBuilder: (context, index) => CategoryCard(
                       categoryName:
-                          categoryListModel.categoryList.length > index
-                              ? '${categoryListModel.categoryList[index].name}'
-                              : '$index',
-                      isEmpty: index == categoryListModel.categoryList.length
-                          ? true
-                          : false,
+                          '${categoryListModel.categoryList[index].name}',
                       paddingLeft: index == 0 ? 0.0 : 16.0,
                       paddingRight:
-                          index == categoryListModel.categoryList.length
+                          index == categoryListModel.categoryList.length - 1
                               ? 0.0
                               : 16.0,
                     ),
