@@ -5,12 +5,14 @@ class CategoryCard extends StatelessWidget {
   final String categoryName;
   final Color categoryColor;
   final IconData categoryIcon;
+  final String editTooltip;
 
   const CategoryCard({
     Key key,
     this.categoryName,
     this.categoryColor,
     this.categoryIcon,
+    this.editTooltip,
   }) : super(key: key);
 
   @override
@@ -41,6 +43,7 @@ class CategoryCard extends StatelessWidget {
                         IconButton(
                           icon: Icon(Icons.menu),
                           color: Colors.grey[500],
+                          tooltip: editTooltip,
                           onPressed: () {},
                         ),
                       ],

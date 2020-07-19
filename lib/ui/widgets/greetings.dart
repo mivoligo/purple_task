@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Greetings extends StatelessWidget {
+  final String greetings;
+
+  const Greetings({Key key, this.greetings}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -11,7 +15,7 @@ class Greetings extends StatelessWidget {
         ),
         SizedBox(height: 32.0),
         Text(
-          'Hello',
+          greetings,
           style: TextStyle(color: Colors.white, fontSize: 24),
         ),
         SizedBox(height: 8.0),

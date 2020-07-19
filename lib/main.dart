@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/ui/screens/home_screen.dart';
+import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
 
 void main() {
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
       ),
       home: MultiProvider(
         providers: [
-          ChangeNotifierProvider<CategoryList>(create: (_) => CategoryList())
+          ChangeNotifierProvider<CategoryList>(create: (_) => CategoryList()),
+          Provider<Strings>(create: (_) => Strings()),
         ],
         child: HomeScreen(),
       ),

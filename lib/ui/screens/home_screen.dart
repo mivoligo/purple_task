@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/category_card.dart';
 import 'package:to_do/ui/widgets/greetings.dart';
@@ -20,6 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // get strings from Strings class
+    final s = Provider.of<Strings>(context, listen: false);
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
     print('is rebuilding');
@@ -44,7 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Spacer(),
-                    Greetings(),
+                    Greetings(
+                      greetings: s.greetings,
+                    ),
                     Spacer(),
                   ],
                 ),
@@ -53,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 6,
               child: Column(
-//                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Expanded(
                     child: Consumer<CategoryList>(
@@ -75,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           itemCount: categoryListModel.categoryList.length,
                           itemBuilder: (context, index) => CategoryCard(
+                            editTooltip: s.edit,
                             categoryName:
                                 '${categoryListModel.categoryList[index].name}',
                             categoryColor:
@@ -100,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Icon(Icons.create_new_folder),
                             SizedBox(width: 8.0),
                             Text(
-                              'Add Category',
+                              s.addCategory,
                               style: TextStyle(fontSize: 18),
                             ),
                           ],
