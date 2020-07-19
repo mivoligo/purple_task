@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
+import 'package:to_do/ui/widgets/add_category_button.dart';
 import 'package:to_do/ui/widgets/category_card.dart';
 import 'package:to_do/ui/widgets/greetings.dart';
 
@@ -97,25 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: FlatButton(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(60.0)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.create_new_folder),
-                              SizedBox(width: 8.0),
-                              Text(
-                                s.addCategory,
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ],
-                          ),
-                        ),
-                        onPressed: () {},
+                      child: AddCategoryButton(
+                        text: s.addCategory,
+                        onPressed: () => print('add category pressed'),
                       ),
                     ),
                   ],
