@@ -23,6 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     // get strings from Strings class
     final s = Provider.of<Strings>(context, listen: false);
+    final categoryListProvider =
+        Provider.of<CategoryList>(context, listen: false);
+    _color = categoryListProvider.categoryList[_categoryIndex].color;
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
     print('is rebuilding');
