@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Spacer(),
+                      SizedBox(height: 32.0),
                       Greetings(
                         greetings: s.greetings,
                       ),

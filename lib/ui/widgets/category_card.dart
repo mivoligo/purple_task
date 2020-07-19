@@ -31,7 +31,7 @@ class CategoryCard extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
                     child: Row(
                       children: [
                         Icon(
@@ -49,13 +49,11 @@ class CategoryCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Container(),
-                  ),
+                  Spacer(),
                   Container(
                     width: _cardWidth,
-                    height: 150,
-                    padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 16.0),
+                    height: 120,
+                    padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
