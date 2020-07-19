@@ -17,7 +17,7 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double _cardWidth = MediaQuery.of(context).size.width - 80;
     return Padding(
-      padding: EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 64.0),
+      padding: EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
       child: SizedBox(
         width: _cardWidth,
         child: Card(
