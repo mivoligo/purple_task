@@ -15,18 +15,22 @@ class AddCategoryButton extends StatelessWidget {
     return FlatButton(
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.create_new_folder),
-            SizedBox(width: 8.0),
-            Text(
-              text,
-              style: TextStyle(fontSize: 18),
-            ),
-          ],
+      child: Container(
+        height: 48,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.create_new_folder),
+              SizedBox(width: 8.0),
+              Text(
+                // TODO Make sure to handle long text
+                text,
+                style: TextStyle(fontSize: 18),
+              ),
+            ],
+          ),
         ),
       ),
       onPressed: onPressed,
