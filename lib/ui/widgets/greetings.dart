@@ -2,18 +2,26 @@ import 'package:flutter/material.dart';
 
 class Greetings extends StatelessWidget {
   final String greetings;
+  final double topDistance;
+  final double distance;
 
-  const Greetings({Key key, this.greetings}) : super(key: key);
+  const Greetings({
+    Key key,
+    this.greetings,
+    this.topDistance = 0.0,
+    this.distance = 32.0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(height: topDistance),
         CircleAvatar(
           backgroundColor: Colors.grey,
         ),
-        SizedBox(height: 32.0),
+        SizedBox(height: distance),
         Text(
           greetings,
           style: TextStyle(color: Colors.white, fontSize: 24),

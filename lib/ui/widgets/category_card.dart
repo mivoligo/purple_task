@@ -6,6 +6,7 @@ class CategoryCard extends StatelessWidget {
   final Color categoryColor;
   final IconData categoryIcon;
   final String editTooltip;
+  final VoidCallback onTap;
 
   const CategoryCard({
     Key key,
@@ -13,6 +14,7 @@ class CategoryCard extends StatelessWidget {
     this.categoryColor,
     this.categoryIcon,
     this.editTooltip,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -27,7 +29,7 @@ class CategoryCard extends StatelessWidget {
           child: Material(
             borderRadius: BorderRadius.circular(8.0),
             child: InkWell(
-              onTap: () {},
+              onTap: onTap,
               child: Column(
                 children: [
                   Padding(
