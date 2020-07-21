@@ -4,4 +4,5 @@ class Strings {
   final String categoryName = 'Category name';
   final String edit = 'Edit';
   final String greetings = 'Hello';
+  final String close = 'Close';
 }

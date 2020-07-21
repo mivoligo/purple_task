@@ -6,6 +6,10 @@ class CategoryCard extends StatelessWidget {
   final Color categoryColor;
   final IconData categoryIcon;
   final String editTooltip;
+  final String closeTooltip;
+  final bool visibleCloseButton;
+
+  final VoidCallback onCloseTap;
   final VoidCallback onTap;
 
   const CategoryCard({
@@ -14,6 +18,9 @@ class CategoryCard extends StatelessWidget {
     this.categoryColor,
     this.categoryIcon,
     this.editTooltip,
+    this.closeTooltip,
+    this.visibleCloseButton,
+    this.onCloseTap,
     this.onTap,
   }) : super(key: key);
 
@@ -36,15 +43,24 @@ class CategoryCard extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
                     child: Row(
                       children: [
-                        Icon(
-                          categoryIcon,
-                          size: 40,
-                          color: categoryColor,
+//                        Icon(
+//                          categoryIcon,
+//                          size: 40,
+//                          color: categoryColor,
+//                        ),
+                        Visibility(
+                          visible: visibleCloseButton,
+                          child: IconButton(
+                            icon: Icon(Icons.close),
+                            color: Colors.grey,
+                            tooltip: closeTooltip,
+                            onPressed: onCloseTap,
+                          ),
                         ),
                         Spacer(),
                         IconButton(
                           icon: Icon(Icons.menu),
-                          color: Colors.grey[500],
+                          color: Colors.grey,
                           tooltip: editTooltip,
                           onPressed: () {},
                         ),

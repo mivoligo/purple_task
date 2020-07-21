@@ -39,6 +39,7 @@ class _HomePortraitState extends State<HomePortrait>
         Provider.of<CategoryList>(context, listen: false);
     _color = categoryListProvider.categoryList[_categoryIndex].color;
 
+    // use in various places to animate between double values
     Animation animDouble(AnimationController parent, double begin, double end) {
       return Tween(begin: begin, end: end).animate(CurvedAnimation(
         parent: parent,
@@ -46,8 +47,8 @@ class _HomePortraitState extends State<HomePortrait>
       ));
     }
 
-    void expandCard() {
-      _animationController.forward();
+    Future expandCard() async {
+      await _animationController.forward();
       _expandedCard = true;
     }
 
@@ -61,6 +62,7 @@ class _HomePortraitState extends State<HomePortrait>
         child: Stack(
           alignment: Alignment.center,
           children: [
+            // colored background
             AnimatedContainer(
               duration: Duration(milliseconds: 300),
               decoration: BoxDecoration(
@@ -70,6 +72,7 @@ class _HomePortraitState extends State<HomePortrait>
                     colors: [Colors.grey[850], _color, _color]),
               ),
             ),
+            // Greetings
             Positioned(
               left: 32.0,
               top: 36.0,
@@ -94,6 +97,7 @@ class _HomePortraitState extends State<HomePortrait>
                     );
                   }),
             ),
+            // Add Category button
             AnimatedBuilder(
                 animation: _animationController,
                 builder: (context, child) {
@@ -108,6 +112,7 @@ class _HomePortraitState extends State<HomePortrait>
                     ),
                   );
                 }),
+            // Category cards
             AnimatedBuilder(
               animation: _animationController,
               builder: (context, child) {
@@ -135,12 +140,19 @@ class _HomePortraitState extends State<HomePortrait>
                             categoryListProvider.categoryList[index].icon,
                         categoryColor:
                             categoryListProvider.categoryList[index].color,
-                        onTap: _expandedCard ? shrinkCard : expandCard,
+                        closeTooltip: s.close,
+                        editTooltip: s.edit,
+                        visibleCloseButton: _expandedCard,
+                        onTap: _expandedCard ? null : expandCard,
+                        onCloseTap: shrinkCard,
                       ),
-                      onPageChanged: (int index) => setState(() {
-                        _color = categoryListProvider.categoryList[index].color;
-                        _categoryIndex = index;
-                      }),
+                      onPageChanged: (int index) => setState(
+                        () {
+                          _color =
+                              categoryListProvider.categoryList[index].color;
+                          _categoryIndex = index;
+                        },
+                      ),
                     ),
                   ),
                 );
