@@ -63,12 +63,14 @@ class CategoryCard extends StatelessWidget {
                             AnimatedOpacity(
                               duration: Duration(milliseconds: 300),
                               opacity: isExpanded ? 1.0 : 0.0,
-                              child: IconButton(
-                                icon: Icon(Icons.close),
-                                color: Colors.grey,
-                                tooltip: closeTooltip,
-                                onPressed: onCloseTap,
-                              ),
+                              child: isExpanded
+                                  ? IconButton(
+                                      icon: Icon(Icons.close),
+                                      color: Colors.grey,
+                                      tooltip: closeTooltip,
+                                      onPressed: onCloseTap,
+                                    )
+                                  : null,
                             ),
                             Spacer(),
                             IconButton(
