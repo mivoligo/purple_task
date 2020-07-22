@@ -47,8 +47,8 @@ class _HomePortraitState extends State<HomePortrait>
       ));
     }
 
-    Future expandCard() async {
-      await _animationController.forward();
+    void expandCard() {
+      _animationController.forward();
       _expandedCard = true;
     }
 
@@ -143,6 +143,7 @@ class _HomePortraitState extends State<HomePortrait>
                         closeTooltip: s.close,
                         editTooltip: s.edit,
                         visibleCloseButton: _expandedCard,
+                        isExpanded: _expandedCard,
                         onTap: _expandedCard ? null : expandCard,
                         onCloseTap: shrinkCard,
                       ),
