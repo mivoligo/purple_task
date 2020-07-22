@@ -26,8 +26,10 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _cardWidth = MediaQuery.of(context).size.width - 80;
-    double _appHeight = MediaQuery.of(context).size.height;
+    final double _cardWidth = MediaQuery.of(context).size.width - 80;
+    final double _appHeight = MediaQuery.of(context).size.height;
+    final double _verticalPadding = MediaQuery.of(context).padding.vertical;
+
     return Padding(
       padding: EdgeInsets.fromLTRB(4.0, 16.0, 4.0, 16.0),
       child: SizedBox(
@@ -81,7 +83,7 @@ class CategoryCard extends StatelessWidget {
                       Spacer(),
                       Container(
                         width: _cardWidth,
-                        height: 120,
+                        height: 108,
                         padding: EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +117,9 @@ class CategoryCard extends StatelessWidget {
                         duration: Duration(milliseconds: 300),
                         curve: Curves.decelerate,
                         width: _cardWidth - 32.0,
-                        height: isExpanded ? _appHeight - 280.0 : 0.0,
+                        height: isExpanded
+                            ? _appHeight - (_verticalPadding + 280)
+                            : 0.0,
                       )
                     ],
                   ),

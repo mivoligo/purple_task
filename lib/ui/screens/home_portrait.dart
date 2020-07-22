@@ -15,6 +15,7 @@ class _HomePortraitState extends State<HomePortrait>
     with SingleTickerProviderStateMixin {
   double _appWidth;
   double _appHeight;
+  double _topPadding;
   Color _color = Colors.deepPurple;
   int _categoryIndex = 0;
   AnimationController _animationController;
@@ -33,6 +34,7 @@ class _HomePortraitState extends State<HomePortrait>
   Widget build(BuildContext context) {
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
+    _topPadding = MediaQuery.of(context).padding.top;
     // get strings from Strings class
     final s = Provider.of<Strings>(context, listen: false);
     final categoryListProvider =
@@ -121,8 +123,8 @@ class _HomePortraitState extends State<HomePortrait>
                   right: 0,
                   bottom: animDouble(_animationController, 64.0, 0.0).value,
                   child: Container(
-                    height: animDouble(
-                            _animationController, _appHeight * 0.5, _appHeight)
+                    height: animDouble(_animationController, _appHeight * 0.5,
+                            _appHeight - _topPadding)
                         .value,
                     child: PageView.builder(
                       controller: PageController(
