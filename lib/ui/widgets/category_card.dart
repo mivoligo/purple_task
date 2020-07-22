@@ -7,7 +7,6 @@ class CategoryCard extends StatelessWidget {
   final IconData categoryIcon;
   final String editTooltip;
   final String closeTooltip;
-  final bool visibleCloseButton;
   final bool isExpanded;
 
   final VoidCallback onCloseTap;
@@ -20,7 +19,6 @@ class CategoryCard extends StatelessWidget {
     this.categoryIcon,
     this.editTooltip,
     this.closeTooltip,
-    this.visibleCloseButton,
     this.isExpanded = false,
     this.onCloseTap,
     this.onTap,

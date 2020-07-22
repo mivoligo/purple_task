@@ -142,7 +142,6 @@ class _HomePortraitState extends State<HomePortrait>
                             categoryListProvider.categoryList[index].color,
                         closeTooltip: s.close,
                         editTooltip: s.edit,
-                        visibleCloseButton: _expandedCard,
                         isExpanded: _expandedCard,
                         onTap: _expandedCard ? null : expandCard,
                         onCloseTap: shrinkCard,
