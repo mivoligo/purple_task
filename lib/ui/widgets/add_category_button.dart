@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class AddCategoryButton extends StatelessWidget {
@@ -18,10 +20,15 @@ class AddCategoryButton extends StatelessWidget {
       opacity: opacity,
       child: FlatButton(
         color: Colors.white,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(60.0),
+        ),
         child: Container(
           height: 48,
+          constraints: BoxConstraints(
+            // Make sure the button is not too wide
+            maxWidth: min(300, MediaQuery.of(context).size.width - 80),
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
@@ -29,10 +36,13 @@ class AddCategoryButton extends StatelessWidget {
               children: [
                 Icon(Icons.create_new_folder),
                 SizedBox(width: 8.0),
-                Text(
-                  // TODO Make sure to handle long text
-                  text,
-                  style: TextStyle(fontSize: 18),
+                Flexible(
+                  // Flexible needed for TextOverflow to work
+                  child: Text(
+                    text,
+                    style: TextStyle(fontSize: 18),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
