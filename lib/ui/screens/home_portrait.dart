@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/ui/screens/category_screen.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/add_category_button.dart';
@@ -15,11 +16,9 @@ class _HomePortraitState extends State<HomePortrait>
     with SingleTickerProviderStateMixin {
   double _appWidth;
   double _appHeight;
-  double _topPadding;
   Color _color = Colors.deepPurple;
   int _categoryIndex = 0;
   AnimationController _animationController;
-  bool _expandedCard = false;
 
   @override
   void initState() {
@@ -34,7 +33,6 @@ class _HomePortraitState extends State<HomePortrait>
   Widget build(BuildContext context) {
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
-    _topPadding = MediaQuery.of(context).padding.top;
     // get strings from Strings class
     final s = Provider.of<Strings>(context, listen: false);
     final categoryListProvider =
@@ -47,16 +45,6 @@ class _HomePortraitState extends State<HomePortrait>
         parent: parent,
         curve: Curves.ease,
       ));
-    }
-
-    void expandCard() {
-      _animationController.forward();
-      _expandedCard = true;
-    }
-
-    void shrinkCard() {
-      _animationController.reverse();
-      _expandedCard = false;
     }
 
     return Scaffold(
@@ -115,55 +103,60 @@ class _HomePortraitState extends State<HomePortrait>
                   );
                 }),
             // Category cards
-            AnimatedBuilder(
-              animation: _animationController,
-              builder: (context, child) {
-                return Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: animDouble(_animationController, 64.0, 0.0).value,
-                  child: Container(
-                    height: animDouble(_animationController, _appHeight * 0.5,
-                            _appHeight - _topPadding)
-                        .value,
-                    child: PageView.builder(
-                      controller: PageController(
-                        viewportFraction: animDouble(
-                                _animationController,
-                                (_appWidth - 48) / _appWidth,
-                                (_appWidth - 24) / _appWidth)
-                            .value,
-                      ),
-                      itemCount: categoryListProvider.categoryList.length,
-                      itemBuilder: (context, index) => CategoryCard(
-                        categoryName:
-                            categoryListProvider.categoryList[index].name,
-                        categoryIcon:
-                            categoryListProvider.categoryList[index].icon,
-                        categoryColor:
-                            categoryListProvider.categoryList[index].color,
-                        closeTooltip: s.close,
-                        editTooltip: s.edit,
-                        isExpanded: _expandedCard,
-                        onTap: _expandedCard ? null : expandCard,
-                        onCloseTap: shrinkCard,
-                      ),
-                      onPageChanged: (int index) => setState(
-                        () {
-                          _color =
-                              categoryListProvider.categoryList[index].color;
-                          _categoryIndex = index;
-                        },
-                      ),
-                    ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 64.0,
+              child: Container(
+                height: _appHeight * 0.5,
+                child: PageView.builder(
+                  controller: PageController(
+                    viewportFraction: (_appWidth - 48) / _appWidth,
                   ),
-                );
-              },
+                  itemCount: categoryListProvider.categoryList.length,
+                  itemBuilder: (context, index) => CategoryCard(
+                    categoryName: categoryListProvider.categoryList[index].name,
+                    categoryIcon: categoryListProvider.categoryList[index].icon,
+                    categoryColor:
+                        categoryListProvider.categoryList[index].color,
+                    editTooltip: s.edit,
+                    onTap: () {
+                      openCategoryScreen(context);
+                    },
+                  ),
+                  onPageChanged: (int index) => setState(
+                    () {
+                      _color = categoryListProvider.categoryList[index].color;
+                      _categoryIndex = index;
+                    },
+                  ),
+                ),
+              ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void openCategoryScreen(BuildContext context) async {
+    _animationController.forward();
+    await Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, anim1, anim2) => CategoryScreen(
+          color: _color,
+          name: 'Name',
+          icon: Icons.home,
+        ),
+        transitionsBuilder: (context, anim1, anim2, child) {
+          return FadeTransition(
+            opacity: anim1,
+            child: child,
+          );
+        },
+      ),
+    );
+    _animationController.reverse();
   }
 
   @override

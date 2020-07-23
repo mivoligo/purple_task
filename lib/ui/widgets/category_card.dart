@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:to_do/ui/widgets/category_header.dart';
 
 class CategoryCard extends StatelessWidget {
   final String categoryName;
   final Color categoryColor;
   final IconData categoryIcon;
   final String editTooltip;
-  final String closeTooltip;
-  final bool isExpanded;
 
-  final VoidCallback onCloseTap;
   final VoidCallback onTap;
 
   const CategoryCard({
@@ -18,118 +15,76 @@ class CategoryCard extends StatelessWidget {
     this.categoryColor,
     this.categoryIcon,
     this.editTooltip,
-    this.closeTooltip,
-    this.isExpanded = false,
-    this.onCloseTap,
     this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final double _cardWidth = MediaQuery.of(context).size.width - 80;
-    final double _appHeight = MediaQuery.of(context).size.height;
-    final double _verticalPadding = MediaQuery.of(context).padding.vertical;
-
     return Padding(
-      padding: EdgeInsets.fromLTRB(4.0, 16.0, 4.0, 16.0),
-      child: SizedBox(
-        width: _cardWidth,
-        child: Card(
-          elevation: 8.0,
-          child: Material(
-            borderRadius: BorderRadius.circular(8.0),
-            child: InkWell(
-              onTap: onTap,
-              child: Stack(
-                children: [
-                  AnimatedPositioned(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.ease,
-                    top: isExpanded ? 80.0 : 16.0,
-                    left: isExpanded ? 32.0 : 16.0,
-                    child: Icon(
-                      categoryIcon,
-                      size: 40,
-                      color: categoryColor,
+      padding: EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
+      child: Stack(
+        children: [
+          Hero(
+            tag: 'main$categoryColor',
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xff45000000),
+                      offset: Offset(0.0, 4.0),
+                      blurRadius: 8.0,
                     ),
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
-                        child: Row(
-                          children: [
-                            AnimatedOpacity(
-                              duration: Duration(milliseconds: 300),
-                              opacity: isExpanded ? 1.0 : 0.0,
-                              child: isExpanded
-                                  ? IconButton(
-                                      icon: Icon(Icons.close),
-                                      color: Colors.grey,
-                                      tooltip: closeTooltip,
-                                      onPressed: onCloseTap,
-                                    )
-                                  : null,
-                            ),
-                            Spacer(),
-                            IconButton(
-                              icon: Icon(Icons.menu),
-                              color: Colors.grey,
-                              tooltip: editTooltip,
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      ),
-                      Spacer(),
-                      Container(
-                        width: _cardWidth,
-                        height: 108,
-                        padding: EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('8 tasks'),
-                            SizedBox(height: 8),
-                            Text(
-                              categoryName,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 24),
-                            ),
-                            Spacer(),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: LinearProgressIndicator(
-                                    value: 0.6,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        categoryColor),
-                                    backgroundColor: Colors.grey[300],
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Text('70%'),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      AnimatedContainer(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.decelerate,
-                        width: _cardWidth - 32.0,
-                        height: isExpanded
-                            ? _appHeight - (_verticalPadding + 280)
-                            : 0.0,
-                      )
-                    ],
-                  ),
-                ],
+                  ]),
+            ),
+          ),
+          Positioned(
+            left: 16.0,
+            top: 16.0,
+            child: Hero(
+              tag: 'icon$categoryColor',
+              child: Icon(
+                categoryIcon,
+                size: 40.0,
+                color: categoryColor,
               ),
             ),
           ),
-        ),
+          Positioned(
+            left: 24.0,
+            right: 24.0,
+            bottom: 16.0,
+            child: Hero(
+              tag: 'header$categoryColor',
+              child: Material(
+                type: MaterialType.transparency,
+                child: CategoryHeader(
+                  title: categoryName,
+                  color: categoryColor,
+                  description: '8 tasks',
+                  progress: 0.6,
+                ),
+              ),
+            ),
+          ),
+          Material(
+            type: MaterialType.transparency,
+            child: InkWell(
+              onTap: onTap,
+            ),
+          ),
+          Positioned(
+            top: 16.0,
+            right: 16.0,
+            child: IconButton(
+              icon: Icon(Icons.menu),
+              color: Colors.grey,
+              tooltip: editTooltip,
+              onPressed: () {},
+            ),
+          )
+        ],
       ),
     );
   }
