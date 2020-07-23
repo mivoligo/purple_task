@@ -20,11 +20,13 @@ class CategoryHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(description),
+        SizedBox(height: 8.0),
         Text(
           title,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(fontSize: 24),
         ),
+        SizedBox(height: 8.0),
         Row(
           children: [
             Expanded(
