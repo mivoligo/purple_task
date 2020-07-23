@@ -85,12 +85,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: categoryListModel.categoryList.length,
                             itemBuilder: (context, index) => CategoryCard(
                               editTooltip: s.edit,
-                              categoryName:
+                              name:
                                   '${categoryListModel.categoryList[index].name}',
-                              categoryColor:
+                              color:
                                   categoryListModel.categoryList[index].color,
-                              categoryIcon:
-                                  categoryListModel.categoryList[index].icon,
+                              icon: categoryListModel.categoryList[index].icon,
                             ),
                           );
                         },
@@ -99,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       child: AddCategoryButton(
+                        opacity: 1.0,
                         text: s.addCategory,
                         onPressed: () => print('add category pressed'),
                       ),

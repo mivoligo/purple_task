@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Category extends ChangeNotifier {
+class Category {
   final String name;
   final Color color;
   final IconData icon;

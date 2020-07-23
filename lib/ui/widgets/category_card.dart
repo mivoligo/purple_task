@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 
 class CategoryCard extends StatelessWidget {
-  final String categoryName;
-  final Color categoryColor;
-  final IconData categoryIcon;
+  final String name;
+  final Color color;
+  final IconData icon;
   final String editTooltip;
 
   final VoidCallback onTap;
 
   const CategoryCard({
     Key key,
-    this.categoryName,
-    this.categoryColor,
-    this.categoryIcon,
+    this.name,
+    this.color,
+    this.icon,
     this.editTooltip,
     this.onTap,
   }) : super(key: key);
@@ -25,7 +25,7 @@ class CategoryCard extends StatelessWidget {
       child: Stack(
         children: [
           Hero(
-            tag: 'main$categoryColor',
+            tag: 'main$name',
             child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -43,11 +43,11 @@ class CategoryCard extends StatelessWidget {
             left: 16.0,
             top: 16.0,
             child: Hero(
-              tag: 'icon$categoryColor',
+              tag: 'icon$name',
               child: Icon(
-                categoryIcon,
+                icon,
                 size: 40.0,
-                color: categoryColor,
+                color: color,
               ),
             ),
           ),
@@ -56,12 +56,12 @@ class CategoryCard extends StatelessWidget {
             right: 24.0,
             bottom: 16.0,
             child: Hero(
-              tag: 'header$categoryColor',
+              tag: 'header$name',
               child: Material(
                 type: MaterialType.transparency,
                 child: CategoryHeader(
-                  title: categoryName,
-                  color: categoryColor,
+                  title: name,
+                  color: color,
                   description: '8 tasks',
                   progress: 0.6,
                 ),
@@ -78,7 +78,7 @@ class CategoryCard extends StatelessWidget {
             top: 16.0,
             right: 16.0,
             child: Hero(
-              tag: 'menu$categoryColor',
+              tag: 'menu$color',
               child: Material(
                 type: MaterialType.transparency,
                 child: IconButton(

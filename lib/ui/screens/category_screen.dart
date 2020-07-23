@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 
 class CategoryScreen extends StatefulWidget {
-  final Color color;
-  final IconData icon;
-  final String name;
+  final Category currentCategory;
 
   const CategoryScreen({
     Key key,
-    this.color,
-    this.icon,
-    this.name,
+    this.currentCategory,
   }) : super(key: key);
 
   @override
@@ -51,13 +48,17 @@ class _CategoryScreenState extends State<CategoryScreen>
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.grey[850], widget.color, widget.color],
+            colors: [
+              Colors.grey[850],
+              widget.currentCategory.color,
+              widget.currentCategory.color
+            ],
           ),
         ),
         child: Stack(
           children: [
             Hero(
-              tag: 'main${widget.color}',
+              tag: 'main${widget.currentCategory.name}',
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 color: Colors.grey[200],
@@ -92,7 +93,7 @@ class _CategoryScreenState extends State<CategoryScreen>
               top: 16.0 + _paddingTop,
               right: 16.0,
               child: Hero(
-                tag: 'menu${widget.color}',
+                tag: 'menu${widget.currentCategory.name}',
                 child: Material(
                   type: MaterialType.transparency,
                   child: IconButton(
@@ -108,10 +109,10 @@ class _CategoryScreenState extends State<CategoryScreen>
               left: 48.0,
               top: 92.0 + _paddingTop,
               child: Hero(
-                tag: 'icon${widget.color}',
+                tag: 'icon${widget.currentCategory.name}',
                 child: Icon(
-                  widget.icon,
-                  color: widget.color,
+                  widget.currentCategory.icon,
+                  color: widget.currentCategory.color,
                   size: 40,
                 ),
               ),
@@ -121,14 +122,14 @@ class _CategoryScreenState extends State<CategoryScreen>
               top: 148.0 + _paddingTop,
               right: 48.0,
               child: Hero(
-                tag: 'header${widget.color}',
+                tag: 'header${widget.currentCategory.name}',
                 child: Material(
                   type: MaterialType.transparency,
                   child: CategoryHeader(
-                    title: widget.name,
+                    title: widget.currentCategory.name,
                     description: '8 tasks',
                     progress: 0.6,
-                    color: widget.color,
+                    color: widget.currentCategory.color,
                   ),
                 ),
               ),

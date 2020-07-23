@@ -19,6 +19,7 @@ class _HomePortraitState extends State<HomePortrait>
   Color _color = Colors.deepPurple;
   int _categoryIndex = 0;
   AnimationController _animationController;
+  var _categoryListProvider;
 
   @override
   void initState() {
@@ -35,9 +36,8 @@ class _HomePortraitState extends State<HomePortrait>
     _appHeight = MediaQuery.of(context).size.height;
     // get strings from Strings class
     final s = Provider.of<Strings>(context, listen: false);
-    final categoryListProvider =
-        Provider.of<CategoryList>(context, listen: false);
-    _color = categoryListProvider.categoryList[_categoryIndex].color;
+    _categoryListProvider = Provider.of<CategoryList>(context, listen: false);
+    _color = _categoryListProvider.categoryList[_categoryIndex].color;
 
     // use in various places to animate between double values
     Animation animDouble(AnimationController parent, double begin, double end) {
@@ -113,20 +113,19 @@ class _HomePortraitState extends State<HomePortrait>
                   controller: PageController(
                     viewportFraction: (_appWidth - 48) / _appWidth,
                   ),
-                  itemCount: categoryListProvider.categoryList.length,
+                  itemCount: _categoryListProvider.categoryList.length,
                   itemBuilder: (context, index) => CategoryCard(
-                    categoryName: categoryListProvider.categoryList[index].name,
-                    categoryIcon: categoryListProvider.categoryList[index].icon,
-                    categoryColor:
-                        categoryListProvider.categoryList[index].color,
+                    name: _categoryListProvider.categoryList[index].name,
+                    icon: _categoryListProvider.categoryList[index].icon,
+                    color: _categoryListProvider.categoryList[index].color,
                     editTooltip: s.edit,
                     onTap: () {
-                      openCategoryScreen(context);
+                      openCategoryScreen(context, index);
                     },
                   ),
                   onPageChanged: (int index) => setState(
                     () {
-                      _color = categoryListProvider.categoryList[index].color;
+                      _color = _categoryListProvider.categoryList[index].color;
                       _categoryIndex = index;
                     },
                   ),
@@ -139,14 +138,12 @@ class _HomePortraitState extends State<HomePortrait>
     );
   }
 
-  void openCategoryScreen(BuildContext context) async {
+  void openCategoryScreen(BuildContext context, int index) async {
     _animationController.forward();
     await Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, anim1, anim2) => CategoryScreen(
-          color: _color,
-          name: 'Name',
-          icon: Icons.work,
+          currentCategory: _categoryListProvider.categoryList[index],
         ),
         transitionsBuilder: (context, anim1, anim2, child) {
           return FadeTransition(
