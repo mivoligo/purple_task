@@ -146,7 +146,7 @@ class _HomePortraitState extends State<HomePortrait>
         pageBuilder: (context, anim1, anim2) => CategoryScreen(
           color: _color,
           name: 'Name',
-          icon: Icons.home,
+          icon: Icons.work,
         ),
         transitionsBuilder: (context, anim1, anim2, child) {
           return FadeTransition(

@@ -77,11 +77,17 @@ class CategoryCard extends StatelessWidget {
           Positioned(
             top: 16.0,
             right: 16.0,
-            child: IconButton(
-              icon: Icon(Icons.menu),
-              color: Colors.grey,
-              tooltip: editTooltip,
-              onPressed: () {},
+            child: Hero(
+              tag: 'menu$categoryColor',
+              child: Material(
+                type: MaterialType.transparency,
+                child: IconButton(
+                  icon: Icon(Icons.menu),
+                  color: Colors.grey,
+                  tooltip: editTooltip,
+                  onPressed: () {},
+                ),
+              ),
             ),
           )
         ],

@@ -16,7 +16,6 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -30,12 +29,42 @@ class CategoryScreen extends StatelessWidget {
             Hero(
               tag: 'main$color',
               child: Container(
+                height: MediaQuery.of(context).size.height,
                 color: Colors.white,
               ),
             ),
+            // Go back button
             Positioned(
-              left: 32.0,
+              left: 16.0,
               top: 16.0,
+              child: Material(
+                type: MaterialType.transparency,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  color: Colors.grey,
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 16.0,
+              right: 16.0,
+              child: Hero(
+                tag: 'menu$color',
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: IconButton(
+                    icon: Icon(Icons.menu),
+                    color: Colors.grey,
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+            ),
+            // Category icon
+            Positioned(
+              left: 48.0,
+              top: 72.0,
               child: Hero(
                 tag: 'icon$color',
                 child: Icon(
@@ -46,9 +75,9 @@ class CategoryScreen extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: 32.0,
-              top: 72.0,
-              right: 32.0,
+              left: 48.0,
+              top: 128.0,
+              right: 48.0,
               child: Hero(
                 tag: 'header$color',
                 child: Material(
