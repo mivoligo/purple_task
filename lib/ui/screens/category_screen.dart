@@ -44,6 +44,7 @@ class _CategoryScreenState extends State<CategoryScreen>
 
   @override
   Widget build(BuildContext context) {
+    double _paddingTop = MediaQuery.of(context).padding.top;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -59,13 +60,13 @@ class _CategoryScreenState extends State<CategoryScreen>
               tag: 'main${widget.color}',
               child: Container(
                 height: MediaQuery.of(context).size.height,
-                color: Colors.white,
+                color: Colors.grey[200],
               ),
             ),
             // Go back button
             Positioned(
               left: 16.0,
-              top: 16.0,
+              top: 16.0 + _paddingTop,
               // Animation used to avoid showing back button to early
               child: AnimatedBuilder(
                   animation: _fadeAnimation,
@@ -88,7 +89,7 @@ class _CategoryScreenState extends State<CategoryScreen>
             ),
             // menu button
             Positioned(
-              top: 16.0,
+              top: 16.0 + _paddingTop,
               right: 16.0,
               child: Hero(
                 tag: 'menu${widget.color}',
@@ -105,7 +106,7 @@ class _CategoryScreenState extends State<CategoryScreen>
             // Category icon
             Positioned(
               left: 48.0,
-              top: 92.0,
+              top: 92.0 + _paddingTop,
               child: Hero(
                 tag: 'icon${widget.color}',
                 child: Icon(
@@ -117,7 +118,7 @@ class _CategoryScreenState extends State<CategoryScreen>
             ),
             Positioned(
               left: 48.0,
-              top: 148.0,
+              top: 148.0 + _paddingTop,
               right: 48.0,
               child: Hero(
                 tag: 'header${widget.color}',
