@@ -7,15 +7,17 @@ import 'package:to_do/ui/widgets/add_category_button.dart';
 import 'package:to_do/ui/widgets/category_card.dart';
 import 'package:to_do/ui/widgets/greetings.dart';
 
-class HomePortrait extends StatefulWidget {
+class HomeMobile extends StatefulWidget {
   @override
-  _HomePortraitState createState() => _HomePortraitState();
+  _HomeMobileState createState() => _HomeMobileState();
 }
 
-class _HomePortraitState extends State<HomePortrait>
+class _HomeMobileState extends State<HomeMobile>
     with SingleTickerProviderStateMixin {
   double _appWidth;
   double _appHeight;
+  bool get _isPortrait => _appWidth < _appHeight;
+  double _verticalPadding;
   Color _color = Colors.deepPurple;
   int _categoryIndex = 0;
   AnimationController _animationController;
@@ -34,6 +36,7 @@ class _HomePortraitState extends State<HomePortrait>
   Widget build(BuildContext context) {
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
+    _verticalPadding = MediaQuery.of(context).padding.vertical;
     // get strings from Strings class
     final s = Provider.of<Strings>(context, listen: false);
     _categoryListProvider = Provider.of<CategoryList>(context, listen: false);
@@ -50,7 +53,7 @@ class _HomePortraitState extends State<HomePortrait>
     return Scaffold(
       body: SafeArea(
         child: Stack(
-          alignment: Alignment.center,
+          alignment: _isPortrait ? Alignment.center : Alignment.bottomRight,
           children: [
             // colored background
             AnimatedContainer(
@@ -93,6 +96,7 @@ class _HomePortraitState extends State<HomePortrait>
                 builder: (context, child) {
                   return Positioned(
                     bottom: animDouble(_animationController, 16.0, 64.0).value,
+                    right: _isPortrait ? null : 16.0,
                     child: AddCategoryButton(
                       text: s.addCategory,
                       opacity: animDouble(_animationController, 1.0, 0.0).value,
@@ -104,11 +108,13 @@ class _HomePortraitState extends State<HomePortrait>
                 }),
             // Category cards
             Positioned(
-              left: 0,
+              left: _isPortrait ? 0 : _appWidth / 2,
               right: 0,
               bottom: 64.0,
               child: Container(
-                height: _appHeight * 0.5,
+                height: _isPortrait
+                    ? _appHeight * 0.5
+                    : _appHeight - _verticalPadding - 64.0,
                 child: PageView.builder(
                   controller: PageController(
                     viewportFraction: (_appWidth - 48) / _appWidth,

@@ -18,6 +18,9 @@ class _CategoryScreenState extends State<CategoryScreen>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation _fadeAnimation;
+  double _appWidth;
+  double _appHeight;
+  bool get _isPortrait => _appWidth < _appHeight;
 
   @override
   void initState() {
@@ -42,6 +45,8 @@ class _CategoryScreenState extends State<CategoryScreen>
   @override
   Widget build(BuildContext context) {
     double _paddingTop = MediaQuery.of(context).padding.top;
+    _appWidth = MediaQuery.of(context).size.width;
+    _appHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -117,10 +122,12 @@ class _CategoryScreenState extends State<CategoryScreen>
                 ),
               ),
             ),
+            // Header
             Positioned(
               left: 48.0,
               top: 148.0 + _paddingTop,
-              right: 48.0,
+              // TODO Make sure to improve this for desktop
+              right: _isPortrait ? 48.0 : _appWidth / 2 + 32.0,
               child: Hero(
                 tag: 'header${widget.currentCategory.name}',
                 child: Material(
