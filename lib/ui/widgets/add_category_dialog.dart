@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/colors_list.dart';
 
 class AddCategoryDialog extends StatefulWidget {
@@ -87,10 +89,12 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                         visibleColorsList = !visibleColorsList;
                       });
                     },
-                    child: Container(
-                      width: 28,
-                      height: 28,
-                      color: widget.color,
+                    child: Consumer<NewCategory>(
+                      builder: (_, value, __) => Container(
+                        width: 28,
+                        height: 28,
+                        color: Color(value.color),
+                      ),
                     ),
                   ),
                 ),
@@ -103,10 +107,14 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
             top: 168.0,
             right: 0.0,
             child: Container(
-//              duration: Duration(milliseconds: 100),
               height: visibleColorsList ? 40.0 : 0.0,
               child: ColorsList(
                 visible: visibleColorsList,
+                onSelected: () {
+                  setState(() {
+                    visibleColorsList = false;
+                  });
+                },
               ),
             ),
           ),

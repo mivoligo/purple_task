@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do/globals/category_colors.dart';
+import 'package:to_do/ui/view_models/category_model.dart';
 
 class ColorsList extends StatelessWidget {
   final bool visible;
+  final VoidCallback onSelected;
 
   ColorsList({
     Key key,
     this.visible = false,
+    this.onSelected,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final newCategoryProvider =
+        Provider.of<NewCategory>(context, listen: false);
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: categoryColors.length,
@@ -25,7 +31,10 @@ class ColorsList extends StatelessWidget {
             height: 40.0,
             child: FlatButton(
               padding: EdgeInsets.all(0),
-              onPressed: () {},
+              onPressed: () {
+                newCategoryProvider.color = categoryColors[index];
+                onSelected();
+              },
               child: Container(
                 width: 28,
                 height: 28,

@@ -6,7 +6,9 @@ import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider<NewCategory>(create: (_) => NewCategory()),
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

@@ -27,3 +27,32 @@ class CategoryList extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class NewCategory extends ChangeNotifier {
+  String _name;
+
+  String get name => _name;
+
+  set name(String value) {
+    _name = value;
+    notifyListeners();
+  }
+
+  int _color = 0xff9c27b0;
+
+  int get color => _color;
+
+  set color(int value) {
+    _color = value;
+    notifyListeners();
+  }
+
+  IconData _icon;
+
+  IconData get icon => _icon;
+
+  set icon(IconData value) {
+    _icon = value;
+    notifyListeners();
+  }
+}
