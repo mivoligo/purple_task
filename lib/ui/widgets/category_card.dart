@@ -1,3 +1,4 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 
@@ -29,7 +30,7 @@ class CategoryCard extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(16.0),
+                  borderRadius: BorderRadius.circular(8.0),
                   boxShadow: [
                     BoxShadow(
                       color: Color(0xff45000000),
@@ -78,11 +79,11 @@ class CategoryCard extends StatelessWidget {
             top: 16.0,
             right: 16.0,
             child: Hero(
-              tag: 'menu$color',
+              tag: 'menu$name',
               child: Material(
                 type: MaterialType.transparency,
                 child: IconButton(
-                  icon: Icon(Icons.menu),
+                  icon: Icon(AntIcons.menu),
                   color: Colors.grey,
                   tooltip: editTooltip,
                   onPressed: () {},

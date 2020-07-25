@@ -1,3 +1,4 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 
 class Category {
@@ -47,7 +48,7 @@ class NewCategory extends ChangeNotifier {
     notifyListeners();
   }
 
-  int _icon = Icons.folder.codePoint;
+  int _icon = AntIcons.folder.codePoint;
 
   int get icon => _icon;
 

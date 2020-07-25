@@ -1,3 +1,4 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
@@ -82,7 +83,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                       child: Material(
                         type: MaterialType.transparency,
                         child: IconButton(
-                          icon: Icon(Icons.arrow_back),
+                          icon: Icon(AntIcons.arrow_left),
                           color: Colors.grey,
                           onPressed: () {
                             _animationController.reverse();
@@ -102,7 +103,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                 child: Material(
                   type: MaterialType.transparency,
                   child: IconButton(
-                    icon: Icon(Icons.menu),
+                    icon: Icon(AntIcons.menu),
                     color: Colors.grey,
                     onPressed: () {},
                   ),

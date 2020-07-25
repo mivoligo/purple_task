@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 
 class AddCategoryButton extends StatelessWidget {
@@ -34,7 +35,7 @@ class AddCategoryButton extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.create_new_folder),
+                Icon(AntIcons.folder_add),
                 SizedBox(width: 8.0),
                 Flexible(
                   // Flexible needed for TextOverflow to work
