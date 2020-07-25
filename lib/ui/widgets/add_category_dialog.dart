@@ -10,7 +10,6 @@ class AddCategoryDialog extends StatelessWidget {
   final IconData icon;
   final String cancelLabel;
   final String saveLabel;
-  final VoidCallback onCancel;
   final VoidCallback onSave;
 
   const AddCategoryDialog({
@@ -23,7 +22,6 @@ class AddCategoryDialog extends StatelessWidget {
     this.icon = Icons.folder,
     this.cancelLabel,
     this.saveLabel,
-    this.onCancel,
     this.onSave,
   }) : super(key: key);
 
@@ -134,7 +132,7 @@ class AddCategoryDialog extends StatelessWidget {
                       style: TextStyle(fontSize: 18.0),
                     ),
                   ),
-                  onPressed: onCancel,
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
                 Spacer(),
                 FlatButton(

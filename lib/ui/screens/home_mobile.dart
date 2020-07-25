@@ -175,7 +175,6 @@ class _HomeMobileState extends State<HomeMobile>
         iconLabel: s.icon,
         cancelLabel: s.cancel,
         saveLabel: s.save,
-        onCancel: () {},
         onSave: () {},
       ),
     );
