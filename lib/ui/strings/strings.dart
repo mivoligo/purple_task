@@ -5,4 +5,8 @@ class Strings {
   final String edit = 'Edit';
   final String greetings = 'Hello';
   final String close = 'Close';
+  final String cancel = 'Cancel';
+  final String save = 'Save';
+  final String color = 'Color';
+  final String icon = 'Icon';
 }

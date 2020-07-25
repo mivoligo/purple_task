@@ -4,6 +4,7 @@ import 'package:to_do/ui/screens/category_screen.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/add_category_button.dart';
+import 'package:to_do/ui/widgets/add_category_dialog.dart';
 import 'package:to_do/ui/widgets/category_card.dart';
 import 'package:to_do/ui/widgets/greetings.dart';
 
@@ -16,12 +17,14 @@ class _HomeMobileState extends State<HomeMobile>
     with SingleTickerProviderStateMixin {
   double _appWidth;
   double _appHeight;
+
   bool get _isPortrait => _appWidth < _appHeight;
   double _verticalPadding;
   Color _color = Colors.deepPurple;
   int _categoryIndex = 0;
   AnimationController _animationController;
   var _categoryListProvider;
+  Strings s; // Strings provider
 
   @override
   void initState() {
@@ -38,7 +41,7 @@ class _HomeMobileState extends State<HomeMobile>
     _appHeight = MediaQuery.of(context).size.height;
     _verticalPadding = MediaQuery.of(context).padding.vertical;
     // get strings from Strings class
-    final s = Provider.of<Strings>(context, listen: false);
+    s = Provider.of<Strings>(context, listen: false);
     _categoryListProvider = Provider.of<CategoryList>(context, listen: false);
     _color = _categoryListProvider.categoryList[_categoryIndex].color;
 
@@ -102,6 +105,7 @@ class _HomeMobileState extends State<HomeMobile>
                       opacity: animDouble(_animationController, 1.0, 0.0).value,
                       onPressed: () {
                         print('AddCategory pressed');
+                        addNewCategory(context);
                       },
                     ),
                   );
@@ -160,6 +164,21 @@ class _HomeMobileState extends State<HomeMobile>
       ),
     );
     _animationController.reverse();
+  }
+
+  void addNewCategory(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) => AddCategoryDialog(
+        title: s.addCategory,
+        colorLabel: s.color,
+        iconLabel: s.icon,
+        cancelLabel: s.cancel,
+        saveLabel: s.save,
+        onCancel: () {},
+        onSave: () {},
+      ),
+    );
   }
 
   @override

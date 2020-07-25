@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class AddCategoryDialog extends StatelessWidget {
   final String title;
+  final String nameLabel;
   final String colorLabel;
   final String iconLabel;
   final Color color;
@@ -14,9 +16,10 @@ class AddCategoryDialog extends StatelessWidget {
   const AddCategoryDialog({
     Key key,
     @required this.title,
+    this.nameLabel = 'Category name',
     @required this.colorLabel,
     @required this.iconLabel,
-    this.color = Colors.lightGreen,
+    this.color = Colors.blue,
     this.icon = Icons.folder,
     this.cancelLabel,
     this.saveLabel,
@@ -36,49 +39,113 @@ class AddCategoryDialog extends StatelessWidget {
             child: Text(
               title,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20.0),
+              style: TextStyle(fontSize: 16.0),
             ),
           ),
           // Category name
           Positioned(
-            top: 56.0,
-            child: TextField(),
+            left: 32.0,
+            top: 60.0,
+            right: 32.0,
+            child: SizedBox(
+              height: 60,
+              child: TextField(
+                style: TextStyle(fontSize: 18.0),
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), labelText: nameLabel),
+              ),
+            ),
           ),
           // Category color
           Positioned(
-            top: 72.0,
+            left: 32.0,
+            top: 120.0,
+            right: 32.0,
             child: Row(
               children: [
-                Text(colorLabel),
+                Expanded(
+                  child: Text(
+                    colorLabel,
+                    style: TextStyle(fontSize: 18.0),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
                 Container(
-                  width: 64,
-                  height: 64,
-                  color: color,
+                  color: Colors.grey[300],
+                  width: 40.0,
+                  height: 40.0,
+                  child: FlatButton(
+                    padding: EdgeInsets.all(0),
+                    onPressed: () {},
+                    child: Container(
+                      width: 28,
+                      height: 28,
+                      color: color,
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
           // Category icon
           Positioned(
-            top: 100,
+            left: 32.0,
+            top: 168.0,
+            right: 32.0,
             child: Row(
               children: [
-                Text(iconLabel),
-                Icon(icon),
+                Expanded(
+                  child: Text(
+                    iconLabel,
+                    style: TextStyle(fontSize: 18.0),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Container(
+                  width: 40,
+                  height: 40,
+                  color: Colors.grey[300],
+                  child: FlatButton(
+                    padding: EdgeInsets.all(0.0),
+                    onPressed: () {},
+                    child: Icon(
+                      icon,
+                      size: 28.0,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           // Buttons
           Positioned(
-            bottom: 16,
+            left: 16.0,
+            right: 16.0,
+            bottom: 12.0,
             child: Row(
+              mainAxisSize: MainAxisSize.max,
               children: [
                 FlatButton(
-                  child: Text(cancelLabel),
+                  color: Colors.grey[300],
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      cancelLabel,
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                  ),
                   onPressed: onCancel,
                 ),
+                Spacer(),
                 FlatButton(
-                  child: Text(saveLabel),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      saveLabel,
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                  ),
+                  color: Colors.green,
                   onPressed: onSave,
                 )
               ],
