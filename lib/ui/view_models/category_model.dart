@@ -47,11 +47,11 @@ class NewCategory extends ChangeNotifier {
     notifyListeners();
   }
 
-  IconData _icon = Icons.folder;
+  int _icon = Icons.folder.codePoint;
 
-  IconData get icon => _icon;
+  int get icon => _icon;
 
-  set icon(IconData value) {
+  set icon(int value) {
     _icon = value;
     notifyListeners();
   }

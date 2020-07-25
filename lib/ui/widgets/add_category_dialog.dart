@@ -150,7 +150,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                     },
                     child: Consumer<NewCategory>(
                       builder: (_, value, __) => Icon(
-                        value.icon,
+                        IconData(value.icon, fontFamily: 'MaterialIcons'),
                         color: Colors.black54,
                         size: 28.0,
                       ),

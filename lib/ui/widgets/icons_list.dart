@@ -36,7 +36,7 @@ class IconsList extends StatelessWidget {
                 onSelected();
               },
               child: Icon(
-                categoryIcons[index],
+                IconData(categoryIcons[index], fontFamily: 'MaterialIcons'),
                 color: Colors.black54,
                 size: 28,
               ),
