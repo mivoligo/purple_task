@@ -7,6 +7,7 @@ import 'package:to_do/ui/view_models/category_model.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
+    Provider<Strings>(create: (_) => Strings()),
     ChangeNotifierProvider<NewCategory>(create: (_) => NewCategory()),
   ], child: MyApp()));
 }
@@ -37,7 +38,6 @@ class MyApp extends StatelessWidget {
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider<CategoryList>(create: (_) => CategoryList()),
-          Provider<Strings>(create: (_) => Strings()),
         ],
 //        child: HomeScreen(),
         child: HomeMobile(),

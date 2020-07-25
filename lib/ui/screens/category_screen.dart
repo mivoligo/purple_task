@@ -1,5 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 
@@ -48,6 +50,7 @@ class _CategoryScreenState extends State<CategoryScreen>
     double _paddingTop = MediaQuery.of(context).padding.top;
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
+    Strings s = Provider.of<Strings>(context, listen: false);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -85,6 +88,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                         child: IconButton(
                           icon: Icon(AntIcons.arrow_left),
                           color: Colors.grey,
+                          tooltip: s.close,
                           onPressed: () {
                             _animationController.reverse();
                             Navigator.of(context).pop();
@@ -94,7 +98,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                     );
                   }),
             ),
-            // menu button
+            // Menu button
             Positioned(
               top: 16.0 + _paddingTop,
               right: 16.0,
@@ -105,6 +109,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                   child: IconButton(
                     icon: Icon(AntIcons.menu),
                     color: Colors.grey,
+                    tooltip: s.edit,
                     onPressed: () {},
                   ),
                 ),
