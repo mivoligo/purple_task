@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/colors_list.dart';
+import 'package:to_do/ui/widgets/icons_list.dart';
 
 class AddCategoryDialog extends StatefulWidget {
   final String title;
@@ -34,6 +35,7 @@ class AddCategoryDialog extends StatefulWidget {
 
 class _AddCategoryDialogState extends State<AddCategoryDialog> {
   bool visibleColorsList = false;
+  bool visibleIconList = false;
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +88,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                     padding: EdgeInsets.all(0),
                     onPressed: () {
                       setState(() {
+                        visibleIconList = false;
                         visibleColorsList = !visibleColorsList;
                       });
                     },
@@ -139,14 +142,39 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                   color: Colors.grey[300],
                   child: FlatButton(
                     padding: EdgeInsets.all(0.0),
-                    onPressed: () {},
-                    child: Icon(
-                      widget.icon,
-                      size: 28.0,
+                    onPressed: () {
+                      setState(() {
+                        visibleColorsList = false;
+                        visibleIconList = !visibleIconList;
+                      });
+                    },
+                    child: Consumer<NewCategory>(
+                      builder: (_, value, __) => Icon(
+                        value.icon,
+                        color: Colors.black54,
+                        size: 28.0,
+                      ),
                     ),
                   ),
                 ),
               ],
+            ),
+          ),
+          // List of icons
+          Positioned(
+            left: 0.0,
+            top: 216.0,
+            right: 0.0,
+            child: Container(
+              height: visibleIconList ? 40.0 : 0.0,
+              child: IconsList(
+                visible: visibleIconList,
+                onSelected: () {
+                  setState(() {
+                    visibleIconList = false;
+                  });
+                },
+              ),
             ),
           ),
           // Buttons

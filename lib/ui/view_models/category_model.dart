@@ -47,7 +47,7 @@ class NewCategory extends ChangeNotifier {
     notifyListeners();
   }
 
-  IconData _icon;
+  IconData _icon = Icons.folder;
 
   IconData get icon => _icon;
 
