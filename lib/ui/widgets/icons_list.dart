@@ -36,7 +36,11 @@ class IconsList extends StatelessWidget {
                 onSelected();
               },
               child: Icon(
-                IconData(categoryIcons[index], fontFamily: 'MaterialIcons'),
+                IconData(
+                  categoryIcons[index],
+                  fontFamily: 'AntIcons',
+                  fontPackage: 'ant_icons',
+                ),
                 color: Colors.black54,
                 size: 28,
               ),
