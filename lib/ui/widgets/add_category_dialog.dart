@@ -102,17 +102,19 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
             left: 0.0,
             top: 168.0,
             right: 0.0,
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+            child: Container(
+//              duration: Duration(milliseconds: 100),
               height: visibleColorsList ? 40.0 : 0.0,
-              child: ColorsList(),
+              child: ColorsList(
+                visible: visibleColorsList,
+              ),
             ),
           ),
           // Category icon
           AnimatedPositioned(
-            duration: Duration(milliseconds: 300),
+            duration: Duration(milliseconds: 100),
             left: 32.0,
-            top: visibleColorsList ? 216.0 : 168.0,
+            top: visibleColorsList ? 240.0 : 168.0,
             right: 32.0,
             child: Row(
               children: [
