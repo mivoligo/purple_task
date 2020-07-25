@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:to_do/ui/widgets/colors_list.dart';
 
-class AddCategoryDialog extends StatelessWidget {
+class AddCategoryDialog extends StatefulWidget {
   final String title;
   final String nameLabel;
   final String colorLabel;
@@ -26,6 +27,13 @@ class AddCategoryDialog extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _AddCategoryDialogState createState() => _AddCategoryDialogState();
+}
+
+class _AddCategoryDialogState extends State<AddCategoryDialog> {
+  bool visibleColorsList = false;
+
+  @override
   Widget build(BuildContext context) {
     return Dialog(
       child: Stack(
@@ -35,7 +43,7 @@ class AddCategoryDialog extends StatelessWidget {
           Positioned(
             top: 16.0,
             child: Text(
-              title,
+              widget.title,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.0),
             ),
@@ -50,7 +58,7 @@ class AddCategoryDialog extends StatelessWidget {
               child: TextField(
                 style: TextStyle(fontSize: 18.0),
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: nameLabel),
+                    border: OutlineInputBorder(), labelText: widget.nameLabel),
               ),
             ),
           ),
@@ -63,7 +71,7 @@ class AddCategoryDialog extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    colorLabel,
+                    widget.colorLabel,
                     style: TextStyle(fontSize: 18.0),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -74,27 +82,43 @@ class AddCategoryDialog extends StatelessWidget {
                   height: 40.0,
                   child: FlatButton(
                     padding: EdgeInsets.all(0),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        visibleColorsList = !visibleColorsList;
+                      });
+                    },
                     child: Container(
                       width: 28,
                       height: 28,
-                      color: color,
+                      color: widget.color,
                     ),
                   ),
                 ),
               ],
             ),
           ),
-          // Category icon
+          // List of colors
           Positioned(
-            left: 32.0,
+            left: 0.0,
             top: 168.0,
+            right: 0.0,
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              height: visibleColorsList ? 40.0 : 0.0,
+              child: ColorsList(),
+            ),
+          ),
+          // Category icon
+          AnimatedPositioned(
+            duration: Duration(milliseconds: 300),
+            left: 32.0,
+            top: visibleColorsList ? 216.0 : 168.0,
             right: 32.0,
             child: Row(
               children: [
                 Expanded(
                   child: Text(
-                    iconLabel,
+                    widget.iconLabel,
                     style: TextStyle(fontSize: 18.0),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -107,7 +131,7 @@ class AddCategoryDialog extends StatelessWidget {
                     padding: EdgeInsets.all(0.0),
                     onPressed: () {},
                     child: Icon(
-                      icon,
+                      widget.icon,
                       size: 28.0,
                     ),
                   ),
@@ -128,7 +152,7 @@ class AddCategoryDialog extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      cancelLabel,
+                      widget.cancelLabel,
                       style: TextStyle(fontSize: 18.0),
                     ),
                   ),
@@ -139,12 +163,12 @@ class AddCategoryDialog extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      saveLabel,
+                      widget.saveLabel,
                       style: TextStyle(fontSize: 18.0),
                     ),
                   ),
                   color: Colors.green,
-                  onPressed: onSave,
+                  onPressed: widget.onSave,
                 )
               ],
             ),
