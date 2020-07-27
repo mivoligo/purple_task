@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do/globals/category_colors.dart';
 
 class Category {
   final String name;
@@ -53,5 +56,13 @@ class NewCategory extends ChangeNotifier {
   set icon(int value) {
     _icon = value;
     notifyListeners();
+  }
+
+  resetNewCategory() {
+    final _random = Random();
+    // get random color from list
+    _color = categoryColors[_random.nextInt(categoryColors.length)];
+    // set icon to default
+    _icon = AntIcons.folder.codePoint;
   }
 }

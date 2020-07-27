@@ -37,11 +37,17 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
   bool _visibleColorsList = false;
   bool _visibleIconList = false;
   bool _validName = false;
+  var newCategoryProvider;
+
+  @override
+  void dispose() {
+    newCategoryProvider.resetNewCategory();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final newCategoryProvider =
-        Provider.of<NewCategory>(context, listen: false);
+    newCategoryProvider = Provider.of<NewCategory>(context, listen: false);
 
     final categoryListProvider =
         Provider.of<CategoryList>(context, listen: false);
