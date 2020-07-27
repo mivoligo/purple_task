@@ -34,8 +34,8 @@ class AddCategoryDialog extends StatefulWidget {
 }
 
 class _AddCategoryDialogState extends State<AddCategoryDialog> {
-  bool visibleColorsList = false;
-  bool visibleIconList = false;
+  bool _visibleColorsList = false;
+  bool _visibleIconList = false;
   bool _validName = false;
 
   @override
@@ -97,8 +97,8 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                     padding: EdgeInsets.all(0),
                     onPressed: () {
                       setState(() {
-                        visibleIconList = false;
-                        visibleColorsList = !visibleColorsList;
+                        _visibleIconList = false;
+                        _visibleColorsList = !_visibleColorsList;
                       });
                     },
                     child: Consumer<NewCategory>(
@@ -119,12 +119,12 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
             top: 168.0,
             right: 0.0,
             child: Container(
-              height: visibleColorsList ? 40.0 : 0.0,
+              height: _visibleColorsList ? 40.0 : 0.0,
               child: ColorsList(
-                visible: visibleColorsList,
+                visible: _visibleColorsList,
                 onSelected: () {
                   setState(() {
-                    visibleColorsList = false;
+                    _visibleColorsList = false;
                   });
                 },
               ),
@@ -134,7 +134,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
           AnimatedPositioned(
             duration: Duration(milliseconds: 100),
             left: 32.0,
-            top: visibleColorsList ? 240.0 : 168.0,
+            top: _visibleColorsList ? 240.0 : 168.0,
             right: 32.0,
             child: Row(
               children: [
@@ -153,8 +153,8 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                     padding: EdgeInsets.all(0.0),
                     onPressed: () {
                       setState(() {
-                        visibleColorsList = false;
-                        visibleIconList = !visibleIconList;
+                        _visibleColorsList = false;
+                        _visibleIconList = !_visibleIconList;
                       });
                     },
                     child: Consumer<NewCategory>(
@@ -179,12 +179,12 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
             top: 216.0,
             right: 0.0,
             child: Container(
-              height: visibleIconList ? 40.0 : 0.0,
+              height: _visibleIconList ? 40.0 : 0.0,
               child: IconsList(
-                visible: visibleIconList,
+                visible: _visibleIconList,
                 onSelected: () {
                   setState(() {
-                    visibleIconList = false;
+                    _visibleIconList = false;
                   });
                 },
               ),

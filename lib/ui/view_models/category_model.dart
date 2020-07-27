@@ -15,15 +15,13 @@ class Category {
 
 class CategoryList extends ChangeNotifier {
   List<Category> categoryList = [
-    Category(name: 'Home', color: Colors.blue, icon: Icons.home),
-    Category(name: 'Work', color: Colors.amber, icon: Icons.work),
-    Category(name: 'Other', color: Colors.green, icon: Icons.note),
-    Category(name: 'Other one', color: Colors.grey, icon: Icons.nature),
+    Category(name: 'Home', color: Colors.blue, icon: AntIcons.home),
+    Category(name: 'Work', color: Colors.amber, icon: AntIcons.database),
+//    Category(name: 'Other', color: Colors.green, icon: Icons.note),
+//    Category(name: 'Other one', color: Colors.grey, icon: Icons.nature),
   ];
 
-  void addCategory() {
-    Category category =
-        Category(name: 'Category ${categoryList.length}', color: Colors.purple);
+  void addCategory(Category category) {
     categoryList.add(category);
     notifyListeners();
   }
