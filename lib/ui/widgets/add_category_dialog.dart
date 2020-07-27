@@ -60,9 +60,12 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
             child: SizedBox(
               height: 60,
               child: TextField(
+                autofocus: true,
                 style: TextStyle(fontSize: 18.0),
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: widget.nameLabel),
+                  border: OutlineInputBorder(),
+                  labelText: widget.nameLabel,
+                ),
               ),
             ),
           ),
