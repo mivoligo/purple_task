@@ -9,6 +9,7 @@ void main() {
   runApp(MultiProvider(providers: [
     Provider<Strings>(create: (_) => Strings()),
     ChangeNotifierProvider<NewCategory>(create: (_) => NewCategory()),
+    ChangeNotifierProvider<CategoryList>(create: (_) => CategoryList()),
   ], child: MyApp()));
 }
 
@@ -35,13 +36,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider<CategoryList>(create: (_) => CategoryList()),
-        ],
-//        child: HomeScreen(),
-        child: HomeMobile(),
-      ),
+      home: HomeMobile(),
     );
   }
 }

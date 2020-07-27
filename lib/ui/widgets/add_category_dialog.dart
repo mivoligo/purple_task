@@ -40,6 +40,28 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final newCategoryProvider =
+        Provider.of<NewCategory>(context, listen: false);
+
+    final categoryListProvider =
+        Provider.of<CategoryList>(context, listen: false);
+
+    void saveCategory() {
+      String name = newCategoryProvider.name;
+      int color = newCategoryProvider.color;
+      int icon = newCategoryProvider.icon;
+      Category category = Category(
+        name: name,
+        color: Color(color),
+        icon: IconData(
+          icon,
+          fontFamily: 'AntIcons',
+          fontPackage: 'ant_icons',
+        ),
+      );
+      categoryListProvider.addCategory(category);
+    }
+
     return Dialog(
       child: Stack(
         alignment: Alignment.center,
@@ -65,6 +87,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                 onChanged: (text) {
                   setState(() {
                     _validName = text.isNotEmpty;
+                    newCategoryProvider.name = text;
                   });
                 },
                 style: TextStyle(fontSize: 18.0),
@@ -221,7 +244,8 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                   color: Colors.green,
                   onPressed: _validName
                       ? () {
-//                    print('text: ${nameController.text}');
+                          saveCategory();
+                          Navigator.of(context).pop();
 //                    widget.onSave();
                         }
                       : null,
