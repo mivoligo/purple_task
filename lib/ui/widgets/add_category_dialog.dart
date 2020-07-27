@@ -36,6 +36,13 @@ class AddCategoryDialog extends StatefulWidget {
 class _AddCategoryDialogState extends State<AddCategoryDialog> {
   bool visibleColorsList = false;
   bool visibleIconList = false;
+  final nameController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +67,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
             child: SizedBox(
               height: 60,
               child: TextField(
+                controller: nameController,
                 autofocus: true,
                 style: TextStyle(fontSize: 18.0),
                 decoration: InputDecoration(
@@ -213,7 +221,10 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                     ),
                   ),
                   color: Colors.green,
-                  onPressed: widget.onSave,
+                  onPressed: () {
+                    print('text: ${nameController.text}');
+                    widget.onSave();
+                  },
                 )
               ],
             ),
