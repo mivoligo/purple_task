@@ -3,15 +3,40 @@ import 'package:provider/provider.dart';
 import 'package:to_do/globals/category_icons.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
 
-class IconsList extends StatelessWidget {
-  final bool visible;
-  final VoidCallback onSelected;
+class IconsList extends StatefulWidget {
+  @override
+  _IconsListState createState() => _IconsListState();
+}
 
-  IconsList({
-    Key key,
-    this.visible = false,
-    this.onSelected,
-  }) : super(key: key);
+class _IconsListState extends State<IconsList>
+    with SingleTickerProviderStateMixin {
+  AnimationController _animationController;
+  Animation<EdgeInsets> _padding;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 300),
+    );
+    _padding = EdgeInsetsTween(
+      begin: EdgeInsets.symmetric(horizontal: 100.0),
+      end: EdgeInsets.symmetric(horizontal: 4.0),
+    ).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.ease,
+      ),
+    );
+    _animationController.forward();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +46,14 @@ class IconsList extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: categoryIcons.length,
       itemBuilder: (context, index) {
-        return AnimatedPadding(
-          duration: Duration(milliseconds: 300),
-          curve: Curves.ease,
-          padding: EdgeInsets.symmetric(horizontal: visible ? 8.0 : 100.0),
+        return AnimatedBuilder(
+          animation: _animationController,
+          builder: (context, child) {
+            return Padding(
+              padding: _padding.value,
+              child: child,
+            );
+          },
           child: Container(
             color: Colors.grey[300],
             width: 40.0,
@@ -33,7 +62,6 @@ class IconsList extends StatelessWidget {
               padding: EdgeInsets.all(0),
               onPressed: () {
                 newCategoryProvider.icon = categoryIcons[index];
-                onSelected();
               },
               child: Icon(
                 IconData(

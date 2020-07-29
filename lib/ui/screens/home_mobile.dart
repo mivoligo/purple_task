@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/ui/screens/category_screen.dart';
+import 'package:to_do/ui/screens/new_category_screen.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/add_category_button.dart';
-import 'package:to_do/ui/widgets/add_category_dialog.dart';
 import 'package:to_do/ui/widgets/category_card.dart';
 import 'package:to_do/ui/widgets/greetings.dart';
 
@@ -100,13 +100,17 @@ class _HomeMobileState extends State<HomeMobile>
                   return Positioned(
                     bottom: animDouble(_animationController, 16.0, 64.0).value,
                     right: _isPortrait ? null : 16.0,
-                    child: AddCategoryButton(
-                      text: s.addCategory,
-                      opacity: animDouble(_animationController, 1.0, 0.0).value,
-                      onPressed: () {
-                        print('AddCategory pressed');
-                        addNewCategory(context);
-                      },
+                    child: Hero(
+                      tag: 'title',
+                      child: AddCategoryButton(
+                        text: s.addCategory,
+                        opacity:
+                            animDouble(_animationController, 1.0, 0.0).value,
+                        onPressed: () {
+                          print('AddCategory pressed');
+                          openNewCategory(context);
+                        },
+                      ),
                     ),
                   );
                 }),
@@ -166,17 +170,29 @@ class _HomeMobileState extends State<HomeMobile>
     _animationController.reverse();
   }
 
-  void addNewCategory(BuildContext context) async {
-    showDialog(
-      context: context,
-      builder: (context) => AddCategoryDialog(
-        title: s.addCategory,
-        colorLabel: s.color,
-        iconLabel: s.icon,
-        cancelLabel: s.cancel,
-        saveLabel: s.save,
-        onSave: () {},
-      ),
+//  void addNewCategory(BuildContext context) async {
+//    showDialog(
+//      context: context,
+//      builder: (context) => AddCategoryDialog(
+//        title: s.addCategory,
+//        colorLabel: s.color,
+//        iconLabel: s.icon,
+//        cancelLabel: s.cancel,
+//        saveLabel: s.save,
+//        onSave: () {},
+//      ),
+//    );
+//  }
+  void openNewCategory(BuildContext context) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+          pageBuilder: (context, anim1, anim2) => NewCategoryScreen(),
+          transitionsBuilder: (context, anim1, anim2, child) {
+            return FadeTransition(
+              opacity: anim1,
+              child: child,
+            );
+          }),
     );
   }
 

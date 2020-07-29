@@ -19,7 +19,7 @@ class AddCategoryDialog extends StatefulWidget {
   const AddCategoryDialog({
     Key key,
     @required this.title,
-    this.nameLabel = 'Category name',
+    this.nameLabel = 'Name',
     @required this.colorLabel,
     @required this.iconLabel,
     this.color = Colors.blue,
@@ -74,11 +74,14 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
         children: [
           // Title
           Positioned(
-            top: 16.0,
+            top: 12.0,
             child: Text(
               widget.title,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16.0),
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.grey,
+              ),
             ),
           ),
           // Category name
@@ -86,35 +89,54 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
             left: 32.0,
             top: 60.0,
             right: 32.0,
-            child: SizedBox(
-              height: 60,
-              child: TextField(
-                autofocus: true,
-                onChanged: (text) {
-                  setState(() {
-                    _validName = text.isNotEmpty;
-                    newCategoryProvider.name = text;
-                  });
-                },
-                style: TextStyle(fontSize: 18.0),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: widget.nameLabel,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
+              children: [
+                Text(
+                  widget.nameLabel,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey,
+                    textBaseline: TextBaseline.alphabetic,
+                  ),
                 ),
-              ),
+                SizedBox(width: 16.0),
+                Expanded(
+                  child: TextField(
+                    autofocus: true,
+                    onChanged: (text) {
+                      setState(() {
+                        _validName = text.isNotEmpty;
+                        newCategoryProvider.name = text;
+                      });
+                    },
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      textBaseline: TextBaseline.alphabetic,
+                    ),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           // Category color
           Positioned(
             left: 32.0,
-            top: 120.0,
+            top: 112.0,
             right: 32.0,
             child: Row(
               children: [
                 Expanded(
                   child: Text(
                     widget.colorLabel,
-                    style: TextStyle(fontSize: 18.0),
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.grey,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -145,32 +167,28 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
           // List of colors
           Positioned(
             left: 0.0,
-            top: 168.0,
+            top: 162.0,
             right: 0.0,
             child: Container(
               height: _visibleColorsList ? 40.0 : 0.0,
-              child: ColorsList(
-                visible: _visibleColorsList,
-                onSelected: () {
-                  setState(() {
-                    _visibleColorsList = false;
-                  });
-                },
-              ),
+              child: ColorsList(),
             ),
           ),
           // Category icon
           AnimatedPositioned(
             duration: Duration(milliseconds: 100),
             left: 32.0,
-            top: _visibleColorsList ? 240.0 : 168.0,
+            top: _visibleColorsList ? 230.0 : 162.0,
             right: 32.0,
             child: Row(
               children: [
                 Expanded(
                   child: Text(
                     widget.iconLabel,
-                    style: TextStyle(fontSize: 18.0),
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.grey,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -209,14 +227,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
             right: 0.0,
             child: Container(
               height: _visibleIconList ? 40.0 : 0.0,
-              child: IconsList(
-                visible: _visibleIconList,
-                onSelected: () {
-                  setState(() {
-                    _visibleIconList = false;
-                  });
-                },
-              ),
+              child: IconsList(),
             ),
           ),
           // Buttons

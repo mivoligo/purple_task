@@ -31,7 +31,7 @@ class CategoryList extends ChangeNotifier {
 }
 
 class NewCategory extends ChangeNotifier {
-  String _name;
+  String _name = '';
 
   String get name => _name;
 
@@ -60,6 +60,8 @@ class NewCategory extends ChangeNotifier {
 
   resetNewCategory() {
     final _random = Random();
+    // reset name
+    _name = '';
     // get random color from list
     _color = categoryColors[_random.nextInt(categoryColors.length)];
     // set icon to default
