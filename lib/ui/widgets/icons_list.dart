@@ -56,8 +56,7 @@ class _IconsListState extends State<IconsList>
           },
           child: Container(
             color: Colors.grey[300],
-            width: 40.0,
-            height: 40.0,
+            width: 64.0,
             child: FlatButton(
               padding: EdgeInsets.all(0),
               onPressed: () {

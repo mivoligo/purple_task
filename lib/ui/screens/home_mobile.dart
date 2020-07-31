@@ -170,19 +170,6 @@ class _HomeMobileState extends State<HomeMobile>
     _animationController.reverse();
   }
 
-//  void addNewCategory(BuildContext context) async {
-//    showDialog(
-//      context: context,
-//      builder: (context) => AddCategoryDialog(
-//        title: s.addCategory,
-//        colorLabel: s.color,
-//        iconLabel: s.icon,
-//        cancelLabel: s.cancel,
-//        saveLabel: s.save,
-//        onSave: () {},
-//      ),
-//    );
-//  }
   void openNewCategory(BuildContext context) {
     Navigator.of(context).push(
       PageRouteBuilder(

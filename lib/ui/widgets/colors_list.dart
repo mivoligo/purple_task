@@ -56,7 +56,6 @@ class _ColorsListState extends State<ColorsList>
           },
           child: Container(
             width: 64,
-            height: 120,
             child: FlatButton(
               padding: EdgeInsets.all(0),
               onPressed: () {
@@ -64,7 +63,6 @@ class _ColorsListState extends State<ColorsList>
               },
               child: Container(
                 width: 64,
-                height: 120,
                 color: Color(categoryColors[index]),
               ),
             ),

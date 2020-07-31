@@ -121,8 +121,8 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                                 ),
                               ),
                               SizedBox(height: 8.0),
-                              getProgressWidget(),
-                              Spacer(),
+                              Expanded(flex: 3, child: getProgressWidget()),
+                              Spacer(flex: 2),
                               Row(
                                 children: [
                                   SizedBox(width: 16.0),
@@ -138,20 +138,22 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                                     color: Colors.green,
                                     child: Text(s.next),
                                     onPressed: newCategoryProvider.name.isEmpty
-                                        ? null
+                                        ? null // disable button when empty name
                                         : () {
-                                            setState(() {
-                                              switch (progress) {
-                                                case Progress.CategoryName:
-                                                  return progress =
-                                                      Progress.CategoryColor;
-                                                case Progress.CategoryColor:
-                                                  return progress =
-                                                      Progress.CategoryIcon;
-                                                case Progress.CategoryIcon:
-                                                  return null;
-                                              }
-                                            });
+                                            setState(
+                                              () {
+                                                switch (progress) {
+                                                  case Progress.CategoryName:
+                                                    return progress =
+                                                        Progress.CategoryColor;
+                                                  case Progress.CategoryColor:
+                                                    return progress =
+                                                        Progress.CategoryIcon;
+                                                  case Progress.CategoryIcon:
+                                                    return null;
+                                                }
+                                              },
+                                            );
                                           },
                                   ),
                                   SizedBox(width: 16.0),
