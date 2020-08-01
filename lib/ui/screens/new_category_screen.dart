@@ -5,9 +5,9 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
-import 'package:to_do/ui/widgets/new_category_colors.dart';
-import 'package:to_do/ui/widgets/new_category_icons.dart';
-import 'package:to_do/ui/widgets/new_category_name.dart';
+import 'package:to_do/ui/widgets/new_category/new_category_colors.dart';
+import 'package:to_do/ui/widgets/new_category/new_category_icons.dart';
+import 'package:to_do/ui/widgets/new_category/new_category_name.dart';
 
 enum Progress {
   CategoryName,
@@ -23,17 +23,51 @@ class NewCategoryScreen extends StatefulWidget {
 class _NewCategoryScreenState extends State<NewCategoryScreen> {
   Progress progress = Progress.CategoryName;
   NewCategory newCategoryProvider;
+  final FocusNode _nextButtonFocusNode = FocusNode();
+  bool nextButtonAutoFocus = false;
 
   Widget getProgressWidget() {
     switch (progress) {
       case Progress.CategoryName:
-        return CategoryName();
+        return CategoryName(
+          onNextPressed:
+              newCategoryProvider.name.isEmpty ? null : goToColorSelector,
+          onSubmitted: (_) => goToColorSelector(),
+        );
       case Progress.CategoryColor:
-        return CategoryColor();
+        return CategoryColor(
+          onNextPressed: goToIconSelector,
+        );
       case Progress.CategoryIcon:
-        return CategoryIcon();
+        return CategoryIcon(
+          onNextPressed: null,
+        );
     }
-    return CategoryName();
+    return CategoryName(
+      onNextPressed:
+          newCategoryProvider.name.isEmpty ? null : goToColorSelector,
+      onSubmitted: (_) => goToColorSelector(),
+    );
+  }
+
+  void focusNextButton() {
+    FocusScope.of(context).requestFocus(_nextButtonFocusNode);
+  }
+
+  void goToColorSelector() {
+    if (newCategoryProvider.name.isNotEmpty) {
+      setState(() {
+        progress = Progress.CategoryColor;
+//        FocusScope.of(context).requestFocus(_nextButtonFocusNode);
+//        nextButtonAutoFocus = true;
+      });
+    }
+  }
+
+  void goToIconSelector() {
+    setState(() {
+      progress = Progress.CategoryIcon;
+    });
   }
 
   @override
@@ -121,43 +155,9 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                                 ),
                               ),
                               SizedBox(height: 8.0),
-                              Expanded(flex: 3, child: getProgressWidget()),
-                              Spacer(flex: 2),
-                              Row(
-                                children: [
-                                  SizedBox(width: 16.0),
-                                  FlatButton(
-                                    color: Colors.grey[400],
-                                    child: Text(s.cancel),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  Spacer(),
-                                  FlatButton(
-                                    color: Colors.green,
-                                    child: Text(s.next),
-                                    onPressed: newCategoryProvider.name.isEmpty
-                                        ? null // disable button when empty name
-                                        : () {
-                                            setState(
-                                              () {
-                                                switch (progress) {
-                                                  case Progress.CategoryName:
-                                                    return progress =
-                                                        Progress.CategoryColor;
-                                                  case Progress.CategoryColor:
-                                                    return progress =
-                                                        Progress.CategoryIcon;
-                                                  case Progress.CategoryIcon:
-                                                    return null;
-                                                }
-                                              },
-                                            );
-                                          },
-                                  ),
-                                  SizedBox(width: 16.0),
-                                ],
+                              Expanded(
+                                flex: 3,
+                                child: getProgressWidget(),
                               ),
                               SizedBox(height: 8),
                             ],
