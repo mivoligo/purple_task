@@ -1,16 +1,16 @@
 import 'package:to_do/local_db/interface/category_interface.dart';
 import 'package:to_do/models/category.dart';
 
-class HiveMethods implements CategoryInterface {
+class SqliteMethods implements CategoryInterface {
   @override
-  init() {
-    // TODO: implement init
+  addCategory(Category category) {
+    // TODO: implement addCategory
     throw UnimplementedError();
   }
 
   @override
-  addCategory(Category category) {
-    // TODO: implement addCategory
+  close() {
+    // TODO: implement close
     throw UnimplementedError();
   }
 
@@ -27,8 +27,8 @@ class HiveMethods implements CategoryInterface {
   }
 
   @override
-  close() {
-    // TODO: implement close
+  init() {
+    // TODO: implement init
     throw UnimplementedError();
   }
 }
