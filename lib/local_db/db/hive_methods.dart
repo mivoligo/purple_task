@@ -4,14 +4,14 @@ import 'package:to_do/models/category.dart';
 class HiveMethods implements CategoryInterface {
   @override
   init() {
-    // TODO: implement init
-    throw UnimplementedError();
+    print('Initializing Hive');
+    return null;
   }
 
   @override
   addCategory(Category category) {
-    // TODO: implement addCategory
-    throw UnimplementedError();
+    print('Adding category to Hive');
+    return null;
   }
 
   @override

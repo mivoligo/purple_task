@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/local_db/repository/category_repository.dart';
+import 'package:to_do/models/category.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_colors.dart';
@@ -40,7 +42,10 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
         );
       case Progress.CategoryIcon:
         return CategoryIcon(
-          onNextPressed: null,
+          onNextPressed: () {
+            CategoryRepository.init(isHive: true);
+            CategoryRepository.addCategory(Category());
+          },
         );
     }
     return CategoryName(
