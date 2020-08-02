@@ -4,12 +4,12 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do/globals/category_colors.dart';
 
-class Category {
+class TaskCategory {
   final String name;
   final Color color;
   final IconData icon;
 
-  Category({
+  TaskCategory({
     this.name,
     this.color,
     this.icon,
@@ -17,14 +17,14 @@ class Category {
 }
 
 class CategoryList extends ChangeNotifier {
-  List<Category> categoryList = [
-    Category(name: 'Home', color: Colors.blue, icon: AntIcons.home),
-    Category(name: 'Work', color: Colors.amber, icon: AntIcons.database),
+  List<TaskCategory> categoryList = [
+    TaskCategory(name: 'Home', color: Colors.blue, icon: AntIcons.home),
+    TaskCategory(name: 'Work', color: Colors.amber, icon: AntIcons.database),
 //    Category(name: 'Other', color: Colors.green, icon: Icons.note),
 //    Category(name: 'Other one', color: Colors.grey, icon: Icons.nature),
   ];
 
-  void addCategory(Category category) {
+  void addCategory(TaskCategory category) {
     categoryList.add(category);
     notifyListeners();
   }

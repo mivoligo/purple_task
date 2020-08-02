@@ -6,7 +6,7 @@ import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 
 class CategoryScreen extends StatefulWidget {
-  final Category currentCategory;
+  final TaskCategory currentCategory;
 
   const CategoryScreen({
     Key key,
