@@ -43,8 +43,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
       case Progress.CategoryIcon:
         return CategoryIcon(
           onNextPressed: () {
-            CategoryRepository.init(isHive: true);
-            CategoryRepository.addCategory(Category());
+            addNewCategory();
           },
         );
     }
@@ -73,6 +72,14 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
     setState(() {
       progress = Progress.CategoryIcon;
     });
+  }
+
+  void addNewCategory() {
+    String name = newCategoryProvider.name;
+    int color = newCategoryProvider.color;
+    int icon = newCategoryProvider.icon;
+    Category category = Category(name: name, icon: icon, color: color);
+    CategoryRepository.addCategory(category);
   }
 
   @override

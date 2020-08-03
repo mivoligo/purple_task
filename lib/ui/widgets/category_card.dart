@@ -4,8 +4,8 @@ import 'package:to_do/ui/widgets/category_header.dart';
 
 class CategoryCard extends StatelessWidget {
   final String name;
-  final Color color;
-  final IconData icon;
+  final int color;
+  final int icon;
   final String editTooltip;
 
   final VoidCallback onTap;
@@ -46,9 +46,10 @@ class CategoryCard extends StatelessWidget {
             child: Hero(
               tag: 'icon$name',
               child: Icon(
-                icon,
+                IconData(icon,
+                    fontFamily: 'AntIcons', fontPackage: 'ant_icons'),
                 size: 40.0,
-                color: color,
+                color: Color(color),
               ),
             ),
           ),
@@ -62,7 +63,7 @@ class CategoryCard extends StatelessWidget {
                 type: MaterialType.transparency,
                 child: CategoryHeader(
                   title: name,
-                  color: color,
+                  color: Color(color),
                   description: '8 tasks',
                   progress: 0.6,
                 ),

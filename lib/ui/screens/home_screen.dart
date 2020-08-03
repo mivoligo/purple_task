@@ -87,9 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               editTooltip: s.edit,
                               name:
                                   '${categoryListModel.categoryList[index].name}',
-                              color:
-                                  categoryListModel.categoryList[index].color,
-                              icon: categoryListModel.categoryList[index].icon,
+//                              color:
+//                                  categoryListModel.categoryList[index].color,
+//                              icon: categoryListModel.categoryList[index].icon,
                             ),
                           );
                         },
