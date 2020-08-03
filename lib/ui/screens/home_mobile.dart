@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/local_db/repository/category_repository.dart';
+import 'package:to_do/models/category.dart';
 import 'package:to_do/ui/screens/category_screen.dart';
 import 'package:to_do/ui/screens/new_category_screen.dart';
 import 'package:to_do/ui/strings/strings.dart';
@@ -26,6 +28,8 @@ class _HomeMobileState extends State<HomeMobile>
   var _categoryListProvider;
   Strings s; // Strings provider
 
+  List<Category> categoryList;
+
   @override
   void initState() {
     super.initState();
@@ -43,7 +47,7 @@ class _HomeMobileState extends State<HomeMobile>
     // get strings from Strings class
     s = Provider.of<Strings>(context, listen: false);
     _categoryListProvider = Provider.of<CategoryList>(context);
-    _color = _categoryListProvider.categoryList[_categoryIndex].color;
+//    _color = _categoryListProvider.categoryList[_categoryIndex].color;
 
     // use in various places to animate between double values
     Animation animDouble(AnimationController parent, double begin, double end) {
@@ -119,31 +123,41 @@ class _HomeMobileState extends State<HomeMobile>
               left: _isPortrait ? 0 : _appWidth / 2,
               right: 0,
               bottom: 64.0,
-              child: Container(
-                height: _isPortrait
-                    ? _appHeight * 0.5
-                    : _appHeight - _verticalPadding - 64.0,
-                child: PageView.builder(
-                  controller: PageController(
-                    viewportFraction: (_appWidth - 48) / _appWidth,
-                  ),
-                  itemCount: _categoryListProvider.categoryList.length,
-                  itemBuilder: (context, index) => CategoryCard(
-                    name: _categoryListProvider.categoryList[index].name,
-                    icon: _categoryListProvider.categoryList[index].icon,
-                    color: _categoryListProvider.categoryList[index].color,
-                    editTooltip: s.edit,
-                    onTap: () {
-                      openCategoryScreen(context, index);
-                    },
-                  ),
-                  onPageChanged: (int index) => setState(
-                    () {
-                      _color = _categoryListProvider.categoryList[index].color;
-                      _categoryIndex = index;
-                    },
-                  ),
-                ),
+              child: FutureBuilder(
+                future: CategoryRepository.getCategories(),
+                builder: (context, snapshot) {
+                  categoryList = snapshot.data;
+                  return Container(
+                    height: _isPortrait
+                        ? _appHeight * 0.5
+                        : _appHeight - _verticalPadding - 64.0,
+                    child: PageView.builder(
+                      controller: PageController(
+                        viewportFraction: (_appWidth - 48) / _appWidth,
+                      ),
+                      itemCount: categoryList.length,
+                      itemBuilder: (context, index) {
+                        Category category = categoryList[index];
+                        return CategoryCard(
+                          name: category.name,
+                          icon: category.icon,
+                          color: category.color,
+                          editTooltip: s.edit,
+                          onTap: () {
+                            openCategoryScreen(context, index);
+                          },
+                        );
+                      },
+                      onPageChanged: (int index) => setState(
+                        () {
+                          print('${categoryList[index].name}');
+                          _color = Color(categoryList[index].color);
+                          _categoryIndex = index;
+                        },
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ],
