@@ -1,12 +1,12 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/models/category.dart';
 import 'package:to_do/ui/strings/strings.dart';
-import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 
 class CategoryScreen extends StatefulWidget {
-  final TaskCategory currentCategory;
+  final Category currentCategory;
 
   const CategoryScreen({
     Key key,
@@ -23,6 +23,7 @@ class _CategoryScreenState extends State<CategoryScreen>
   Animation _fadeAnimation;
   double _appWidth;
   double _appHeight;
+
   bool get _isPortrait => _appWidth < _appHeight;
 
   @override
@@ -59,8 +60,8 @@ class _CategoryScreenState extends State<CategoryScreen>
             end: Alignment.bottomCenter,
             colors: [
               Colors.grey[850],
-              widget.currentCategory.color,
-              widget.currentCategory.color
+              Color(widget.currentCategory.color),
+              Color(widget.currentCategory.color)
             ],
           ),
         ),
@@ -122,8 +123,12 @@ class _CategoryScreenState extends State<CategoryScreen>
               child: Hero(
                 tag: 'icon${widget.currentCategory.name}',
                 child: Icon(
-                  widget.currentCategory.icon,
-                  color: widget.currentCategory.color,
+                  IconData(
+                    widget.currentCategory.icon,
+                    fontFamily: 'AntIcons',
+                    fontPackage: 'ant_icons',
+                  ),
+                  color: Color(widget.currentCategory.color),
                   size: 40,
                 ),
               ),
@@ -142,7 +147,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                     title: widget.currentCategory.name,
                     description: '8 tasks',
                     progress: 0.6,
-                    color: widget.currentCategory.color,
+                    color: Color(widget.currentCategory.color),
                   ),
                 ),
               ),

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/local_db/repository/category_repository.dart';
+import 'package:to_do/models/category.dart';
 import 'package:to_do/ui/screens/home_mobile.dart';
-import 'package:to_do/ui/screens/home_screen.dart';
 import 'package:to_do/ui/strings/strings.dart';
-import 'package:to_do/ui/view_models/category_model.dart';
+import 'package:to_do/models/new_category.dart';
 
 void main() async {
   await CategoryRepository.init(isHive: true);
   runApp(MultiProvider(providers: [
     Provider<Strings>(create: (_) => Strings()),
     ChangeNotifierProvider<NewCategory>(create: (_) => NewCategory()),
-    ChangeNotifierProvider<CategoryList>(create: (_) => CategoryList()),
+    Provider<CategoryList>(create: (_) => CategoryList()),
   ], child: MyApp()));
 }
 

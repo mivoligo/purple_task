@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/ui/strings/strings.dart';
-import 'package:to_do/ui/view_models/category_model.dart';
+import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/widgets/new_category/icons_list.dart';
 
 class CategoryIcon extends StatelessWidget {

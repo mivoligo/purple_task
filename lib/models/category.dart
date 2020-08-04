@@ -29,3 +29,7 @@ class Category {
     this.icon = categoryMap["icon"];
   }
 }
+
+class CategoryList {
+  List<Category> categoryList = [];
+}

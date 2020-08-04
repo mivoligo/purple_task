@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/globals/category_colors.dart';
-import 'package:to_do/ui/view_models/category_model.dart';
+import 'package:to_do/models/new_category.dart';
 
 class ColorsList extends StatefulWidget {
   @override

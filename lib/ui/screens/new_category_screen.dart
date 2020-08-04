@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:to_do/local_db/repository/category_repository.dart';
 import 'package:to_do/models/category.dart';
 import 'package:to_do/ui/strings/strings.dart';
-import 'package:to_do/ui/view_models/category_model.dart';
+import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_colors.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_icons.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_name.dart';

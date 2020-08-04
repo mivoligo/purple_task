@@ -5,7 +5,6 @@ import 'package:to_do/models/category.dart';
 import 'package:to_do/ui/screens/category_screen.dart';
 import 'package:to_do/ui/screens/new_category_screen.dart';
 import 'package:to_do/ui/strings/strings.dart';
-import 'package:to_do/ui/view_models/category_model.dart';
 import 'package:to_do/ui/widgets/add_category_button.dart';
 import 'package:to_do/ui/widgets/category_card.dart';
 import 'package:to_do/ui/widgets/greetings.dart';
@@ -25,7 +24,6 @@ class _HomeMobileState extends State<HomeMobile>
   Color _color = Colors.deepPurple;
   int _categoryIndex = 0;
   AnimationController _animationController;
-  var _categoryListProvider;
   Strings s; // Strings provider
 
   List<Category> categoryList;
@@ -46,8 +44,8 @@ class _HomeMobileState extends State<HomeMobile>
     _verticalPadding = MediaQuery.of(context).padding.vertical;
     // get strings from Strings class
     s = Provider.of<Strings>(context, listen: false);
-    _categoryListProvider = Provider.of<CategoryList>(context);
-//    _color = _categoryListProvider.categoryList[_categoryIndex].color;
+    categoryList =
+        Provider.of<CategoryList>(context, listen: false).categoryList;
 
     // use in various places to animate between double values
     Animation animDouble(AnimationController parent, double begin, double end) {
@@ -111,7 +109,6 @@ class _HomeMobileState extends State<HomeMobile>
                         opacity:
                             animDouble(_animationController, 1.0, 0.0).value,
                         onPressed: () {
-                          print('AddCategory pressed');
                           openNewCategory(context);
                         },
                       ),
@@ -171,7 +168,7 @@ class _HomeMobileState extends State<HomeMobile>
     await Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, anim1, anim2) => CategoryScreen(
-          currentCategory: _categoryListProvider.categoryList[index],
+          currentCategory: categoryList[index],
         ),
         transitionsBuilder: (context, anim1, anim2, child) {
           return FadeTransition(

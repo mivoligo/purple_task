@@ -4,32 +4,6 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do/globals/category_colors.dart';
 
-class TaskCategory {
-  final String name;
-  final Color color;
-  final IconData icon;
-
-  TaskCategory({
-    this.name,
-    this.color,
-    this.icon,
-  });
-}
-
-class CategoryList extends ChangeNotifier {
-  List<TaskCategory> categoryList = [
-    TaskCategory(name: 'Home', color: Colors.blue, icon: AntIcons.home),
-    TaskCategory(name: 'Work', color: Colors.amber, icon: AntIcons.database),
-//    Category(name: 'Other', color: Colors.green, icon: Icons.note),
-//    Category(name: 'Other one', color: Colors.grey, icon: Icons.nature),
-  ];
-
-  void addCategory(TaskCategory category) {
-    categoryList.add(category);
-    notifyListeners();
-  }
-}
-
 class NewCategory extends ChangeNotifier {
   String _name = '';
 
