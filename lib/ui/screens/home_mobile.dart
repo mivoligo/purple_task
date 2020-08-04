@@ -159,7 +159,8 @@ class _HomeMobileState extends State<HomeMobile>
                       );
                     }
 
-                    return Center( // TODO make it better
+                    return Center(
+                      // TODO make it better
                       child: Text('snapshot has data but list is empty'),
                     );
                   }
