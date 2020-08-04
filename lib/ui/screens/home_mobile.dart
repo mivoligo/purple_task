@@ -123,36 +123,49 @@ class _HomeMobileState extends State<HomeMobile>
               child: FutureBuilder(
                 future: CategoryRepository.getCategories(),
                 builder: (context, snapshot) {
-                  categoryList = snapshot.data;
-                  return Container(
-                    height: _isPortrait
-                        ? _appHeight * 0.5
-                        : _appHeight - _verticalPadding - 64.0,
-                    child: PageView.builder(
-                      controller: PageController(
-                        viewportFraction: (_appWidth - 48) / _appWidth,
-                      ),
-                      itemCount: categoryList.length,
-                      itemBuilder: (context, index) {
-                        Category category = categoryList[index];
-                        return CategoryCard(
-                          name: category.name,
-                          icon: category.icon,
-                          color: category.color,
-                          editTooltip: s.edit,
-                          onTap: () {
-                            openCategoryScreen(context, index);
+                  if (snapshot.hasData) {
+                    categoryList = snapshot.data;
+
+                    if (categoryList.isNotEmpty) {
+                      return Container(
+                        height: _isPortrait
+                            ? _appHeight * 0.5
+                            : _appHeight - _verticalPadding - 64.0,
+                        child: PageView.builder(
+                          controller: PageController(
+                            viewportFraction: (_appWidth - 48) / _appWidth,
+                          ),
+                          itemCount: categoryList.length,
+                          itemBuilder: (context, index) {
+                            Category category = categoryList[index];
+                            return CategoryCard(
+                              name: category.name,
+                              icon: category.icon,
+                              color: category.color,
+                              editTooltip: s.edit,
+                              onTap: () {
+                                openCategoryScreen(context, index);
+                              },
+                            );
                           },
-                        );
-                      },
-                      onPageChanged: (int index) => setState(
-                        () {
-                          print('${categoryList[index].name}');
-                          _color = Color(categoryList[index].color);
-                          _categoryIndex = index;
-                        },
-                      ),
-                    ),
+                          onPageChanged: (int index) => setState(
+                            () {
+                              print('${categoryList[index].name}');
+                              _color = Color(categoryList[index].color);
+                              _categoryIndex = index;
+                            },
+                          ),
+                        ),
+                      );
+                    }
+
+                    return Center( // TODO make it better
+                      child: Text('snapshot has data but list is empty'),
+                    );
+                  }
+
+                  return Center(
+                    child: Text('Default return'), // TODO make it better
                   );
                 },
               ),
@@ -184,13 +197,14 @@ class _HomeMobileState extends State<HomeMobile>
   void openNewCategory(BuildContext context) {
     Navigator.of(context).push(
       PageRouteBuilder(
-          pageBuilder: (context, anim1, anim2) => NewCategoryScreen(),
-          transitionsBuilder: (context, anim1, anim2, child) {
-            return FadeTransition(
-              opacity: anim1,
-              child: child,
-            );
-          }),
+        pageBuilder: (context, anim1, anim2) => NewCategoryScreen(),
+        transitionsBuilder: (context, anim1, anim2, child) {
+          return FadeTransition(
+            opacity: anim1,
+            child: child,
+          );
+        },
+      ),
     );
   }
 
