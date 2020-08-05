@@ -180,6 +180,7 @@ class _HomeMobileState extends State<HomeMobile>
       PageRouteBuilder(
         pageBuilder: (context, anim1, anim2) => CategoryScreen(
           currentCategory: categoryList[index],
+          currentIndex: index,
         ),
         transitionsBuilder: (context, anim1, anim2, child) {
           return FadeTransition(

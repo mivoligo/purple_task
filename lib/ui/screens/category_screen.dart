@@ -1,16 +1,19 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/local_db/repository/category_repository.dart';
 import 'package:to_do/models/category.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 
 class CategoryScreen extends StatefulWidget {
   final Category currentCategory;
+  final int currentIndex;
 
   const CategoryScreen({
     Key key,
     this.currentCategory,
+    this.currentIndex,
   }) : super(key: key);
 
   @override
@@ -74,7 +77,6 @@ class _CategoryScreenState extends State<CategoryScreen>
                 color: Colors.grey[200],
               ),
             ),
-            // Go back button
             Positioned(
               left: 16.0,
               top: 16.0 + _paddingTop,
@@ -89,6 +91,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                         type: MaterialType.transparency,
                         child: Row(
                           children: [
+                            // Go back button
                             IconButton(
                               icon: Icon(AntIcons.arrow_left),
                               color: Colors.grey,
@@ -104,7 +107,14 @@ class _CategoryScreenState extends State<CategoryScreen>
                               icon: Icon(AntIcons.menu),
                               color: Colors.grey,
                               tooltip: s.edit,
-                              onPressed: () {},
+                              onPressed: () {
+                                print(
+                                    'current category = ${widget.currentIndex}');
+                                CategoryRepository.deleteCategory(
+                                    widget.currentIndex);
+                                _animationController.reverse();
+                                Navigator.of(context).pop();
+                              },
                             ),
                           ],
                         ),
