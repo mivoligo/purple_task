@@ -78,6 +78,7 @@ class _CategoryScreenState extends State<CategoryScreen>
             Positioned(
               left: 16.0,
               top: 16.0 + _paddingTop,
+              right: 16.0,
               // Animation used to avoid showing back button to early
               child: AnimatedBuilder(
                   animation: _fadeAnimation,
@@ -86,36 +87,32 @@ class _CategoryScreenState extends State<CategoryScreen>
                       opacity: _fadeAnimation.value,
                       child: Material(
                         type: MaterialType.transparency,
-                        child: IconButton(
-                          icon: Icon(AntIcons.arrow_left),
-                          color: Colors.grey,
-                          tooltip: s.close,
-                          onPressed: () {
-                            _animationController.reverse();
-                            Navigator.of(context).pop();
-                          },
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(AntIcons.arrow_left),
+                              color: Colors.grey,
+                              tooltip: s.close,
+                              onPressed: () {
+                                _animationController.reverse();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            Spacer(),
+                            // Menu button
+                            IconButton(
+                              icon: Icon(AntIcons.menu),
+                              color: Colors.grey,
+                              tooltip: s.edit,
+                              onPressed: () {},
+                            ),
+                          ],
                         ),
                       ),
                     );
                   }),
             ),
-            // Menu button
-            Positioned(
-              top: 16.0 + _paddingTop,
-              right: 16.0,
-              child: Hero(
-                tag: 'menu${widget.currentCategory.name}',
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: IconButton(
-                    icon: Icon(AntIcons.menu),
-                    color: Colors.grey,
-                    tooltip: s.edit,
-                    onPressed: () {},
-                  ),
-                ),
-              ),
-            ),
+
             // Category icon
             Positioned(
               left: 48.0,

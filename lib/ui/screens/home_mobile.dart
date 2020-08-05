@@ -23,6 +23,7 @@ class _HomeMobileState extends State<HomeMobile>
   double _verticalPadding;
   Color _color = Colors.deepPurple;
   AnimationController _animationController;
+
   Strings s; // Strings provider
 
   List<Category> categoryList;
@@ -131,6 +132,7 @@ class _HomeMobileState extends State<HomeMobile>
                         child: PageView.builder(
                           controller: PageController(
                             viewportFraction: (_appWidth - 48) / _appWidth,
+                            initialPage: 0,
                           ),
                           itemCount: categoryList.length,
                           itemBuilder: (context, index) {
@@ -147,7 +149,6 @@ class _HomeMobileState extends State<HomeMobile>
                           },
                           onPageChanged: (int index) => setState(
                             () {
-                              print('${categoryList[index].name}');
                               _color = Color(categoryList[index].color);
                             },
                           ),

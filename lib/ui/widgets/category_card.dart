@@ -1,4 +1,3 @@
-import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 
@@ -76,22 +75,6 @@ class CategoryCard extends StatelessWidget {
               onTap: onTap,
             ),
           ),
-          Positioned(
-            top: 16.0,
-            right: 16.0,
-            child: Hero(
-              tag: 'menu$name',
-              child: Material(
-                type: MaterialType.transparency,
-                child: IconButton(
-                  icon: Icon(AntIcons.menu),
-                  color: Colors.grey,
-                  tooltip: editTooltip,
-                  onPressed: () {},
-                ),
-              ),
-            ),
-          )
         ],
       ),
     );
