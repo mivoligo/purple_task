@@ -14,39 +14,35 @@ class HiveMethods implements CategoryInterface {
     Directory dir = await getApplicationSupportDirectory();
     Hive.init(dir.path);
     print('${dir.path}');
+    await Hive.openBox(hiveBox);
   }
 
   @override
   addCategory(Category category) async {
     print('Adding category to Hive');
-    var box = await Hive.openBox(hiveBox);
+    var box = Hive.box(hiveBox);
 
     var categoryMap = category.toMap(category);
-    int idOfInput = await box.add(categoryMap);
-
-    close();
-    return idOfInput;
+    box.add(categoryMap);
   }
 
-  updateCategory(int index, Category newCategory) async {
-    var box = await Hive.openBox(hiveBox);
+  updateCategory(int index, Category newCategory) {
+    var box = Hive.box(hiveBox);
 
     var newCategoryMap = newCategory.toMap(newCategory);
 
     box.putAt(index, newCategoryMap);
-
-    close();
   }
 
   @override
-  deleteCategory(int categoryId) async {
-    var box = await Hive.openBox(hiveBox);
-    await box.deleteAt(categoryId);
+  deleteCategory(int categoryId) {
+    var box = Hive.box(hiveBox);
+    box.deleteAt(categoryId);
   }
 
   @override
   Future<List<Category>> getCategories() async {
-    var box = await Hive.openBox(hiveBox);
+    var box = Hive.box(hiveBox);
 
     List<Category> categoryList = [];
 
