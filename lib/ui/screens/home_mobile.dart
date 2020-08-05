@@ -22,7 +22,6 @@ class _HomeMobileState extends State<HomeMobile>
   bool get _isPortrait => _appWidth < _appHeight;
   double _verticalPadding;
   Color _color = Colors.deepPurple;
-  int _categoryIndex = 0;
   AnimationController _animationController;
   Strings s; // Strings provider
 
@@ -150,7 +149,6 @@ class _HomeMobileState extends State<HomeMobile>
                             () {
                               print('${categoryList[index].name}');
                               _color = Color(categoryList[index].color);
-                              _categoryIndex = index;
                             },
                           ),
                         ),
