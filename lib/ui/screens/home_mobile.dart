@@ -44,8 +44,6 @@ class _HomeMobileState extends State<HomeMobile>
     _verticalPadding = MediaQuery.of(context).padding.vertical;
     // get strings from Strings class
     s = Provider.of<Strings>(context, listen: false);
-    categoryList =
-        Provider.of<CategoryList>(context, listen: false).categoryList;
 
     // use in various places to animate between double values
     Animation animDouble(AnimationController parent, double begin, double end) {
