@@ -45,7 +45,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
         return CategoryIcon(
           onNextPressed: () {
             addNewCategory();
-//            newCategoryProvider.addingNewCategoryCompleted = true;
+            newCategoryProvider.addingNewCategoryCompleted = true;
             Navigator.of(context).pop();
           },
         );

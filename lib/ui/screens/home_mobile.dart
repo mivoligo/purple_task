@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/globals/hive_names.dart';
 import 'package:to_do/models/category.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/screens/category_screen.dart';
@@ -9,6 +10,7 @@ import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/widgets/add_category_button.dart';
 import 'package:to_do/ui/widgets/category_card.dart';
 import 'package:to_do/ui/widgets/greetings.dart';
+import 'package:hive/hive.dart';
 
 class HomeMobile extends StatefulWidget {
   @override
@@ -30,7 +32,11 @@ class _HomeMobileState extends State<HomeMobile>
 
   NewCategory _newCategory; // NewCategory provider
 
-  List<Category> categoryList; // get list using provider
+  List<Category> _categoryList; // get list using provider
+
+  CategoryViewModel _categoryViewModel;
+
+//  int _categoryListLength;
 
   @override
   void initState() {
@@ -50,12 +56,14 @@ class _HomeMobileState extends State<HomeMobile>
     // get strings from Strings class
     s = Provider.of<Strings>(context, listen: false);
     _newCategory = Provider.of<NewCategory>(context);
-    categoryList = Provider.of<CategoryViewModel>(context).categoryList;
+    _categoryViewModel = Provider.of<CategoryViewModel>(context);
+    _categoryList = _categoryViewModel.categoryList;
     _pageController = PageController(
       viewportFraction: (_appWidth - 48) / _appWidth,
       initialPage: 0,
     );
-    context.watch<CategoryViewModel>().getCategory();
+    // get list of categories
+    _categoryViewModel.getCategory();
 
     // use in various places to animate between double values
     Animation animDouble(AnimationController parent, double begin, double end) {
@@ -170,7 +178,7 @@ class _HomeMobileState extends State<HomeMobile>
     await Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, anim1, anim2) => CategoryScreen(
-          currentCategory: categoryList[index],
+          currentCategory: _categoryList[index],
           currentIndex: index,
         ),
         transitionsBuilder: (context, anim1, anim2, child) {
@@ -182,12 +190,12 @@ class _HomeMobileState extends State<HomeMobile>
       ),
     );
     _animationController.reverse();
-    print('lenght is ${categoryList.length}');
-//    _pageController.animateToPage(
-//      index - 1,
-//      duration: Duration(milliseconds: 300),
-//      curve: Curves.ease,
-//    );
+    print('lenght is ${_categoryList.length}');
+    _pageController.animateToPage(
+      index - 1,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.ease,
+    );
   }
 
   void openNewCategory(BuildContext context) async {
@@ -204,17 +212,14 @@ class _HomeMobileState extends State<HomeMobile>
     );
 
     if (_newCategory.addingNewCategoryCompleted) {
-//      _pageController.animateToPage(
-//        listLength + 1,
-//        duration: Duration(milliseconds: 300),
-//        curve: Curves.ease,
-//      );
-      _pageController.nextPage(
+      // get length of category list from Hive
+      int _categoryListLength = Hive.box<Category>(CATEGORY_BOX).length;
+      _pageController.animateToPage(
+        _categoryListLength,
         duration: Duration(milliseconds: 300),
         curve: Curves.ease,
       );
     }
-//    _pageController.jumpToPage(listLength);
   }
 
   @override

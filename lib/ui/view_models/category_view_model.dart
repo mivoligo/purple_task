@@ -3,11 +3,10 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:to_do/globals/hive_names.dart';
 import 'package:to_do/models/category.dart';
 
 class CategoryViewModel with ChangeNotifier {
-  String _categoryBox = 'category_box';
-
   List<Category> _categoryList = [];
 
   List<Category> get categoryList => _categoryList;
@@ -17,11 +16,10 @@ class CategoryViewModel with ChangeNotifier {
     Directory dir = await getApplicationSupportDirectory();
     Hive.init(dir.path);
     print('${dir.path}');
-//    await Hive.openBox(_categoryBox);
   }
 
   addCategory(Category category) async {
-    var box = await Hive.openBox<Category>(_categoryBox);
+    var box = await Hive.openBox<Category>(CATEGORY_BOX);
 
     box.add(category);
 
@@ -29,7 +27,7 @@ class CategoryViewModel with ChangeNotifier {
   }
 
   getCategory() async {
-    final box = await Hive.openBox<Category>(_categoryBox);
+    final box = await Hive.openBox<Category>(CATEGORY_BOX);
 
     _categoryList = box.values.toList();
 
@@ -37,7 +35,7 @@ class CategoryViewModel with ChangeNotifier {
   }
 
   updateCategory(int index, Category category) {
-    final box = Hive.box<Category>(_categoryBox);
+    final box = Hive.box<Category>(CATEGORY_BOX);
 
     box.putAt(index, category);
 
@@ -45,11 +43,9 @@ class CategoryViewModel with ChangeNotifier {
   }
 
   deleteCategory(int index) {
-    final box = Hive.box<Category>(_categoryBox);
+    final box = Hive.box<Category>(CATEGORY_BOX);
 
     box.deleteAt(index);
-
-//    getCategory(); // TODO Check if needed
 
     notifyListeners();
   }
