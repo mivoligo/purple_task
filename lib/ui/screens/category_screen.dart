@@ -1,9 +1,9 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/local_db/repository/category_repository.dart';
 import 'package:to_do/models/category.dart';
 import 'package:to_do/ui/strings/strings.dart';
+import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -110,8 +110,9 @@ class _CategoryScreenState extends State<CategoryScreen>
                               onPressed: () {
                                 print(
                                     'current category = ${widget.currentIndex}');
-                                CategoryRepository.deleteCategory(
-                                    widget.currentIndex);
+                                Provider.of<CategoryViewModel>(context,
+                                        listen: false)
+                                    .deleteCategory(widget.currentIndex);
                                 _animationController.reverse();
                                 Navigator.of(context).pop();
                               },

@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/local_db/repository/category_repository.dart';
 import 'package:to_do/models/category.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
+import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_colors.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_icons.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_name.dart';
@@ -25,6 +25,7 @@ class NewCategoryScreen extends StatefulWidget {
 class _NewCategoryScreenState extends State<NewCategoryScreen> {
   Progress progress = Progress.CategoryName;
   NewCategory newCategoryProvider;
+  CategoryViewModel categoryDb;
   final FocusNode _nextButtonFocusNode = FocusNode();
   bool nextButtonAutoFocus = false;
 
@@ -44,6 +45,8 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
         return CategoryIcon(
           onNextPressed: () {
             addNewCategory();
+//            newCategoryProvider.addingNewCategoryCompleted = true;
+            Navigator.of(context).pop();
           },
         );
     }
@@ -62,8 +65,6 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
     if (newCategoryProvider.name.isNotEmpty) {
       setState(() {
         progress = Progress.CategoryColor;
-//        FocusScope.of(context).requestFocus(_nextButtonFocusNode);
-//        nextButtonAutoFocus = true;
       });
     }
   }
@@ -78,8 +79,8 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
     String name = newCategoryProvider.name;
     int color = newCategoryProvider.color;
     int icon = newCategoryProvider.icon;
-    Category category = Category(name: name, icon: icon, color: color);
-    CategoryRepository.addCategory(category);
+    Category category = Category(name: name, color: color, icon: icon);
+    categoryDb.addCategory(category);
   }
 
   @override
@@ -98,6 +99,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
         min(400, _appHeight - _verticalPadding - _verticalInset - 32.0);
     Strings s = Provider.of<Strings>(context, listen: false);
     newCategoryProvider = Provider.of<NewCategory>(context);
+    categoryDb = Provider.of<CategoryViewModel>(context, listen: false);
     return Scaffold(
       body: Container(
         child: Stack(

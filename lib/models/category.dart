@@ -1,31 +1,21 @@
+import 'package:hive/hive.dart';
+
+part 'category.g.dart';
+
+@HiveType(typeId: 0)
 class Category {
-  int id;
-  String name;
-  int color;
-  int icon;
+  @HiveField(0)
+  final String name;
+
+  @HiveField(1)
+  final int color;
+
+  @HiveField(2)
+  final int icon;
 
   Category({
-    this.id,
     this.name,
     this.color,
     this.icon,
   });
-
-  // to map
-  Map<String, dynamic> toMap(Category category) {
-    Map<String, dynamic> categoryMap = Map();
-    categoryMap["id"] = category.id;
-    categoryMap["name"] = category.name;
-    categoryMap["color"] = category.color;
-    categoryMap["icon"] = category.icon;
-    return categoryMap;
-  }
-
-  // from map
-  Category.fromMap(Map categoryMap) {
-    this.id = categoryMap["id"];
-    this.name = categoryMap["name"];
-    this.color = categoryMap["color"];
-    this.icon = categoryMap["icon"];
-  }
 }

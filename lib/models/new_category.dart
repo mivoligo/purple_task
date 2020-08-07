@@ -32,6 +32,16 @@ class NewCategory extends ChangeNotifier {
     notifyListeners();
   }
 
+  // check if adding category was completed or canceled
+  bool _addingNewCategoryCompleted = false;
+
+  bool get addingNewCategoryCompleted => _addingNewCategoryCompleted;
+
+  set addingNewCategoryCompleted(bool value) {
+    _addingNewCategoryCompleted = value;
+    notifyListeners();
+  }
+
   resetNewCategory() {
     final _random = Random();
     // reset name

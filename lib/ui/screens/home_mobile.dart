@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/local_db/repository/category_repository.dart';
 import 'package:to_do/models/category.dart';
+import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/screens/category_screen.dart';
 import 'package:to_do/ui/screens/new_category_screen.dart';
 import 'package:to_do/ui/strings/strings.dart';
+import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/widgets/add_category_button.dart';
 import 'package:to_do/ui/widgets/category_card.dart';
 import 'package:to_do/ui/widgets/greetings.dart';
@@ -23,10 +24,13 @@ class _HomeMobileState extends State<HomeMobile>
   double _verticalPadding;
   Color _color = Colors.deepPurple;
   AnimationController _animationController;
+  PageController _pageController;
 
   Strings s; // Strings provider
 
-  List<Category> categoryList;
+  NewCategory _newCategory; // NewCategory provider
+
+  List<Category> categoryList; // get list using provider
 
   @override
   void initState() {
@@ -35,6 +39,7 @@ class _HomeMobileState extends State<HomeMobile>
       vsync: this,
       duration: Duration(milliseconds: 300),
     );
+    _pageController = PageController();
   }
 
   @override
@@ -44,6 +49,13 @@ class _HomeMobileState extends State<HomeMobile>
     _verticalPadding = MediaQuery.of(context).padding.vertical;
     // get strings from Strings class
     s = Provider.of<Strings>(context, listen: false);
+    _newCategory = Provider.of<NewCategory>(context);
+    categoryList = Provider.of<CategoryViewModel>(context).categoryList;
+    _pageController = PageController(
+      viewportFraction: (_appWidth - 48) / _appWidth,
+      initialPage: 0,
+    );
+    context.watch<CategoryViewModel>().getCategory();
 
     // use in various places to animate between double values
     Animation animDouble(AnimationController parent, double begin, double end) {
@@ -118,54 +130,33 @@ class _HomeMobileState extends State<HomeMobile>
               left: _isPortrait ? 0 : _appWidth / 2,
               right: 0,
               bottom: 64.0,
-              child: FutureBuilder(
-                future: CategoryRepository.getCategories(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    categoryList = snapshot.data;
-
-                    if (categoryList.isNotEmpty) {
-                      return Container(
-                        height: _isPortrait
-                            ? _appHeight * 0.5
-                            : _appHeight - _verticalPadding - 64.0,
-                        child: PageView.builder(
-                          controller: PageController(
-                            viewportFraction: (_appWidth - 48) / _appWidth,
-                            initialPage: 0,
-                          ),
-                          itemCount: categoryList.length,
-                          itemBuilder: (context, index) {
-                            Category category = categoryList[index];
-                            return CategoryCard(
-                              name: category.name,
-                              icon: category.icon,
-                              color: category.color,
-                              editTooltip: s.edit,
-                              onTap: () {
-                                openCategoryScreen(context, index);
-                              },
-                            );
-                          },
-                          onPageChanged: (int index) => setState(
-                            () {
-                              _color = Color(categoryList[index].color);
-                            },
-                          ),
-                        ),
+              child: Container(
+                height: _isPortrait
+                    ? _appHeight * 0.5
+                    : _appHeight - _verticalPadding - 64.0,
+                child: Consumer<CategoryViewModel>(
+                  builder: (_, value, __) => PageView.builder(
+                    controller: _pageController,
+                    itemCount: value.categoryList.length,
+                    itemBuilder: (context, index) {
+                      Category category = value.categoryList[index];
+                      return CategoryCard(
+                        name: category.name,
+                        icon: category.icon,
+                        color: category.color,
+                        editTooltip: s.edit,
+                        onTap: () {
+                          openCategoryScreen(context, index);
+                        },
                       );
-                    }
-
-                    return Center(
-                      // TODO make it better
-                      child: Text('snapshot has data but list is empty'),
-                    );
-                  }
-
-                  return Center(
-                    child: Text('Default return'), // TODO make it better
-                  );
-                },
+                    },
+                    onPageChanged: (int index) => setState(
+                      () {
+                        _color = Color(value.categoryList[index].color);
+                      },
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
@@ -191,10 +182,16 @@ class _HomeMobileState extends State<HomeMobile>
       ),
     );
     _animationController.reverse();
+    print('lenght is ${categoryList.length}');
+//    _pageController.animateToPage(
+//      index - 1,
+//      duration: Duration(milliseconds: 300),
+//      curve: Curves.ease,
+//    );
   }
 
-  void openNewCategory(BuildContext context) {
-    Navigator.of(context).push(
+  void openNewCategory(BuildContext context) async {
+    await Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, anim1, anim2) => NewCategoryScreen(),
         transitionsBuilder: (context, anim1, anim2, child) {
@@ -205,11 +202,25 @@ class _HomeMobileState extends State<HomeMobile>
         },
       ),
     );
+
+    if (_newCategory.addingNewCategoryCompleted) {
+//      _pageController.animateToPage(
+//        listLength + 1,
+//        duration: Duration(milliseconds: 300),
+//        curve: Curves.ease,
+//      );
+      _pageController.nextPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.ease,
+      );
+    }
+//    _pageController.jumpToPage(listLength);
   }
 
   @override
   void dispose() {
     _animationController.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 }
