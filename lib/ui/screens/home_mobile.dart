@@ -36,7 +36,8 @@ class _HomeMobileState extends State<HomeMobile>
 
   CategoryViewModel _categoryViewModel;
 
-//  int _categoryListLength;
+  // for setting background color based on category color
+  int _currentCategory = 0;
 
   @override
   void initState() {
@@ -64,6 +65,11 @@ class _HomeMobileState extends State<HomeMobile>
     );
     // get list of categories
     _categoryViewModel.getCategory();
+
+    // set background color to category color
+    if (_categoryList.isNotEmpty) {
+      _color = Color(_categoryList[_currentCategory].color);
+    }
 
     // use in various places to animate between double values
     Animation animDouble(AnimationController parent, double begin, double end) {
@@ -160,7 +166,8 @@ class _HomeMobileState extends State<HomeMobile>
                     },
                     onPageChanged: (int index) => setState(
                       () {
-                        _color = Color(value.categoryList[index].color);
+                        _currentCategory = index;
+//                        _color = Color(value.categoryList[index].color);
                       },
                     ),
                   ),
