@@ -65,5 +65,7 @@ class NewCategory extends ChangeNotifier {
     _color = categoryColors[_random.nextInt(categoryColors.length)];
     // set icon to default
     _icon = AntIcons.folder.codePoint;
+    // empty tasks list
+    _tasks = [];
   }
 }
