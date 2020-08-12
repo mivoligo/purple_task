@@ -158,6 +158,7 @@ class _HomeMobileState extends State<HomeMobile>
                         name: category.name,
                         icon: category.icon,
                         color: category.color,
+                        numberOfTasks: category.tasks.length,
                         editTooltip: s.edit,
                         onTap: () {
                           openCategoryScreen(context, index);

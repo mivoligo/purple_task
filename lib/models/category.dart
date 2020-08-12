@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:to_do/models/task.dart';
 
 part 'category.g.dart';
 
@@ -13,9 +14,13 @@ class Category {
   @HiveField(2)
   final int icon;
 
+  @HiveField(3)
+  List<Task> tasks;
+
   Category({
     this.name,
     this.color,
     this.icon,
+    this.tasks,
   });
 }

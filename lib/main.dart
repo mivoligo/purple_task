@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/models/category.dart';
+import 'package:to_do/models/task.dart';
 import 'package:to_do/ui/screens/home_mobile.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
@@ -12,8 +13,11 @@ import 'package:to_do/ui/view_models/category_view_model.dart';
 
 void main() async {
   Directory dir = await pathProvider.getApplicationSupportDirectory();
-  Hive.init(dir.path);
-  Hive.registerAdapter(CategoryAdapter());
+  Hive
+    ..init(dir.path)
+    ..registerAdapter(CategoryAdapter())
+    ..registerAdapter(TaskAdapter());
+
   runApp(
     MultiProvider(
       providers: [

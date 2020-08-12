@@ -5,6 +5,7 @@ class CategoryCard extends StatelessWidget {
   final String name;
   final int color;
   final int icon;
+  final int numberOfTasks;
   final String editTooltip;
 
   final VoidCallback onTap;
@@ -14,6 +15,7 @@ class CategoryCard extends StatelessWidget {
     this.name,
     this.color,
     this.icon,
+    this.numberOfTasks,
     this.editTooltip,
     this.onTap,
   }) : super(key: key);
@@ -63,7 +65,7 @@ class CategoryCard extends StatelessWidget {
                 child: CategoryHeader(
                   title: name,
                   color: Color(color),
-                  description: '8 tasks',
+                  description: '$numberOfTasks tasks',
                   progress: 0.6,
                 ),
               ),

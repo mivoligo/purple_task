@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:to_do/globals/hive_names.dart';
@@ -11,12 +8,12 @@ class CategoryViewModel with ChangeNotifier {
 
   List<Category> get categoryList => _categoryList;
 
-  initHive() async {
-    print('Initializing Hive');
-    Directory dir = await getApplicationSupportDirectory();
-    Hive.init(dir.path);
-    print('${dir.path}');
-  }
+//  initHive() async {
+//    print('Initializing Hive');
+//    Directory dir = await getApplicationSupportDirectory();
+//    Hive.init(dir.path);
+//    print('${dir.path}');
+//  }
 
   addCategory(Category category) async {
     var box = await Hive.openBox<Category>(CATEGORY_BOX);

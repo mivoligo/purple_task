@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do/globals/category_colors.dart';
+import 'package:to_do/models/task.dart';
 
 class NewCategory extends ChangeNotifier {
   String _name = '';
@@ -29,6 +30,20 @@ class NewCategory extends ChangeNotifier {
 
   set icon(int value) {
     _icon = value;
+    notifyListeners();
+  }
+
+  String _taskName = '';
+  String get taskName => _taskName;
+  set taskName(String value) {
+    _taskName = value;
+    notifyListeners();
+  }
+
+  List<Task> _tasks = [];
+  List<Task> get tasks => _tasks;
+  addTask(Task task) {
+    _tasks.add(task);
     notifyListeners();
   }
 

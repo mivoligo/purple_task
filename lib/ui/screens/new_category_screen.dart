@@ -4,17 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/models/category.dart';
+import 'package:to_do/models/task.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_colors.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_icons.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_name.dart';
+import 'package:to_do/ui/widgets/new_category/new_category_tasks.dart';
 
 enum Progress {
   CategoryName,
   CategoryColor,
   CategoryIcon,
+  CategoryTasks,
 }
 
 class NewCategoryScreen extends StatefulWidget {
@@ -43,6 +46,14 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
         );
       case Progress.CategoryIcon:
         return CategoryIcon(
+          onNextPressed: goToAddingTasks,
+        );
+      case Progress.CategoryTasks:
+        return CategoryTasks(
+          onSubmitted: (text) {
+            Task task = Task(name: text, isDone: false);
+            newCategoryProvider.addTask(task);
+          },
           onNextPressed: () {
             addNewCategory();
             newCategoryProvider.addingNewCategoryCompleted = true;
@@ -75,11 +86,23 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
     });
   }
 
+  void goToAddingTasks() {
+    setState(() {
+      progress = Progress.CategoryTasks;
+    });
+  }
+
   void addNewCategory() {
     String name = newCategoryProvider.name;
     int color = newCategoryProvider.color;
     int icon = newCategoryProvider.icon;
-    Category category = Category(name: name, color: color, icon: icon);
+    List<Task> tasks = newCategoryProvider.tasks;
+    Category category = Category(
+      name: name,
+      color: color,
+      icon: icon,
+      tasks: tasks,
+    );
     categoryDb.addCategory(category);
   }
 
@@ -143,7 +166,8 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                             child: Consumer<NewCategory>(
                               builder: (_, value, __) => AnimatedOpacity(
                                 duration: Duration(milliseconds: 300),
-                                opacity: progress == Progress.CategoryIcon
+                                opacity: progress == Progress.CategoryIcon ||
+                                        progress == Progress.CategoryTasks
                                     ? 1.0
                                     : 0.0,
                                 child: Icon(

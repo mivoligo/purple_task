@@ -11,4 +11,5 @@ class Strings {
   final String save = 'Save';
   final String color = 'Color';
   final String icon = 'Icon';
+  final String task = 'Task';
 }

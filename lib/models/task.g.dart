@@ -1,41 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category.dart';
+part of 'task.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CategoryAdapter extends TypeAdapter<Category> {
+class TaskAdapter extends TypeAdapter<Task> {
   @override
-  final int typeId = 0;
+  final int typeId = 2;
 
   @override
-  Category read(BinaryReader reader) {
+  Task read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Category(
+    return Task(
       name: fields[0] as String,
-      color: fields[1] as int,
-      icon: fields[2] as int,
-      tasks: (fields[3] as List)?.cast<Task>(),
+      isDone: fields[1] as bool,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Category obj) {
+  void write(BinaryWriter writer, Task obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(2)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.color)
-      ..writeByte(2)
-      ..write(obj.icon)
-      ..writeByte(3)
-      ..write(obj.tasks);
+      ..write(obj.isDone);
   }
 
   @override
@@ -44,7 +38,7 @@ class CategoryAdapter extends TypeAdapter<Category> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CategoryAdapter &&
+      other is TaskAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
