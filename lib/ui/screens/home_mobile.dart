@@ -167,8 +167,8 @@ class _HomeMobileState extends State<HomeMobile>
                     },
                     onPageChanged: (int index) => setState(
                       () {
+                        // for setting background color same as current category
                         _currentCategory = index;
-//                        _color = Color(value.categoryList[index].color);
                       },
                     ),
                   ),

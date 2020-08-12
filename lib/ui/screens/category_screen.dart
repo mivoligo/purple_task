@@ -153,7 +153,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                   type: MaterialType.transparency,
                   child: CategoryHeader(
                     title: widget.currentCategory.name,
-                    description: '8 tasks',
+                    description: '${widget.currentCategory.tasks.length} tasks',
                     progress: 0.6,
                     color: Color(widget.currentCategory.color),
                   ),

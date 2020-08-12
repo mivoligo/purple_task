@@ -1,4 +1,6 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
@@ -32,10 +34,19 @@ class CategoryTasks extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 0.0),
           child: TextField(
+            decoration: InputDecoration(
+              suffix: IconButton(
+                color: Colors.blue,
+                icon: Icon(
+                  AntIcons.check_circle,
+                ),
+                onPressed: () {},
+              ),
+            ),
             autofocus: true,
             textInputAction: TextInputAction.done,
             onSubmitted: onSubmitted,
-            style: TextStyle(fontSize: 24.0),
+            style: TextStyle(fontSize: 18.0),
             onChanged: (text) =>
                 Provider.of<NewCategory>(context, listen: false).taskName =
                     text,
@@ -54,7 +65,10 @@ class CategoryTasks extends StatelessWidget {
             builder: (_, value, __) => ListView.builder(
               itemCount: value.tasks.length,
               itemBuilder: (context, index) {
-                return Text(value.tasks[index].name);
+                return ListTile(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 32.0),
+                  title: Text(value.tasks[index].name),
+                );
               },
             ),
           ),
