@@ -175,9 +175,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                     isDone: task.isDone,
                   );
                 },
-                separatorBuilder: (context, index) {
-                  return Divider();
-                },
+                separatorBuilder: (_, __) => Divider(),
                 itemCount: widget.currentCategory.tasks.length,
               ),
             )
