@@ -10,6 +10,7 @@ import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:to_do/ui/view_models/category_view_model.dart';
+import 'package:to_do/ui/view_models/task_view_model.dart';
 
 void main() async {
   Directory dir = await pathProvider.getApplicationSupportDirectory();
@@ -25,6 +26,7 @@ void main() async {
         ChangeNotifierProvider<NewCategory>(create: (_) => NewCategory()),
         ChangeNotifierProvider<CategoryViewModel>(
             create: (_) => CategoryViewModel()),
+        ChangeNotifierProvider<TaskViewModel>(create: (_) => TaskViewModel()),
       ],
       child: MyApp(),
     ),

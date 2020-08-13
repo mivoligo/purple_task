@@ -20,7 +20,7 @@ class CategoryAdapter extends TypeAdapter<Category> {
       name: fields[0] as String,
       color: fields[1] as int,
       icon: fields[2] as int,
-      tasks: (fields[3] as List)?.cast<Task>(),
+      id: fields[3] as int,
     );
   }
 
@@ -35,7 +35,7 @@ class CategoryAdapter extends TypeAdapter<Category> {
       ..writeByte(2)
       ..write(obj.icon)
       ..writeByte(3)
-      ..write(obj.tasks);
+      ..write(obj.id);
   }
 
   @override

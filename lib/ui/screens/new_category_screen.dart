@@ -3,8 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/models/category.dart';
-import 'package:to_do/models/task.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
@@ -46,17 +44,18 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
         );
       case Progress.CategoryIcon:
         return CategoryIcon(
-          onNextPressed: goToAddingTasks,
+          onNextPressed: () {
+            newCategoryProvider.addNewCategory(context);
+            goToAddingTasks();
+          },
         );
       case Progress.CategoryTasks:
         return CategoryTasks(
           onSubmitted: (text) {
-            Task task = Task(name: text, isDone: false);
-            newCategoryProvider.addTask(task);
+            newCategoryProvider.addTask(context);
           },
           onNextPressed: () {
-            addNewCategory();
-            newCategoryProvider.addingNewCategoryCompleted = true;
+//            newCategoryProvider.addingNewCategoryCompleted = true;
             Navigator.of(context).pop();
           },
         );
@@ -92,19 +91,17 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
     });
   }
 
-  void addNewCategory() {
-    String name = newCategoryProvider.name;
-    int color = newCategoryProvider.color;
-    int icon = newCategoryProvider.icon;
-    List<Task> tasks = newCategoryProvider.tasks;
-    Category category = Category(
-      name: name,
-      color: color,
-      icon: icon,
-      tasks: tasks,
-    );
-    categoryDb.addCategory(category);
-  }
+//  void addNewCategory() {
+//    String name = newCategoryProvider.name;
+//    int color = newCategoryProvider.color;
+//    int icon = newCategoryProvider.icon;
+//    Category category = Category(
+//      name: name,
+//      color: color,
+//      icon: icon,
+//    );
+//    categoryDb.addCategory(category);
+//  }
 
   @override
   void dispose() {

@@ -2,7 +2,6 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/models/category.dart';
-import 'package:to_do/models/task.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
@@ -155,7 +154,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                   type: MaterialType.transparency,
                   child: CategoryHeader(
                     title: widget.currentCategory.name,
-                    description: '${widget.currentCategory.tasks.length} tasks',
+                    description: ' tasks',
                     progress: 0.6,
                     color: Color(widget.currentCategory.color),
                   ),
@@ -169,14 +168,15 @@ class _CategoryScreenState extends State<CategoryScreen>
               bottom: 16.0,
               child: ListView.separated(
                 itemBuilder: (context, index) {
-                  Task task = widget.currentCategory.tasks[index];
+//                  Task task = widget.currentCategory.tasks[index];
                   return TaskItem(
-                    name: task.name,
-                    isDone: task.isDone,
+                    name: '$index',
+//                    isDone: task.isDone,
                   );
                 },
                 separatorBuilder: (_, __) => Divider(),
-                itemCount: widget.currentCategory.tasks.length,
+//                itemCount: widget.currentCategory.tasks.length,
+                itemCount: 8,
               ),
             )
           ],

@@ -8,13 +8,6 @@ class CategoryViewModel with ChangeNotifier {
 
   List<Category> get categoryList => _categoryList;
 
-//  initHive() async {
-//    print('Initializing Hive');
-//    Directory dir = await getApplicationSupportDirectory();
-//    Hive.init(dir.path);
-//    print('${dir.path}');
-//  }
-
   addCategory(Category category) async {
     var box = await Hive.openBox<Category>(CATEGORY_BOX);
 

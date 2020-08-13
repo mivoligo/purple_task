@@ -2,8 +2,12 @@ import 'dart:math';
 
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do/globals/category_colors.dart';
+import 'package:to_do/models/category.dart';
 import 'package:to_do/models/task.dart';
+import 'package:to_do/ui/view_models/category_view_model.dart';
+import 'package:to_do/ui/view_models/task_view_model.dart';
 
 class NewCategory extends ChangeNotifier {
   String _name = '';
@@ -33,17 +37,37 @@ class NewCategory extends ChangeNotifier {
     notifyListeners();
   }
 
+  int _categoryId;
+
+  int get categoryId => _categoryId;
+
+  void setCategoryId() {
+    int timeStamp = DateTime.now().millisecondsSinceEpoch;
+    _categoryId = timeStamp;
+  }
+
   String _taskName = '';
+
   String get taskName => _taskName;
+
   set taskName(String value) {
     _taskName = value;
     notifyListeners();
   }
 
   List<Task> _tasks = [];
+
   List<Task> get tasks => _tasks;
-  addTask(Task task) {
+
+  addTask(BuildContext context) {
+    TaskViewModel taskDb = Provider.of<TaskViewModel>(context, listen: false);
+    Task task = Task(
+      name: _taskName,
+      isDone: false,
+      categoryId: _categoryId,
+    );
     _tasks.add(task);
+    taskDb.addTask(task);
     notifyListeners();
   }
 
@@ -55,6 +79,20 @@ class NewCategory extends ChangeNotifier {
   set addingNewCategoryCompleted(bool value) {
     _addingNewCategoryCompleted = value;
     notifyListeners();
+  }
+
+  void addNewCategory(BuildContext context) {
+    setCategoryId();
+    int id = _categoryId;
+    CategoryViewModel categoryDb =
+        Provider.of<CategoryViewModel>(context, listen: false);
+    Category category = Category(
+      name: _name,
+      color: _color,
+      icon: _icon,
+      id: id,
+    );
+    categoryDb.addCategory(category);
   }
 
   resetNewCategory() {

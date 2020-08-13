@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:to_do/models/task.dart';
 
 part 'category.g.dart';
 
@@ -15,12 +15,12 @@ class Category {
   final int icon;
 
   @HiveField(3)
-  List<Task> tasks;
+  final int id;
 
   Category({
-    this.name,
-    this.color,
-    this.icon,
-    this.tasks,
+    @required this.name,
+    @required this.color,
+    @required this.icon,
+    @required this.id,
   });
 }
