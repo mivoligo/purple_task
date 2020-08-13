@@ -184,6 +184,24 @@ class _CategoryScreenState extends State<CategoryScreen>
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 0.0,
+        backgroundColor: Colors.grey[200],
+        items: [
+          BottomNavigationBarItem(
+            title: Text('All'),
+            icon: Icon(AntIcons.profile),
+          ),
+          BottomNavigationBarItem(
+            title: Text('To Do'),
+            icon: Icon(AntIcons.edit),
+          ),
+          BottomNavigationBarItem(
+            title: Text('Completed'),
+            icon: Icon(AntIcons.check_circle),
+          ),
+        ],
+      ),
     );
   }
 }
