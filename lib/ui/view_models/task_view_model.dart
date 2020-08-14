@@ -4,9 +4,9 @@ import 'package:to_do/globals/hive_names.dart';
 import 'package:to_do/models/task.dart';
 
 class TaskViewModel with ChangeNotifier {
-  List<Task> _taskList = [];
+//  List<Task> _taskList = [];
 
-  List<Task> get taskList => _taskList;
+//  List<Task> get taskList => _taskList;
 
   addTask(Task task) async {
     var box = await Hive.openBox<Task>(TASK_BOX);
@@ -16,13 +16,56 @@ class TaskViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  getTasksForCategory(int categoryId) async {
-    final box = await Hive.openBox<Task>(TASK_BOX);
+  int numberOfAllPlannedTasks() {
+    final box = Hive.box<Task>(TASK_BOX);
+    int result = box.values.where((task) => task.isDone == false).length;
+    return result;
+  }
 
-    _taskList =
+  List<Task> allTasksForCategory(int categoryId) {
+    final box = Hive.box<Task>(TASK_BOX);
+    List<Task> taskList =
         box.values.where((task) => task.categoryId == categoryId).toList();
+    return taskList;
+  }
 
-    notifyListeners();
+  List<Task> completedTasksForCategory(int categoryId) {
+    final box = Hive.box<Task>(TASK_BOX);
+    List<Task> taskList = box.values
+        .where((task) => task.categoryId == categoryId && task.isDone == true)
+        .toList();
+    return taskList;
+  }
+
+  List<Task> plannedTasksForCategory(int categoryId) {
+    final box = Hive.box<Task>(TASK_BOX);
+    List<Task> taskList = box.values
+        .where((task) => task.categoryId == categoryId && task.isDone == false)
+        .toList();
+    return taskList;
+  }
+
+  int numberOfAllTasksForCategory(int categoryId) {
+    final box = Hive.box<Task>(TASK_BOX);
+    int result =
+        box.values.where((task) => task.categoryId == categoryId).length;
+    return result;
+  }
+
+  int numberOfCompletedTasksForCategory(int categoryId) {
+    final box = Hive.box<Task>(TASK_BOX);
+    int result = box.values
+        .where((task) => task.categoryId == categoryId && task.isDone == true)
+        .length;
+    return result;
+  }
+
+  int numberOfPlannedTasksForCategory(int categoryId) {
+    final box = Hive.box<Task>(TASK_BOX);
+    int result = box.values
+        .where((task) => task.categoryId == categoryId && task.isDone == false)
+        .length;
+    return result;
   }
 
   updateTask(int index, Task task) {
@@ -39,5 +82,20 @@ class TaskViewModel with ChangeNotifier {
     box.deleteAt(index);
 
     notifyListeners();
+  }
+
+  deleteAllTasksForCategory(int categoryId) {
+    final box = Hive.box<Task>(TASK_BOX);
+    List _tasks =
+        box.values.where((task) => task.categoryId == categoryId).toList();
+    _tasks.forEach((element) => element.delete());
+  }
+
+  deleteCompletedTasksForCategory(int categoryId) {
+    final box = Hive.box<Task>(TASK_BOX);
+    List _tasks = box.values
+        .where((task) => task.categoryId == categoryId && task.isDone == true)
+        .toList();
+    _tasks.forEach((element) => element.delete());
   }
 }

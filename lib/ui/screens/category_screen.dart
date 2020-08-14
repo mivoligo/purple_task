@@ -2,8 +2,10 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/models/category.dart';
+import 'package:to_do/models/task.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
+import 'package:to_do/ui/view_models/task_view_model.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 import 'package:to_do/ui/widgets/task_item.dart';
 
@@ -56,6 +58,9 @@ class _CategoryScreenState extends State<CategoryScreen>
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
     Strings s = Provider.of<Strings>(context, listen: false);
+    final taskModel = Provider.of<TaskViewModel>(context, listen: false);
+    int categoryId = widget.currentCategory.id;
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -111,6 +116,11 @@ class _CategoryScreenState extends State<CategoryScreen>
                               onPressed: () {
                                 print(
                                     'current category = ${widget.currentIndex}');
+
+                                Provider.of<TaskViewModel>(context,
+                                        listen: false)
+                                    .deleteAllTasksForCategory(
+                                        widget.currentCategory.id);
                                 Provider.of<CategoryViewModel>(context,
                                         listen: false)
                                     .deleteCategory(widget.currentIndex);
@@ -152,11 +162,14 @@ class _CategoryScreenState extends State<CategoryScreen>
                 tag: 'header${widget.currentCategory.name}',
                 child: Material(
                   type: MaterialType.transparency,
-                  child: CategoryHeader(
-                    title: widget.currentCategory.name,
-                    description: ' tasks',
-                    progress: 0.6,
-                    color: Color(widget.currentCategory.color),
+                  child: Consumer<TaskViewModel>(
+                    builder: (_, model, __) => CategoryHeader(
+                      title: widget.currentCategory.name,
+                      description:
+                          '${model.numberOfPlannedTasksForCategory(categoryId)} tasks',
+                      progress: 0.6,
+                      color: Color(widget.currentCategory.color),
+                    ),
                   ),
                 ),
               ),
@@ -168,15 +181,15 @@ class _CategoryScreenState extends State<CategoryScreen>
               bottom: 16.0,
               child: ListView.separated(
                 itemBuilder: (context, index) {
-//                  Task task = widget.currentCategory.tasks[index];
+                  Task task = taskModel.allTasksForCategory(categoryId)[index];
+                  print('id: $categoryId');
                   return TaskItem(
-                    name: '$index',
-//                    isDone: task.isDone,
+                    name: '${task.name}',
+                    isDone: task.isDone,
                   );
                 },
                 separatorBuilder: (_, __) => Divider(),
-//                itemCount: widget.currentCategory.tasks.length,
-                itemCount: 8,
+                itemCount: taskModel.numberOfAllTasksForCategory(categoryId),
               ),
             )
           ],

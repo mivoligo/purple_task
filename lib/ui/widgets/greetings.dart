@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do/ui/view_models/task_view_model.dart';
 
 class Greetings extends StatelessWidget {
   final String greetings;
@@ -27,9 +29,11 @@ class Greetings extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontSize: 24),
         ),
         SizedBox(height: 8.0),
-        Text(
-          'You have 8 task to do',
-          style: TextStyle(color: Colors.white70, fontSize: 16),
+        Consumer<TaskViewModel>(
+          builder: (_, model, __) => Text(
+            'You have ${model.numberOfAllPlannedTasks()} task to do',
+            style: TextStyle(color: Colors.white70, fontSize: 16),
+          ),
         ),
       ],
     );

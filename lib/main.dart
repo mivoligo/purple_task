@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/globals/hive_names.dart';
 import 'package:to_do/models/category.dart';
 import 'package:to_do/models/task.dart';
 import 'package:to_do/ui/screens/home_mobile.dart';
@@ -17,7 +18,8 @@ void main() async {
   Hive
     ..init(dir.path)
     ..registerAdapter(CategoryAdapter())
-    ..registerAdapter(TaskAdapter());
+    ..registerAdapter(TaskAdapter())
+    ..openBox<Task>(TASK_BOX);
 
   runApp(
     MultiProvider(

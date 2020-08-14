@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 part 'task.g.dart';
 
 @HiveType(typeId: 2)
-class Task {
+class Task extends HiveObject {
   @HiveField(0)
   final String name;
 

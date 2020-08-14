@@ -7,6 +7,7 @@ import 'package:to_do/ui/screens/category_screen.dart';
 import 'package:to_do/ui/screens/new_category_screen.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
+import 'package:to_do/ui/view_models/task_view_model.dart';
 import 'package:to_do/ui/widgets/add_category_button.dart';
 import 'package:to_do/ui/widgets/category_card.dart';
 import 'package:to_do/ui/widgets/greetings.dart';
@@ -148,17 +149,20 @@ class _HomeMobileState extends State<HomeMobile>
                 height: _isPortrait
                     ? _appHeight * 0.5
                     : _appHeight - _verticalPadding - 64.0,
-                child: Consumer<CategoryViewModel>(
-                  builder: (_, value, __) => PageView.builder(
+                child: Consumer2<CategoryViewModel, TaskViewModel>(
+                  builder: (_, categoryModel, taskModel, __) =>
+                      PageView.builder(
                     controller: _pageController,
-                    itemCount: value.categoryList.length,
+                    itemCount: categoryModel.categoryList.length,
                     itemBuilder: (context, index) {
-                      Category category = value.categoryList[index];
+                      Category category = categoryModel.categoryList[index];
+                      int categoryId = category.id;
                       return CategoryCard(
                         name: category.name,
                         icon: category.icon,
                         color: category.color,
-//                        numberOfTasks: category.tasks.length,
+                        numberOfTasks: taskModel
+                            .numberOfPlannedTasksForCategory(categoryId),
                         editTooltip: s.edit,
                         onTap: () {
                           openCategoryScreen(context, index);
