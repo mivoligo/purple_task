@@ -35,19 +35,19 @@ class _CategoryScreenState extends State<CategoryScreen>
 
   int _navigationIndex = 0;
 
-  Widget getTasksList(taskModel, categoryId) {
+  Widget getTasksList(taskModel) {
     switch (_navigationIndex) {
       case 0:
-        return AllTasks(taskModel: taskModel, categoryId: categoryId);
+        return AllTasks(taskModel: taskModel);
         break;
       case 1:
-        return PlannedTasks(taskModel: taskModel, categoryId: categoryId);
+        return PlannedTasks(taskModel: taskModel);
         break;
       case 2:
-        return CompletedTasks(taskModel: taskModel, categoryId: categoryId);
+        return CompletedTasks(taskModel: taskModel);
         break;
     }
-    return AllTasks(taskModel: taskModel, categoryId: categoryId);
+    return AllTasks(taskModel: taskModel);
   }
 
   @override
@@ -76,7 +76,8 @@ class _CategoryScreenState extends State<CategoryScreen>
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
     Strings s = Provider.of<Strings>(context, listen: false);
-    final taskModel = Provider.of<TaskViewModel>(context, listen: false);
+    final taskModel = Provider.of<TaskViewModel>(context);
+    taskModel.getTasksForCategory(widget.currentCategory.id);
     int categoryId = widget.currentCategory.id;
 
     return Scaffold(
@@ -197,7 +198,7 @@ class _CategoryScreenState extends State<CategoryScreen>
               top: 240.0 + _paddingTop,
               right: 48.0,
               bottom: 16.0,
-              child: getTasksList(taskModel, categoryId),
+              child: getTasksList(taskModel),
             )
           ],
         ),

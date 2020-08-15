@@ -4,9 +4,46 @@ import 'package:to_do/globals/hive_names.dart';
 import 'package:to_do/models/task.dart';
 
 class TaskViewModel with ChangeNotifier {
-//  List<Task> _taskList = [];
+  List<Task> _taskListAll = [];
 
-//  List<Task> get taskList => _taskList;
+  List<Task> get taskListAll => _taskListAll;
+
+  getAllTasksForCategory(int categoryId) async {
+    final box = await Hive.openBox<Task>(TASK_BOX);
+    _taskListAll =
+        box.values.where((task) => task.categoryId == categoryId).toList();
+    notifyListeners();
+  }
+
+  List<Task> _taskListPlanned = [];
+
+  List<Task> get tasksListPlanned => _taskListPlanned;
+
+  getPlannedTasksForCategory(int categoryId) async {
+    final box = await Hive.openBox<Task>(TASK_BOX);
+    _taskListPlanned = box.values
+        .where((task) => task.categoryId == categoryId && task.isDone == false)
+        .toList();
+    notifyListeners();
+  }
+
+  List<Task> _taskListCompleted = [];
+
+  List<Task> get tasksListCompleted => _taskListCompleted;
+
+  getCompletedTasksForCategory(int categoryId) async {
+    final box = await Hive.openBox<Task>(TASK_BOX);
+    _taskListCompleted = box.values
+        .where((task) => task.categoryId == categoryId && task.isDone == true)
+        .toList();
+    notifyListeners();
+  }
+
+  getTasksForCategory(int categoryId) {
+    getAllTasksForCategory(categoryId);
+    getPlannedTasksForCategory(categoryId);
+    getCompletedTasksForCategory(categoryId);
+  }
 
   addTask(Task task) async {
     var box = await Hive.openBox<Task>(TASK_BOX);
@@ -20,29 +57,6 @@ class TaskViewModel with ChangeNotifier {
     final box = Hive.box<Task>(TASK_BOX);
     int result = box.values.where((task) => task.isDone == false).length;
     return result;
-  }
-
-  List<Task> allTasksForCategory(int categoryId) {
-    final box = Hive.box<Task>(TASK_BOX);
-    List<Task> taskList =
-        box.values.where((task) => task.categoryId == categoryId).toList();
-    return taskList;
-  }
-
-  List<Task> completedTasksForCategory(int categoryId) {
-    final box = Hive.box<Task>(TASK_BOX);
-    List<Task> taskList = box.values
-        .where((task) => task.categoryId == categoryId && task.isDone == true)
-        .toList();
-    return taskList;
-  }
-
-  List<Task> plannedTasksForCategory(int categoryId) {
-    final box = Hive.box<Task>(TASK_BOX);
-    List<Task> taskList = box.values
-        .where((task) => task.categoryId == categoryId && task.isDone == false)
-        .toList();
-    return taskList;
   }
 
   int numberOfAllTasksForCategory(int categoryId) {

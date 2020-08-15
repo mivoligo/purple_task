@@ -7,24 +7,22 @@ class PlannedTasks extends StatelessWidget {
   const PlannedTasks({
     Key key,
     @required this.taskModel,
-    @required this.categoryId,
   }) : super(key: key);
 
   final TaskViewModel taskModel;
-  final int categoryId;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       itemBuilder: (context, index) {
-        Task task = taskModel.plannedTasksForCategory(categoryId)[index];
+        Task task = taskModel.tasksListPlanned[index];
         return TaskItem(
-          name: '${task.name}',
+          name: task.name,
           isDone: task.isDone,
         );
       },
-      separatorBuilder: (_, __) => Divider(),
-      itemCount: taskModel.numberOfPlannedTasksForCategory(categoryId),
+      separatorBuilder: (context, index) => Divider(),
+      itemCount: taskModel.tasksListPlanned.length,
     );
   }
 }
