@@ -163,6 +163,8 @@ class _HomeMobileState extends State<HomeMobile>
                         color: category.color,
                         numberOfTasks: taskModel
                             .numberOfPlannedTasksForCategory(categoryId),
+                        completionProgress:
+                            taskModel.completionProgress(categoryId),
                         editTooltip: s.edit,
                         onTap: () {
                           openCategoryScreen(context, index);

@@ -167,7 +167,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                       title: widget.currentCategory.name,
                       description:
                           '${model.numberOfPlannedTasksForCategory(categoryId)} tasks',
-                      progress: 0.6,
+                      progress: model.completionProgress(categoryId),
                       color: Color(widget.currentCategory.color),
                     ),
                   ),
