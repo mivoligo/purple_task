@@ -2,12 +2,13 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/models/category.dart';
-import 'package:to_do/models/task.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/view_models/task_view_model.dart';
+import 'package:to_do/ui/widgets/all_tasks_list.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
-import 'package:to_do/ui/widgets/task_item.dart';
+import 'package:to_do/ui/widgets/completed_tasks_list.dart';
+import 'package:to_do/ui/widgets/planned_tasks_list.dart';
 
 class CategoryScreen extends StatefulWidget {
   final Category currentCategory;
@@ -31,6 +32,23 @@ class _CategoryScreenState extends State<CategoryScreen>
   double _appHeight;
 
   bool get _isPortrait => _appWidth < _appHeight;
+
+  int _navigationIndex = 0;
+
+  Widget getTasksList(taskModel, categoryId) {
+    switch (_navigationIndex) {
+      case 0:
+        return AllTasks(taskModel: taskModel, categoryId: categoryId);
+        break;
+      case 1:
+        return PlannedTasks(taskModel: taskModel, categoryId: categoryId);
+        break;
+      case 2:
+        return CompletedTasks(taskModel: taskModel, categoryId: categoryId);
+        break;
+    }
+    return AllTasks(taskModel: taskModel, categoryId: categoryId);
+  }
 
   @override
   void initState() {
@@ -179,23 +197,18 @@ class _CategoryScreenState extends State<CategoryScreen>
               top: 240.0 + _paddingTop,
               right: 48.0,
               bottom: 16.0,
-              child: ListView.separated(
-                itemBuilder: (context, index) {
-                  Task task = taskModel.allTasksForCategory(categoryId)[index];
-                  print('id: $categoryId');
-                  return TaskItem(
-                    name: '${task.name}',
-                    isDone: task.isDone,
-                  );
-                },
-                separatorBuilder: (_, __) => Divider(),
-                itemCount: taskModel.numberOfAllTasksForCategory(categoryId),
-              ),
+              child: getTasksList(taskModel, categoryId),
             )
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _navigationIndex,
+        onTap: (index) {
+          setState(() {
+            _navigationIndex = index;
+          });
+        },
         elevation: 0.0,
         backgroundColor: Colors.grey[200],
         items: [
