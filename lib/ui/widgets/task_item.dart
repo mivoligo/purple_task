@@ -26,6 +26,7 @@ class TaskItem extends StatelessWidget {
         value: task.isDone,
         onChanged: (value) {
           task.isDone = value;
+          task.save(); // save changes to hive
         },
       ),
       trailing: IconButton(
