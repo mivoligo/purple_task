@@ -17,8 +17,7 @@ class AllTasks extends StatelessWidget {
       itemBuilder: (context, index) {
         Task task = taskModel.taskListAll[index];
         return TaskItem(
-          name: task.name,
-          isDone: task.isDone,
+          task: task,
         );
       },
       separatorBuilder: (context, index) => Divider(),

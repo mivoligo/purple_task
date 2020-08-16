@@ -17,8 +17,7 @@ class PlannedTasks extends StatelessWidget {
       itemBuilder: (context, index) {
         Task task = taskModel.tasksListPlanned[index];
         return TaskItem(
-          name: task.name,
-          isDone: task.isDone,
+          task: task,
         );
       },
       separatorBuilder: (context, index) => Divider(),

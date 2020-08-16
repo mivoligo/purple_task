@@ -6,13 +6,13 @@ part 'task.g.dart';
 @HiveType(typeId: 2)
 class Task extends HiveObject {
   @HiveField(0)
-  final String name;
+  String name;
 
   @HiveField(1)
-  final bool isDone;
+  bool isDone;
 
   @HiveField(2)
-  final int categoryId;
+  int categoryId;
 
   Task({
     @required this.name,

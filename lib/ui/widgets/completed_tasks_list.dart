@@ -17,8 +17,7 @@ class CompletedTasks extends StatelessWidget {
       itemBuilder: (context, index) {
         Task task = taskModel.tasksListCompleted[index];
         return TaskItem(
-          name: task.name,
-          isDone: task.isDone,
+          task: task,
         );
       },
       separatorBuilder: (context, index) => Divider(),
