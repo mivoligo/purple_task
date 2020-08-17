@@ -91,9 +91,13 @@ class TaskViewModel with ChangeNotifier {
     return result;
   }
 
-  double completionProgress(int categoryId) =>
-      numberOfCompletedTasksForCategory(categoryId) /
-      numberOfAllTasksForCategory(categoryId);
+  double completionProgress(int categoryId) {
+    if (numberOfAllTasksForCategory(categoryId) == 0) {
+      return 0.0; // to avoid error when creating category without tasks
+    }
+    return numberOfCompletedTasksForCategory(categoryId) /
+        numberOfAllTasksForCategory(categoryId);
+  }
 
   updateTask(int index, Task task) {
     final box = Hive.box<Task>(TASK_BOX);
