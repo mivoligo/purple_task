@@ -204,12 +204,11 @@ class _HomeMobileState extends State<HomeMobile>
       ),
     );
     _animationController.reverse();
-    print('lenght is ${_categoryList.length}');
-    _pageController.animateToPage(
-      index - 1,
-      duration: Duration(milliseconds: 300),
-      curve: Curves.ease,
-    );
+//    _pageController.animateToPage(
+//      index - 1,
+//      duration: Duration(milliseconds: 300),
+//      curve: Curves.ease,
+//    );
   }
 
   void openNewCategory(BuildContext context) async {
@@ -228,6 +227,7 @@ class _HomeMobileState extends State<HomeMobile>
     if (_newCategory.addingNewCategoryCompleted) {
       // get length of category list from Hive
       int _categoryListLength = Hive.box<Category>(CATEGORY_BOX).length;
+      // try to go to the created category
       _pageController.animateToPage(
         _categoryListLength,
         duration: Duration(milliseconds: 300),

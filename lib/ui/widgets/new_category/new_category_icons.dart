@@ -47,6 +47,8 @@ class CategoryIcon extends StatelessWidget {
               color: Colors.grey[400],
               child: Text(s.cancel),
               onPressed: () {
+                Provider.of<NewCategory>(context, listen: false)
+                    .addingNewCategoryCompleted = false;
                 Navigator.of(context).pop();
               },
             ),

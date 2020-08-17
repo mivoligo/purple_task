@@ -57,7 +57,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
           },
           onFinishPressed: () {
             newCategoryProvider.addNewCategory(context);
-//            newCategoryProvider.addingNewCategoryCompleted = true;
+            newCategoryProvider.addingNewCategoryCompleted = true;
             Navigator.of(context).pop();
           },
         );

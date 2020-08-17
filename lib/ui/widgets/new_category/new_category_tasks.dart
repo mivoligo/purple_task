@@ -38,7 +38,7 @@ class CategoryTasks extends StatelessWidget {
               suffix: IconButton(
                 color: Colors.blue,
                 icon: Icon(
-                  AntIcons.check_circle,
+                  AntIcons.plus_circle,
                 ),
                 onPressed: () {
                   onSubmitted();
@@ -82,6 +82,8 @@ class CategoryTasks extends StatelessWidget {
               color: Colors.grey[400],
               child: Text(s.cancel),
               onPressed: () {
+                Provider.of<NewCategory>(context, listen: false)
+                    .addingNewCategoryCompleted = false;
                 Navigator.of(context).pop();
               },
             ),
