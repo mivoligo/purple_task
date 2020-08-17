@@ -5,10 +5,10 @@ import 'package:to_do/models/category.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/view_models/task_view_model.dart';
-import 'package:to_do/ui/widgets/all_tasks_list.dart';
+import 'package:to_do/ui/widgets/task_list/all_tasks_list.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
-import 'package:to_do/ui/widgets/completed_tasks_list.dart';
-import 'package:to_do/ui/widgets/planned_tasks_list.dart';
+import 'package:to_do/ui/widgets/task_list/completed_tasks_list.dart';
+import 'package:to_do/ui/widgets/task_list/planned_tasks_list.dart';
 
 class CategoryScreen extends StatefulWidget {
   final Category currentCategory;
