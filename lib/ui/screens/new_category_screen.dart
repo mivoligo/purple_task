@@ -45,7 +45,8 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
       case Progress.CategoryIcon:
         return CategoryIcon(
           onNextPressed: () {
-            newCategoryProvider.addNewCategory(context);
+            // set category id so we can add tasks based on it in the next step
+            newCategoryProvider.setCategoryId();
             goToAddingTasks();
           },
         );
@@ -54,7 +55,8 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
           onSubmitted: (text) {
             newCategoryProvider.addTask(context);
           },
-          onNextPressed: () {
+          onFinishPressed: () {
+            newCategoryProvider.addNewCategory(context);
 //            newCategoryProvider.addingNewCategoryCompleted = true;
             Navigator.of(context).pop();
           },

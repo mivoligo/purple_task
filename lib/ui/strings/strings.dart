@@ -8,6 +8,7 @@ class Strings {
   final String close = 'Close';
   final String cancel = 'Cancel';
   final String next = 'Next';
+  final String finish = 'Finish';
   final String save = 'Save';
   final String color = 'Color';
   final String icon = 'Icon';

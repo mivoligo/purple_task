@@ -6,12 +6,12 @@ import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
 
 class CategoryTasks extends StatelessWidget {
-  final Function onNextPressed;
+  final Function onFinishPressed;
   final Function onSubmitted;
 
   const CategoryTasks({
     Key key,
-    @required this.onNextPressed,
+    @required this.onFinishPressed,
     this.onSubmitted,
   }) : super(key: key);
 
@@ -89,8 +89,8 @@ class CategoryTasks extends StatelessWidget {
             FlatButton(
               autofocus: true,
               color: Colors.green,
-              child: Text(s.next),
-              onPressed: onNextPressed,
+              child: Text(s.finish),
+              onPressed: onFinishPressed,
             ),
             SizedBox(width: 16.0),
           ],

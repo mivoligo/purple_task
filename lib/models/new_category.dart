@@ -82,7 +82,6 @@ class NewCategory extends ChangeNotifier {
   }
 
   void addNewCategory(BuildContext context) {
-    setCategoryId();
     int id = _categoryId;
     CategoryViewModel categoryDb =
         Provider.of<CategoryViewModel>(context, listen: false);
