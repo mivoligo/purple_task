@@ -4,6 +4,15 @@ import 'package:to_do/globals/hive_names.dart';
 import 'package:to_do/models/task.dart';
 
 class TaskViewModel with ChangeNotifier {
+  String _newTaskName;
+
+  String get newTaskName => _newTaskName;
+
+  set newTaskName(String value) {
+    _newTaskName = value;
+    notifyListeners();
+  }
+
   List<Task> _taskListAll = [];
 
   List<Task> get taskListAll => _taskListAll;

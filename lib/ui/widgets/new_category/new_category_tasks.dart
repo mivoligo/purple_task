@@ -40,7 +40,9 @@ class CategoryTasks extends StatelessWidget {
                 icon: Icon(
                   AntIcons.check_circle,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  onSubmitted();
+                },
               ),
             ),
             autofocus: true,

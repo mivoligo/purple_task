@@ -2,9 +2,11 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/models/category.dart';
+import 'package:to_do/models/task.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/view_models/task_view_model.dart';
+import 'package:to_do/ui/widgets/add_task_field.dart';
 import 'package:to_do/ui/widgets/task_list/all_tasks_list.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 import 'package:to_do/ui/widgets/task_list/completed_tasks_list.dart';
@@ -193,9 +195,26 @@ class _CategoryScreenState extends State<CategoryScreen>
                 ),
               ),
             ),
+            // Add task field
             Positioned(
               left: 48.0,
               top: 240.0 + _paddingTop,
+              right: 48.0,
+              bottom: 16.0,
+              child: AddTaskField(
+                addTask: () {
+                  String name = taskModel.newTaskName;
+                  int categoryId = widget.currentCategory.id;
+                  Task task =
+                      Task(name: name, categoryId: categoryId, isDone: false);
+                  taskModel.addTask(task);
+                },
+              ),
+            ),
+            // List of tasks
+            Positioned(
+              left: 48.0,
+              top: 290.0 + _paddingTop,
               right: 48.0,
               bottom: 16.0,
               child: getTasksList(taskModel),
