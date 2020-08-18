@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/globals/hive_names.dart';
 import 'package:to_do/models/category.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/screens/category_screen.dart';
@@ -11,7 +10,6 @@ import 'package:to_do/ui/view_models/task_view_model.dart';
 import 'package:to_do/ui/widgets/add_category_button.dart';
 import 'package:to_do/ui/widgets/category_card.dart';
 import 'package:to_do/ui/widgets/greetings.dart';
-import 'package:hive/hive.dart';
 
 class HomeMobile extends StatefulWidget {
   @override
@@ -224,7 +222,7 @@ class _HomeMobileState extends State<HomeMobile>
 
     if (_newCategory.addingNewCategoryCompleted) {
       // get length of category list from Hive
-      int _categoryListLength = Hive.box<Category>(CATEGORY_BOX).length;
+      int _categoryListLength = _categoryList.length;
       // try to go to the created category
       _pageController.animateToPage(
         _categoryListLength,
