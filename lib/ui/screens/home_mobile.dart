@@ -33,7 +33,7 @@ class _HomeMobileState extends State<HomeMobile>
 
   NewCategory _newCategory; // NewCategory provider
 
-  List<Category> _categoryList; // get list using provider
+  List<Category> _categoryList;
 
   CategoryViewModel _categoryViewModel;
 
@@ -52,6 +52,7 @@ class _HomeMobileState extends State<HomeMobile>
 
   @override
   Widget build(BuildContext context) {
+    print('is rebuilding');
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
     _verticalPadding = MediaQuery.of(context).padding.vertical;
@@ -59,13 +60,11 @@ class _HomeMobileState extends State<HomeMobile>
     s = Provider.of<Strings>(context, listen: false);
     _newCategory = Provider.of<NewCategory>(context);
     _categoryViewModel = Provider.of<CategoryViewModel>(context);
-    _categoryList = _categoryViewModel.categoryList;
+    _categoryList = _categoryViewModel.getListOfCategories();
     _pageController = PageController(
       viewportFraction: (_appWidth - 48) / _appWidth,
       initialPage: 0,
     );
-    // get list of categories
-    _categoryViewModel.getCategory();
 
     // set background color to category color
     if (_categoryList.isNotEmpty) {
@@ -149,13 +148,12 @@ class _HomeMobileState extends State<HomeMobile>
                 height: _isPortrait
                     ? _appHeight * 0.5
                     : _appHeight - _verticalPadding - 64.0,
-                child: Consumer2<CategoryViewModel, TaskViewModel>(
-                  builder: (_, categoryModel, taskModel, __) =>
-                      PageView.builder(
+                child: Consumer<TaskViewModel>(
+                  builder: (_, taskModel, __) => PageView.builder(
                     controller: _pageController,
-                    itemCount: categoryModel.categoryList.length,
+                    itemCount: _categoryList.length,
                     itemBuilder: (context, index) {
-                      Category category = categoryModel.categoryList[index];
+                      Category category = _categoryList[index];
                       int categoryId = category.id;
                       return CategoryCard(
                         name: category.name,

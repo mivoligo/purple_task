@@ -19,6 +19,7 @@ void main() async {
     ..init(dir.path)
     ..registerAdapter(CategoryAdapter())
     ..registerAdapter(TaskAdapter())
+    ..openBox<Category>(CATEGORY_BOX)
     ..openBox<Task>(TASK_BOX);
 
   runApp(

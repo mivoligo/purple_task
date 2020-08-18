@@ -4,10 +4,6 @@ import 'package:to_do/globals/hive_names.dart';
 import 'package:to_do/models/category.dart';
 
 class CategoryViewModel with ChangeNotifier {
-  List<Category> _categoryList = [];
-
-  List<Category> get categoryList => _categoryList;
-
   addCategory(Category category) async {
     var box = await Hive.openBox<Category>(CATEGORY_BOX);
 
@@ -16,12 +12,12 @@ class CategoryViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  getCategory() async {
-    final box = await Hive.openBox<Category>(CATEGORY_BOX);
+  List<Category> getListOfCategories() {
+    final box = Hive.box<Category>(CATEGORY_BOX);
 
-    _categoryList = box.values.toList();
+    List<Category> _categoryList = box.values.toList();
 
-    notifyListeners();
+    return _categoryList;
   }
 
   updateCategory(int index, Category category) {
