@@ -9,8 +9,6 @@ import 'package:to_do/ui/view_models/task_view_model.dart';
 import 'package:to_do/ui/widgets/add_task_field.dart';
 import 'package:to_do/ui/widgets/task_list/all_tasks_list.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
-import 'package:to_do/ui/widgets/task_list/completed_tasks_list.dart';
-import 'package:to_do/ui/widgets/task_list/planned_tasks_list.dart';
 
 class CategoryScreen extends StatefulWidget {
   final Category currentCategory;
@@ -35,23 +33,27 @@ class _CategoryScreenState extends State<CategoryScreen>
 
   bool get _isPortrait => _appWidth < _appHeight;
 
+  List<Task> _listOfAllTasks;
+  List<Task> _listOfPlannedTasks;
+  List<Task> _listOfCompletedTasks;
+
+  // Index for bottom navigation
   int _navigationIndex = 0;
 
-  Widget getTasksList(categoryId) {
+  // display correct list according to bottom navigation
+  List<Task> getTasksList() {
     switch (_navigationIndex) {
       case 0:
-        return AllTasks(
-          categoryId: categoryId,
-        );
+        return _listOfAllTasks;
         break;
       case 1:
-        return PlannedTasks(categoryId: categoryId);
+        return _listOfPlannedTasks;
         break;
       case 2:
-        return CompletedTasks(categoryId: categoryId);
+        return _listOfCompletedTasks;
         break;
     }
-    return AllTasks(categoryId: categoryId);
+    return _listOfAllTasks;
   }
 
   @override
@@ -81,8 +83,10 @@ class _CategoryScreenState extends State<CategoryScreen>
     _appHeight = MediaQuery.of(context).size.height;
     Strings s = Provider.of<Strings>(context, listen: false);
     final taskModel = Provider.of<TaskViewModel>(context);
-//    taskModel.getTasksForCategory(widget.currentCategory.id);
     int categoryId = widget.currentCategory.id;
+    _listOfAllTasks = taskModel.getAllTasksForCategory(categoryId);
+    _listOfPlannedTasks = taskModel.getPlannedTasksForCategory(categoryId);
+    _listOfCompletedTasks = taskModel.getCompletedTasksForCategory(categoryId);
 
     print('category screen is rebuilding');
     return Scaffold(
@@ -220,7 +224,7 @@ class _CategoryScreenState extends State<CategoryScreen>
               top: 290.0 + _paddingTop,
               right: 48.0,
               bottom: 16.0,
-              child: getTasksList(categoryId),
+              child: TasksList(list: getTasksList()),
             )
           ],
         ),
