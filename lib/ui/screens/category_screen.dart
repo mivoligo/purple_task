@@ -208,14 +208,18 @@ class _CategoryScreenState extends State<CategoryScreen>
               top: 240.0 + _paddingTop,
               right: 48.0,
               bottom: 16.0,
-              child: AddTaskField(
-                addTask: () {
-                  String name = taskModel.newTaskName;
-                  int categoryId = widget.currentCategory.id;
-                  Task task =
-                      Task(name: name, categoryId: categoryId, isDone: false);
-                  taskModel.addTask(task);
-                },
+              child: Column(
+                children: [
+                  AddTaskField(
+                    addTask: () {
+                      String name = taskModel.newTaskName;
+                      int categoryId = widget.currentCategory.id;
+                      Task task = Task(
+                          name: name, categoryId: categoryId, isDone: false);
+                      taskModel.addTask(task);
+                    },
+                  ),
+                ],
               ),
             ),
             // List of tasks
