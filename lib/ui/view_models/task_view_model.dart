@@ -77,10 +77,10 @@ class TaskViewModel with ChangeNotifier {
         numberOfAllTasksForCategory(categoryId);
   }
 
-  updateTask(int index, Task task) {
+  updateTask(dynamic key, Task task) {
     final box = Hive.box<Task>(TASK_BOX);
 
-    box.putAt(index, task);
+    box.put(key, task);
 
     notifyListeners();
   }

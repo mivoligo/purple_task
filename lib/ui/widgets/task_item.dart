@@ -1,6 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do/models/task.dart';
+import 'package:to_do/ui/view_models/task_view_model.dart';
 
 class TaskItem extends StatefulWidget {
   final Task task;
@@ -30,9 +32,12 @@ class _TaskItemState extends State<TaskItem> {
         activeColor: Colors.grey,
         value: widget.task.isDone,
         onChanged: (value) {
+          print("task key: ${widget.task.key} ");
           setState(() {
             widget.task.isDone = value;
-            widget.task.save(); // save changes to hive
+
+            Provider.of<TaskViewModel>(context, listen: false)
+                .updateTask(widget.task.key, widget.task);
           });
         },
       ),
