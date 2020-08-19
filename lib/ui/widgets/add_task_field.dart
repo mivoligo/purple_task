@@ -18,9 +18,12 @@ class AddTaskField extends StatefulWidget {
 class _AddTaskFieldState extends State<AddTaskField> {
   final _controller = TextEditingController();
 
+  bool _hasText = false;
+
   @override
   void initState() {
-    _controller.addListener(() {});
+    // for real time updates of text entry UI
+    _controller.addListener(_updateField);
     super.initState();
   }
 
@@ -28,6 +31,12 @@ class _AddTaskFieldState extends State<AddTaskField> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  _updateField() {
+    setState(() {
+      _hasText = _controller.text.isNotEmpty;
+    });
   }
 
   getTaskName(BuildContext context) {
@@ -40,26 +49,26 @@ class _AddTaskFieldState extends State<AddTaskField> {
   Widget build(BuildContext context) {
     return TextField(
       controller: _controller,
-      onSubmitted: _controller.text.isEmpty
-          ? null
-          : (v) {
+      onSubmitted: _hasText
+          ? (v) {
               getTaskName(context);
               widget.addTask();
               _controller.clear();
-            },
+            }
+          : null,
       decoration: InputDecoration(
         suffix: IconButton(
-          color: _controller.text.isEmpty ? Colors.grey : Colors.blue,
+          color: _hasText ? Colors.blue : Colors.grey,
           icon: Icon(
             AntIcons.plus_circle,
           ),
-          onPressed: _controller.text.isEmpty
-              ? null
-              : () {
+          onPressed: _hasText
+              ? () {
                   getTaskName(context);
                   widget.addTask();
                   _controller.clear();
-                },
+                }
+              : null,
         ),
       ),
     );

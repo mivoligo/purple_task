@@ -1,18 +1,16 @@
-import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
+import 'package:to_do/ui/widgets/add_task_field.dart';
 
 class CategoryTasks extends StatelessWidget {
   final Function onFinishPressed;
-  final Function onSubmitted;
 
   const CategoryTasks({
     Key key,
     @required this.onFinishPressed,
-    this.onSubmitted,
   }) : super(key: key);
 
   @override
@@ -33,25 +31,9 @@ class CategoryTasks extends StatelessWidget {
         SizedBox(height: 8.0),
         Padding(
           padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 0.0),
-          child: TextField(
-            decoration: InputDecoration(
-              suffix: IconButton(
-                color: Colors.blue,
-                icon: Icon(
-                  AntIcons.plus_circle,
-                ),
-                onPressed: () {
-                  onSubmitted();
-                },
-              ),
-            ),
-            autofocus: true,
-            textInputAction: TextInputAction.done,
-            onSubmitted: onSubmitted,
-            style: TextStyle(fontSize: 18.0),
-            onChanged: (text) =>
-                Provider.of<NewCategory>(context, listen: false).taskName =
-                    text,
+          child: AddTaskField(
+            addTask: () => Provider.of<NewCategory>(context, listen: false)
+                .addTask(context),
           ),
         ),
         Text(

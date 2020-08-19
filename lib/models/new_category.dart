@@ -46,28 +46,20 @@ class NewCategory extends ChangeNotifier {
     _categoryId = timeStamp;
   }
 
-  String _taskName = '';
-
-  String get taskName => _taskName;
-
-  set taskName(String value) {
-    _taskName = value;
-    notifyListeners();
-  }
-
   List<Task> _tasks = [];
 
   List<Task> get tasks => _tasks;
 
   addTask(BuildContext context) {
-    TaskViewModel taskDb = Provider.of<TaskViewModel>(context, listen: false);
+    TaskViewModel taskModel =
+        Provider.of<TaskViewModel>(context, listen: false);
     Task task = Task(
-      name: _taskName,
+      name: taskModel.newTaskName,
       isDone: false,
       categoryId: _categoryId,
     );
     _tasks.add(task);
-    taskDb.addTask(task);
+    taskModel.addTask(task);
     notifyListeners();
   }
 
@@ -83,7 +75,7 @@ class NewCategory extends ChangeNotifier {
 
   void addNewCategory(BuildContext context) {
     int id = _categoryId;
-    CategoryViewModel categoryDb =
+    CategoryViewModel categoryModel =
         Provider.of<CategoryViewModel>(context, listen: false);
     Category category = Category(
       name: _name,
@@ -91,7 +83,7 @@ class NewCategory extends ChangeNotifier {
       icon: _icon,
       id: id,
     );
-    categoryDb.addCategory(category);
+    categoryModel.addCategory(category);
   }
 
   resetNewCategory() {

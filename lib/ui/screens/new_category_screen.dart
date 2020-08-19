@@ -52,9 +52,6 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
         );
       case Progress.CategoryTasks:
         return CategoryTasks(
-          onSubmitted: (text) {
-            newCategoryProvider.addTask(context);
-          },
           onFinishPressed: () {
             newCategoryProvider.addNewCategory(context);
             newCategoryProvider.addingNewCategoryCompleted = true;
@@ -92,18 +89,6 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
       progress = Progress.CategoryTasks;
     });
   }
-
-//  void addNewCategory() {
-//    String name = newCategoryProvider.name;
-//    int color = newCategoryProvider.color;
-//    int icon = newCategoryProvider.icon;
-//    Category category = Category(
-//      name: name,
-//      color: color,
-//      icon: icon,
-//    );
-//    categoryDb.addCategory(category);
-//  }
 
   @override
   void dispose() {
