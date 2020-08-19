@@ -32,10 +32,8 @@ class _TaskItemState extends State<TaskItem> {
         activeColor: Colors.grey,
         value: widget.task.isDone,
         onChanged: (value) {
-          print("task key: ${widget.task.key} ");
           setState(() {
             widget.task.isDone = value;
-
             Provider.of<TaskViewModel>(context, listen: false)
                 .updateTask(widget.task.key, widget.task);
           });
@@ -43,7 +41,11 @@ class _TaskItemState extends State<TaskItem> {
       ),
       trailing: IconButton(
         icon: Icon(AntIcons.menu),
-        onPressed: widget.task.delete,
+        onPressed: () => setState(() {
+          // TODO This is temporary task delete
+          Provider.of<TaskViewModel>(context, listen: false)
+              .deleteTask(widget.task.key);
+        }),
       ),
     );
   }

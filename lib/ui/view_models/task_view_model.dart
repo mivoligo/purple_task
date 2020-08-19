@@ -85,10 +85,10 @@ class TaskViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  deleteTask(int index) {
+  deleteTask(dynamic key) {
     final box = Hive.box<Task>(TASK_BOX);
 
-    box.deleteAt(index);
+    box.delete(key);
 
     notifyListeners();
   }
