@@ -40,11 +40,10 @@ class Greetings extends StatelessWidget {
                 break;
               case 1:
                 text =
-                    '$GREETINGS_START $numberOfTasks $TASK_SINGULAR $GREETINGS_END';
+                    '$GREETINGS_START $numberOfTasks $GREETINGS_END_SINGULAR';
                 break;
               default:
-                text =
-                    '$GREETINGS_START $numberOfTasks $TASK_PLURAL $GREETINGS_END';
+                text = '$GREETINGS_START $numberOfTasks $GREETINGS_END_PLURAL';
             }
             return Text(
               text,
