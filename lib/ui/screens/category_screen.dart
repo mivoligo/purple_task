@@ -1,5 +1,6 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/category.dart';
@@ -28,6 +29,7 @@ class _CategoryScreenState extends State<CategoryScreen>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation _fadeAnimation;
+  ScrollController _scrollController;
   double _appWidth;
   double _appHeight;
 
@@ -36,6 +38,9 @@ class _CategoryScreenState extends State<CategoryScreen>
   List<Task> _listOfAllTasks;
   List<Task> _listOfPlannedTasks;
   List<Task> _listOfCompletedTasks;
+
+  // for scrolling to last element after adding task
+  bool _needScroll = false;
 
   // Index for bottom navigation
   int _navigationIndex = 0;
@@ -67,13 +72,23 @@ class _CategoryScreenState extends State<CategoryScreen>
       curve: Curves.easeInExpo,
     );
     _animationController.forward();
+    _scrollController = ScrollController();
     super.initState();
   }
 
   @override
   void dispose() {
     _animationController.dispose();
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  _scrollToEnd() async {
+    if (_needScroll) {
+      _needScroll = false;
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 400), curve: Curves.ease);
+    }
   }
 
   @override
@@ -86,6 +101,11 @@ class _CategoryScreenState extends State<CategoryScreen>
     _listOfAllTasks = taskModel.getAllTasksForCategory(categoryId);
     _listOfPlannedTasks = taskModel.getPlannedTasksForCategory(categoryId);
     _listOfCompletedTasks = taskModel.getCompletedTasksForCategory(categoryId);
+
+    // Used to scroll to end of list after adding new task
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      _scrollToEnd();
+    });
 
     print('category screen is rebuilding');
     return Scaffold(
@@ -141,9 +161,6 @@ class _CategoryScreenState extends State<CategoryScreen>
                               color: Colors.grey,
                               tooltip: EDIT,
                               onPressed: () {
-                                print(
-                                    'current category = ${widget.currentIndex}');
-
                                 Provider.of<TaskViewModel>(context,
                                         listen: false)
                                     .deleteAllTasksForCategory(
@@ -230,6 +247,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                       Task task = Task(
                           name: name, categoryId: categoryId, isDone: false);
                       taskModel.addTask(task);
+                      _needScroll = true;
                     },
                   ),
                 ],
@@ -241,7 +259,10 @@ class _CategoryScreenState extends State<CategoryScreen>
               top: 290.0 + _paddingTop,
               right: 48.0,
               bottom: 16.0,
-              child: TasksList(list: getTasksList()),
+              child: TasksList(
+                list: getTasksList(),
+                controller: _scrollController,
+              ),
             )
           ],
         ),
