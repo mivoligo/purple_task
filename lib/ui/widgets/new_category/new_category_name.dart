@@ -37,6 +37,7 @@ class CategoryName extends StatelessWidget {
                 Provider.of<NewCategory>(context, listen: false).name = text,
           ),
         ),
+        SizedBox(height: 4.0),
         Text(
           s.categoryName,
           style: TextStyle(

@@ -36,6 +36,7 @@ class CategoryTasks extends StatelessWidget {
                 .addTask(context),
           ),
         ),
+        SizedBox(height: 4.0),
         Text(
           s.task,
           textAlign: TextAlign.center,

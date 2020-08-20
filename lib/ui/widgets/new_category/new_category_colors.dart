@@ -29,6 +29,7 @@ class CategoryColor extends StatelessWidget {
         ),
         SizedBox(height: 8.0),
         Expanded(child: ColorsList()),
+        SizedBox(height: 4.0),
         Text(
           s.color,
           textAlign: TextAlign.center,

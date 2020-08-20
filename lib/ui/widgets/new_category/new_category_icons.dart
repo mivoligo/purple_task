@@ -31,6 +31,7 @@ class CategoryIcon extends StatelessWidget {
         Expanded(
           child: IconsList(),
         ),
+        SizedBox(height: 4.0),
         Text(
           s.icon,
           textAlign: TextAlign.center,
