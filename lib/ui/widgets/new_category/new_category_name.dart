@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/ui/strings/strings.dart';
@@ -20,11 +21,18 @@ class CategoryName extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 0.0),
-          child: TextField(
+          child: CupertinoTextField(
             autofocus: true,
             textInputAction: TextInputAction.done,
             onSubmitted: onSubmitted,
             style: TextStyle(fontSize: 24.0),
+            decoration: BoxDecoration(
+                color: Colors.grey[50],
+                borderRadius: BorderRadius.circular(8.0),
+                boxShadow: [
+                  BoxShadow(color: Colors.grey[300], offset: Offset(0.0, -2.0)),
+                  BoxShadow(color: Colors.white, offset: Offset(0.0, 1.0)),
+                ]),
             onChanged: (text) =>
                 Provider.of<NewCategory>(context, listen: false).name = text,
           ),
