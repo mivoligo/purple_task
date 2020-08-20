@@ -27,8 +27,6 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
   Progress progress = Progress.CategoryName;
   NewCategory newCategoryProvider;
   CategoryViewModel categoryDb;
-  final FocusNode _nextButtonFocusNode = FocusNode();
-  bool nextButtonAutoFocus = false;
 
   Widget getProgressWidget() {
     switch (progress) {
@@ -66,10 +64,6 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
     );
   }
 
-  void focusNextButton() {
-    FocusScope.of(context).requestFocus(_nextButtonFocusNode);
-  }
-
   void goToColorSelector() {
     if (newCategoryProvider.name.isNotEmpty) {
       setState(() {
@@ -105,7 +99,6 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
     double _cardHeight =
         min(400, _appHeight - _verticalPadding - _verticalInset - 32.0);
     newCategoryProvider = Provider.of<NewCategory>(context);
-    categoryDb = Provider.of<CategoryViewModel>(context, listen: false);
     return Scaffold(
       body: Container(
         child: Stack(

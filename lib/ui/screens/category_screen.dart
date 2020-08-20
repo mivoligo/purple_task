@@ -61,6 +61,14 @@ class _CategoryScreenState extends State<CategoryScreen>
     return _listOfAllTasks;
   }
 
+  _scrollToEnd() async {
+    if (_needScroll) {
+      _needScroll = false;
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300), curve: Curves.ease);
+    }
+  }
+
   @override
   void initState() {
     _animationController = AnimationController(
@@ -81,14 +89,6 @@ class _CategoryScreenState extends State<CategoryScreen>
     _animationController.dispose();
     _scrollController.dispose();
     super.dispose();
-  }
-
-  _scrollToEnd() async {
-    if (_needScroll) {
-      _needScroll = false;
-      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 400), curve: Curves.ease);
-    }
   }
 
   @override
