@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/ui/strings/strings.dart';
+import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/widgets/add_task_field.dart';
 
@@ -15,7 +15,6 @@ class CategoryTasks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Strings s = Provider.of<Strings>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -38,7 +37,7 @@ class CategoryTasks extends StatelessWidget {
         ),
         SizedBox(height: 4.0),
         Text(
-          s.task,
+          TASK_SINGULAR_CAPITAL,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 14,
@@ -63,7 +62,7 @@ class CategoryTasks extends StatelessWidget {
             SizedBox(width: 16.0),
             FlatButton(
               color: Colors.grey[400],
-              child: Text(s.cancel),
+              child: Text(CANCEL),
               onPressed: () {
                 Provider.of<NewCategory>(context, listen: false)
                     .addingNewCategoryCompleted = false;
@@ -74,7 +73,7 @@ class CategoryTasks extends StatelessWidget {
             FlatButton(
               autofocus: true,
               color: Colors.green,
-              child: Text(s.finish),
+              child: Text(FINISH),
               onPressed: onFinishPressed,
             ),
             SizedBox(width: 16.0),

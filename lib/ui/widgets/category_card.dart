@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -24,6 +25,17 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String _descriptionText;
+    switch (numberOfTasks) {
+      case 0:
+        _descriptionText = '$numberOfTasks $TASK_PLURAL';
+        break;
+      case 1:
+        _descriptionText = '$numberOfTasks $TASK_SINGULAR';
+        break;
+      default:
+        _descriptionText = '$numberOfTasks $TASK_PLURAL';
+    }
     return Padding(
       padding: EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
       child: Stack(
@@ -67,7 +79,7 @@ class CategoryCard extends StatelessWidget {
                 child: CategoryHeader(
                   title: name,
                   color: Color(color),
-                  description: '$numberOfTasks tasks',
+                  description: _descriptionText,
                   progress: completionProgress,
                 ),
               ),

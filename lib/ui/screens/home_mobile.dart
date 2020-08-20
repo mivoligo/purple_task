@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/category.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/screens/category_screen.dart';
 import 'package:to_do/ui/screens/new_category_screen.dart';
-import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/view_models/task_view_model.dart';
 import 'package:to_do/ui/widgets/add_category_button.dart';
@@ -26,8 +26,6 @@ class _HomeMobileState extends State<HomeMobile>
   Color _color = Colors.deepPurple;
   AnimationController _animationController;
   PageController _pageController;
-
-  Strings s; // Strings provider
 
   NewCategory _newCategory; // NewCategory provider
 
@@ -54,8 +52,6 @@ class _HomeMobileState extends State<HomeMobile>
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
     _verticalPadding = MediaQuery.of(context).padding.vertical;
-    // get strings from Strings class
-    s = Provider.of<Strings>(context, listen: false);
     _newCategory = Provider.of<NewCategory>(context);
     _categoryViewModel = Provider.of<CategoryViewModel>(context);
     _categoryList = _categoryViewModel.getListOfCategories();
@@ -105,7 +101,7 @@ class _HomeMobileState extends State<HomeMobile>
                           animation: _animationController,
                           builder: (context, child) {
                             return Greetings(
-                              greetings: s.greetings,
+                              greetings: GREETINGS,
                               distance:
                                   animDouble(_animationController, 32.0, 60.0)
                                       .value,
@@ -127,7 +123,7 @@ class _HomeMobileState extends State<HomeMobile>
                     child: Hero(
                       tag: 'title',
                       child: AddCategoryButton(
-                        text: s.addCategory,
+                        text: ADD_CATEGORY,
                         opacity:
                             animDouble(_animationController, 1.0, 0.0).value,
                         onPressed: () {
@@ -161,7 +157,7 @@ class _HomeMobileState extends State<HomeMobile>
                             .numberOfPlannedTasksForCategory(categoryId),
                         completionProgress:
                             taskModel.completionProgress(categoryId),
-                        editTooltip: s.edit,
+                        editTooltip: EDIT,
                         onTap: () {
                           openCategoryScreen(context, index);
                         },

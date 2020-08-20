@@ -1,9 +1,9 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/category.dart';
 import 'package:to_do/models/task.dart';
-import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/view_models/task_view_model.dart';
 import 'package:to_do/ui/widgets/add_task_field.dart';
@@ -81,7 +81,6 @@ class _CategoryScreenState extends State<CategoryScreen>
     double _paddingTop = MediaQuery.of(context).padding.top;
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
-    Strings s = Provider.of<Strings>(context, listen: false);
     final taskModel = Provider.of<TaskViewModel>(context);
     int categoryId = widget.currentCategory.id;
     _listOfAllTasks = taskModel.getAllTasksForCategory(categoryId);
@@ -129,7 +128,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                             IconButton(
                               icon: Icon(AntIcons.arrow_left),
                               color: Colors.grey,
-                              tooltip: s.close,
+                              tooltip: CLOSE,
                               onPressed: () {
                                 _animationController.reverse();
                                 Navigator.of(context).pop();
@@ -140,7 +139,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                             IconButton(
                               icon: Icon(AntIcons.menu),
                               color: Colors.grey,
-                              tooltip: s.edit,
+                              tooltip: EDIT,
                               onPressed: () {
                                 print(
                                     'current category = ${widget.currentIndex}');
@@ -191,13 +190,27 @@ class _CategoryScreenState extends State<CategoryScreen>
                 child: Material(
                   type: MaterialType.transparency,
                   child: Consumer<TaskViewModel>(
-                    builder: (_, model, __) => CategoryHeader(
-                      title: widget.currentCategory.name,
-                      description:
-                          '${model.numberOfPlannedTasksForCategory(categoryId)} tasks',
-                      progress: model.completionProgress(categoryId),
-                      color: Color(widget.currentCategory.color),
-                    ),
+                    builder: (_, model, __) {
+                      int numberOfTasks =
+                          model.numberOfPlannedTasksForCategory(categoryId);
+                      String _descriptionText;
+                      switch (numberOfTasks) {
+                        case 0:
+                          _descriptionText = '$numberOfTasks $TASK_PLURAL';
+                          break;
+                        case 1:
+                          _descriptionText = '$numberOfTasks $TASK_SINGULAR';
+                          break;
+                        default:
+                          _descriptionText = '$numberOfTasks $TASK_PLURAL';
+                      }
+                      return CategoryHeader(
+                        title: widget.currentCategory.name,
+                        description: _descriptionText,
+                        progress: model.completionProgress(categoryId),
+                        color: Color(widget.currentCategory.color),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -244,15 +257,15 @@ class _CategoryScreenState extends State<CategoryScreen>
         backgroundColor: Colors.grey[200],
         items: [
           BottomNavigationBarItem(
-            title: Text('All'),
+            title: Text(ALL),
             icon: Icon(AntIcons.profile),
           ),
           BottomNavigationBarItem(
-            title: Text('To Do'),
+            title: Text(TO_DO),
             icon: Icon(AntIcons.edit),
           ),
           BottomNavigationBarItem(
-            title: Text('Completed'),
+            title: Text(COMPLETED),
             icon: Icon(AntIcons.check_circle),
           ),
         ],

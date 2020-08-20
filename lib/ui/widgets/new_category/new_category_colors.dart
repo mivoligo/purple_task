@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/ui/strings/strings.dart';
+import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/widgets/new_category/colors_list.dart';
 
@@ -14,7 +14,6 @@ class CategoryColor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Strings s = Provider.of<Strings>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -31,7 +30,7 @@ class CategoryColor extends StatelessWidget {
         Expanded(child: ColorsList()),
         SizedBox(height: 4.0),
         Text(
-          s.color,
+          COLOR,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 14,
@@ -44,7 +43,7 @@ class CategoryColor extends StatelessWidget {
             SizedBox(width: 16.0),
             FlatButton(
               color: Colors.grey[400],
-              child: Text(s.cancel),
+              child: Text(CANCEL),
               onPressed: () {
                 Provider.of<NewCategory>(context, listen: false)
                     .addingNewCategoryCompleted = false;
@@ -55,7 +54,7 @@ class CategoryColor extends StatelessWidget {
             FlatButton(
               autofocus: true,
               color: Colors.green,
-              child: Text(s.next),
+              child: Text(NEXT),
               onPressed: onNextPressed,
             ),
             SizedBox(width: 16.0),

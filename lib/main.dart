@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/globals/hive_names.dart';
+import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/category.dart';
 import 'package:to_do/models/task.dart';
 import 'package:to_do/ui/screens/home_mobile.dart';
-import 'package:to_do/ui/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:to_do/ui/view_models/category_view_model.dart';
@@ -25,7 +25,6 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        Provider<Strings>(create: (_) => Strings()),
         ChangeNotifierProvider<NewCategory>(create: (_) => NewCategory()),
         ChangeNotifierProvider<CategoryViewModel>(
             create: (_) => CategoryViewModel()),
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: APP_NAME,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/ui/strings/strings.dart';
+import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
 
 class CategoryName extends StatelessWidget {
@@ -16,7 +16,6 @@ class CategoryName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Strings s = Provider.of<Strings>(context, listen: false);
     return Column(
       children: [
         Padding(
@@ -39,7 +38,7 @@ class CategoryName extends StatelessWidget {
         ),
         SizedBox(height: 4.0),
         Text(
-          s.categoryName,
+          CATEGORY_NAME,
           style: TextStyle(
             fontSize: 14,
             color: Colors.grey,
@@ -51,7 +50,7 @@ class CategoryName extends StatelessWidget {
             SizedBox(width: 16.0),
             FlatButton(
               color: Colors.grey[400],
-              child: Text(s.cancel),
+              child: Text(CANCEL),
               onPressed: () {
                 Provider.of<NewCategory>(context, listen: false)
                     .addingNewCategoryCompleted = false;
@@ -61,7 +60,7 @@ class CategoryName extends StatelessWidget {
             Spacer(),
             FlatButton(
               color: Colors.green,
-              child: Text(s.next),
+              child: Text(NEXT),
               onPressed: onNextPressed,
             ),
             SizedBox(width: 16.0),

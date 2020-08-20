@@ -2,6 +2,7 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/ui/view_models/task_view_model.dart';
 
 class AddTaskField extends StatefulWidget {
@@ -50,7 +51,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
   Widget build(BuildContext context) {
     return CupertinoTextField(
       controller: _controller,
-      placeholder: 'Add new task',
+      placeholder: ADD_NEW_TASK,
       suffix: IconButton(
         color: _hasText ? Colors.blue : Colors.grey,
         icon: Icon(

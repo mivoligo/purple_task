@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/ui/strings/strings.dart';
+import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_colors.dart';
@@ -104,7 +104,6 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
     double _verticalInset = MediaQuery.of(context).viewInsets.vertical;
     double _cardHeight =
         min(400, _appHeight - _verticalPadding - _verticalInset - 32.0);
-    Strings s = Provider.of<Strings>(context, listen: false);
     newCategoryProvider = Provider.of<NewCategory>(context);
     categoryDb = Provider.of<CategoryViewModel>(context, listen: false);
     return Scaffold(
@@ -170,7 +169,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                             children: [
                               SizedBox(height: 8.0),
                               Text(
-                                s.newCategory,
+                                NEW_CATEGORY,
                                 style: TextStyle(
                                   fontSize: 18.0,
                                   color: Colors.grey,

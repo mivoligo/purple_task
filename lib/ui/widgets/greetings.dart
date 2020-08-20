@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/ui/view_models/task_view_model.dart';
 
 class Greetings extends StatelessWidget {
@@ -30,10 +31,26 @@ class Greetings extends StatelessWidget {
         ),
         SizedBox(height: 8.0),
         Consumer<TaskViewModel>(
-          builder: (_, model, __) => Text(
-            'You have ${model.numberOfAllPlannedTasks()} task to do',
-            style: TextStyle(color: Colors.white70, fontSize: 16),
-          ),
+          builder: (_, model, __) {
+            int numberOfTasks = model.numberOfAllPlannedTasks();
+            String text;
+            switch (numberOfTasks) {
+              case 0:
+                text = NO_TASKS_GREETINGS;
+                break;
+              case 1:
+                text =
+                    '$GREETINGS_START $numberOfTasks $TASK_SINGULAR $GREETINGS_END';
+                break;
+              default:
+                text =
+                    '$GREETINGS_START $numberOfTasks $TASK_PLURAL $GREETINGS_END';
+            }
+            return Text(
+              text,
+              style: TextStyle(color: Colors.white70, fontSize: 16),
+            );
+          },
         ),
       ],
     );
