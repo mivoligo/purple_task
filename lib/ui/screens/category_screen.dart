@@ -10,6 +10,8 @@ import 'package:to_do/ui/view_models/task_view_model.dart';
 import 'package:to_do/ui/widgets/add_task_field.dart';
 import 'package:to_do/ui/widgets/task_list/all_tasks_list.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
+import 'package:to_do/ui/widgets/task_list/completed_tasks_list.dart';
+import 'package:to_do/ui/widgets/task_list/planned_task_list.dart';
 
 class CategoryScreen extends StatefulWidget {
   final Category currentCategory;
@@ -46,19 +48,22 @@ class _CategoryScreenState extends State<CategoryScreen>
   int _navigationIndex = 0;
 
   // display correct list according to bottom navigation
-  List<Task> getTasksList() {
+  Widget getTasksList() {
     switch (_navigationIndex) {
       case 0:
-        return _listOfAllTasks;
+        return AllTasksList(
+            list: _listOfAllTasks, controller: _scrollController);
         break;
       case 1:
-        return _listOfPlannedTasks;
+        return PlannedTasksList(
+            list: _listOfPlannedTasks, controller: _scrollController);
         break;
       case 2:
-        return _listOfCompletedTasks;
+        return CompletedTasksList(
+            list: _listOfCompletedTasks, controller: _scrollController);
         break;
     }
-    return _listOfAllTasks;
+    return AllTasksList(list: _listOfAllTasks, controller: _scrollController);
   }
 
   _scrollToEnd() async {
@@ -88,6 +93,7 @@ class _CategoryScreenState extends State<CategoryScreen>
   void dispose() {
     _animationController.dispose();
     _scrollController.dispose();
+    print('dispose');
     super.dispose();
   }
 
@@ -259,10 +265,7 @@ class _CategoryScreenState extends State<CategoryScreen>
               top: 290.0 + _paddingTop,
               right: 48.0,
               bottom: 16.0,
-              child: TasksList(
-                list: getTasksList(),
-                controller: _scrollController,
-              ),
+              child: getTasksList(),
             )
           ],
         ),

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:to_do/models/task.dart';
 import 'package:to_do/ui/widgets/task_item/task_item.dart';
 
-class AllTasksList extends StatelessWidget {
+class PlannedTasksList extends StatelessWidget {
   final List<Task> list;
   final ScrollController controller;
 
-  const AllTasksList({
+  const PlannedTasksList({
     Key key,
     @required this.list,
     @required this.controller,

@@ -1,8 +1,10 @@
+import 'package:ant_icons/ant_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/task.dart';
-import 'package:to_do/ui/widgets/task_item/task_item_delete.dart';
-import 'package:to_do/ui/widgets/task_item/task_item_edit.dart';
-import 'package:to_do/ui/widgets/task_item/task_item_normal.dart';
+import 'package:to_do/ui/view_models/task_view_model.dart';
 
 enum TaskState {
   Normal,
@@ -24,33 +26,7 @@ class TaskItem extends StatefulWidget {
 
 class _TaskItemState extends State<TaskItem> {
   TaskState _taskState = TaskState.Normal;
-
-  Widget buildTaskItem() {
-    switch (_taskState) {
-      case TaskState.Normal:
-        return TaskItemNormal(
-          task: widget.task,
-          onDeletePressed: setTaskDelete,
-          onNamePressed: setTaskEdit,
-        );
-        break;
-      case TaskState.EditName:
-        return TaskItemEdit(
-          task: widget.task,
-          onCancel: setTaskNormal,
-          onSave: setTaskNormal,
-        );
-        break;
-      case TaskState.ConfirmDelete:
-        return TaskItemDelete(
-          task: widget.task,
-          onCancel: setTaskNormal,
-          onDelete: setTaskNormal,
-        );
-        break;
-    }
-    return TaskItemNormal(task: widget.task);
-  }
+  final _textController = TextEditingController();
 
   setTaskNormal() {
     setState(() {
@@ -71,54 +47,118 @@ class _TaskItemState extends State<TaskItem> {
   }
 
   @override
+  void initState() {
+    _textController.text = widget.task.name;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 500),
-      child: buildTaskItem(),
+      duration: Duration(milliseconds: 300),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Checkbox(
+                activeColor: Colors.grey,
+                value: widget.task.isDone,
+                onChanged: (value) {
+                  widget.task.isDone = value;
+                  Provider.of<TaskViewModel>(context, listen: false)
+                      .updateTask(widget.task.key, widget.task);
+                },
+              ),
+              SizedBox(width: 8.0),
+              Expanded(
+                  child: _taskState == TaskState.EditName
+                      ? CupertinoTextField(
+                          controller: _textController,
+                          autofocus: true,
+                        )
+                      : InkWell(
+                          onTap: _taskState == TaskState.Normal
+                              ? () {
+                                  setTaskEdit();
+                                }
+                              : null,
+                          child: Text(
+                            widget.task.name,
+                            style: TextStyle(
+                              color: widget.task.isDone
+                                  ? Colors.grey
+                                  : Colors.black,
+                              decoration: widget.task.isDone
+                                  ? TextDecoration.lineThrough
+                                  : null,
+                            ),
+                          ),
+                        )),
+              if (_taskState == TaskState.Normal)
+                IconButton(
+                  icon: Icon(
+                    AntIcons.delete,
+                    color: Colors.grey,
+                  ),
+                  onPressed:
+                      _taskState == TaskState.Normal ? setTaskDelete : null,
+                  tooltip: DELETE,
+                ),
+            ],
+          ),
+          AnimatedContainer(
+            height: _taskState == TaskState.Normal ? 0 : 50,
+            duration: Duration(milliseconds: 50),
+            child: Row(
+              children: [
+                SizedBox(width: 10),
+                FlatButton(
+                  onPressed: () {
+                    setState(() {
+                      _taskState = TaskState.Normal;
+                    });
+                  },
+                  child: Text(CANCEL),
+                  color: Colors.grey,
+                ),
+                Spacer(),
+                if (_taskState != TaskState.Normal)
+                  FlatButton(
+                    onPressed: _taskState == TaskState.ConfirmDelete
+                        ? () {
+                            Provider.of<TaskViewModel>(context, listen: false)
+                                .deleteTask(widget.task.key);
+                            setTaskNormal();
+                          }
+                        : () {
+                            Task _task = Task(
+                              name: _textController.text,
+                              isDone: widget.task.isDone,
+                              categoryId: widget.task.categoryId,
+                            );
+                            Provider.of<TaskViewModel>(context, listen: false)
+                                .updateTask(widget.task.key, _task);
+                            setTaskNormal();
+                          },
+                    child: _taskState == TaskState.ConfirmDelete
+                        ? Text(DELETE)
+                        : Text(SAVE),
+                    color: _taskState == TaskState.ConfirmDelete
+                        ? Colors.red
+                        : Colors.green,
+                  ),
+                SizedBox(width: 10),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
-
-//class NormalTaskItem extends StatefulWidget {
-//  final Task task;
-//
-//  const NormalTaskItem({Key key, this.task}) : super(key: key);
-//
-//  @override
-//  _NormalTaskItemState createState() => _NormalTaskItemState();
-//}
-
-//class _NormalTaskItemState extends State<NormalTaskItem> {
-//  @override
-//  Widget build(BuildContext context) {
-//    return ListTile(
-//      contentPadding: EdgeInsets.all(0.0),
-//      title: Text(
-//        widget.task.name,
-//        style: TextStyle(
-//          color: widget.task.isDone ? Colors.grey : Colors.black,
-//          decoration: widget.task.isDone ? TextDecoration.lineThrough : null,
-//        ),
-//      ),
-//      leading: Checkbox(
-//        activeColor: Colors.grey,
-//        value: widget.task.isDone,
-//        onChanged: (value) {
-//          setState(() {
-//            widget.task.isDone = value;
-//            Provider.of<TaskViewModel>(context, listen: false)
-//                .updateTask(widget.task.key, widget.task);
-//          });
-//        },
-//      ),
-//      trailing: IconButton(
-//        tooltip: DELETE,
-//        icon: Icon(AntIcons.delete),
-//        onPressed: () => setState(() {
-//          Provider.of<TaskViewModel>(context, listen: false)
-//              .deleteTask(widget.task.key);
-//        }),
-//      ),
-//    );
-//  }
-//}
