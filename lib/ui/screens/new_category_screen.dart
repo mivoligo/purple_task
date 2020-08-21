@@ -52,6 +52,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
         return CategoryTasks(
           onFinishPressed: () {
             newCategoryProvider.addNewCategory(context);
+            newCategoryProvider.addTasksToDb(context);
             newCategoryProvider.addingNewCategoryCompleted = true;
             Navigator.of(context).pop();
           },

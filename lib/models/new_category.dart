@@ -50,7 +50,7 @@ class NewCategory extends ChangeNotifier {
 
   List<Task> get tasks => _tasks;
 
-  addTask(BuildContext context) {
+  addTaskToTemporaryList(BuildContext context) {
     TaskViewModel taskModel =
         Provider.of<TaskViewModel>(context, listen: false);
     Task task = Task(
@@ -59,8 +59,15 @@ class NewCategory extends ChangeNotifier {
       categoryId: _categoryId,
     );
     _tasks.add(task);
-    taskModel.addTask(task);
     notifyListeners();
+  }
+
+  addTasksToDb(BuildContext context) {
+    TaskViewModel taskModel =
+        Provider.of<TaskViewModel>(context, listen: false);
+    _tasks.forEach((task) {
+      taskModel.addTask(task);
+    });
   }
 
   // check if adding category was completed or canceled

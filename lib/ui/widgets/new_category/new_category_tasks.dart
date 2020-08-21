@@ -66,7 +66,8 @@ class _CategoryTasksState extends State<CategoryTasks> {
           padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 0.0),
           child: AddTaskField(
             addTask: () {
-              Provider.of<NewCategory>(context, listen: false).addTask(context);
+              Provider.of<NewCategory>(context, listen: false)
+                  .addTaskToTemporaryList(context);
               _needScroll = true;
             },
           ),

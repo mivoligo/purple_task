@@ -113,8 +113,8 @@ class _TaskItemState extends State<TaskItem> {
             ],
           ),
           AnimatedContainer(
-            height: _taskState == TaskState.Normal ? 0 : 50,
-            duration: Duration(milliseconds: 50),
+            height: _taskState == TaskState.Normal ? 0 : 56,
+            duration: Duration(milliseconds: 90),
             child: Row(
               children: [
                 SizedBox(width: 10),
