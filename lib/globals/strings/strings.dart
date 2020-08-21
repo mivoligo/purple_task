@@ -4,6 +4,7 @@ const String NEW_CATEGORY = 'New Category';
 const String CATEGORY_NAME = 'Name';
 const String EDIT = 'Edit';
 const String GREETINGS = 'Hello';
+const String DELETE = 'Delete';
 const String CLOSE = 'Close';
 const String CANCEL = 'Cancel';
 const String NEXT = 'Next';
