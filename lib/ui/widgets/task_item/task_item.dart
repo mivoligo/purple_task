@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/models/task.dart';
-import 'package:to_do/ui/widgets/task_item_delete.dart';
-import 'package:to_do/ui/widgets/task_item_edit.dart';
-import 'package:to_do/ui/widgets/task_item_normal.dart';
+import 'package:to_do/ui/widgets/task_item/task_item_delete.dart';
+import 'package:to_do/ui/widgets/task_item/task_item_edit.dart';
+import 'package:to_do/ui/widgets/task_item/task_item_normal.dart';
 
 enum TaskState {
   Normal,
