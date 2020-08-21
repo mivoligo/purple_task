@@ -27,10 +27,12 @@ class TaskItem extends StatefulWidget {
 class _TaskItemState extends State<TaskItem> {
   TaskState _taskState = TaskState.Normal;
   final _textController = TextEditingController();
+  bool _hasText = false;
 
   setTaskNormal() {
     setState(() {
       _taskState = TaskState.Normal;
+      print('setting normal');
     });
   }
 
@@ -42,13 +44,20 @@ class _TaskItemState extends State<TaskItem> {
 
   setTaskEdit() {
     setState(() {
+      _textController.text = widget.task.name;
       _taskState = TaskState.EditName;
+    });
+  }
+
+  _updateField() {
+    setState(() {
+      _hasText = _textController.text.isNotEmpty;
     });
   }
 
   @override
   void initState() {
-    _textController.text = widget.task.name;
+    _textController.addListener(_updateField);
     super.initState();
   }
 
@@ -77,39 +86,49 @@ class _TaskItemState extends State<TaskItem> {
               ),
               SizedBox(width: 8.0),
               Expanded(
-                  child: _taskState == TaskState.EditName
-                      ? CupertinoTextField(
-                          controller: _textController,
-                          autofocus: true,
-                        )
-                      : InkWell(
-                          onTap: _taskState == TaskState.Normal
-                              ? () {
-                                  setTaskEdit();
-                                }
-                              : null,
-                          child: Text(
-                            widget.task.name,
-                            style: TextStyle(
-                              color: widget.task.isDone
-                                  ? Colors.grey
-                                  : Colors.black,
-                              decoration: widget.task.isDone
-                                  ? TextDecoration.lineThrough
-                                  : null,
-                            ),
+                child: _taskState == TaskState.EditName
+                    ? CupertinoTextField(
+                        controller: _textController,
+                        autofocus: true,
+                        onSubmitted: _hasText
+                            ? (v) {
+                                Task _task = Task(
+                                  name: _textController.text,
+                                  isDone: widget.task.isDone,
+                                  categoryId: widget.task.categoryId,
+                                );
+                                Provider.of<TaskViewModel>(context,
+                                        listen: false)
+                                    .updateTask(widget.task.key, _task);
+                                setTaskNormal();
+                              }
+                            : null,
+                      )
+                    : InkWell(
+                        onTap:
+                            _taskState == TaskState.Normal ? setTaskEdit : null,
+                        child: Text(
+                          widget.task.name,
+                          style: TextStyle(
+                            color:
+                                widget.task.isDone ? Colors.grey : Colors.black,
+                            decoration: widget.task.isDone
+                                ? TextDecoration.lineThrough
+                                : null,
                           ),
-                        )),
+                        ),
+                      ),
+              ),
               if (_taskState == TaskState.Normal)
                 IconButton(
                   icon: Icon(
                     AntIcons.delete,
                     color: Colors.grey,
                   ),
-                  onPressed:
-                      _taskState == TaskState.Normal ? setTaskDelete : null,
+                  onPressed: setTaskDelete,
                   tooltip: DELETE,
                 ),
+              if (_taskState == TaskState.EditName) SizedBox(width: 10.0),
             ],
           ),
           AnimatedContainer(
@@ -119,24 +138,32 @@ class _TaskItemState extends State<TaskItem> {
               children: [
                 SizedBox(width: 10),
                 FlatButton(
-                  onPressed: () {
-                    setState(() {
-                      _taskState = TaskState.Normal;
-                    });
-                  },
-                  child: Text(CANCEL),
+                  onPressed: setTaskNormal,
+                  child: Text(
+                    CANCEL,
+                    style: TextStyle(color: Colors.white),
+                  ),
                   color: Colors.grey,
                 ),
                 Spacer(),
-                if (_taskState != TaskState.Normal)
+                if (_taskState == TaskState.ConfirmDelete)
                   FlatButton(
-                    onPressed: _taskState == TaskState.ConfirmDelete
+                    color: Colors.red,
+                    onPressed: () {
+                      Provider.of<TaskViewModel>(context, listen: false)
+                          .deleteTask(widget.task.key);
+                      setTaskNormal();
+                    },
+                    child: Text(
+                      DELETE,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                if (_taskState == TaskState.EditName)
+                  FlatButton(
+                    color: Colors.green,
+                    onPressed: _hasText
                         ? () {
-                            Provider.of<TaskViewModel>(context, listen: false)
-                                .deleteTask(widget.task.key);
-                            setTaskNormal();
-                          }
-                        : () {
                             Task _task = Task(
                               name: _textController.text,
                               isDone: widget.task.isDone,
@@ -145,13 +172,12 @@ class _TaskItemState extends State<TaskItem> {
                             Provider.of<TaskViewModel>(context, listen: false)
                                 .updateTask(widget.task.key, _task);
                             setTaskNormal();
-                          },
-                    child: _taskState == TaskState.ConfirmDelete
-                        ? Text(DELETE)
-                        : Text(SAVE),
-                    color: _taskState == TaskState.ConfirmDelete
-                        ? Colors.red
-                        : Colors.green,
+                          }
+                        : null,
+                    child: Text(
+                      SAVE,
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 SizedBox(width: 10),
               ],
