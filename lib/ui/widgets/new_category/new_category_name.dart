@@ -24,7 +24,7 @@ class CategoryName extends StatelessWidget {
             autofocus: true,
             textInputAction: TextInputAction.done,
             onSubmitted: onSubmitted,
-            style: TextStyle(fontSize: 24.0),
+            style: Theme.of(context).textTheme.headline4,
             decoration: BoxDecoration(
                 color: Colors.grey[50],
                 borderRadius: BorderRadius.circular(8.0),
@@ -39,10 +39,7 @@ class CategoryName extends StatelessWidget {
         SizedBox(height: 4.0),
         Text(
           CATEGORY_NAME,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey,
-          ),
+          style: Theme.of(context).textTheme.bodyText2,
         ),
         Spacer(),
         Row(

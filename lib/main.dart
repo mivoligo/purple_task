@@ -45,7 +45,57 @@ class MyApp extends StatelessWidget {
       title: APP_NAME,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+//        primarySwatch: Colors.blue,
+        primaryColor: Color(0xffe83f6f),
+        scaffoldBackgroundColor: Colors.grey[200],
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.grey[200],
+          elevation: 0,
+        ),
+        textTheme: TextTheme(
+            // category name
+            headline4: TextStyle(
+              color: Colors.black,
+              fontSize: 24.0,
+              fontWeight: FontWeight.w400,
+            ),
+            // hello
+            headline5: TextStyle(
+              color: Colors.white,
+              fontSize: 24.0,
+              fontWeight: FontWeight.w300,
+            ),
+            // greetings info
+            headline6: TextStyle(
+              color: Colors.white70,
+              fontSize: 18.0,
+              fontWeight: FontWeight.w300,
+            ),
+            // task name,
+            // info with number of tasks left for category
+            subtitle1: TextStyle(
+              color: Colors.black,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w400,
+            ),
+            // task name when done
+            subtitle2: TextStyle(
+              color: Colors.grey,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w300,
+              decoration: TextDecoration.lineThrough,
+            ),
+            // dialog title when adding new category
+            bodyText1: TextStyle(
+              color: Colors.grey[700],
+              fontSize: 18.0,
+              fontWeight: FontWeight.w400,
+            ),
+            // info text when adding new category
+            bodyText2: TextStyle(
+              color: Colors.grey,
+              fontSize: 14.0,
+            )),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomeMobile(),

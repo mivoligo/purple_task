@@ -22,7 +22,7 @@ class CategoryIcon extends StatelessWidget {
           child: Consumer<NewCategory>(
             builder: (_, value, __) => Text(
               value.name,
-              style: TextStyle(fontSize: 24.0),
+              style: Theme.of(context).textTheme.headline4,
             ),
           ),
         ),
@@ -34,10 +34,7 @@ class CategoryIcon extends StatelessWidget {
         Text(
           ICON,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey,
-          ),
+          style: Theme.of(context).textTheme.bodyText2,
         ),
         Spacer(),
         Row(

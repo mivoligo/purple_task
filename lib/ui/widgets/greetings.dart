@@ -27,7 +27,7 @@ class Greetings extends StatelessWidget {
         SizedBox(height: distance),
         Text(
           greetings,
-          style: TextStyle(color: Colors.white, fontSize: 24),
+          style: Theme.of(context).textTheme.headline5,
         ),
         SizedBox(height: 8.0),
         Consumer<TaskViewModel>(
@@ -47,7 +47,7 @@ class Greetings extends StatelessWidget {
             }
             return Text(
               text,
-              style: TextStyle(color: Colors.white70, fontSize: 16),
+              style: Theme.of(context).textTheme.headline6,
             );
           },
         ),

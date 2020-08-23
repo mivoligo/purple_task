@@ -164,10 +164,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                               SizedBox(height: 8.0),
                               Text(
                                 NEW_CATEGORY,
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.grey,
-                                ),
+                                style: Theme.of(context).textTheme.bodyText1,
                               ),
                               SizedBox(height: 8.0),
                               Expanded(

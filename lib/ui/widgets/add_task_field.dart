@@ -52,6 +52,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
     return CupertinoTextField(
       controller: _controller,
       placeholder: ADD_NEW_TASK,
+      style: Theme.of(context).textTheme.subtitle1,
       suffix: IconButton(
         color: _hasText ? Colors.blue : Colors.grey,
         icon: Icon(

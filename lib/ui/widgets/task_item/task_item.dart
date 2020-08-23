@@ -90,6 +90,7 @@ class _TaskItemState extends State<TaskItem> {
                     ? CupertinoTextField(
                         controller: _textController,
                         autofocus: true,
+                        style: Theme.of(context).textTheme.subtitle1,
                         onSubmitted: _hasText
                             ? (v) {
                                 Task _task = Task(
@@ -109,13 +110,9 @@ class _TaskItemState extends State<TaskItem> {
                             _taskState == TaskState.Normal ? setTaskEdit : null,
                         child: Text(
                           widget.task.name,
-                          style: TextStyle(
-                            color:
-                                widget.task.isDone ? Colors.grey : Colors.black,
-                            decoration: widget.task.isDone
-                                ? TextDecoration.lineThrough
-                                : null,
-                          ),
+                          style: widget.task.isDone
+                              ? Theme.of(context).textTheme.subtitle2
+                              : Theme.of(context).textTheme.subtitle1,
                         ),
                       ),
               ),

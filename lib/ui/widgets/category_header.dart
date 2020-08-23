@@ -19,12 +19,17 @@ class CategoryHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(description),
+        // number of tasks to do
+        Text(
+          description,
+          style: Theme.of(context).textTheme.subtitle1,
+        ),
         SizedBox(height: 8.0),
+        // category name
         Text(
           title,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontSize: 24),
+          style: Theme.of(context).textTheme.headline4,
         ),
         SizedBox(height: 8.0),
         Row(

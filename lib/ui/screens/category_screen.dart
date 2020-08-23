@@ -118,7 +118,6 @@ class _CategoryScreenState extends State<CategoryScreen>
             ),
           ),
           Scaffold(
-            backgroundColor: Colors.grey[200],
             body: Column(
               children: [
                 AnimatedBuilder(
@@ -249,8 +248,6 @@ class _CategoryScreenState extends State<CategoryScreen>
                   _navigationIndex = index;
                 });
               },
-              elevation: 0.0,
-              backgroundColor: Colors.grey[200],
               items: [
                 BottomNavigationBarItem(
                   title: Text(ALL),
