@@ -20,9 +20,10 @@ void main() async {
   Hive
     ..init(dir.path)
     ..registerAdapter(CategoryAdapter())
-    ..registerAdapter(TaskAdapter())
-    ..openBox<Category>(CATEGORY_BOX)
-    ..openBox<Task>(TASK_BOX);
+    ..registerAdapter(TaskAdapter());
+  // make sure hive boxes are opened before showing UI
+  await Hive.openBox<Category>(CATEGORY_BOX);
+  await Hive.openBox<Task>(TASK_BOX);
   runApp(
     MultiProvider(
       providers: [
