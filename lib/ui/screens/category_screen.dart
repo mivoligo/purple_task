@@ -32,10 +32,6 @@ class _CategoryScreenState extends State<CategoryScreen>
   AnimationController _animationController;
   Animation _fadeAnimation;
   ScrollController _scrollController;
-  double _appWidth;
-  double _appHeight;
-
-  bool get _isPortrait => _appWidth < _appHeight;
 
   List<Task> _listOfAllTasks;
   List<Task> _listOfPlannedTasks;
@@ -99,9 +95,6 @@ class _CategoryScreenState extends State<CategoryScreen>
 
   @override
   Widget build(BuildContext context) {
-    double _paddingTop = MediaQuery.of(context).padding.top;
-    _appWidth = MediaQuery.of(context).size.width;
-    _appHeight = MediaQuery.of(context).size.height;
     final taskModel = Provider.of<TaskViewModel>(context);
     int categoryId = widget.currentCategory.id;
     _listOfAllTasks = taskModel.getAllTasksForCategory(categoryId);
@@ -114,183 +107,163 @@ class _CategoryScreenState extends State<CategoryScreen>
     });
 
     print('category screen is rebuilding');
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.grey[850],
-              Color(widget.currentCategory.color),
-              Color(widget.currentCategory.color)
-            ],
-          ),
-        ),
-        child: Stack(
-          children: [
-            Hero(
-              tag: 'main${widget.currentCategory.name}',
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                color: Colors.grey[200],
-              ),
+    return SafeArea(
+      child: Stack(
+        children: [
+          Hero(
+            tag: 'main${widget.currentCategory.name}',
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              color: Colors.grey[200],
             ),
-            Positioned(
-              left: 16.0,
-              top: 16.0 + _paddingTop,
-              right: 16.0,
-              // Animation used to avoid showing back button to early
-              child: AnimatedBuilder(
-                  animation: _fadeAnimation,
-                  builder: (context, child) {
-                    return Opacity(
-                      opacity: _fadeAnimation.value,
-                      child: Material(
-                        type: MaterialType.transparency,
-                        child: Row(
-                          children: [
-                            // Go back button
-                            IconButton(
-                              icon: Icon(AntIcons.arrow_left),
-                              color: Colors.grey,
-                              tooltip: CLOSE,
-                              onPressed: () {
-                                _animationController.reverse();
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            Spacer(),
-                            // Menu button
-                            IconButton(
-                              icon: Icon(AntIcons.menu),
-                              color: Colors.grey,
-                              tooltip: EDIT,
-                              onPressed: () {
-                                Provider.of<TaskViewModel>(context,
-                                        listen: false)
-                                    .deleteAllTasksForCategory(
-                                        widget.currentCategory.id);
-                                Provider.of<CategoryViewModel>(context,
-                                        listen: false)
-                                    .deleteCategory(widget.currentIndex);
-                                _animationController.reverse();
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
+          ),
+          Scaffold(
+            backgroundColor: Colors.grey[200],
+            body: Column(
+              children: [
+                AnimatedBuilder(
+                    animation: _fadeAnimation,
+                    builder: (context, child) {
+                      return Opacity(
+                        opacity: _fadeAnimation.value,
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: Row(
+                            children: [
+                              // Go back button
+                              IconButton(
+                                icon: Icon(AntIcons.arrow_left),
+                                color: Colors.grey,
+                                tooltip: CLOSE,
+                                onPressed: () {
+                                  _animationController.reverse();
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              Spacer(),
+                              // Menu button
+                              IconButton(
+                                icon: Icon(AntIcons.menu),
+                                color: Colors.grey,
+                                tooltip: EDIT,
+                                onPressed: () {
+                                  Provider.of<TaskViewModel>(context,
+                                          listen: false)
+                                      .deleteAllTasksForCategory(
+                                          widget.currentCategory.id);
+                                  Provider.of<CategoryViewModel>(context,
+                                          listen: false)
+                                      .deleteCategory(widget.currentIndex);
+                                  _animationController.reverse();
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  }),
-            ),
-
-            // Category icon
-            Positioned(
-              left: 48.0,
-              top: 92.0 + _paddingTop,
-              child: Hero(
-                tag: 'icon${widget.currentCategory.name}',
-                child: Icon(
-                  IconData(
-                    widget.currentCategory.icon,
-                    fontFamily: 'AntIcons',
-                    fontPackage: 'ant_icons',
-                  ),
-                  color: Color(widget.currentCategory.color),
-                  size: 40,
-                ),
-              ),
-            ),
-            // Header
-            Positioned(
-              left: 48.0,
-              top: 148.0 + _paddingTop,
-              // TODO Make sure to improve this for desktop
-              right: _isPortrait ? 48.0 : _appWidth / 2 + 32.0,
-              child: Hero(
-                tag: 'header${widget.currentCategory.name}',
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: Consumer<TaskViewModel>(
-                    builder: (_, model, __) {
-                      int numberOfTasks =
-                          model.numberOfPlannedTasksForCategory(categoryId);
-                      String _descriptionText;
-                      switch (numberOfTasks) {
-                        case 0:
-                          _descriptionText = '$numberOfTasks $TASK_PLURAL';
-                          break;
-                        case 1:
-                          _descriptionText = '$numberOfTasks $TASK_SINGULAR';
-                          break;
-                        default:
-                          _descriptionText = '$numberOfTasks $TASK_PLURAL';
-                      }
-                      return CategoryHeader(
-                        title: widget.currentCategory.name,
-                        description: _descriptionText,
-                        progress: model.completionProgress(categoryId),
-                        color: Color(widget.currentCategory.color),
                       );
-                    },
+                    }),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 36.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Category icon
+                        Hero(
+                          tag: 'icon${widget.currentCategory.name}',
+                          child: Icon(
+                              IconData(
+                                widget.currentCategory.icon,
+                                fontFamily: 'AntIcons',
+                                fontPackage: 'ant_icons',
+                              ),
+                              color: Color(widget.currentCategory.color),
+                              size: 40),
+                        ),
+                        SizedBox(height: 24.0),
+                        // header with number of tasks, name and progress
+                        Hero(
+                          tag: 'header${widget.currentCategory.name}',
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: Consumer<TaskViewModel>(
+                              builder: (_, model, __) {
+                                int numberOfTasks =
+                                    model.numberOfPlannedTasksForCategory(
+                                        categoryId);
+                                String _descriptionText;
+                                switch (numberOfTasks) {
+                                  case 0:
+                                    _descriptionText =
+                                        '$numberOfTasks $TASK_PLURAL';
+                                    break;
+                                  case 1:
+                                    _descriptionText =
+                                        '$numberOfTasks $TASK_SINGULAR';
+                                    break;
+                                  default:
+                                    _descriptionText =
+                                        '$numberOfTasks $TASK_PLURAL';
+                                }
+                                return CategoryHeader(
+                                  title: widget.currentCategory.name,
+                                  description: _descriptionText,
+                                  progress:
+                                      model.completionProgress(categoryId),
+                                  color: Color(widget.currentCategory.color),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 16.0),
+                        // Add task field
+                        AddTaskField(
+                          addTask: () {
+                            String name = taskModel.newTaskName;
+                            int categoryId = widget.currentCategory.id;
+                            Task task = Task(
+                                name: name,
+                                categoryId: categoryId,
+                                isDone: false);
+                            taskModel.addTask(task);
+                            _needScroll = true;
+                          },
+                        ),
+                        Expanded(
+                          child: getTasksList(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-            // Add task field
-            Positioned(
-              left: 48.0,
-              top: 240.0 + _paddingTop,
-              right: 48.0,
-              bottom: 16.0,
-              child: Column(
-                children: [
-                  AddTaskField(
-                    addTask: () {
-                      String name = taskModel.newTaskName;
-                      int categoryId = widget.currentCategory.id;
-                      Task task = Task(
-                          name: name, categoryId: categoryId, isDone: false);
-                      taskModel.addTask(task);
-                      _needScroll = true;
-                    },
-                  ),
-                ],
-              ),
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _navigationIndex,
+              onTap: (index) {
+                setState(() {
+                  _navigationIndex = index;
+                });
+              },
+              elevation: 0.0,
+              backgroundColor: Colors.grey[200],
+              items: [
+                BottomNavigationBarItem(
+                  title: Text(ALL),
+                  icon: Icon(AntIcons.profile),
+                ),
+                BottomNavigationBarItem(
+                  title: Text(TO_DO),
+                  icon: Icon(AntIcons.edit),
+                ),
+                BottomNavigationBarItem(
+                  title: Text(COMPLETED),
+                  icon: Icon(AntIcons.check_circle),
+                ),
+              ],
             ),
-            // List of tasks
-            Positioned(
-              left: 48.0,
-              top: 290.0 + _paddingTop,
-              right: 48.0,
-              bottom: 16.0,
-              child: getTasksList(),
-            )
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _navigationIndex,
-        onTap: (index) {
-          setState(() {
-            _navigationIndex = index;
-          });
-        },
-        elevation: 0.0,
-        backgroundColor: Colors.grey[200],
-        items: [
-          BottomNavigationBarItem(
-            title: Text(ALL),
-            icon: Icon(AntIcons.profile),
-          ),
-          BottomNavigationBarItem(
-            title: Text(TO_DO),
-            icon: Icon(AntIcons.edit),
-          ),
-          BottomNavigationBarItem(
-            title: Text(COMPLETED),
-            icon: Icon(AntIcons.check_circle),
           ),
         ],
       ),

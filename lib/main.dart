@@ -14,14 +14,15 @@ import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/view_models/task_view_model.dart';
 
 void main() async {
-  Directory dir = await pathProvider.getApplicationSupportDirectory();
+  WidgetsFlutterBinding.ensureInitialized();
+
+  Directory dir = await pathProvider.getApplicationDocumentsDirectory();
   Hive
     ..init(dir.path)
     ..registerAdapter(CategoryAdapter())
     ..registerAdapter(TaskAdapter())
     ..openBox<Category>(CATEGORY_BOX)
     ..openBox<Task>(TASK_BOX);
-
   runApp(
     MultiProvider(
       providers: [
