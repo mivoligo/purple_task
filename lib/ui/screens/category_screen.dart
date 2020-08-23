@@ -163,6 +163,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                         ),
                       );
                     }),
+                SizedBox(height: 16.0),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 36.0),
@@ -231,6 +232,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                             _needScroll = true;
                           },
                         ),
+                        SizedBox(height: 16.0),
                         Expanded(
                           child: getTasksList(),
                         ),

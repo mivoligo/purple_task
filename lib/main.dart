@@ -16,7 +16,7 @@ import 'package:to_do/ui/view_models/task_view_model.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  Directory dir = await pathProvider.getApplicationDocumentsDirectory();
+  Directory dir = await pathProvider.getApplicationSupportDirectory();
   Hive
     ..init(dir.path)
     ..registerAdapter(CategoryAdapter())
