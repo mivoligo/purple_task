@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/task.dart';
 import 'package:to_do/ui/view_models/task_view_model.dart';
+import 'package:to_do/ui/widgets/simple_button.dart';
 
 enum TaskState {
   Normal,
@@ -134,30 +135,24 @@ class _TaskItemState extends State<TaskItem> {
             child: Row(
               children: [
                 SizedBox(width: 10),
-                FlatButton(
+                SimpleButton(
                   onPressed: setTaskNormal,
-                  child: Text(
-                    CANCEL,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  color: Colors.grey,
+                  text: CANCEL,
                 ),
                 Spacer(),
                 if (_taskState == TaskState.ConfirmDelete)
-                  FlatButton(
+                  SimpleButton(
+                    text: DELETE,
                     color: Colors.red,
                     onPressed: () {
                       Provider.of<TaskViewModel>(context, listen: false)
                           .deleteTask(widget.task.key);
                       setTaskNormal();
                     },
-                    child: Text(
-                      DELETE,
-                      style: TextStyle(color: Colors.white),
-                    ),
                   ),
                 if (_taskState == TaskState.EditName)
-                  FlatButton(
+                  SimpleButton(
+                    text: SAVE,
                     color: Colors.green,
                     onPressed: _hasText
                         ? () {
@@ -171,10 +166,6 @@ class _TaskItemState extends State<TaskItem> {
                             setTaskNormal();
                           }
                         : null,
-                    child: Text(
-                      SAVE,
-                      style: TextStyle(color: Colors.white),
-                    ),
                   ),
                 SizedBox(width: 10),
               ],

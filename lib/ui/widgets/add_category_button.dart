@@ -25,7 +25,7 @@ class AddCategoryButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(60.0),
         ),
         child: Container(
-          height: 48,
+          height: 40,
           constraints: BoxConstraints(
             // Make sure the button is not too wide
             maxWidth: min(300, MediaQuery.of(context).size.width - 80),
@@ -41,7 +41,7 @@ class AddCategoryButton extends StatelessWidget {
                   // Flexible needed for TextOverflow to work
                   child: Text(
                     text,
-                    style: TextStyle(fontSize: 18),
+                    style: Theme.of(context).textTheme.subtitle1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),

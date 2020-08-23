@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
+import 'package:to_do/ui/widgets/simple_button.dart';
 
 class CategoryName extends StatelessWidget {
   final Function onSubmitted;
@@ -45,9 +46,8 @@ class CategoryName extends StatelessWidget {
         Row(
           children: [
             SizedBox(width: 16.0),
-            FlatButton(
-              color: Colors.grey[400],
-              child: Text(CANCEL),
+            SimpleButton(
+              text: CANCEL,
               onPressed: () {
                 Provider.of<NewCategory>(context, listen: false)
                     .addingNewCategoryCompleted = false;
@@ -55,9 +55,9 @@ class CategoryName extends StatelessWidget {
               },
             ),
             Spacer(),
-            FlatButton(
+            SimpleButton(
+              text: NEXT,
               color: Colors.green,
-              child: Text(NEXT),
               onPressed: onNextPressed,
             ),
             SizedBox(width: 16.0),

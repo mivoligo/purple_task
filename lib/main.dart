@@ -95,6 +95,12 @@ class MyApp extends StatelessWidget {
             bodyText2: TextStyle(
               color: Colors.grey,
               fontSize: 14.0,
+            ),
+            button: TextStyle(
+              color: Colors.white,
+              fontSize: 14.0,
+              fontWeight: FontWeight.w400,
+              letterSpacing: 0.8,
             )),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),

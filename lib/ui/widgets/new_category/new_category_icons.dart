@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/widgets/new_category/icons_list.dart';
+import 'package:to_do/ui/widgets/simple_button.dart';
 
 class CategoryIcon extends StatelessWidget {
   final Function onNextPressed;
@@ -40,9 +41,8 @@ class CategoryIcon extends StatelessWidget {
         Row(
           children: [
             SizedBox(width: 16.0),
-            FlatButton(
-              color: Colors.grey[400],
-              child: Text(CANCEL),
+            SimpleButton(
+              text: CANCEL,
               onPressed: () {
                 Provider.of<NewCategory>(context, listen: false)
                     .addingNewCategoryCompleted = false;
@@ -50,10 +50,10 @@ class CategoryIcon extends StatelessWidget {
               },
             ),
             Spacer(),
-            FlatButton(
+            SimpleButton(
               autofocus: true,
+              text: NEXT,
               color: Colors.green,
-              child: Text(NEXT),
               onPressed: onNextPressed,
             ),
             SizedBox(width: 16.0),
