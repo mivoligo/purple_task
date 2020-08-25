@@ -19,9 +19,9 @@ class _HomeMobileState extends State<HomeMobile>
     with SingleTickerProviderStateMixin {
   double _appWidth;
   double _appHeight;
+  bool _isWide;
 
   bool get _isPortrait => _appWidth < _appHeight;
-  double _verticalPadding;
   Color _color = Colors.deepPurple;
   AnimationController _animationController;
   PageController _pageController;
@@ -50,7 +50,7 @@ class _HomeMobileState extends State<HomeMobile>
     print('is rebuilding');
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
-    _verticalPadding = MediaQuery.of(context).padding.vertical;
+    _isWide = MediaQuery.of(context).size.width > 600;
     _newCategory = Provider.of<NewCategory>(context);
     _categoryViewModel = Provider.of<CategoryViewModel>(context);
     _categoryList = _categoryViewModel.getListOfCategories();
@@ -134,32 +134,47 @@ class _HomeMobileState extends State<HomeMobile>
                 }),
             // Category cards
             Positioned(
-              left: _isPortrait ? 0 : _appWidth / 2,
+              left: 0,
               right: 0,
               bottom: 64.0,
               child: Container(
-                height: _isPortrait
-                    ? _appHeight * 0.5
-                    : _appHeight - _verticalPadding - 64.0,
-                child: PageView.builder(
-                  controller: _pageController,
-                  itemCount: _categoryList.length,
-                  itemBuilder: (context, index) {
-                    Category category = _categoryList[index];
-                    return CategoryCard(
-                      category: category,
-                      onTap: () {
-                        openCategoryScreen(context, index);
-                      },
-                    );
-                  },
-                  onPageChanged: (int index) => setState(
-                    () {
-                      // for setting background color same as current category
-                      _currentCategory = index;
-                    },
-                  ),
-                ),
+                height: _appHeight * 0.5,
+                child: _isWide
+                    ? ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _categoryList.length,
+                        itemBuilder: (context, index) {
+                          Category category = _categoryList[index];
+                          return Container(
+                            width: 450,
+                            child: CategoryCard(
+                              category: category,
+                              onTap: () {
+                                openCategoryScreen(context, index);
+                              },
+                            ),
+                          );
+                        },
+                      )
+                    : PageView.builder(
+                        controller: _pageController,
+                        itemCount: _categoryList.length,
+                        itemBuilder: (context, index) {
+                          Category category = _categoryList[index];
+                          return CategoryCard(
+                            category: category,
+                            onTap: () {
+                              openCategoryScreen(context, index);
+                            },
+                          );
+                        },
+                        onPageChanged: (int index) => setState(
+                          () {
+                            // for setting background color same as current category
+                            _currentCategory = index;
+                          },
+                        ),
+                      ),
               ),
             ),
           ],
