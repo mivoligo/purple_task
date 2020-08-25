@@ -21,7 +21,6 @@ class _HomeMobileState extends State<HomeMobile>
   double _appHeight;
   bool _isWide;
 
-  bool get _isPortrait => _appWidth < _appHeight;
   Color _color = Colors.deepPurple;
   AnimationController _animationController;
   PageController _pageController;
@@ -75,7 +74,7 @@ class _HomeMobileState extends State<HomeMobile>
     return Scaffold(
       body: SafeArea(
         child: Stack(
-          alignment: _isPortrait ? Alignment.center : Alignment.bottomRight,
+          alignment: Alignment.center,
           children: [
             // colored background
             AnimatedContainer(
@@ -118,7 +117,6 @@ class _HomeMobileState extends State<HomeMobile>
                 builder: (context, child) {
                   return Positioned(
                     bottom: animDouble(_animationController, 16.0, 64.0).value,
-                    right: _isPortrait ? null : 16.0,
                     child: Hero(
                       tag: 'title',
                       child: AddCategoryButton(
