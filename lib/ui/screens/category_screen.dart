@@ -297,27 +297,32 @@ class _CategoryScreenState extends State<CategoryScreen>
                   ),
                 ],
               ),
-              bottomNavigationBar: BottomNavigationBar(
-                currentIndex: _navigationIndex,
-                onTap: (index) {
-                  setState(() {
-                    _navigationIndex = index;
-                  });
-                },
-                items: [
-                  BottomNavigationBarItem(
-                    title: Text(ALL),
-                    icon: Icon(AntIcons.profile),
-                  ),
-                  BottomNavigationBarItem(
-                    title: Text(TO_DO),
-                    icon: Icon(AntIcons.edit),
-                  ),
-                  BottomNavigationBarItem(
-                    title: Text(COMPLETED),
-                    icon: Icon(AntIcons.check_circle),
-                  ),
-                ],
+              bottomNavigationBar: AnimatedBuilder(
+                animation: _fadeAnimation,
+                builder: (context, child) =>
+                    Opacity(opacity: _fadeAnimation.value, child: child),
+                child: BottomNavigationBar(
+                  currentIndex: _navigationIndex,
+                  onTap: (index) {
+                    setState(() {
+                      _navigationIndex = index;
+                    });
+                  },
+                  items: [
+                    BottomNavigationBarItem(
+                      title: Text(ALL),
+                      icon: Icon(AntIcons.profile),
+                    ),
+                    BottomNavigationBarItem(
+                      title: Text(TO_DO),
+                      icon: Icon(AntIcons.edit),
+                    ),
+                    BottomNavigationBarItem(
+                      title: Text(COMPLETED),
+                      icon: Icon(AntIcons.check_circle),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
