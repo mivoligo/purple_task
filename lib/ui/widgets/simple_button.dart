@@ -17,6 +17,7 @@ class SimpleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
+      autofocus: autofocus,
       color: color,
       onPressed: onPressed,
       child: Text(
