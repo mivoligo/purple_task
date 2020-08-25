@@ -1,47 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do/globals/strings/strings.dart';
+import 'package:to_do/models/category.dart';
+import 'package:to_do/ui/view_models/task_view_model.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 
 class CategoryCard extends StatelessWidget {
-  final String name;
-  final int color;
-  final int icon;
-  final int numberOfTasks;
-  final double completionProgress;
-  final String editTooltip;
-
+  final Category category;
   final VoidCallback onTap;
 
   const CategoryCard({
     Key key,
-    this.name,
-    this.color,
-    this.icon,
-    this.numberOfTasks,
-    this.completionProgress,
-    this.editTooltip,
+    this.category,
     this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     String _descriptionText;
-    switch (numberOfTasks) {
+    int _numberOfTasks = Provider.of<TaskViewModel>(context, listen: false)
+        .numberOfPlannedTasksForCategory(category.id);
+    double _completionProgress =
+        Provider.of<TaskViewModel>(context, listen: false)
+            .completionProgress(category.id);
+    switch (_numberOfTasks) {
       case 0:
-        _descriptionText = '$numberOfTasks $TASK_PLURAL';
+        _descriptionText = '$_numberOfTasks $TASK_PLURAL';
         break;
       case 1:
-        _descriptionText = '$numberOfTasks $TASK_SINGULAR';
+        _descriptionText = '$_numberOfTasks $TASK_SINGULAR';
         break;
       default:
-        _descriptionText = '$numberOfTasks $TASK_PLURAL';
+        _descriptionText = '$_numberOfTasks $TASK_PLURAL';
     }
     return Padding(
       padding: EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
       child: Stack(
         children: [
           Hero(
-            tag: 'main$name',
+            tag: 'main${category.name}',
             child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -59,12 +56,15 @@ class CategoryCard extends StatelessWidget {
             left: 16.0,
             top: 16.0,
             child: Hero(
-              tag: 'icon$name',
+              tag: 'icon${category.name}',
               child: Icon(
-                IconData(icon,
-                    fontFamily: 'AntIcons', fontPackage: 'ant_icons'),
+                IconData(
+                  category.icon,
+                  fontFamily: 'AntIcons',
+                  fontPackage: 'ant_icons',
+                ),
                 size: 40.0,
-                color: Color(color),
+                color: Color(category.color),
               ),
             ),
           ),
@@ -73,14 +73,14 @@ class CategoryCard extends StatelessWidget {
             right: 24.0,
             bottom: 16.0,
             child: Hero(
-              tag: 'header$name',
+              tag: 'header${category.name}',
               child: Material(
                 type: MaterialType.transparency,
                 child: CategoryHeader(
-                  title: name,
-                  color: Color(color),
+                  title: category.name,
+                  color: Color(category.color),
                   description: _descriptionText,
-                  progress: completionProgress,
+                  progress: _completionProgress,
                 ),
               ),
             ),

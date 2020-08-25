@@ -6,7 +6,6 @@ import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/screens/category_screen.dart';
 import 'package:to_do/ui/screens/new_category_screen.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
-import 'package:to_do/ui/view_models/task_view_model.dart';
 import 'package:to_do/ui/widgets/add_category_button.dart';
 import 'package:to_do/ui/widgets/category_card.dart';
 import 'package:to_do/ui/widgets/greetings.dart';
@@ -142,33 +141,23 @@ class _HomeMobileState extends State<HomeMobile>
                 height: _isPortrait
                     ? _appHeight * 0.5
                     : _appHeight - _verticalPadding - 64.0,
-                child: Consumer<TaskViewModel>(
-                  builder: (_, taskModel, __) => PageView.builder(
-                    controller: _pageController,
-                    itemCount: _categoryList.length,
-                    itemBuilder: (context, index) {
-                      Category category = _categoryList[index];
-                      int categoryId = category.id;
-                      return CategoryCard(
-                        name: category.name,
-                        icon: category.icon,
-                        color: category.color,
-                        numberOfTasks: taskModel
-                            .numberOfPlannedTasksForCategory(categoryId),
-                        completionProgress:
-                            taskModel.completionProgress(categoryId),
-                        editTooltip: EDIT,
-                        onTap: () {
-                          openCategoryScreen(context, index);
-                        },
-                      );
-                    },
-                    onPageChanged: (int index) => setState(
-                      () {
-                        // for setting background color same as current category
-                        _currentCategory = index;
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: _categoryList.length,
+                  itemBuilder: (context, index) {
+                    Category category = _categoryList[index];
+                    return CategoryCard(
+                      category: category,
+                      onTap: () {
+                        openCategoryScreen(context, index);
                       },
-                    ),
+                    );
+                  },
+                  onPageChanged: (int index) => setState(
+                    () {
+                      // for setting background color same as current category
+                      _currentCategory = index;
+                    },
                   ),
                 ),
               ),
