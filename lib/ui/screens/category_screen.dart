@@ -120,13 +120,15 @@ class _CategoryScreenState extends State<CategoryScreen>
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
                   Colors.grey[850],
-                  Color(widget.currentCategory.color)
-                ])),
+                  Color(widget.currentCategory.color),
+                ],
+              ),
+            ),
           ),
           Positioned(
             width: _isWide ? 550 : _appWidth,
@@ -166,6 +168,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                             child: Row(
                               children: [
                                 // Go back button
+                                SizedBox(width: 8.0),
                                 IconButton(
                                   icon: Icon(AntIcons.arrow_left),
                                   color: Colors.grey,
@@ -193,6 +196,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     Navigator.of(context).pop();
                                   },
                                 ),
+                                SizedBox(width: 8.0),
                               ],
                             ),
                           ),
@@ -255,21 +259,37 @@ class _CategoryScreenState extends State<CategoryScreen>
                           ),
                           SizedBox(height: 16.0),
                           // Add task field
-                          AddTaskField(
-                            addTask: () {
-                              String name = taskModel.newTaskName;
-                              int categoryId = widget.currentCategory.id;
-                              Task task = Task(
-                                  name: name,
-                                  categoryId: categoryId,
-                                  isDone: false);
-                              taskModel.addTask(task);
-                              _needScroll = true;
+                          AnimatedBuilder(
+                            animation: _fadeAnimation,
+                            builder: (context, child) {
+                              return Opacity(
+                                opacity: _fadeAnimation.value,
+                                child: child,
+                              );
                             },
+                            child: AddTaskField(
+                              addTask: () {
+                                String name = taskModel.newTaskName;
+                                int categoryId = widget.currentCategory.id;
+                                Task task = Task(
+                                    name: name,
+                                    categoryId: categoryId,
+                                    isDone: false);
+                                taskModel.addTask(task);
+                                _needScroll = true;
+                              },
+                            ),
                           ),
                           SizedBox(height: 16.0),
                           Expanded(
-                            child: getTasksList(),
+                            child: AnimatedBuilder(
+                              animation: _fadeAnimation,
+                              builder: (context, child) => Opacity(
+                                opacity: _fadeAnimation.value,
+                                child: child,
+                              ),
+                              child: getTasksList(),
+                            ),
                           ),
                         ],
                       ),
