@@ -225,6 +225,19 @@ class _CategoryScreenState extends State<CategoryScreen>
                           // header with number of tasks, name and progress
                           Hero(
                             tag: 'header${widget.currentCategory.name}',
+                            // get rid of overflow error
+                            // https://github.com/flutter/flutter/issues/27320
+                            flightShuttleBuilder: (
+                              flightContext,
+                              animation,
+                              flightDirection,
+                              fromHeroContext,
+                              toHeroContext,
+                            ) {
+                              return SingleChildScrollView(
+                                child: fromHeroContext.widget,
+                              );
+                            },
                             child: Material(
                               type: MaterialType.transparency,
                               child: Consumer<TaskViewModel>(
