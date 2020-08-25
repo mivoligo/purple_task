@@ -97,6 +97,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
     double _appHeight = MediaQuery.of(context).size.height;
     double _verticalPadding = MediaQuery.of(context).padding.vertical;
     double _verticalInset = MediaQuery.of(context).viewInsets.vertical;
+    double _cardWidth = min(550, _appWidth - 64);
     double _cardHeight =
         min(400, _appHeight - _verticalPadding - _verticalInset - 32.0);
     newCategoryProvider = Provider.of<NewCategory>(context);
@@ -133,7 +134,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                         color: Colors.grey[100],
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      width: _appWidth - 64,
+                      width: _cardWidth,
                       height: _cardHeight,
                       child: Stack(
                         children: [
