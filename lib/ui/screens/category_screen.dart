@@ -119,7 +119,14 @@ class _CategoryScreenState extends State<CategoryScreen>
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            color: Color(widget.currentCategory.color),
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                  Colors.grey[850],
+                  Color(widget.currentCategory.color)
+                ])),
           ),
           Positioned(
             width: _isWide ? 550 : _appWidth,
