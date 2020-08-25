@@ -128,7 +128,16 @@ class _CategoryScreenState extends State<CategoryScreen>
             child: Hero(
               tag: 'main${widget.currentCategory.name}',
               child: Container(
-                color: Colors.grey[200],
+                decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xff45000000),
+                        offset: Offset(0.0, 4.0),
+                        blurRadius: 8.0,
+                      ),
+                    ]),
               ),
             ),
           ),
@@ -137,6 +146,7 @@ class _CategoryScreenState extends State<CategoryScreen>
             top: _isWide ? 50 : 0,
             bottom: _isWide ? 50 : 0,
             child: Scaffold(
+              backgroundColor: _isWide ? Colors.transparent : Colors.grey[200],
               body: Column(
                 children: [
                   AnimatedBuilder(

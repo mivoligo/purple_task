@@ -45,11 +45,9 @@ class MyApp extends StatelessWidget {
       title: APP_NAME,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-//        primarySwatch: Colors.blue,
         primaryColor: Color(0xffe83f6f),
-        scaffoldBackgroundColor: Colors.grey[200],
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.grey[200],
+          backgroundColor: Colors.transparent,
           elevation: 0,
         ),
         textTheme: TextTheme(
