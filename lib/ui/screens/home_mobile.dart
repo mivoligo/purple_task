@@ -152,6 +152,12 @@ class _HomeMobileState extends State<HomeMobile>
                               onTap: () {
                                 openCategoryScreen(context, index);
                               },
+                              // change background color on mouse hover
+                              onHover: (v) => {
+                                setState(() {
+                                  _currentCategory = index;
+                                })
+                              },
                             ),
                           );
                         },

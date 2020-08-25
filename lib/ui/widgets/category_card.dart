@@ -8,11 +8,13 @@ import 'package:to_do/ui/widgets/category_header.dart';
 class CategoryCard extends StatelessWidget {
   final Category category;
   final VoidCallback onTap;
+  final Function onHover;
 
   const CategoryCard({
     Key key,
     this.category,
     this.onTap,
+    this.onHover,
   }) : super(key: key);
 
   @override
@@ -89,6 +91,7 @@ class CategoryCard extends StatelessWidget {
             type: MaterialType.transparency,
             child: InkWell(
               onTap: onTap,
+              onHover: onHover,
             ),
           ),
         ],
