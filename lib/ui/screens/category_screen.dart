@@ -8,6 +8,7 @@ import 'package:to_do/models/task.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/view_models/task_view_model.dart';
 import 'package:to_do/ui/widgets/add_task_field.dart';
+import 'package:to_do/ui/widgets/category_menu_widget.dart';
 import 'package:to_do/ui/widgets/task_list/all_tasks_list.dart';
 import 'package:to_do/ui/widgets/category_header.dart';
 import 'package:to_do/ui/widgets/task_list/completed_tasks_list.dart';
@@ -180,22 +181,23 @@ class _CategoryScreenState extends State<CategoryScreen>
                                 ),
                                 Spacer(),
                                 // Menu button
-                                IconButton(
-                                  icon: Icon(AntIcons.menu),
-                                  color: Colors.grey,
-                                  tooltip: EDIT,
-                                  onPressed: () {
-                                    Provider.of<TaskViewModel>(context,
-                                            listen: false)
-                                        .deleteAllTasksForCategory(
-                                            widget.currentCategory.id);
-                                    Provider.of<CategoryViewModel>(context,
-                                            listen: false)
-                                        .deleteCategory(widget.currentIndex);
-                                    _animationController.reverse();
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
+                                CategoryMenuWidget(),
+//                                IconButton(
+//                                  icon: Icon(AntIcons.menu),
+//                                  color: Colors.grey,
+//                                  tooltip: EDIT,
+//                                  onPressed: () {
+//                                    Provider.of<TaskViewModel>(context,
+//                                            listen: false)
+//                                        .deleteAllTasksForCategory(
+//                                            widget.currentCategory.id);
+//                                    Provider.of<CategoryViewModel>(context,
+//                                            listen: false)
+//                                        .deleteCategory(widget.currentIndex);
+//                                    _animationController.reverse();
+//                                    Navigator.of(context).pop();
+//                                  },
+//                                ),
                                 SizedBox(width: 8.0),
                               ],
                             ),

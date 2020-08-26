@@ -26,3 +26,10 @@ const String TO_DO = 'To Do';
 const String TO_DO_TASKS = 'Planned Tasks';
 const String COMPLETED = 'Completed';
 const String COMPLETED_TASKS = 'Completed Tasks';
+// category menu items
+const String CHANGE_NAME = 'Change Name';
+const String CHANGE_COLOR = 'Change Color';
+const String CHANGE_ICON = 'Change Icon';
+const String DELETE_COMPLETED = 'Delete Completed Tasks';
+const String DELETE_ALL_TASKS = 'Delete All Tasks';
+const String DELETE_CATEGORY = 'Delete Category';
