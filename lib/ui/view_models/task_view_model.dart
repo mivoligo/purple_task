@@ -98,6 +98,7 @@ class TaskViewModel with ChangeNotifier {
     List _tasks =
         box.values.where((task) => task.categoryId == categoryId).toList();
     _tasks.forEach((element) => element.delete());
+    notifyListeners();
   }
 
   deleteCompletedTasksForCategory(int categoryId) {
@@ -106,5 +107,6 @@ class TaskViewModel with ChangeNotifier {
         .where((task) => task.categoryId == categoryId && task.isDone == true)
         .toList();
     _tasks.forEach((element) => element.delete());
+    notifyListeners();
   }
 }

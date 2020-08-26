@@ -181,7 +181,22 @@ class _CategoryScreenState extends State<CategoryScreen>
                                 ),
                                 Spacer(),
                                 // Menu button
-                                CategoryMenuWidget(),
+                                CategoryMenuWidget(
+                                  onDeleteCompleted: () =>
+                                      taskModel.deleteCompletedTasksForCategory(
+                                          categoryId),
+                                  onDeleteAll: () => taskModel
+                                      .deleteAllTasksForCategory(categoryId),
+                                  onDeleteCategory: () {
+                                    taskModel
+                                        .deleteAllTasksForCategory(categoryId);
+                                    Provider.of<CategoryViewModel>(context,
+                                            listen: false)
+                                        .deleteCategory(widget.currentIndex);
+                                    _animationController.reverse();
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
 //                                IconButton(
 //                                  icon: Icon(AntIcons.menu),
 //                                  color: Colors.grey,

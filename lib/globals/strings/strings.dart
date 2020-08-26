@@ -33,3 +33,11 @@ const String CHANGE_ICON = 'Change Icon';
 const String DELETE_COMPLETED = 'Delete Completed Tasks';
 const String DELETE_ALL_TASKS = 'Delete All Tasks';
 const String DELETE_CATEGORY = 'Delete Category';
+const String Q_DELETE_COMPLETED = 'Delete completed tasks?';
+const String D_DELETE_COMPLETED =
+    'All tasks marked as completed will be deleted';
+const String Q_DELETE_ALL = 'Delete all tasks?';
+const String D_DELETE_ALL = 'All tasks in this category will be deleted';
+const String Q_DELETE_CATEGORY = 'Delete category?';
+const String D_DELETE_CATEGORY =
+    'This category and all tasks in it will be deleted';
