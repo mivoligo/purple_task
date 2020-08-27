@@ -35,4 +35,11 @@ class CategoryViewModel with ChangeNotifier {
 
     notifyListeners();
   }
+
+  Category _currentCategory;
+  Category get currentCategory => _currentCategory;
+  set currentCategory(Category category) {
+    _currentCategory = category;
+    notifyListeners();
+  }
 }

@@ -1,28 +1,51 @@
 import 'package:ant_icons/ant_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do/globals/strings/strings.dart';
+import 'package:to_do/models/category.dart';
+import 'package:to_do/ui/view_models/category_view_model.dart';
+import 'package:to_do/ui/view_models/task_view_model.dart';
 import 'package:to_do/ui/widgets/confirmation_dialog.dart';
 
-class CategoryMenuWidget extends StatelessWidget {
-  final VoidCallback onDeleteCompleted;
-  final VoidCallback onDeleteAll;
-  final VoidCallback onDeleteCategory;
-  final VoidCallback onChangeName;
+class CategoryMenuWidget extends StatefulWidget {
   final VoidCallback onChangeColor;
   final VoidCallback onChangeIcon;
+  final int categoryIndex;
 
   const CategoryMenuWidget({
     Key key,
-    this.onDeleteCompleted,
-    this.onDeleteAll,
-    this.onDeleteCategory,
-    this.onChangeName,
     this.onChangeColor,
     this.onChangeIcon,
+//    @required this.categoryId,
+    @required this.categoryIndex,
   }) : super(key: key);
 
   @override
+  _CategoryMenuWidgetState createState() => _CategoryMenuWidgetState();
+}
+
+class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
+  TaskViewModel taskModel;
+  CategoryViewModel categoryModel;
+  final textController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    taskModel = Provider.of<TaskViewModel>(context, listen: false);
+    categoryModel = Provider.of<CategoryViewModel>(context, listen: false);
+
     return PopupMenuButton(
       icon: Icon(AntIcons.menu),
       offset: Offset(0, 48),
@@ -72,7 +95,8 @@ class CategoryMenuWidget extends StatelessWidget {
             content: Text(D_DELETE_COMPLETED),
             confirmationText: DELETE,
             confirmationColor: Colors.red,
-            onConfirm: onDeleteCompleted,
+            onConfirm: () => taskModel.deleteCompletedTasksForCategory(
+                categoryModel.currentCategory.id),
           ),
         );
         break;
@@ -84,7 +108,8 @@ class CategoryMenuWidget extends StatelessWidget {
             content: Text(D_DELETE_ALL),
             confirmationText: DELETE,
             confirmationColor: Colors.red,
-            onConfirm: onDeleteAll,
+            onConfirm: () => taskModel
+                .deleteAllTasksForCategory(categoryModel.currentCategory.id),
           ),
         );
         break;
@@ -96,19 +121,57 @@ class CategoryMenuWidget extends StatelessWidget {
             content: Text(D_DELETE_CATEGORY),
             confirmationText: DELETE,
             confirmationColor: Colors.red,
-            onConfirm: onDeleteCategory,
+            onConfirm: () {
+              taskModel
+                  .deleteAllTasksForCategory(categoryModel.currentCategory.id);
+              categoryModel.deleteCategory(widget.categoryIndex);
+              Navigator.of(context).pop();
+            },
           ),
         );
         break;
       case 4:
-        return onChangeName();
+        showDialog(
+          context: context,
+          builder: (context) {
+            textController.text = categoryModel.currentCategory.name;
+            return ConfirmationDialog(
+              title: Q_CHANGE_NAME,
+              content: CupertinoTextField(
+                controller: textController,
+                autofocus: true,
+                style: Theme.of(context).textTheme.subtitle1,
+                onSubmitted: (v) {
+                  updateCategoryName();
+                  Navigator.of(context).pop();
+                },
+              ),
+              confirmationText: SAVE,
+              confirmationColor: Colors.green,
+              onConfirm: () {
+                updateCategoryName();
+              },
+            );
+          },
+        );
         break;
       case 5:
-        return onChangeColor();
+        return widget.onChangeColor();
         break;
       case 6:
-        return onChangeIcon();
+        return widget.onChangeIcon();
         break;
     }
+  }
+
+  void updateCategoryName() {
+    Category _category = Category(
+      name: textController.text,
+      color: categoryModel.currentCategory.color,
+      icon: categoryModel.currentCategory.icon,
+      id: categoryModel.currentCategory.id,
+    );
+    categoryModel.updateCategory(widget.categoryIndex, _category);
+    categoryModel.currentCategory = _category;
   }
 }

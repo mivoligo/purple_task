@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/globals/strings/strings.dart';
-import 'package:to_do/models/category.dart';
 import 'package:to_do/models/task.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/view_models/task_view_model.dart';
@@ -15,12 +14,12 @@ import 'package:to_do/ui/widgets/task_list/completed_tasks_list.dart';
 import 'package:to_do/ui/widgets/task_list/planned_task_list.dart';
 
 class CategoryScreen extends StatefulWidget {
-  final Category currentCategory;
+//  final Category currentCategory;
   final int currentIndex;
 
   const CategoryScreen({
     Key key,
-    this.currentCategory,
+//    this.currentCategory,
     this.currentIndex,
   }) : super(key: key);
 
@@ -33,6 +32,7 @@ class _CategoryScreenState extends State<CategoryScreen>
   AnimationController _animationController;
   Animation _fadeAnimation;
   ScrollController _scrollController;
+  TextEditingController _categoryNameController;
 
   List<Task> _listOfAllTasks;
   List<Task> _listOfPlannedTasks;
@@ -86,6 +86,7 @@ class _CategoryScreenState extends State<CategoryScreen>
     );
     _animationController.forward();
     _scrollController = ScrollController();
+    _categoryNameController = TextEditingController();
     super.initState();
   }
 
@@ -93,6 +94,7 @@ class _CategoryScreenState extends State<CategoryScreen>
   void dispose() {
     _animationController.dispose();
     _scrollController.dispose();
+    _categoryNameController.dispose();
     print('dispose');
     super.dispose();
   }
@@ -102,7 +104,9 @@ class _CategoryScreenState extends State<CategoryScreen>
     _appWidth = MediaQuery.of(context).size.width;
     _isWide = MediaQuery.of(context).size.width > 600;
     final taskModel = Provider.of<TaskViewModel>(context);
-    int categoryId = widget.currentCategory.id;
+    final categoryModel =
+        Provider.of<CategoryViewModel>(context, listen: false);
+    int categoryId = categoryModel.currentCategory.id;
     _listOfAllTasks = taskModel.getAllTasksForCategory(categoryId);
     _listOfPlannedTasks = taskModel.getPlannedTasksForCategory(categoryId);
     _listOfCompletedTasks = taskModel.getCompletedTasksForCategory(categoryId);
@@ -126,7 +130,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.grey[850],
-                  Color(widget.currentCategory.color),
+                  Color(categoryModel.currentCategory.color),
                 ],
               ),
             ),
@@ -136,7 +140,7 @@ class _CategoryScreenState extends State<CategoryScreen>
             top: _isWide ? 50 : 0,
             bottom: _isWide ? 50 : 0,
             child: Hero(
-              tag: 'main${widget.currentCategory.name}',
+              tag: 'main${categoryModel.currentCategory.name}',
               child: Container(
                 decoration: BoxDecoration(
                     color: Colors.grey[200],
@@ -182,20 +186,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                 Spacer(),
                                 // Menu button
                                 CategoryMenuWidget(
-                                  onDeleteCompleted: () =>
-                                      taskModel.deleteCompletedTasksForCategory(
-                                          categoryId),
-                                  onDeleteAll: () => taskModel
-                                      .deleteAllTasksForCategory(categoryId),
-                                  onDeleteCategory: () {
-                                    taskModel
-                                        .deleteAllTasksForCategory(categoryId);
-                                    Provider.of<CategoryViewModel>(context,
-                                            listen: false)
-                                        .deleteCategory(widget.currentIndex);
-                                    _animationController.reverse();
-                                    Navigator.of(context).pop();
-                                  },
+                                  categoryIndex: widget.currentIndex,
                                 ),
                                 SizedBox(width: 8.0),
                               ],
@@ -212,20 +203,21 @@ class _CategoryScreenState extends State<CategoryScreen>
                         children: [
                           // Category icon
                           Hero(
-                            tag: 'icon${widget.currentCategory.name}',
+                            tag: 'icon${categoryModel.currentCategory.name}',
                             child: Icon(
                                 IconData(
-                                  widget.currentCategory.icon,
+                                  categoryModel.currentCategory.icon,
                                   fontFamily: 'AntIcons',
                                   fontPackage: 'ant_icons',
                                 ),
-                                color: Color(widget.currentCategory.color),
+                                color:
+                                    Color(categoryModel.currentCategory.color),
                                 size: 40),
                           ),
                           SizedBox(height: 24.0),
                           // header with number of tasks, name and progress
                           Hero(
-                            tag: 'header${widget.currentCategory.name}',
+                            tag: 'header${categoryModel.currentCategory.name}',
                             // get rid of overflow error
                             // https://github.com/flutter/flutter/issues/27320
                             flightShuttleBuilder: (
@@ -241,10 +233,11 @@ class _CategoryScreenState extends State<CategoryScreen>
                             },
                             child: Material(
                               type: MaterialType.transparency,
-                              child: Consumer<TaskViewModel>(
-                                builder: (_, model, __) {
-                                  int numberOfTasks =
-                                      model.numberOfPlannedTasksForCategory(
+                              child:
+                                  Consumer2<CategoryViewModel, TaskViewModel>(
+                                builder: (_, _categoryModel, _taskModel, __) {
+                                  int numberOfTasks = _taskModel
+                                      .numberOfPlannedTasksForCategory(
                                           categoryId);
                                   String _descriptionText;
                                   switch (numberOfTasks) {
@@ -261,11 +254,12 @@ class _CategoryScreenState extends State<CategoryScreen>
                                           '$numberOfTasks $TASK_PLURAL';
                                   }
                                   return CategoryHeader(
-                                    title: widget.currentCategory.name,
+                                    title: _categoryModel.currentCategory.name,
                                     description: _descriptionText,
-                                    progress:
-                                        model.completionProgress(categoryId),
-                                    color: Color(widget.currentCategory.color),
+                                    progress: _taskModel
+                                        .completionProgress(categoryId),
+                                    color: Color(
+                                        _categoryModel.currentCategory.color),
                                   );
                                 },
                               ),
@@ -284,7 +278,8 @@ class _CategoryScreenState extends State<CategoryScreen>
                             child: AddTaskField(
                               addTask: () {
                                 String name = taskModel.newTaskName;
-                                int categoryId = widget.currentCategory.id;
+                                int categoryId =
+                                    categoryModel.currentCategory.id;
                                 Task task = Task(
                                     name: name,
                                     categoryId: categoryId,

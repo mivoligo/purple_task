@@ -189,10 +189,11 @@ class _HomeMobileState extends State<HomeMobile>
 
   void openCategoryScreen(BuildContext context, int index) async {
     _animationController.forward();
+    _categoryViewModel.currentCategory = _categoryList[index];
     await Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, anim1, anim2) => CategoryScreen(
-          currentCategory: _categoryList[index],
+//          currentCategory: _categoryList[index],
           currentIndex: index,
         ),
         transitionsBuilder: (context, anim1, anim2, child) {
