@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/ui/widgets/simple_button.dart';
 
@@ -26,6 +27,7 @@ class ConfirmationDialog extends StatelessWidget {
         style: Theme.of(context).textTheme.headline4,
       ),
       content: content,
+      actionsPadding: EdgeInsets.symmetric(horizontal: 8.0),
       actions: [
         SimpleButton(
           text: CANCEL,

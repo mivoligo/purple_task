@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class SimpleButton extends StatelessWidget {
   final String text;
@@ -20,6 +21,7 @@ class SimpleButton extends StatelessWidget {
       autofocus: autofocus,
       color: color,
       onPressed: onPressed,
+      padding: EdgeInsets.all(16),
       child: Text(
         text,
         style: Theme.of(context).textTheme.button,

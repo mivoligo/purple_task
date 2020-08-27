@@ -197,22 +197,6 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     Navigator.of(context).pop();
                                   },
                                 ),
-//                                IconButton(
-//                                  icon: Icon(AntIcons.menu),
-//                                  color: Colors.grey,
-//                                  tooltip: EDIT,
-//                                  onPressed: () {
-//                                    Provider.of<TaskViewModel>(context,
-//                                            listen: false)
-//                                        .deleteAllTasksForCategory(
-//                                            widget.currentCategory.id);
-//                                    Provider.of<CategoryViewModel>(context,
-//                                            listen: false)
-//                                        .deleteCategory(widget.currentIndex);
-//                                    _animationController.reverse();
-//                                    Navigator.of(context).pop();
-//                                  },
-//                                ),
                                 SizedBox(width: 8.0),
                               ],
                             ),

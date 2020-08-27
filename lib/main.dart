@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/globals/hive_names.dart';
@@ -49,6 +50,9 @@ class MyApp extends StatelessWidget {
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Colors.transparent,
           elevation: 0,
+        ),
+        buttonBarTheme: ButtonBarThemeData(
+          alignment: MainAxisAlignment.spaceBetween,
         ),
         textTheme: TextTheme(
             // category name
