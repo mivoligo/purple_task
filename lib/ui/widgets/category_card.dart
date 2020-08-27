@@ -40,7 +40,7 @@ class CategoryCard extends StatelessWidget {
       child: Stack(
         children: [
           Hero(
-            tag: 'main${category.name}',
+            tag: 'main${category.id}',
             child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -58,7 +58,7 @@ class CategoryCard extends StatelessWidget {
             left: 16.0,
             top: 16.0,
             child: Hero(
-              tag: 'icon${category.name}',
+              tag: 'icon${category.id}',
               child: Icon(
                 IconData(
                   category.icon,
@@ -75,7 +75,7 @@ class CategoryCard extends StatelessWidget {
             right: 24.0,
             bottom: 16.0,
             child: Hero(
-              tag: 'header${category.name}',
+              tag: 'header${category.id}',
               child: Material(
                 type: MaterialType.transparency,
                 child: CategoryHeader(

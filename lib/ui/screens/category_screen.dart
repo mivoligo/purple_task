@@ -14,12 +14,10 @@ import 'package:to_do/ui/widgets/task_list/completed_tasks_list.dart';
 import 'package:to_do/ui/widgets/task_list/planned_task_list.dart';
 
 class CategoryScreen extends StatefulWidget {
-//  final Category currentCategory;
   final int currentIndex;
 
   const CategoryScreen({
     Key key,
-//    this.currentCategory,
     this.currentIndex,
   }) : super(key: key);
 
@@ -140,7 +138,7 @@ class _CategoryScreenState extends State<CategoryScreen>
             top: _isWide ? 50 : 0,
             bottom: _isWide ? 50 : 0,
             child: Hero(
-              tag: 'main${categoryModel.currentCategory.name}',
+              tag: 'main${categoryModel.currentCategory.id}',
               child: Container(
                 decoration: BoxDecoration(
                     color: Colors.grey[200],
@@ -203,7 +201,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                         children: [
                           // Category icon
                           Hero(
-                            tag: 'icon${categoryModel.currentCategory.name}',
+                            tag: 'icon${categoryModel.currentCategory.id}',
                             child: Icon(
                                 IconData(
                                   categoryModel.currentCategory.icon,
@@ -217,7 +215,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                           SizedBox(height: 24.0),
                           // header with number of tasks, name and progress
                           Hero(
-                            tag: 'header${categoryModel.currentCategory.name}',
+                            tag: 'header${categoryModel.currentCategory.id}',
                             // get rid of overflow error
                             // https://github.com/flutter/flutter/issues/27320
                             flightShuttleBuilder: (
