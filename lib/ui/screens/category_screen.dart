@@ -173,7 +173,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                 SizedBox(width: 8.0),
                                 IconButton(
                                   icon: Icon(AntIcons.arrow_left),
-                                  color: Colors.grey,
+                                  color: Colors.grey[700],
                                   tooltip: CLOSE,
                                   onPressed: () {
                                     _animationController.reverse();

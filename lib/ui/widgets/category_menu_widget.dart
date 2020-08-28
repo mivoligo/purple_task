@@ -45,6 +45,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
 
     return PopupMenuButton(
       icon: Icon(AntIcons.menu),
+      color: Colors.grey[700],
       offset: Offset(0, 48),
       elevation: 4.0,
       onSelected: (item) => onItemSelected(context, item),
