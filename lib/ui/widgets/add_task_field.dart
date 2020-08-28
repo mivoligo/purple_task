@@ -19,6 +19,7 @@ class AddTaskField extends StatefulWidget {
 
 class _AddTaskFieldState extends State<AddTaskField> {
   final _controller = TextEditingController();
+  final _focusNode = FocusNode();
 
   bool _hasText = false;
 
@@ -51,6 +52,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
   Widget build(BuildContext context) {
     return CupertinoTextField(
       controller: _controller,
+      focusNode: _focusNode,
       placeholder: ADD_NEW_TASK,
       style: Theme.of(context).textTheme.subtitle1,
       suffix: IconButton(
@@ -63,6 +65,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
                 getTaskName(context);
                 widget.addTask();
                 _controller.clear();
+                _focusNode.requestFocus();
               }
             : null,
       ),
@@ -71,6 +74,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
               getTaskName(context);
               widget.addTask();
               _controller.clear();
+              _focusNode.requestFocus();
             }
           : null,
       decoration: BoxDecoration(
