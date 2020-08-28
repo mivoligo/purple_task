@@ -10,13 +10,11 @@ import 'package:to_do/ui/widgets/color_selector.dart';
 import 'package:to_do/ui/widgets/confirmation_dialog.dart';
 
 class CategoryMenuWidget extends StatefulWidget {
-  final VoidCallback onChangeColor;
   final VoidCallback onChangeIcon;
   final int categoryIndex;
 
   const CategoryMenuWidget({
     Key key,
-    this.onChangeColor,
     this.onChangeIcon,
 //    @required this.categoryId,
     @required this.categoryIndex,
@@ -198,8 +196,9 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
                             color: Color(categoryModel.color),
                           ),
                         ),
+                        SizedBox(height: 16.0),
                         Expanded(
-                          child: Container(height: 80, child: ColorSelector()),
+                          child: Container(child: ColorSelector()),
                         ),
                       ],
                     ),
