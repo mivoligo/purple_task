@@ -6,6 +6,7 @@ import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/category.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/view_models/task_view_model.dart';
+import 'package:to_do/ui/widgets/color_selector.dart';
 import 'package:to_do/ui/widgets/confirmation_dialog.dart';
 
 class CategoryMenuWidget extends StatefulWidget {
@@ -87,12 +88,16 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
 
   void onItemSelected(context, item) {
     switch (item) {
+      // delete completed tasks from category
       case 1:
         showDialog(
           context: context,
           builder: (context) => ConfirmationDialog(
             title: Q_DELETE_COMPLETED,
-            content: Text(D_DELETE_COMPLETED),
+            content: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text(D_DELETE_COMPLETED),
+            ),
             confirmationText: DELETE,
             confirmationColor: Colors.red,
             onConfirm: () => taskModel.deleteCompletedTasksForCategory(
@@ -100,12 +105,16 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
           ),
         );
         break;
+      // delete all tasks from category
       case 2:
         showDialog(
           context: context,
           builder: (context) => ConfirmationDialog(
             title: Q_DELETE_ALL,
-            content: Text(D_DELETE_ALL),
+            content: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text(D_DELETE_ALL),
+            ),
             confirmationText: DELETE,
             confirmationColor: Colors.red,
             onConfirm: () => taskModel
@@ -113,23 +122,31 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
           ),
         );
         break;
+      // delete category
       case 3:
         showDialog(
           context: context,
           builder: (context) => ConfirmationDialog(
             title: Q_DELETE_CATEGORY,
-            content: Text(D_DELETE_CATEGORY),
+            content: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text(D_DELETE_CATEGORY),
+            ),
             confirmationText: DELETE,
             confirmationColor: Colors.red,
             onConfirm: () {
+              // delete tasks with category id
               taskModel
                   .deleteAllTasksForCategory(categoryModel.currentCategory.id);
+              // delete category
               categoryModel.deleteCategory(widget.categoryIndex);
+              // pop category screen
               Navigator.of(context).pop();
             },
           ),
         );
         break;
+      // change name of category
       case 4:
         showDialog(
           context: context,
@@ -137,14 +154,17 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
             textController.text = categoryModel.currentCategory.name;
             return ConfirmationDialog(
               title: Q_CHANGE_NAME,
-              content: CupertinoTextField(
-                controller: textController,
-                autofocus: true,
-                style: Theme.of(context).textTheme.subtitle1,
-                onSubmitted: (v) {
-                  updateCategoryName();
-                  Navigator.of(context).pop();
-                },
+              content: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: CupertinoTextField(
+                  controller: textController,
+                  autofocus: true,
+                  style: Theme.of(context).textTheme.subtitle1,
+                  onSubmitted: (v) {
+                    updateCategoryName();
+                    Navigator.of(context).pop();
+                  },
+                ),
               ),
               confirmationText: SAVE,
               confirmationColor: Colors.green,
@@ -155,11 +175,53 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
           },
         );
         break;
+      // change color of category
       case 5:
-        return widget.onChangeColor();
+        showDialog(
+          context: context,
+          builder: (context) {
+            categoryModel.color = categoryModel.currentCategory.color;
+
+            return ConfirmationDialog(
+              title: Q_CHANGE_COLOR,
+              content: StatefulBuilder(
+                builder: (context, setState) {
+                  print('reb');
+                  return Container(
+                    width: 500,
+                    height: 100,
+                    child: Column(
+                      children: [
+                        Consumer<CategoryViewModel>(
+                          builder: (_, categoryModel, __) => Container(
+                            height: 20,
+                            color: Color(categoryModel.color),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(height: 80, child: ColorSelector()),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+              confirmationText: SAVE,
+              confirmationColor: Colors.green,
+              onConfirm: () {
+                updateCategoryColor();
+              },
+            );
+          },
+        );
         break;
       case 6:
-        return widget.onChangeIcon();
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text('title'),
+          ),
+        );
         break;
     }
   }
@@ -168,6 +230,17 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
     Category _category = Category(
       name: textController.text,
       color: categoryModel.currentCategory.color,
+      icon: categoryModel.currentCategory.icon,
+      id: categoryModel.currentCategory.id,
+    );
+    categoryModel.updateCategory(widget.categoryIndex, _category);
+    categoryModel.currentCategory = _category;
+  }
+
+  void updateCategoryColor() {
+    Category _category = Category(
+      name: categoryModel.currentCategory.name,
+      color: categoryModel.color,
       icon: categoryModel.currentCategory.icon,
       id: categoryModel.currentCategory.id,
     );

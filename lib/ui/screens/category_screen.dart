@@ -102,8 +102,7 @@ class _CategoryScreenState extends State<CategoryScreen>
     _appWidth = MediaQuery.of(context).size.width;
     _isWide = MediaQuery.of(context).size.width > 600;
     final taskModel = Provider.of<TaskViewModel>(context);
-    final categoryModel =
-        Provider.of<CategoryViewModel>(context, listen: false);
+    final categoryModel = Provider.of<CategoryViewModel>(context);
     int categoryId = categoryModel.currentCategory.id;
     _listOfAllTasks = taskModel.getAllTasksForCategory(categoryId);
     _listOfPlannedTasks = taskModel.getPlannedTasksForCategory(categoryId);
@@ -231,9 +230,8 @@ class _CategoryScreenState extends State<CategoryScreen>
                             },
                             child: Material(
                               type: MaterialType.transparency,
-                              child:
-                                  Consumer2<CategoryViewModel, TaskViewModel>(
-                                builder: (_, _categoryModel, _taskModel, __) {
+                              child: Consumer<TaskViewModel>(
+                                builder: (_, _taskModel, __) {
                                   int numberOfTasks = _taskModel
                                       .numberOfPlannedTasksForCategory(
                                           categoryId);
@@ -252,12 +250,12 @@ class _CategoryScreenState extends State<CategoryScreen>
                                           '$numberOfTasks $TASK_PLURAL';
                                   }
                                   return CategoryHeader(
-                                    title: _categoryModel.currentCategory.name,
+                                    title: categoryModel.currentCategory.name,
                                     description: _descriptionText,
                                     progress: _taskModel
                                         .completionProgress(categoryId),
                                     color: Color(
-                                        _categoryModel.currentCategory.color),
+                                        categoryModel.currentCategory.color),
                                   );
                                 },
                               ),

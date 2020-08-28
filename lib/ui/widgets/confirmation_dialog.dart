@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/ui/widgets/simple_button.dart';
 
-class ConfirmationDialog extends StatelessWidget {
+class ConfirmationDialog extends StatefulWidget {
   final String title;
   final Widget content;
   final String confirmationText;
@@ -20,13 +20,20 @@ class ConfirmationDialog extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _ConfirmationDialogState createState() => _ConfirmationDialogState();
+}
+
+class _ConfirmationDialogState extends State<ConfirmationDialog> {
+  @override
   Widget build(BuildContext context) {
+    print('rebuilding dialog');
     return AlertDialog(
+      contentPadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 8.0),
       title: Text(
-        title,
+        widget.title,
         style: Theme.of(context).textTheme.headline4,
       ),
-      content: content,
+      content: widget.content,
       actionsPadding: EdgeInsets.symmetric(horizontal: 8.0),
       actions: [
         SimpleButton(
@@ -34,12 +41,12 @@ class ConfirmationDialog extends StatelessWidget {
           onPressed: Navigator.of(context).pop,
         ),
         SimpleButton(
-          text: confirmationText,
+          text: widget.confirmationText,
           onPressed: () {
-            onConfirm();
+            widget.onConfirm();
             Navigator.of(context).pop();
           },
-          color: confirmationColor,
+          color: widget.confirmationColor,
         )
       ],
     );

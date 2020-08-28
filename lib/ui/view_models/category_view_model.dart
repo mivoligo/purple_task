@@ -1,3 +1,4 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:to_do/globals/hive_names.dart';
@@ -40,6 +41,24 @@ class CategoryViewModel with ChangeNotifier {
   Category get currentCategory => _currentCategory;
   set currentCategory(Category category) {
     _currentCategory = category;
+    notifyListeners();
+  }
+
+  int _color;
+
+  int get color => _color;
+
+  set color(int value) {
+    _color = value;
+    notifyListeners();
+  }
+
+  int _icon = AntIcons.folder.codePoint;
+
+  int get icon => _icon;
+
+  set icon(int value) {
+    _icon = value;
     notifyListeners();
   }
 }
