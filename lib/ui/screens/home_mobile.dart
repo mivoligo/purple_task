@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/category.dart';
@@ -24,6 +25,7 @@ class _HomeMobileState extends State<HomeMobile>
   Color _color = Colors.deepPurple;
   AnimationController _animationController;
   PageController _pageController;
+  ScrollController _scrollController;
 
   NewCategory _newCategory; // NewCategory provider
 
@@ -34,6 +36,10 @@ class _HomeMobileState extends State<HomeMobile>
   // for setting background color based on category color
   int _currentCategory = 0;
 
+  // for scrolling to last element after adding category
+  // when app use ListView
+  bool _needScroll = false;
+
   @override
   void initState() {
     super.initState();
@@ -42,6 +48,23 @@ class _HomeMobileState extends State<HomeMobile>
       duration: Duration(milliseconds: 300),
     );
     _pageController = PageController();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _pageController.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  _scrollToEnd() async {
+    if (_needScroll) {
+      _needScroll = false;
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300), curve: Curves.ease);
+    }
   }
 
   @override
@@ -70,6 +93,10 @@ class _HomeMobileState extends State<HomeMobile>
         curve: Curves.ease,
       ));
     }
+
+    // Used to scroll to end of list after adding new category
+    // when using ListView
+    SchedulerBinding.instance.addPostFrameCallback((_) => _scrollToEnd());
 
     return Scaffold(
       body: SafeArea(
@@ -141,6 +168,7 @@ class _HomeMobileState extends State<HomeMobile>
                     ? ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: _categoryList.length,
+                        controller: _scrollController,
                         itemBuilder: (context, index) {
                           Category category = _categoryList[index];
                           return Container(
@@ -193,7 +221,6 @@ class _HomeMobileState extends State<HomeMobile>
     await Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, anim1, anim2) => CategoryScreen(
-//          currentCategory: _categoryList[index],
           currentIndex: index,
         ),
         transitionsBuilder: (context, anim1, anim2, child) {
@@ -229,18 +256,15 @@ class _HomeMobileState extends State<HomeMobile>
       // get length of category list from Hive
       int _categoryListLength = _categoryList.length;
       // try to go to the created category
-      _pageController.animateToPage(
-        _categoryListLength,
-        duration: Duration(milliseconds: 300),
-        curve: Curves.ease,
-      );
+      if (_isWide) {
+        _needScroll = true;
+      } else {
+        _pageController.animateToPage(
+          _categoryListLength,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.ease,
+        );
+      }
     }
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    _pageController.dispose();
-    super.dispose();
   }
 }
