@@ -43,3 +43,4 @@ const String D_DELETE_CATEGORY =
     'This category and all tasks in it will be deleted';
 const String Q_CHANGE_NAME = 'Change name of category';
 const String Q_CHANGE_COLOR = 'Change color of category';
+const String Q_CHANGE_ICON = 'Change icon of category';
