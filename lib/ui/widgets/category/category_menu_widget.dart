@@ -6,9 +6,9 @@ import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/category.dart';
 import 'package:to_do/ui/view_models/category_view_model.dart';
 import 'package:to_do/ui/view_models/task_view_model.dart';
-import 'package:to_do/ui/widgets/color_selector.dart';
-import 'package:to_do/ui/widgets/confirmation_dialog.dart';
-import 'package:to_do/ui/widgets/icon_selector.dart';
+import 'package:to_do/ui/widgets/category/color_selector.dart';
+import 'package:to_do/ui/widgets/category/confirmation_dialog.dart';
+import 'package:to_do/ui/widgets/category/icon_selector.dart';
 
 class CategoryMenuWidget extends StatefulWidget {
   final int categoryIndex;
@@ -44,8 +44,10 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
     categoryModel = Provider.of<CategoryViewModel>(context, listen: false);
 
     return PopupMenuButton(
-      icon: Icon(AntIcons.menu),
-      color: Colors.grey[700],
+      icon: Icon(
+        AntIcons.menu,
+        color: Colors.grey[700],
+      ),
       offset: Offset(0, 48),
       elevation: 4.0,
       onSelected: (item) => onItemSelected(context, item),
