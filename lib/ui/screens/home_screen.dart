@@ -11,12 +11,12 @@ import 'package:to_do/ui/widgets/add_category_button.dart';
 import 'package:to_do/ui/widgets/category_card.dart';
 import 'package:to_do/ui/widgets/greetings.dart';
 
-class HomeMobile extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _HomeMobileState createState() => _HomeMobileState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeMobileState extends State<HomeMobile>
+class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   double _appWidth;
   double _appHeight;

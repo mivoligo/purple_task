@@ -8,7 +8,7 @@ import 'package:to_do/globals/hive_names.dart';
 import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/category.dart';
 import 'package:to_do/models/task.dart';
-import 'package:to_do/ui/screens/home_mobile.dart';
+import 'package:to_do/ui/screens/home_screen.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:to_do/ui/view_models/category_view_model.dart';
@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
             )),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeMobile(),
+      home: HomeScreen(),
     );
   }
 }
