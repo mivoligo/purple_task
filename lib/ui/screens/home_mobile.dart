@@ -231,12 +231,15 @@ class _HomeMobileState extends State<HomeMobile>
         },
       ),
     );
+
+    // need this after deleting last category in the list
+    // otherwise _currentCategory is too big
+    if (_currentCategory >
+        _categoryViewModel.getListOfCategories().length - 1) {
+      _currentCategory = _currentCategory - 1;
+    }
+
     _animationController.reverse();
-//    _pageController.animateToPage(
-//      index - 1,
-//      duration: Duration(milliseconds: 300),
-//      curve: Curves.ease,
-//    );
   }
 
   void openNewCategory(BuildContext context) async {
