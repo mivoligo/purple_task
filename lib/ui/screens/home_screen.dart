@@ -256,6 +256,8 @@ class _HomeScreenState extends State<HomeScreen>
     );
 
     if (_newCategory.addingNewCategoryCompleted) {
+      // make sure _currentCategory is 0 after adding first new category
+      if (_currentCategory < 0) _currentCategory = 0;
       // get length of category list from Hive
       int _categoryListLength = _categoryList.length;
       // try to go to the created category
