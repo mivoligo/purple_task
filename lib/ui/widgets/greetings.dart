@@ -21,9 +21,9 @@ class Greetings extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: topDistance),
-        CircleAvatar(
-          backgroundColor: Colors.grey,
-        ),
+//        CircleAvatar(
+//          backgroundColor: Colors.grey,
+//        ),
         SizedBox(height: distance),
         Text(
           greetings,
