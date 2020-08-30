@@ -3,16 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
-import 'package:to_do/ui/widgets/simple_button.dart';
 
 class CategoryName extends StatelessWidget {
   final Function onSubmitted;
-  final Function onNextPressed;
 
   const CategoryName({
     Key key,
     this.onSubmitted,
-    @required this.onNextPressed,
   }) : super(key: key);
 
   @override
@@ -43,26 +40,6 @@ class CategoryName extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyText2,
         ),
         Spacer(),
-        Row(
-          children: [
-            SizedBox(width: 16.0),
-            SimpleButton(
-              text: CANCEL,
-              onPressed: () {
-                Provider.of<NewCategory>(context, listen: false)
-                    .addingNewCategoryCompleted = false;
-                Navigator.of(context).pop();
-              },
-            ),
-            Spacer(),
-            SimpleButton(
-              text: NEXT,
-              color: Colors.green,
-              onPressed: onNextPressed,
-            ),
-            SizedBox(width: 16.0),
-          ],
-        ),
       ],
     );
   }

@@ -5,16 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/widgets/add_task_field.dart';
-import 'package:to_do/ui/widgets/simple_button.dart';
 
 class CategoryTasks extends StatefulWidget {
-  final Function onFinishPressed;
-
-  const CategoryTasks({
-    Key key,
-    @required this.onFinishPressed,
-  }) : super(key: key);
-
   @override
   _CategoryTasksState createState() => _CategoryTasksState();
 }
@@ -99,27 +91,6 @@ class _CategoryTasksState extends State<CategoryTasks> {
             ),
           ),
         ),
-        Row(
-          children: [
-            SizedBox(width: 16.0),
-            SimpleButton(
-              text: CANCEL,
-              onPressed: () {
-                Provider.of<NewCategory>(context, listen: false)
-                    .addingNewCategoryCompleted = false;
-                Navigator.of(context).pop();
-              },
-            ),
-            Spacer(),
-            SimpleButton(
-              autofocus: true,
-              text: FINISH,
-              color: Colors.green,
-              onPressed: widget.onFinishPressed,
-            ),
-            SizedBox(width: 16.0),
-          ],
-        )
       ],
     );
   }

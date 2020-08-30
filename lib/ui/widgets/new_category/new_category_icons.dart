@@ -3,16 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:to_do/globals/strings/strings.dart';
 import 'package:to_do/models/new_category.dart';
 import 'package:to_do/ui/widgets/new_category/icons_list.dart';
-import 'package:to_do/ui/widgets/simple_button.dart';
 
 class CategoryIcon extends StatelessWidget {
-  final Function onNextPressed;
-
-  const CategoryIcon({
-    Key key,
-    @required this.onNextPressed,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,27 +30,6 @@ class CategoryIcon extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyText2,
         ),
         Spacer(),
-        Row(
-          children: [
-            SizedBox(width: 16.0),
-            SimpleButton(
-              text: CANCEL,
-              onPressed: () {
-                Provider.of<NewCategory>(context, listen: false)
-                    .addingNewCategoryCompleted = false;
-                Navigator.of(context).pop();
-              },
-            ),
-            Spacer(),
-            SimpleButton(
-              autofocus: true,
-              text: NEXT,
-              color: Colors.green,
-              onPressed: onNextPressed,
-            ),
-            SizedBox(width: 16.0),
-          ],
-        )
       ],
     );
   }

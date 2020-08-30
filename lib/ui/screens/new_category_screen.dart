@@ -10,6 +10,7 @@ import 'package:to_do/ui/widgets/new_category/new_category_colors.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_icons.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_name.dart';
 import 'package:to_do/ui/widgets/new_category/new_category_tasks.dart';
+import 'package:to_do/ui/widgets/simple_button.dart';
 
 enum Progress {
   CategoryName,
@@ -27,48 +28,52 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
   Progress progress = Progress.CategoryName;
   NewCategory newCategoryProvider;
   CategoryViewModel categoryDb;
+  FocusNode _focusNode;
 
   Widget getProgressWidget() {
     switch (progress) {
       case Progress.CategoryName:
         return CategoryName(
-          onNextPressed:
-              newCategoryProvider.name.isEmpty ? null : goToColorSelector,
           onSubmitted: (_) => goToColorSelector(),
         );
       case Progress.CategoryColor:
-        return CategoryColor(
-          onNextPressed: goToIconSelector,
-        );
+        return CategoryColor();
       case Progress.CategoryIcon:
-        return CategoryIcon(
-          onNextPressed: () {
-            // set category id so we can add tasks based on it in the next step
-            newCategoryProvider.setCategoryId();
-            goToAddingTasks();
-          },
-        );
+        return CategoryIcon();
       case Progress.CategoryTasks:
-        return CategoryTasks(
-          onFinishPressed: () {
-            newCategoryProvider.addNewCategory(context);
-            newCategoryProvider.addTasksToDb(context);
-            newCategoryProvider.addingNewCategoryCompleted = true;
-            Navigator.of(context).pop();
-          },
-        );
+        return CategoryTasks();
     }
     return CategoryName(
-      onNextPressed:
-          newCategoryProvider.name.isEmpty ? null : goToColorSelector,
       onSubmitted: (_) => goToColorSelector(),
     );
+  }
+
+  void goToNext() {
+    switch (progress) {
+      case Progress.CategoryName:
+        goToColorSelector();
+        break;
+      case Progress.CategoryColor:
+        goToIconSelector();
+        break;
+      case Progress.CategoryIcon:
+        newCategoryProvider.setCategoryId();
+        goToAddingTasks();
+        break;
+      case Progress.CategoryTasks:
+        newCategoryProvider.addNewCategory(context);
+        newCategoryProvider.addTasksToDb(context);
+        newCategoryProvider.addingNewCategoryCompleted = true;
+        Navigator.of(context).pop();
+        break;
+    }
   }
 
   void goToColorSelector() {
     if (newCategoryProvider.name.isNotEmpty) {
       setState(() {
         progress = Progress.CategoryColor;
+        _focusNode.requestFocus();
       });
     }
   }
@@ -86,8 +91,15 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
   }
 
   @override
+  void initState() {
+    _focusNode = FocusNode();
+    super.initState();
+  }
+
+  @override
   void dispose() {
     newCategoryProvider.resetNewCategory();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -123,7 +135,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
             ),
             Center(
               child: Hero(
-                tag: 'title', // TODO fix tag
+                tag: 'new_category',
                 child: Material(
                   borderRadius: BorderRadius.circular(8.0),
                   elevation: 4.0,
@@ -171,6 +183,32 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                               Expanded(
                                 flex: 3,
                                 child: getProgressWidget(),
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(width: 16.0),
+                                  SimpleButton(
+                                    text: CANCEL,
+                                    onPressed: () {
+                                      Provider.of<NewCategory>(context,
+                                              listen: false)
+                                          .addingNewCategoryCompleted = false;
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  Spacer(),
+                                  SimpleButton(
+                                    focusNode: _focusNode,
+                                    text: progress == Progress.CategoryTasks
+                                        ? FINISH
+                                        : NEXT,
+                                    color: Colors.green,
+                                    onPressed: newCategoryProvider.name.isEmpty
+                                        ? null
+                                        : goToNext,
+                                  ),
+                                  SizedBox(width: 16.0),
+                                ],
                               ),
                               SizedBox(height: 8),
                             ],

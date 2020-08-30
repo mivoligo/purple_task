@@ -145,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen>
                   return Positioned(
                     bottom: animDouble(_animationController, 16.0, 64.0).value,
                     child: Hero(
-                      tag: 'title',
+                      tag: 'new_category',
                       child: AddCategoryButton(
                         text: ADD_CATEGORY,
                         opacity:

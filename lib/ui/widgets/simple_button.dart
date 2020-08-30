@@ -6,6 +6,7 @@ class SimpleButton extends StatelessWidget {
   final Color color;
   final VoidCallback onPressed;
   final bool autofocus;
+  final FocusNode focusNode;
 
   const SimpleButton({
     Key key,
@@ -13,12 +14,14 @@ class SimpleButton extends StatelessWidget {
     this.color = Colors.grey,
     @required this.onPressed,
     this.autofocus = false,
+    this.focusNode,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FlatButton(
       autofocus: autofocus,
+      focusNode: focusNode,
       color: color,
       onPressed: onPressed,
       padding: EdgeInsets.all(16),
