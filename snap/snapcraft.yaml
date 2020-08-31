@@ -1,0 +1,15 @@
+  name: purple-task
+  version: 1.0.0
+  summary: Simple app to help you get stuff done
+  description: Purple Task is
+  confinement: strict
+  base: core18
+  apps:
+    purple-task:
+      command: purple_task
+      extensions: [flutter-master]
+  parts:
+    purple-task:
+      source: .
+      plugin: flutter
+      flutter-target: lib/main.dart

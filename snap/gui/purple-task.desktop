@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Purple Task
+Comment=Simple app to help you get stuff done
+Icon=${SNAP}/meta/gui/icon.png
+Exec=purple-task
+Terminal=false
+Type=Application
+Categories=Office;Utility;
+Keywords=Task;Todo;List;Planner;Done;
