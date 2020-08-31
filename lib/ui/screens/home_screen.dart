@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/globals/strings/strings.dart';
-import 'package:to_do/models/category.dart';
-import 'package:to_do/models/new_category.dart';
-import 'package:to_do/ui/screens/category_screen.dart';
-import 'package:to_do/ui/screens/new_category_screen.dart';
-import 'package:to_do/ui/view_models/category_view_model.dart';
-import 'package:to_do/ui/widgets/add_category_button.dart';
-import 'package:to_do/ui/widgets/category_card.dart';
-import 'package:to_do/ui/widgets/greetings.dart';
+import '../../globals/strings/strings.dart';
+import '../../models/category.dart';
+import '../../models/new_category.dart';
+import './category_screen.dart';
+import './new_category_screen.dart';
+import '../../ui/view_models/category_view_model.dart';
+import '../../ui/widgets/add_category_button.dart';
+import '../../ui/widgets/category_card.dart';
+import '../../ui/widgets/greetings.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

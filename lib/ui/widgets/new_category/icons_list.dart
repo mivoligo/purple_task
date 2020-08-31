@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/globals/category_icons.dart';
-import 'package:to_do/models/new_category.dart';
+import '../../../globals/category_icons.dart';
+import '../../../models/new_category.dart';
 
 class IconsList extends StatefulWidget {
   @override

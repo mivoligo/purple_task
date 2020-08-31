@@ -2,10 +2,10 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/globals/strings/strings.dart';
-import 'package:to_do/models/task.dart';
-import 'package:to_do/ui/view_models/task_view_model.dart';
-import 'package:to_do/ui/widgets/simple_button.dart';
+import '../../../globals/strings/strings.dart';
+import '../../../models/task.dart';
+import '../../../ui/view_models/task_view_model.dart';
+import '../../../ui/widgets/simple_button.dart';
 
 enum TaskState {
   Normal,

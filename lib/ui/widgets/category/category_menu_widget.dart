@@ -2,13 +2,13 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/globals/strings/strings.dart';
-import 'package:to_do/models/category.dart';
-import 'package:to_do/ui/view_models/category_view_model.dart';
-import 'package:to_do/ui/view_models/task_view_model.dart';
-import 'package:to_do/ui/widgets/category/color_selector.dart';
-import 'package:to_do/ui/widgets/category/confirmation_dialog.dart';
-import 'package:to_do/ui/widgets/category/icon_selector.dart';
+import '../../../globals/strings/strings.dart';
+import '../../../models/category.dart';
+import '../../view_models/category_view_model.dart';
+import '../../view_models/task_view_model.dart';
+import './color_selector.dart';
+import './confirmation_dialog.dart';
+import './icon_selector.dart';
 
 class CategoryMenuWidget extends StatefulWidget {
   final int categoryIndex;

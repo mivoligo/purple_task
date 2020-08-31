@@ -6,7 +6,7 @@
   base: core18
   apps:
     purple-task:
-      command: purple_task
+      command: to_do
       extensions: [flutter-master]
   parts:
     purple-task:

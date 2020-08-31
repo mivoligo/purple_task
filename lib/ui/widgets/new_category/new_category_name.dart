@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/globals/strings/strings.dart';
-import 'package:to_do/models/new_category.dart';
+import '../../../globals/strings/strings.dart';
+import '../../../models/new_category.dart';
 
 class CategoryName extends StatelessWidget {
   final Function onSubmitted;

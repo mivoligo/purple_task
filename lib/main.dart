@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/globals/hive_names.dart';
-import 'package:to_do/globals/strings/strings.dart';
-import 'package:to_do/models/category.dart';
-import 'package:to_do/models/task.dart';
-import 'package:to_do/ui/screens/home_screen.dart';
-import 'package:to_do/models/new_category.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
-import 'package:to_do/ui/view_models/category_view_model.dart';
-import 'package:to_do/ui/view_models/task_view_model.dart';
+
+import './globals/hive_names.dart';
+import './globals/strings/strings.dart';
+import './models/category.dart';
+import './models/task.dart';
+import './ui/screens/home_screen.dart';
+import './models/new_category.dart';
+import './ui/view_models/category_view_model.dart';
+import './ui/view_models/task_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -2,8 +2,8 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/globals/strings/strings.dart';
-import 'package:to_do/ui/view_models/task_view_model.dart';
+import '../../globals/strings/strings.dart';
+import '../../ui/view_models/task_view_model.dart';
 
 class AddTaskField extends StatefulWidget {
   final Function addTask;

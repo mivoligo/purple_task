@@ -3,14 +3,14 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/globals/strings/strings.dart';
-import 'package:to_do/models/new_category.dart';
-import 'package:to_do/ui/view_models/category_view_model.dart';
-import 'package:to_do/ui/widgets/new_category/new_category_colors.dart';
-import 'package:to_do/ui/widgets/new_category/new_category_icons.dart';
-import 'package:to_do/ui/widgets/new_category/new_category_name.dart';
-import 'package:to_do/ui/widgets/new_category/new_category_tasks.dart';
-import 'package:to_do/ui/widgets/simple_button.dart';
+import '../../globals/strings/strings.dart';
+import '../../models/new_category.dart';
+import '../../ui/view_models/category_view_model.dart';
+import '../../ui/widgets/new_category/new_category_colors.dart';
+import '../../ui/widgets/new_category/new_category_icons.dart';
+import '../../ui/widgets/new_category/new_category_name.dart';
+import '../../ui/widgets/new_category/new_category_tasks.dart';
+import '../../ui/widgets/simple_button.dart';
 
 enum Progress {
   CategoryName,

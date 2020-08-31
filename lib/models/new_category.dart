@@ -3,11 +3,11 @@ import 'dart:math';
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/globals/category_colors.dart';
-import 'package:to_do/models/category.dart';
-import 'package:to_do/models/task.dart';
-import 'package:to_do/ui/view_models/category_view_model.dart';
-import 'package:to_do/ui/view_models/task_view_model.dart';
+import '../globals/category_colors.dart';
+import './category.dart';
+import './task.dart';
+import '../ui/view_models/category_view_model.dart';
+import '../ui/view_models/task_view_model.dart';
 
 class NewCategory extends ChangeNotifier {
   String _name = '';

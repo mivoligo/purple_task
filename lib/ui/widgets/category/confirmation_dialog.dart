@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:to_do/globals/strings/strings.dart';
-import 'package:to_do/ui/widgets/simple_button.dart';
+import '../../../globals/strings/strings.dart';
+import '../simple_button.dart';
 
 class ConfirmationDialog extends StatefulWidget {
   final String title;

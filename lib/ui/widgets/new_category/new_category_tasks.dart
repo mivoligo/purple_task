@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/globals/strings/strings.dart';
-import 'package:to_do/models/new_category.dart';
-import 'package:to_do/ui/widgets/add_task_field.dart';
+import '../../../globals/strings/strings.dart';
+import '../../../models/new_category.dart';
+import '../../../ui/widgets/add_task_field.dart';
 
 class CategoryTasks extends StatefulWidget {
   @override

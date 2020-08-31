@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:to_do/models/task.dart';
-import 'package:to_do/ui/widgets/task_item/task_item.dart';
+import '../../../models/task.dart';
+import '../../../ui/widgets/task_item/task_item.dart';
 
 class CompletedTasksList extends StatelessWidget {
   final List<Task> list;

@@ -2,16 +2,16 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/globals/strings/strings.dart';
-import 'package:to_do/models/task.dart';
-import 'package:to_do/ui/view_models/category_view_model.dart';
-import 'package:to_do/ui/view_models/task_view_model.dart';
-import 'package:to_do/ui/widgets/add_task_field.dart';
-import 'package:to_do/ui/widgets/category/category_menu_widget.dart';
-import 'package:to_do/ui/widgets/task_list/all_tasks_list.dart';
-import 'package:to_do/ui/widgets/category_header.dart';
-import 'package:to_do/ui/widgets/task_list/completed_tasks_list.dart';
-import 'package:to_do/ui/widgets/task_list/planned_task_list.dart';
+import '../../globals/strings/strings.dart';
+import '../../models/task.dart';
+import '../view_models/category_view_model.dart';
+import '../view_models/task_view_model.dart';
+import '../widgets/add_task_field.dart';
+import '../widgets/category/category_menu_widget.dart';
+import '../widgets/task_list/all_tasks_list.dart';
+import '../widgets/category_header.dart';
+import '../widgets/task_list/completed_tasks_list.dart';
+import '../widgets/task_list/planned_task_list.dart';
 
 class CategoryScreen extends StatefulWidget {
   final int currentIndex;
@@ -315,15 +315,15 @@ class _CategoryScreenState extends State<CategoryScreen>
                   },
                   items: [
                     BottomNavigationBarItem(
-                      title: Text(ALL),
+                      label: ALL,
                       icon: Icon(AntIcons.profile),
                     ),
                     BottomNavigationBarItem(
-                      title: Text(TO_DO),
+                      label: TO_DO,
                       icon: Icon(AntIcons.edit),
                     ),
                     BottomNavigationBarItem(
-                      title: Text(COMPLETED),
+                      label: COMPLETED,
                       icon: Icon(AntIcons.check_circle),
                     ),
                   ],
