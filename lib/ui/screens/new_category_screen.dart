@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import '../../globals/strings/strings.dart';
-import '../../models/new_category.dart';
+import '../view_models/new_category_view_model.dart';
 import '../../ui/view_models/category_view_model.dart';
 import '../../ui/widgets/new_category/new_category_colors.dart';
 import '../../ui/widgets/new_category/new_category_icons.dart';
@@ -26,7 +26,7 @@ class NewCategoryScreen extends StatefulWidget {
 
 class _NewCategoryScreenState extends State<NewCategoryScreen> {
   Progress progress = Progress.CategoryName;
-  NewCategory newCategoryProvider;
+  NewCategoryViewModel newCategoryProvider;
   CategoryViewModel categoryDb;
   FocusNode _focusNode;
 
@@ -112,13 +112,13 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
     double _cardWidth = min(550, _appWidth - 64);
     double _cardHeight =
         min(400, _appHeight - _verticalPadding - _verticalInset - 32.0);
-    newCategoryProvider = Provider.of<NewCategory>(context);
+    newCategoryProvider = Provider.of<NewCategoryViewModel>(context);
     return Scaffold(
       body: Container(
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Consumer<NewCategory>(
+            Consumer<NewCategoryViewModel>(
               builder: (_, value, __) => AnimatedContainer(
                 duration: Duration(milliseconds: 300),
                 decoration: BoxDecoration(
@@ -153,7 +153,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                           Positioned(
                             left: 32.0,
                             top: 24.0,
-                            child: Consumer<NewCategory>(
+                            child: Consumer<NewCategoryViewModel>(
                               builder: (_, value, __) => AnimatedOpacity(
                                 duration: Duration(milliseconds: 300),
                                 opacity: progress == Progress.CategoryIcon ||
@@ -190,7 +190,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                                   SimpleButton(
                                     text: CANCEL,
                                     onPressed: () {
-                                      Provider.of<NewCategory>(context,
+                                      Provider.of<NewCategoryViewModel>(context,
                                               listen: false)
                                           .addingNewCategoryCompleted = false;
                                       Navigator.of(context).pop();

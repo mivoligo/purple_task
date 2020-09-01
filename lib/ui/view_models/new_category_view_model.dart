@@ -3,13 +3,13 @@ import 'dart:math';
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../globals/category_colors.dart';
-import './category.dart';
-import './task.dart';
-import '../ui/view_models/category_view_model.dart';
-import '../ui/view_models/task_view_model.dart';
+import '../../globals/category_colors.dart';
+import '../../db_models/category.dart';
+import '../../db_models/task.dart';
+import 'category_view_model.dart';
+import 'task_view_model.dart';
 
-class NewCategory extends ChangeNotifier {
+class NewCategoryViewModel extends ChangeNotifier {
   String _name = '';
 
   String get name => _name;

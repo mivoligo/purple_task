@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import '../../globals/strings/strings.dart';
-import '../../models/task.dart';
+import '../../db_models/task.dart';
 import '../view_models/category_view_model.dart';
 import '../view_models/task_view_model.dart';
 import '../widgets/add_task_field.dart';

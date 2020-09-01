@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import '../../../globals/strings/strings.dart';
-import '../../../models/new_category.dart';
+import '../../view_models/new_category_view_model.dart';
 import '../../../ui/widgets/add_task_field.dart';
 
 class CategoryTasks extends StatefulWidget {
@@ -47,7 +47,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(32.0, 24.0, 32.0, 0.0),
-          child: Consumer<NewCategory>(
+          child: Consumer<NewCategoryViewModel>(
             builder: (_, value, __) => Text(
               value.name,
               style: Theme.of(context).textTheme.headline4,
@@ -59,7 +59,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
           padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 0.0),
           child: AddTaskField(
             addTask: () {
-              Provider.of<NewCategory>(context, listen: false)
+              Provider.of<NewCategoryViewModel>(context, listen: false)
                   .addTaskToTemporaryList(context);
               _needScroll = true;
             },
@@ -72,7 +72,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
           style: Theme.of(context).textTheme.bodyText2,
         ),
         Expanded(
-          child: Consumer<NewCategory>(
+          child: Consumer<NewCategoryViewModel>(
             builder: (_, value, __) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36.0),
               child: Scrollbar(

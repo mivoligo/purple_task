@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../globals/strings/strings.dart';
-import '../../../models/task.dart';
+import '../../../db_models/task.dart';
 import '../../../ui/view_models/task_view_model.dart';
 import '../../../ui/widgets/simple_button.dart';
 

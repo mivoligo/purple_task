@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../globals/strings/strings.dart';
-import '../../../models/category.dart';
+import '../../../db_models/category.dart';
 import '../../view_models/category_view_model.dart';
 import '../../view_models/task_view_model.dart';
 import './color_selector.dart';

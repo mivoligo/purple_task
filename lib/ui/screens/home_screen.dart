@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import '../../globals/strings/strings.dart';
-import '../../models/category.dart';
-import '../../models/new_category.dart';
+import '../../db_models/category.dart';
+import '../view_models/new_category_view_model.dart';
 import './category_screen.dart';
 import './new_category_screen.dart';
 import '../../ui/view_models/category_view_model.dart';
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen>
   PageController _pageController;
   ScrollController _scrollController;
 
-  NewCategory _newCategory; // NewCategory provider
+  NewCategoryViewModel _newCategory; // NewCategory provider
 
   List<Category> _categoryList;
 
@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen>
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
     _isWide = MediaQuery.of(context).size.width > 600;
-    _newCategory = Provider.of<NewCategory>(context);
+    _newCategory = Provider.of<NewCategoryViewModel>(context);
     _categoryViewModel = Provider.of<CategoryViewModel>(context);
     _categoryList = _categoryViewModel.getListOfCategories();
     _pageController = PageController(

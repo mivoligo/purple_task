@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../globals/category_icons.dart';
-import '../../../models/new_category.dart';
+import '../../view_models/new_category_view_model.dart';
 
 class IconsList extends StatefulWidget {
   @override
@@ -41,7 +41,7 @@ class _IconsListState extends State<IconsList>
   @override
   Widget build(BuildContext context) {
     final newCategoryProvider =
-        Provider.of<NewCategory>(context, listen: false);
+        Provider.of<NewCategoryViewModel>(context, listen: false);
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: categoryIcons.length,

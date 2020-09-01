@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import '../../globals/hive_names.dart';
-import '../../models/task.dart';
+import '../../db_models/task.dart';
 
 class TaskViewModel with ChangeNotifier {
   String _newTaskName;

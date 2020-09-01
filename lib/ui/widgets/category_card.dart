@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../globals/strings/strings.dart';
-import '../../models/category.dart';
+import '../../db_models/category.dart';
 import '../../ui/view_models/task_view_model.dart';
 import './category_header.dart';
 

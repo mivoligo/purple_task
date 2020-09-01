@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../globals/strings/strings.dart';
-import '../../../models/new_category.dart';
+import '../../view_models/new_category_view_model.dart';
 
 class CategoryName extends StatelessWidget {
   final Function onSubmitted;
@@ -31,7 +31,8 @@ class CategoryName extends StatelessWidget {
                   BoxShadow(color: Colors.white, offset: Offset(0.0, 1.0)),
                 ]),
             onChanged: (text) =>
-                Provider.of<NewCategory>(context, listen: false).name = text,
+                Provider.of<NewCategoryViewModel>(context, listen: false).name =
+                    text,
           ),
         ),
         SizedBox(height: 4.0),

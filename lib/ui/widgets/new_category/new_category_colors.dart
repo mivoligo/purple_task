@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../globals/strings/strings.dart';
-import '../../../models/new_category.dart';
+import '../../view_models/new_category_view_model.dart';
 import '../../../ui/widgets/new_category/colors_list.dart';
 
 class CategoryColor extends StatelessWidget {
@@ -12,7 +12,7 @@ class CategoryColor extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(32.0, 24.0, 32.0, 0.0),
-          child: Consumer<NewCategory>(
+          child: Consumer<NewCategoryViewModel>(
             builder: (_, value, __) => Text(
               value.name,
               style: Theme.of(context).textTheme.headline4,

@@ -8,10 +8,10 @@ import 'package:path_provider/path_provider.dart' as pathProvider;
 
 import './globals/hive_names.dart';
 import './globals/strings/strings.dart';
-import './models/category.dart';
-import './models/task.dart';
+import './db_models/category.dart';
+import './db_models/task.dart';
 import './ui/screens/home_screen.dart';
-import './models/new_category.dart';
+import 'ui/view_models/new_category_view_model.dart';
 import './ui/view_models/category_view_model.dart';
 import './ui/view_models/task_view_model.dart';
 
@@ -29,7 +29,8 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<NewCategory>(create: (_) => NewCategory()),
+        ChangeNotifierProvider<NewCategoryViewModel>(
+            create: (_) => NewCategoryViewModel()),
         ChangeNotifierProvider<CategoryViewModel>(
             create: (_) => CategoryViewModel()),
         ChangeNotifierProvider<TaskViewModel>(create: (_) => TaskViewModel()),
