@@ -26,7 +26,6 @@ class ConfirmationDialog extends StatefulWidget {
 class _ConfirmationDialogState extends State<ConfirmationDialog> {
   @override
   Widget build(BuildContext context) {
-    print('rebuilding dialog');
     return AlertDialog(
       contentPadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 8.0),
       title: Text(

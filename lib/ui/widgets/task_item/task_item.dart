@@ -33,7 +33,6 @@ class _TaskItemState extends State<TaskItem> {
   setTaskNormal() {
     setState(() {
       _taskState = TaskState.Normal;
-      print('setting normal');
     });
   }
 

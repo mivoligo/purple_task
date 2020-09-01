@@ -93,7 +93,6 @@ class _CategoryScreenState extends State<CategoryScreen>
     _animationController.dispose();
     _scrollController.dispose();
     _categoryNameController.dispose();
-    print('dispose');
     super.dispose();
   }
 
@@ -113,7 +112,6 @@ class _CategoryScreenState extends State<CategoryScreen>
       _scrollToEnd();
     });
 
-    print('category screen is rebuilding');
     return SafeArea(
       child: Stack(
         alignment: Alignment.center,

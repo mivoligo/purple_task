@@ -69,7 +69,6 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    print('is rebuilding');
     _appWidth = MediaQuery.of(context).size.width;
     _appHeight = MediaQuery.of(context).size.height;
     _isWide = MediaQuery.of(context).size.width > 600;
