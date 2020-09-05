@@ -153,36 +153,38 @@ class _CategoryScreenState extends State<CategoryScreen>
               body: Column(
                 children: [
                   AnimatedBuilder(
-                      animation: _fadeAnimation,
-                      builder: (context, child) {
-                        return Opacity(
-                          opacity: _fadeAnimation.value,
-                          child: Material(
-                            type: MaterialType.transparency,
-                            child: Row(
-                              children: [
-                                // Go back button
-                                const SizedBox(width: 8.0),
-                                IconButton(
-                                  icon: Icon(AntIcons.arrow_left),
-                                  color: Colors.grey[700],
-                                  tooltip: CLOSE,
-                                  onPressed: () {
-                                    _animationController.reverse();
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                Spacer(),
-                                // Menu button
-                                CategoryMenuWidget(
-                                  categoryIndex: widget.currentIndex,
-                                ),
-                                const SizedBox(width: 8.0),
-                              ],
-                            ),
+                    animation: _fadeAnimation,
+                    builder: (context, child) {
+                      return Opacity(
+                        opacity: _fadeAnimation.value,
+                        child: child,
+                      );
+                    },
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: Row(
+                        children: [
+                          // Go back button
+                          const SizedBox(width: 8.0),
+                          IconButton(
+                            icon: Icon(AntIcons.arrow_left),
+                            color: Colors.grey[700],
+                            tooltip: CLOSE,
+                            onPressed: () {
+                              _animationController.reverse();
+                              Navigator.of(context).pop();
+                            },
                           ),
-                        );
-                      }),
+                          Spacer(),
+                          // Menu button
+                          CategoryMenuWidget(
+                            categoryIndex: widget.currentIndex,
+                          ),
+                          const SizedBox(width: 8.0),
+                        ],
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 16.0),
                   Expanded(
                     child: Padding(
