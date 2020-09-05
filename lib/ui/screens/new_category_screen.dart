@@ -168,19 +168,19 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                           ),
                           Column(
                             children: [
-                              SizedBox(height: 8.0),
+                              const SizedBox(height: 8.0),
                               Text(
                                 NEW_CATEGORY,
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
-                              SizedBox(height: 8.0),
+                              const SizedBox(height: 8.0),
                               Expanded(
                                 flex: 3,
                                 child: getProgressWidget(),
                               ),
                               Row(
                                 children: [
-                                  SizedBox(width: 16.0),
+                                  const SizedBox(width: 16.0),
                                   SimpleButton(
                                     text: CANCEL,
                                     onPressed: () {
@@ -201,10 +201,10 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                                         ? null
                                         : goToNext,
                                   ),
-                                  SizedBox(width: 16.0),
+                                  const SizedBox(width: 16.0),
                                 ],
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                             ],
                           ),
                         ],

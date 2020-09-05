@@ -44,7 +44,7 @@ class CategoryCard extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Color(0xff45000000),
                       offset: Offset(0.0, 4.0),

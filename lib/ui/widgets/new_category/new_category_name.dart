@@ -35,7 +35,7 @@ class CategoryName extends StatelessWidget {
                     text,
           ),
         ),
-        SizedBox(height: 4.0),
+        const SizedBox(height: 4.0),
         Text(
           CATEGORY_NAME,
           style: Theme.of(context).textTheme.bodyText2,

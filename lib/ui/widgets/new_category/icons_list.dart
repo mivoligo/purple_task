@@ -58,7 +58,7 @@ class _IconsListState extends State<IconsList>
             color: Colors.grey[300],
             width: 64.0,
             child: FlatButton(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               onPressed: () {
                 newCategoryProvider.icon = categoryIcons[index];
               },

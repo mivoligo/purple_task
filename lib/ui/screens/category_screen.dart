@@ -135,7 +135,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(8.0),
                     boxShadow: [
-                      BoxShadow(
+                      const BoxShadow(
                         color: Color(0xff45000000),
                         offset: Offset(0.0, 4.0),
                         blurRadius: 8.0,
@@ -162,7 +162,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                             child: Row(
                               children: [
                                 // Go back button
-                                SizedBox(width: 8.0),
+                                const SizedBox(width: 8.0),
                                 IconButton(
                                   icon: Icon(AntIcons.arrow_left),
                                   color: Colors.grey[700],
@@ -177,13 +177,13 @@ class _CategoryScreenState extends State<CategoryScreen>
                                 CategoryMenuWidget(
                                   categoryIndex: widget.currentIndex,
                                 ),
-                                SizedBox(width: 8.0),
+                                const SizedBox(width: 8.0),
                               ],
                             ),
                           ),
                         );
                       }),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 36.0),
@@ -203,7 +203,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     Color(categoryModel.currentCategory.color),
                                 size: 40),
                           ),
-                          SizedBox(height: 24.0),
+                          const SizedBox(height: 24.0),
                           // header with number of tasks, name and progress
                           Hero(
                             tag: 'header${categoryModel.currentCategory.id}',
@@ -253,7 +253,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                               ),
                             ),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           // Add task field
                           AnimatedBuilder(
                             animation: _fadeAnimation,
@@ -277,7 +277,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                               },
                             ),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           Expanded(
                             child: AnimatedBuilder(
                               animation: _fadeAnimation,

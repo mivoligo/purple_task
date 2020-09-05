@@ -58,7 +58,7 @@ class _IconSelectorState extends State<IconSelector>
             color: Colors.grey[300],
             width: 64.0,
             child: FlatButton(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               onPressed: () {
                 categoryModel.icon = categoryIcons[index];
               },

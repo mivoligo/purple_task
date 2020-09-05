@@ -117,14 +117,14 @@ class _TaskItemState extends State<TaskItem> {
               ),
               if (_taskState == TaskState.Normal)
                 IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     AntIcons.delete,
                     color: Colors.grey,
                   ),
                   onPressed: setTaskDelete,
                   tooltip: DELETE,
                 ),
-              if (_taskState == TaskState.EditName) SizedBox(width: 10.0),
+              if (_taskState == TaskState.EditName) const SizedBox(width: 10.0),
             ],
           ),
           AnimatedContainer(
@@ -132,7 +132,7 @@ class _TaskItemState extends State<TaskItem> {
             duration: Duration(milliseconds: 90),
             child: Row(
               children: [
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 SimpleButton(
                   onPressed: setTaskNormal,
                   text: CANCEL,
@@ -165,7 +165,7 @@ class _TaskItemState extends State<TaskItem> {
                           }
                         : null,
                   ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
               ],
             ),
           ),

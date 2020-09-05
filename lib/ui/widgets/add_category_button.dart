@@ -35,8 +35,8 @@ class AddCategoryButton extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(AntIcons.folder_add),
-                SizedBox(width: 8.0),
+                const Icon(AntIcons.folder_add),
+                const SizedBox(width: 8.0),
                 Flexible(
                   // Flexible needed for TextOverflow to work
                   child: Text(

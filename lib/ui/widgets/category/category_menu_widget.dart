@@ -44,7 +44,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
         AntIcons.menu,
         color: Colors.grey[700],
       ),
-      offset: Offset(0, 48),
+      offset: const Offset(0, 48),
       elevation: 4.0,
       onSelected: (item) => onItemSelected(context, item),
       itemBuilder: (context) {
@@ -191,7 +191,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
                             color: Color(categoryModel.color),
                           ),
                         ),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         Expanded(
                           child: Container(child: ColorSelector()),
                         ),
@@ -232,7 +232,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
                             size: 28,
                           ),
                         ),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         Expanded(
                           child: Container(child: IconSelector()),
                         ),

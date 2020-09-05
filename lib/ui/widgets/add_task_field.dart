@@ -33,6 +33,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
   @override
   void dispose() {
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 

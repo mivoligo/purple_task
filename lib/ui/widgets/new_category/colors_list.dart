@@ -57,7 +57,7 @@ class _ColorsListState extends State<ColorsList>
           child: Container(
             width: 64,
             child: FlatButton(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               onPressed: () {
                 newCategoryProvider.color = categoryColors[index];
               },

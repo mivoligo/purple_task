@@ -18,9 +18,9 @@ class CategoryColor extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         Expanded(child: ColorsList()),
-        SizedBox(height: 4.0),
+        const SizedBox(height: 4.0),
         Text(
           COLOR,
           textAlign: TextAlign.center,
