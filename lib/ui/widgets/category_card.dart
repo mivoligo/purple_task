@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../globals/strings/strings.dart';
-import '../../db_models/category.dart';
-import '../../ui/view_models/task_view_model.dart';
-import './category_header.dart';
+import '../../globals/globals.dart';
+import '../../db_models/db_models.dart';
+import '../ui.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;

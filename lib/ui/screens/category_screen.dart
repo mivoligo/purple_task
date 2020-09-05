@@ -2,16 +2,10 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import '../../globals/strings/strings.dart';
-import '../../db_models/task.dart';
-import '../view_models/category_view_model.dart';
-import '../view_models/task_view_model.dart';
-import '../widgets/add_task_field.dart';
-import '../widgets/category/category_menu_widget.dart';
-import '../widgets/task_list/all_tasks_list.dart';
-import '../widgets/category_header.dart';
-import '../widgets/task_list/completed_tasks_list.dart';
-import '../widgets/task_list/planned_task_list.dart';
+
+import '../../db_models/db_models.dart';
+import '../../globals/globals.dart';
+import '../ui.dart';
 
 class CategoryScreen extends StatefulWidget {
   final int currentIndex;

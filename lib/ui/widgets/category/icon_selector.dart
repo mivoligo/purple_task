@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../globals/category_icons.dart';
-import '../../view_models/category_view_model.dart';
+import '../../../globals/globals.dart';
+import '../../ui.dart';
 
 class IconSelector extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../globals/strings/strings.dart';
-import '../../ui/view_models/task_view_model.dart';
+import '../../globals/globals.dart';
+import '../ui.dart';
 
 class Greetings extends StatelessWidget {
   final String greetings;

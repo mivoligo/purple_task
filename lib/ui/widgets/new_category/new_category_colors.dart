@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../globals/strings/strings.dart';
-import '../../view_models/new_category_view_model.dart';
-import '../../../ui/widgets/new_category/colors_list.dart';
+import '../../../globals/globals.dart';
+import '../../ui.dart';
 
 class CategoryColor extends StatelessWidget {
   @override

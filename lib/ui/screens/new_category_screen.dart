@@ -3,14 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import '../../globals/strings/strings.dart';
-import '../view_models/new_category_view_model.dart';
-import '../../ui/view_models/category_view_model.dart';
-import '../../ui/widgets/new_category/new_category_colors.dart';
-import '../../ui/widgets/new_category/new_category_icons.dart';
-import '../../ui/widgets/new_category/new_category_name.dart';
-import '../../ui/widgets/new_category/new_category_tasks.dart';
-import '../../ui/widgets/simple_button.dart';
+import '../../globals/globals.dart';
+import '../ui.dart';
 
 enum Progress {
   CategoryName,
