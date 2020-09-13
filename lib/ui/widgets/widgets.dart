@@ -8,3 +8,4 @@ export 'category_card.dart';
 export 'category_header.dart';
 export 'greetings.dart';
 export 'simple_button.dart';
+export 'animated_progress_bar.dart';

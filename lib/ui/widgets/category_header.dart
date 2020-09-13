@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../ui.dart';
 
 class CategoryHeader extends StatelessWidget {
   final String title;
@@ -35,10 +36,9 @@ class CategoryHeader extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: LinearProgressIndicator(
+              child: AnimatedProgressBar(
                 value: progress,
-                valueColor: AlwaysStoppedAnimation<Color>(color),
-                backgroundColor: Colors.grey[300],
+                color: color,
               ),
             ),
             const SizedBox(width: 8),
