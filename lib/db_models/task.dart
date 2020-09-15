@@ -14,9 +14,13 @@ class Task extends HiveObject {
   @HiveField(2)
   int categoryId;
 
+  @HiveField(3)
+  int doneTime;
+
   Task({
     @required this.name,
     @required this.isDone,
     @required this.categoryId,
+    this.doneTime,
   });
 }
