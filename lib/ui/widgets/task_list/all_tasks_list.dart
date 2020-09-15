@@ -16,6 +16,7 @@ class AllTasksList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scrollbar(
       child: ListView.separated(
+        key: PageStorageKey('all_tasks'),
         controller: controller,
         itemBuilder: (context, index) {
           Task task = list[index];
