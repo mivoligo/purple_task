@@ -1,3 +1,4 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
@@ -130,6 +131,19 @@ class _HomeScreenState extends State<HomeScreen>
                           }),
                     );
                   }),
+            ),
+            // Settings button
+            Positioned(
+              top: 16.0,
+              right: 16.0,
+              child: IconButton(
+                tooltip: SETTINGS,
+                icon: Icon(
+                  AntIcons.setting,
+                  color: Colors.white,
+                ),
+                onPressed: () {},
+              ),
             ),
             // Add Category button
             AnimatedBuilder(

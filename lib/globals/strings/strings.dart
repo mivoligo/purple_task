@@ -1,4 +1,5 @@
 const String APP_NAME = 'To Do';
+const String SETTINGS = 'Settings';
 const String ADD_CATEGORY = 'Add Category';
 const String NEW_CATEGORY = 'New Category';
 const String CATEGORY_NAME = 'Name';
