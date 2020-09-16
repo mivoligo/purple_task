@@ -2,6 +2,7 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:purple_task/helpers.dart';
 import '../../../globals/globals.dart';
 import '../../../db_models/db_models.dart';
 import '../../ui.dart';
@@ -135,7 +136,8 @@ class _TaskItemState extends State<TaskItem> {
             Row(
               children: [
                 SizedBox(width: 8.0),
-                Text('Completed ${widget.task.doneTime}'),
+                Text(
+                    'Completed ${TimeConversion().millisToDate(widget.task.doneTime)}'),
               ],
             ),
           AnimatedContainer(
