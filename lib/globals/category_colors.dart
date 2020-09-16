@@ -27,7 +27,6 @@ List<int> categoryColors = [
   0xffa0c4ff,
   0xffbdb2ff,
   0xffffc6ff,
-  0xfffffffc,
   0xffd0b8ac,
   0xfff3d8c7,
   0xffdcd7d3,
