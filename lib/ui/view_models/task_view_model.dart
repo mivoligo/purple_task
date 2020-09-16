@@ -109,4 +109,9 @@ class TaskViewModel with ChangeNotifier {
     _tasks.forEach((element) => element.delete());
     notifyListeners();
   }
+
+  int setTaskDoneTime() {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    return now;
+  }
 }
