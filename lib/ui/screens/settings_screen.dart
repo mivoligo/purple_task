@@ -1,6 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:purple_task/globals/globals.dart';
+import '../../globals/globals.dart';
+import '../ui.dart';
 
 class SettingsScreen extends StatelessWidget {
   final Color backgroundColor;
@@ -78,12 +79,11 @@ class SettingsScreen extends StatelessWidget {
                       const SizedBox(width: 40.0),
                     ],
                   ),
-                  SizedBox(height: 32.0),
+                  const SizedBox(height: 32.0),
                   Expanded(
                     child: ListView(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         children: [
-                          Divider(),
                           ListTile(
                             title: Text(DISPLAY_TIME_COMPLETED),
                             trailing: Switch(
@@ -93,11 +93,13 @@ class SettingsScreen extends StatelessWidget {
                           ),
                           Divider(),
                           ListTile(
-                            title: Text(DATE_FORMAT),
+                            title: Text(TIME_FORMAT),
+                            trailing: TimeFormatSelector(),
                           ),
                           Divider(),
                           ListTile(
-                            title: Text(TIME_FORMAT),
+                            title: Text(DATE_FORMAT),
+                            trailing: DateFormatSelector(),
                           ),
                         ]),
                   ),

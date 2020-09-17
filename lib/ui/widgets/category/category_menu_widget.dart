@@ -25,6 +25,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
 
   @override
   void initState() {
+    // TODO Unused
     super.initState();
   }
 

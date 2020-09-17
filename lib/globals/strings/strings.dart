@@ -1,5 +1,4 @@
 const String APP_NAME = 'To Do';
-const String SETTINGS = 'Settings';
 const String ADD_CATEGORY = 'Add Category';
 const String NEW_CATEGORY = 'New Category';
 const String CATEGORY_NAME = 'Name';
@@ -45,6 +44,8 @@ const String D_DELETE_CATEGORY =
 const String Q_CHANGE_NAME = 'Change name of category';
 const String Q_CHANGE_COLOR = 'Change color of category';
 const String Q_CHANGE_ICON = 'Change icon of category';
+// settings
+const String SETTINGS = 'Settings';
 const String DISPLAY_TIME_COMPLETED = 'Display task\'s completion time';
 const String TIME_FORMAT = 'Time format';
 const String DATE_FORMAT = 'Date format';
