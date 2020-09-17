@@ -6,4 +6,9 @@ class TimeConversion {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(input);
     return DateFormat(pattern).format(dateTime.toLocal());
   }
+
+  String formatDateNow(String pattern) {
+    DateTime dateTime = DateTime.now();
+    return DateFormat(pattern).format(dateTime.toLocal());
+  }
 }
