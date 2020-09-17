@@ -5,11 +5,7 @@
 > Simple TO-DO app to help you get stuff done.
 
 
-<img src="https://img.shields.io/badge/license-MIT-green">
-<img src="https://img.shields.io/badge/version-v1.0.0-orange">
-<img src="https://img.shields.io/badge/updated-sept%202020-blue">
-<img src="https://img.shields.io/badge/pull requests-1 open-yellow">
-<img src="https://img.shields.io/badge/favorites-18-brightgreen">
+<img src="https://img.shields.io/badge/license-MIT-green"> <img src="https://img.shields.io/badge/version-v1.0.0-orange"> <img src="https://img.shields.io/badge/updated-sept%202020-blue"> <img src="https://img.shields.io/badge/pull requests-1 open-yellow"> <img src="https://img.shields.io/badge/favorites-18-brightgreen">
 
 ---
 
@@ -29,7 +25,7 @@
 ## Installation
 
 **Option 1**
-- Go to the snap store website and download it <a href="https://snapcraft.io/purple-task">here</a>.
+- Go to the snap store website and download it <a href="https://snapcraft.io/purple-task" target="_blank">here</a>.
 
 **Option 2**
 - Or install it through the terminal:
@@ -53,7 +49,7 @@ $ snap install purple-task
 ## Usage
 
 
-- Here is a quick demo video <a href="https://www.youtube.com/watch?v=zBpbEn4pzSI">here</a>.
+- Here is a quick demo video <a href="https://www.youtube.com/watch?v=zBpbEn4pzSI" target="_blank">here</a>.
 
 ---
 
@@ -66,7 +62,7 @@ $ snap install purple-task
 ## Support
 
 
-- Website: <a href="mivoligo.com" target="_blank">`mivoligo.com`</a>
+- Website: <a href="https://mivoligo.com" target="_blank">`mivoligo.com`</a>
 - Twitter: <a href="https://twitter.com/mivoligo" target="_blank">`@mivoligo`</a>
 - Youtube: <a href="https://www.youtube.com/user/mivoligo" target="_blank">`Mivoligo`</a>
 
