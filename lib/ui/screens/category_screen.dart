@@ -309,15 +309,15 @@ class _CategoryScreenState extends State<CategoryScreen>
                   },
                   items: [
                     BottomNavigationBarItem(
-                      label: ALL,
+                      title: Text(ALL),
                       icon: Icon(AntIcons.profile),
                     ),
                     BottomNavigationBarItem(
-                      label: TO_DO,
+                      title: Text(TO_DO),
                       icon: Icon(AntIcons.edit),
                     ),
                     BottomNavigationBarItem(
-                      label: COMPLETED,
+                      title: Text(COMPLETED),
                       icon: Icon(AntIcons.check_circle),
                     ),
                   ],
