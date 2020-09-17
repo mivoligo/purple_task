@@ -14,6 +14,7 @@ dependencies:
   hive: ^1.4.2
   hive_flutter: ^0.3.1
   intl: ^0.16.1
+  shared_preferences: ^0.5.10
 dev_dependencies:
   flutter_test:
     sdk: flutter
