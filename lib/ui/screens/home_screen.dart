@@ -136,13 +136,26 @@ class _HomeScreenState extends State<HomeScreen>
             Positioned(
               top: 16.0,
               right: 16.0,
-              child: IconButton(
-                tooltip: SETTINGS,
-                icon: Icon(
-                  AntIcons.setting,
-                  color: Colors.white,
-                ),
-                onPressed: () => openSettingsScreen(context),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Hero(
+                    tag: 'settings',
+                    child: Container(
+                      // width: 10,
+                      // height: 10,
+                      color: Colors.grey[200],
+                    ),
+                  ),
+                  IconButton(
+                    tooltip: SETTINGS,
+                    icon: Icon(
+                      AntIcons.setting,
+                      color: Colors.white,
+                    ),
+                    onPressed: () => openSettingsScreen(context),
+                  ),
+                ],
               ),
             ),
             // Add Category button
