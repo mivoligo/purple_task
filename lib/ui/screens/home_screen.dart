@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen>
                   AntIcons.setting,
                   color: Colors.white,
                 ),
-                onPressed: () {},
+                onPressed: () => openSettingsScreen(context),
               ),
             ),
             // Add Category button
@@ -218,6 +218,20 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void openSettingsScreen(BuildContext context) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, anim1, anim2) => SettingsScreen(),
+        transitionsBuilder: (context, anim1, anim2, child) {
+          return FadeTransition(
+            opacity: anim1,
+            child: child,
+          );
+        },
       ),
     );
   }
