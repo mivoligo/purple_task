@@ -1,4 +1,4 @@
-<img src="snap/gui/icon.png" width="150px" height="150px" title="FVCproductions" alt="FVCproductions">
+<img src="snap/gui/icon.png" width="150px" height="150px">
 
 # Purple Task
 
@@ -68,7 +68,7 @@ $ snap install purple-task
 
 - Website: <a href="mivoligo.com" target="_blank">`mivoligo.com`</a>
 - Twitter: <a href="https://twitter.com/mivoligo" target="_blank">`@mivoligo`</a>
-- Youtube: <a href="https://www.youtube.com/user/mivoligo">`Mivoligo`</a>
+- Youtube: <a href="https://www.youtube.com/user/mivoligo" target="_blank">`Mivoligo`</a>
 
 
 
