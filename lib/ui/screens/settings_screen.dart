@@ -78,6 +78,29 @@ class SettingsScreen extends StatelessWidget {
                       const SizedBox(width: 40.0),
                     ],
                   ),
+                  SizedBox(height: 32.0),
+                  Expanded(
+                    child: ListView(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        children: [
+                          Divider(),
+                          ListTile(
+                            title: Text(DISPLAY_TIME_COMPLETED),
+                            trailing: Switch(
+                              value: true,
+                              onChanged: null,
+                            ),
+                          ),
+                          Divider(),
+                          ListTile(
+                            title: Text(DATE_FORMAT),
+                          ),
+                          Divider(),
+                          ListTile(
+                            title: Text(TIME_FORMAT),
+                          ),
+                        ]),
+                  ),
                 ],
               ),
             ),

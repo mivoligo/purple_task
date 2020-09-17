@@ -45,3 +45,6 @@ const String D_DELETE_CATEGORY =
 const String Q_CHANGE_NAME = 'Change name of category';
 const String Q_CHANGE_COLOR = 'Change color of category';
 const String Q_CHANGE_ICON = 'Change icon of category';
+const String DISPLAY_TIME_COMPLETED = 'Display task\'s completion time';
+const String TIME_FORMAT = 'Time format';
+const String DATE_FORMAT = 'Date format';
