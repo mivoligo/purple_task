@@ -12,7 +12,7 @@
 ## Table of Contents
 
 - [Installation](#installation)
-- [Features](#features)
+- [Features in v1.0.0](#features in v1.0.0)
 - [Contributing](#contributing)
 - [Support](#support)
 - [License](#license)
