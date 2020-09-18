@@ -69,6 +69,10 @@ class _TaskItemState extends State<TaskItem> {
 
   @override
   Widget build(BuildContext context) {
+    final _settings = Provider.of<SettingsViewModel>(context, listen: false);
+    bool _displayDoneTaskTime = _settings.getDisplayTaskDOneTimePref();
+    String _timeFormat = _settings.getTimeFormat();
+    String _dateFormat = _settings.getDateFormat();
     return AnimatedContainer(
       duration: Duration(milliseconds: 300),
       child: Column(
@@ -132,12 +136,14 @@ class _TaskItemState extends State<TaskItem> {
               if (_taskState == TaskState.EditName) const SizedBox(width: 10.0),
             ],
           ),
-          if (widget.task.isDone && widget.task.doneTime != null)
+          if (_displayDoneTaskTime &&
+              widget.task.isDone &&
+              widget.task.doneTime != null)
             Row(
               children: [
                 SizedBox(width: 8.0),
                 Text(
-                  '$COMPLETED: ${TimeConversion().millisToDate(widget.task.doneTime)}',
+                  '$COMPLETED: ${TimeConversion().millisToDate(widget.task.doneTime, dateFormat: _dateFormat, timeFormat: _timeFormat)}',
                 ),
               ],
             ),
