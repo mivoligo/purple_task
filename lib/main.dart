@@ -18,11 +18,14 @@ void main() async {
     ..registerAdapter(CategoryAdapter())
     ..registerAdapter(TaskAdapter());
   // make sure hive boxes are opened before showing UI
+  await Hive.openBox(SETTINGS_BOX);
   await Hive.openBox<Category>(CATEGORY_BOX);
   await Hive.openBox<Task>(TASK_BOX);
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider<SettingsViewModel>(
+            create: (_) => SettingsViewModel()),
         ChangeNotifierProvider<NewCategoryViewModel>(
             create: (_) => NewCategoryViewModel()),
         ChangeNotifierProvider<CategoryViewModel>(
