@@ -5,7 +5,7 @@
 > Simple TO-DO app to help you get stuff done.
 
 
-<img src="https://img.shields.io/badge/license-MIT-green"> <img src="https://img.shields.io/badge/version-v1.0.0-orange"> <img src="https://img.shields.io/badge/updated-sept%202020-blue"> <img src="https://img.shields.io/badge/pull requests-1 open-yellow"> <img src="https://img.shields.io/badge/favorites-18-brightgreen">
+<img src="https://img.shields.io/badge/license-MIT-green"> <img src="https://img.shields.io/badge/version-v1.0.0-orange"> <img src="https://img.shields.io/badge/updated-sept%202020-blue"> <img src="https://img.shields.io/badge/pull requests-1 open-yellow"> <img src="https://img.shields.io/badge/favorites-19-brightgreen">
 
 ---
 
@@ -35,7 +35,7 @@ $ snap install purple-task
 
 ---
 
-## Features:
+## Features in v1.0.0:
 - Categories and Task Management
 
 <img src="https://res.cloudinary.com/canonical/image/fetch/f_auto,q_auto,fl_sanitize,w_819,h_515/https://dashboard.snapcraft.io/site_media/appmedia/2020/09/4e.png">
@@ -44,6 +44,7 @@ $ snap install purple-task
 
 <img src="https://res.cloudinary.com/canonical/image/fetch/f_auto,q_auto,fl_sanitize,w_819,h_515/https://dashboard.snapcraft.io/site_media/appmedia/2020/09/5e.png">
 
+*More features coming soon*
 ---
 
 ## Usage
@@ -72,8 +73,6 @@ $ snap install purple-task
 ---
 
 ## License
-
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
 - Copyright (c) 2020 Michał Prędotka
