@@ -8,14 +8,8 @@ class DateFormatSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _settings = Provider.of<SettingsViewModel>(context);
-    final _formatList = [
-      'd MMMM y',
-      'd MMM y',
-      'd/M/y',
-      'MMMM d y',
-      'MMM d y',
-      'M/d/y',
-    ];
+    final _formatList =
+        Provider.of<SettingsViewModel>(context, listen: false).dateFormats;
     TimeConversion timeConversion = TimeConversion();
     return PopupMenuButton(
       child: Text(

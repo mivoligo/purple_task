@@ -15,6 +15,17 @@ class SettingsViewModel with ChangeNotifier {
     return timeFormat;
   }
 
+  final List<String> _dateFormats = [
+    'd MMMM y',
+    'd MMM y',
+    'd/M/y',
+    'MMMM d y',
+    'MMM d y',
+    'M/d/y',
+  ];
+
+  List<String> get dateFormats => _dateFormats;
+
   setDateFormat(String value) {
     final box = Hive.box(SETTINGS_BOX);
     box.put(DATE_FORMAT_KEY, value);
