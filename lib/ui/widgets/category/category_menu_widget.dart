@@ -24,12 +24,6 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   final textController = TextEditingController();
 
   @override
-  void initState() {
-    // TODO Unused
-    super.initState();
-  }
-
-  @override
   void dispose() {
     textController.dispose();
     super.dispose();
