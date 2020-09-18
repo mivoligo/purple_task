@@ -2,10 +2,16 @@ import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
 class TimeConversion {
-  millisToDate(int input, {@required String dateFormat, String timeFormat}) {
-    String pattern = '$dateFormat, $timeFormat';
+  millisToDateAndTime(
+    int input, {
+    @required String dateFormat,
+    @required String timeFormat,
+  }) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(input);
-    return DateFormat(pattern).format(dateTime.toLocal());
+    DateTime localDateTime = dateTime.toLocal();
+    String date = DateFormat(dateFormat).format(localDateTime);
+    String time = DateFormat(timeFormat).format(localDateTime);
+    return '$date, $time';
   }
 
   String formatDateNow(String pattern) {

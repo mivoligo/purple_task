@@ -50,5 +50,3 @@ const String DISPLAY_TIME_COMPLETED = 'Display task\'s completion time';
 const String TIME_FORMAT = 'Time format';
 const String DATE_FORMAT = 'Date format';
 const String CHANGE_FORMAT = 'Change format';
-const String H12 = '12-hour';
-const String H24 = '24-hour';

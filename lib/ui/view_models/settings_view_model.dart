@@ -3,6 +3,13 @@ import 'package:hive/hive.dart';
 import '../../globals/globals.dart';
 
 class SettingsViewModel with ChangeNotifier {
+  final List<String> _timeFormats = [
+    'Hm', // 24h
+    'jm', // a.m. p.m.
+  ];
+
+  List<String> get timeFormats => _timeFormats;
+
   setTimeFormat(String value) {
     final box = Hive.box(SETTINGS_BOX);
     box.put(TIME_FORMAT_KEY, value);
@@ -11,17 +18,17 @@ class SettingsViewModel with ChangeNotifier {
 
   getTimeFormat() {
     final box = Hive.box(SETTINGS_BOX);
-    String timeFormat = box.get(TIME_FORMAT_KEY, defaultValue: H24);
+    String timeFormat = box.get(TIME_FORMAT_KEY, defaultValue: 'Hm');
     return timeFormat;
   }
 
   final List<String> _dateFormats = [
-    'd MMMM y',
-    'd MMM y',
-    'd/M/y',
-    'MMMM d y',
-    'MMM d y',
-    'M/d/y',
+    'd MMMM y', // 13 August 1970
+    'd MMM y', // 13 Aug 1970
+    'd/M/y', // 13/8/1970
+    'MMMM d y', // August 13 1970
+    'MMM d y', // Aug 13 1970
+    'M/d/y', // 8/13/1970
   ];
 
   List<String> get dateFormats => _dateFormats;
