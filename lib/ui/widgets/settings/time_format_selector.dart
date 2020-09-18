@@ -15,7 +15,13 @@ class _TimeFormatSelectorState extends State<TimeFormatSelector> {
   Widget build(BuildContext context) {
     _settings = Provider.of<SettingsViewModel>(context);
     return PopupMenuButton(
-      child: Text(_settings.getTimeFormat()),
+      child: Text(
+        _settings.getTimeFormat(),
+        style: Theme.of(context)
+            .textTheme
+            .subtitle1
+            .copyWith(color: Theme.of(context).primaryColor),
+      ),
       tooltip: CHANGE_FORMAT,
       onSelected: (item) => onItemSelected(item),
       itemBuilder: (context) {

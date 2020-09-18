@@ -26,4 +26,16 @@ class SettingsViewModel with ChangeNotifier {
     String dateFormat = box.get(DATE_FORMAT_KEY, defaultValue: 'd MMM y');
     return dateFormat;
   }
+
+  setDisplayTaskDoneTimePref(bool value) {
+    final box = Hive.box(SETTINGS_BOX);
+    box.put(DISPLAY_TASK_DONE_TIME_PREF_KEY, value);
+    notifyListeners();
+  }
+
+  getDisplayTaskDOneTimePref() {
+    final box = Hive.box(SETTINGS_BOX);
+    bool pref = box.get(DISPLAY_TASK_DONE_TIME_PREF_KEY, defaultValue: true);
+    return pref;
+  }
 }

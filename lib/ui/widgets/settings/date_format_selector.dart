@@ -20,6 +20,10 @@ class DateFormatSelector extends StatelessWidget {
     return PopupMenuButton(
       child: Text(
         timeConversion.formatDateNow(_settings.getDateFormat()),
+        style: Theme.of(context)
+            .textTheme
+            .subtitle1
+            .copyWith(color: Theme.of(context).primaryColor),
       ),
       tooltip: CHANGE_FORMAT,
       onSelected: (item) => _settings.setDateFormat(_formatList[item]),

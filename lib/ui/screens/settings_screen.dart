@@ -1,5 +1,6 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../globals/globals.dart';
 import '../ui.dart';
 
@@ -85,14 +86,6 @@ class SettingsScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         children: [
                           ListTile(
-                            title: Text(DISPLAY_TIME_COMPLETED),
-                            trailing: Switch(
-                              value: true,
-                              onChanged: null,
-                            ),
-                          ),
-                          Divider(),
-                          ListTile(
                             title: Text(TIME_FORMAT),
                             trailing: TimeFormatSelector(),
                           ),
@@ -100,6 +93,19 @@ class SettingsScreen extends StatelessWidget {
                           ListTile(
                             title: Text(DATE_FORMAT),
                             trailing: DateFormatSelector(),
+                          ),
+                          Divider(),
+                          ListTile(
+                            title: Text(DISPLAY_TIME_COMPLETED),
+                            trailing: Switch(
+                              activeColor: Theme.of(context).primaryColor,
+                              value: Provider.of<SettingsViewModel>(context)
+                                  .getDisplayTaskDOneTimePref(),
+                              onChanged: (value) =>
+                                  Provider.of<SettingsViewModel>(context,
+                                          listen: false)
+                                      .setDisplayTaskDoneTimePref(value),
+                            ),
                           ),
                         ]),
                   ),
