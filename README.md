@@ -12,7 +12,7 @@
 ## Table of Contents
 
 - [Installation](#installation)
-- [Features in v1.0.0](#features)
+- [Features](#features)
 - [Contributing](#contributing)
 - [Support](#support)
 - [License](#license)
@@ -35,7 +35,7 @@ $ snap install purple-task
 
 ---
 
-## Features in v1.0.0:
+## Features:
 - Categories and Task Management
 
 <img src="https://res.cloudinary.com/canonical/image/fetch/f_auto,q_auto,fl_sanitize,w_819,h_515/https://dashboard.snapcraft.io/site_media/appmedia/2020/09/4e.png">
