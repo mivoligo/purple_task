@@ -204,6 +204,12 @@ class _HomeScreenState extends State<HomeScreen>
                                   _currentCategory = index;
                                 })
                               },
+                              // change background color when using keyboard
+                              onFocusChange: (v) => {
+                                setState(() {
+                                  _currentCategory = index;
+                                })
+                              },
                             ),
                           );
                         },

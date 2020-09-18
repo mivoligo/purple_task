@@ -8,12 +8,14 @@ class CategoryCard extends StatelessWidget {
   final Category category;
   final VoidCallback onTap;
   final Function onHover;
+  final Function onFocusChange;
 
   const CategoryCard({
     Key key,
     this.category,
     this.onTap,
     this.onHover,
+    this.onFocusChange,
   }) : super(key: key);
 
   @override
@@ -91,6 +93,7 @@ class CategoryCard extends StatelessWidget {
             child: InkWell(
               onTap: onTap,
               onHover: onHover,
+              onFocusChange: onFocusChange,
             ),
           ),
         ],
