@@ -10,3 +10,4 @@ export 'greetings.dart';
 export 'simple_button.dart';
 export 'animated_progress_bar.dart';
 export 'settings/settings.dart';
+export 'icon_button.dart';
