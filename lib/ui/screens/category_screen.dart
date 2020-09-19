@@ -152,6 +152,7 @@ class _CategoryScreenState extends State<CategoryScreen>
               backgroundColor: _isWide ? Colors.transparent : Colors.grey[200],
               body: Column(
                 children: [
+                  const SizedBox(height: 8.0),
                   AnimatedBuilder(
                     animation: _fadeAnimation,
                     builder: (context, child) {
@@ -166,9 +167,9 @@ class _CategoryScreenState extends State<CategoryScreen>
                         children: [
                           // Go back button
                           const SizedBox(width: 8.0),
-                          IconButton(
+                          CustomIconButton(
                             icon: Icon(AntIcons.arrow_left),
-                            color: Colors.grey[700],
+                            color: Colors.white,
                             tooltip: CLOSE,
                             onPressed: () {
                               _animationController.reverse();

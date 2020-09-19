@@ -65,21 +65,21 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(height: 8.0),
                   // back button and title
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
+                      const SizedBox(width: 8.0),
+                      CustomIconButton(
                         icon: Icon(AntIcons.arrow_left),
-                        color: Colors.grey[700],
+                        color: Colors.white,
                         tooltip: CLOSE,
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
+                        onPressed: Navigator.of(context).pop,
                       ),
+                      Spacer(),
                       Text(
                         SETTINGS,
                         style: Theme.of(context).textTheme.headline4,
                       ),
-                      const SizedBox(width: 40.0),
+                      Spacer(),
+                      const SizedBox(width: 48.0),
                     ],
                   ),
                   const SizedBox(height: 32.0),

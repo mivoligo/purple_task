@@ -141,23 +141,16 @@ class _HomeScreenState extends State<HomeScreen>
                 children: [
                   Hero(
                     tag: 'settings',
+                    // Invisible container for hero transition
                     child: Container(
                       color: Colors.grey[200],
                     ),
                   ),
-                  Material(
-                    borderRadius: BorderRadius.circular(20),
-                    clipBehavior: Clip.antiAlias,
+                  CustomIconButton(
                     color: Colors.white,
-                    child: IconButton(
-                      tooltip: SETTINGS,
-                      // color: Colors.white,
-                      // focusColor: Colors.red[300],
-                      icon: Icon(
-                        AntIcons.setting,
-                      ),
-                      onPressed: () => openSettingsScreen(context),
-                    ),
+                    icon: Icon(AntIcons.setting),
+                    tooltip: SETTINGS,
+                    onPressed: () => openSettingsScreen(context),
                   ),
                 ],
               ),

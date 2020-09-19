@@ -34,45 +34,49 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
     taskModel = Provider.of<TaskViewModel>(context, listen: false);
     categoryModel = Provider.of<CategoryViewModel>(context, listen: false);
 
-    return PopupMenuButton(
-      icon: Icon(
-        AntIcons.menu,
-        color: Colors.grey[700],
-      ),
-      offset: const Offset(0, 48),
-      elevation: 4.0,
-      onSelected: (item) => onItemSelected(context, item),
-      itemBuilder: (context) {
-        var list = List<PopupMenuEntry<Object>>();
-        list.add(PopupMenuItem(
-          child: Text(DELETE_COMPLETED),
-          value: 1,
-        ));
-        list.add(PopupMenuItem(
-          child: Text(DELETE_ALL_TASKS),
-          value: 2,
-        ));
-        list.add(PopupMenuDivider());
-        list.add(PopupMenuItem(
-          child: Text(DELETE_CATEGORY),
-          value: 3,
-        ));
-        list.add(PopupMenuDivider());
-        list.add(PopupMenuItem(
-          child: Text(CHANGE_NAME),
-          value: 4,
-        ));
-        list.add(PopupMenuItem(
-          child: Text(CHANGE_COLOR),
-          value: 5,
-        ));
-        list.add(PopupMenuItem(
-          child: Text(CHANGE_ICON),
-          value: 6,
-        ));
+    return Material(
+      borderRadius: BorderRadius.circular(20),
+      clipBehavior: Clip.antiAlias,
+      child: PopupMenuButton(
+        icon: Icon(
+          AntIcons.menu,
+          color: Colors.grey[700],
+        ),
+        offset: const Offset(0, 48),
+        elevation: 4.0,
+        onSelected: (item) => onItemSelected(context, item),
+        itemBuilder: (context) {
+          var list = List<PopupMenuEntry<Object>>();
+          list.add(PopupMenuItem(
+            child: Text(DELETE_COMPLETED),
+            value: 1,
+          ));
+          list.add(PopupMenuItem(
+            child: Text(DELETE_ALL_TASKS),
+            value: 2,
+          ));
+          list.add(PopupMenuDivider());
+          list.add(PopupMenuItem(
+            child: Text(DELETE_CATEGORY),
+            value: 3,
+          ));
+          list.add(PopupMenuDivider());
+          list.add(PopupMenuItem(
+            child: Text(CHANGE_NAME),
+            value: 4,
+          ));
+          list.add(PopupMenuItem(
+            child: Text(CHANGE_COLOR),
+            value: 5,
+          ));
+          list.add(PopupMenuItem(
+            child: Text(CHANGE_ICON),
+            value: 6,
+          ));
 
-        return list;
-      },
+          return list;
+        },
+      ),
     );
   }
 
