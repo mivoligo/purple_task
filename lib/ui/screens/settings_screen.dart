@@ -41,16 +41,18 @@ class SettingsScreen extends StatelessWidget {
               child: Hero(
                 tag: 'settings',
                 child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(8.0),
-                      boxShadow: [
-                        const BoxShadow(
-                          color: Color(0xff45000000),
-                          offset: Offset(0.0, 4.0),
-                          blurRadius: 8.0,
-                        ),
-                      ]),
+                  decoration: _isWide
+                      ? BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(8.0),
+                          boxShadow: [
+                              const BoxShadow(
+                                color: Color(0xff45000000),
+                                offset: Offset(0.0, 4.0),
+                                blurRadius: 8.0,
+                              ),
+                            ])
+                      : BoxDecoration(color: Colors.grey[200]),
                 ),
               ),
             ),
