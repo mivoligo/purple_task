@@ -1,5 +1,6 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:purple_task/helpers.dart';
 import '../../globals/globals.dart';
 import '../ui.dart';
 
@@ -129,11 +130,13 @@ class _AboutScreenState extends State<AboutScreen>
                             ListTile(
                               title: Text(SOURCE_CODE),
                               trailing: Icon(AntIcons.arrow_right),
+                              onTap: () => UrlHelper().openUrl(SOURCE_CODE_URL),
                             ),
                             const Divider(indent: 8, endIndent: 8),
                             ListTile(
                               title: Text(BUGS),
                               trailing: Icon(AntIcons.arrow_right),
+                              onTap: () => UrlHelper().openUrl(BUGS_URL),
                             ),
                             const Divider(indent: 8, endIndent: 8),
                           ]),

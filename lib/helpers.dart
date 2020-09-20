@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TimeConversion {
   millisToDateAndTime(
@@ -17,5 +18,15 @@ class TimeConversion {
   String formatDateNow(String pattern) {
     DateTime dateTime = DateTime.now();
     return DateFormat(pattern).format(dateTime.toLocal());
+  }
+}
+
+class UrlHelper {
+  openUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

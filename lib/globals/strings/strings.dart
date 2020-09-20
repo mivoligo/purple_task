@@ -53,4 +53,6 @@ const String CHANGE_FORMAT = 'Change format';
 // about app
 const String ABOUT = 'About $APP_NAME';
 const String SOURCE_CODE = 'View source code';
-const String BUGS = 'Report bugs';
+const String SOURCE_CODE_URL = 'https://github.com/mivoligo/purple_task';
+const String BUGS = 'Report issues';
+const String BUGS_URL = 'https://github.com/mivoligo/purple_task/issues';
