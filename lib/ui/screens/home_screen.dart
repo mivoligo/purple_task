@@ -136,46 +136,28 @@ class _HomeScreenState extends State<HomeScreen>
             Positioned(
               top: 16.0,
               right: 16.0,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Hero(
-                    tag: 'settings',
-                    // Invisible container for hero transition
-                    child: Container(
-                      color: Colors.grey[200],
-                    ),
-                  ),
-                  CustomIconButton(
-                    color: Colors.white,
-                    icon: Icon(AntIcons.setting),
-                    tooltip: SETTINGS,
-                    onPressed: () => openSettingsScreen(context),
-                  ),
-                ],
+              child: Hero(
+                tag: 'settings',
+                child: CustomIconButton(
+                  color: Colors.white,
+                  icon: Icon(AntIcons.setting),
+                  tooltip: SETTINGS,
+                  onPressed: () => openSettingsScreen(context),
+                ),
               ),
             ),
             // About app button
             Positioned(
               top: 16.0,
               right: 64.0,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Hero(
-                    tag: 'about',
-                    // Invisible container for hero transition
-                    child: Container(
-                      color: Colors.grey[200],
-                    ),
-                  ),
-                  CustomIconButton(
-                    color: Colors.white,
-                    icon: Icon(AntIcons.info_circle),
-                    tooltip: ABOUT,
-                    onPressed: () => openAboutScreen(context),
-                  ),
-                ],
+              child: Hero(
+                tag: 'about',
+                child: CustomIconButton(
+                  color: Colors.white,
+                  icon: Icon(AntIcons.info_circle),
+                  tooltip: ABOUT,
+                  onPressed: () => openAboutScreen(context),
+                ),
               ),
             ),
             // Add Category button
