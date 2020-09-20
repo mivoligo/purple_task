@@ -52,3 +52,5 @@ const String DATE_FORMAT = 'Date format';
 const String CHANGE_FORMAT = 'Change format';
 // about app
 const String ABOUT = 'About $APP_NAME';
+const String SOURCE_CODE = 'View source code';
+const String BUGS = 'Report bugs';

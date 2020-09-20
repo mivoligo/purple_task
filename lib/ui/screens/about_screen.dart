@@ -1,6 +1,5 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../globals/globals.dart';
 import '../ui.dart';
 
@@ -128,27 +127,15 @@ class _AboutScreenState extends State<AboutScreen>
                           padding: const EdgeInsets.symmetric(horizontal: 28.0),
                           children: [
                             ListTile(
-                              title: Text(TIME_FORMAT),
-                              trailing: TimeFormatSelector(),
+                              title: Text(SOURCE_CODE),
+                              trailing: Icon(AntIcons.arrow_right),
                             ),
                             const Divider(indent: 8, endIndent: 8),
                             ListTile(
-                              title: Text(DATE_FORMAT),
-                              trailing: DateFormatSelector(),
+                              title: Text(BUGS),
+                              trailing: Icon(AntIcons.arrow_right),
                             ),
                             const Divider(indent: 8, endIndent: 8),
-                            ListTile(
-                              title: Text(DISPLAY_TIME_COMPLETED),
-                              trailing: Switch(
-                                activeColor: Theme.of(context).primaryColor,
-                                value: Provider.of<SettingsViewModel>(context)
-                                    .getDisplayTaskDOneTimePref(),
-                                onChanged: (value) =>
-                                    Provider.of<SettingsViewModel>(context,
-                                            listen: false)
-                                        .setDisplayTaskDoneTimePref(value),
-                              ),
-                            ),
                           ]),
                     ),
                   ],
