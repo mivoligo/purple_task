@@ -4,13 +4,42 @@ import 'package:provider/provider.dart';
 import '../../globals/globals.dart';
 import '../ui.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   final Color backgroundColor;
 
   const SettingsScreen({
     Key key,
     @required this.backgroundColor,
   }) : super(key: key);
+
+  @override
+  _SettingsScreenState createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController _animationController;
+  Animation _fadeAnimation;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 300),
+    );
+    _fadeAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInExpo,
+    );
+    _animationController.forward();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.grey[850],
-                      backgroundColor,
+                      widget.backgroundColor,
                     ]),
               ),
             ),
@@ -60,58 +89,70 @@ class SettingsScreen extends StatelessWidget {
               width: _isWide ? 550 : _appWidth,
               top: _isWide ? 50 : 0,
               bottom: _isWide ? 50 : 0,
-              child: Column(
-                children: [
-                  const SizedBox(height: 8.0),
-                  // back button and title
-                  Row(
-                    children: [
-                      const SizedBox(width: 8.0),
-                      CustomIconButton(
-                        icon: Icon(AntIcons.arrow_left),
-                        color: Colors.white,
-                        tooltip: CLOSE,
-                        onPressed: Navigator.of(context).pop,
-                      ),
-                      Spacer(),
-                      Text(
-                        SETTINGS,
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                      Spacer(),
-                      const SizedBox(width: 48.0),
-                    ],
-                  ),
-                  const SizedBox(height: 32.0),
-                  Expanded(
-                    child: ListView(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        children: [
-                          ListTile(
-                            title: Text(TIME_FORMAT),
-                            trailing: TimeFormatSelector(),
-                          ),
-                          Divider(),
-                          ListTile(
-                            title: Text(DATE_FORMAT),
-                            trailing: DateFormatSelector(),
-                          ),
-                          Divider(),
-                          ListTile(
-                            title: Text(DISPLAY_TIME_COMPLETED),
-                            trailing: Switch(
-                              activeColor: Theme.of(context).primaryColor,
-                              value: Provider.of<SettingsViewModel>(context)
-                                  .getDisplayTaskDOneTimePref(),
-                              onChanged: (value) =>
-                                  Provider.of<SettingsViewModel>(context,
-                                          listen: false)
-                                      .setDisplayTaskDoneTimePref(value),
+              child: AnimatedBuilder(
+                animation: _fadeAnimation,
+                builder: (context, child) {
+                  return Opacity(
+                    opacity: _fadeAnimation.value,
+                    child: child,
+                  );
+                },
+                child: Column(
+                  children: [
+                    const SizedBox(height: 8.0),
+                    // back button and title
+                    Row(
+                      children: [
+                        const SizedBox(width: 8.0),
+                        CustomIconButton(
+                          icon: Icon(AntIcons.arrow_left),
+                          color: Colors.white,
+                          tooltip: CLOSE,
+                          onPressed: () {
+                            _animationController.reverse();
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        Spacer(),
+                        Text(
+                          SETTINGS,
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                        Spacer(),
+                        const SizedBox(width: 48.0),
+                      ],
+                    ),
+                    const SizedBox(height: 32.0),
+                    Expanded(
+                      child: ListView(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          children: [
+                            ListTile(
+                              title: Text(TIME_FORMAT),
+                              trailing: TimeFormatSelector(),
                             ),
-                          ),
-                        ]),
-                  ),
-                ],
+                            Divider(),
+                            ListTile(
+                              title: Text(DATE_FORMAT),
+                              trailing: DateFormatSelector(),
+                            ),
+                            Divider(),
+                            ListTile(
+                              title: Text(DISPLAY_TIME_COMPLETED),
+                              trailing: Switch(
+                                activeColor: Theme.of(context).primaryColor,
+                                value: Provider.of<SettingsViewModel>(context)
+                                    .getDisplayTaskDOneTimePref(),
+                                onChanged: (value) =>
+                                    Provider.of<SettingsViewModel>(context,
+                                            listen: false)
+                                        .setDisplayTaskDoneTimePref(value),
+                              ),
+                            ),
+                          ]),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
