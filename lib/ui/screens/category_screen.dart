@@ -133,7 +133,7 @@ class _CategoryScreenState extends State<CategoryScreen>
               child: Container(
                 decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(24.0),
                     boxShadow: [
                       const BoxShadow(
                         color: Color(0xff45000000),

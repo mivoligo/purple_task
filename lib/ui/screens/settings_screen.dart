@@ -73,7 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                   decoration: _isWide
                       ? BoxDecoration(
                           color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(24.0),
                           boxShadow: [
                               const BoxShadow(
                                 color: Color(0xff45000000),
@@ -125,18 +125,18 @@ class _SettingsScreenState extends State<SettingsScreen>
                     const SizedBox(height: 32.0),
                     Expanded(
                       child: ListView(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 28.0),
                           children: [
                             ListTile(
                               title: Text(TIME_FORMAT),
                               trailing: TimeFormatSelector(),
                             ),
-                            Divider(),
+                            const Divider(indent: 8, endIndent: 8),
                             ListTile(
                               title: Text(DATE_FORMAT),
                               trailing: DateFormatSelector(),
                             ),
-                            Divider(),
+                            const Divider(indent: 8, endIndent: 8),
                             ListTile(
                               title: Text(DISPLAY_TIME_COMPLETED),
                               trailing: Switch(
