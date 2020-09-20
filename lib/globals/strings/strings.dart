@@ -1,4 +1,4 @@
-const String APP_NAME = 'To Do';
+const String APP_NAME = 'Purple Task';
 const String ADD_CATEGORY = 'Add Category';
 const String NEW_CATEGORY = 'New Category';
 const String CATEGORY_NAME = 'Name';
@@ -50,3 +50,5 @@ const String DISPLAY_TIME_COMPLETED = 'Display task\'s completion time';
 const String TIME_FORMAT = 'Time format';
 const String DATE_FORMAT = 'Date format';
 const String CHANGE_FORMAT = 'Change format';
+// about app
+const String ABOUT = 'About $APP_NAME';

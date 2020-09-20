@@ -155,6 +155,29 @@ class _HomeScreenState extends State<HomeScreen>
                 ],
               ),
             ),
+            // About app button
+            Positioned(
+              top: 16.0,
+              right: 64.0,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Hero(
+                    tag: 'about',
+                    // Invisible container for hero transition
+                    child: Container(
+                      color: Colors.grey[200],
+                    ),
+                  ),
+                  CustomIconButton(
+                    color: Colors.white,
+                    icon: Icon(AntIcons.info_circle),
+                    tooltip: ABOUT,
+                    onPressed: () => openAboutScreen(context),
+                  ),
+                ],
+              ),
+            ),
             // Add Category button
             AnimatedBuilder(
                 animation: _animationController,
@@ -242,6 +265,22 @@ class _HomeScreenState extends State<HomeScreen>
     Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, anim1, anim2) => SettingsScreen(
+          backgroundColor: _color,
+        ),
+        transitionsBuilder: (context, anim1, anim2, child) {
+          return FadeTransition(
+            opacity: anim1,
+            child: child,
+          );
+        },
+      ),
+    );
+  }
+
+  void openAboutScreen(BuildContext context) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, anim1, anim2) => AboutScreen(
           backgroundColor: _color,
         ),
         transitionsBuilder: (context, anim1, anim2, child) {
