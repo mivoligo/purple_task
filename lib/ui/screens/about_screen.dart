@@ -132,15 +132,25 @@ class _AboutScreenState extends State<AboutScreen>
                               height: 100,
                             ),
                             ListTile(
-                              title: Text(APP_NAME),
+                              title: Text(
+                                APP_NAME,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(color: Colors.black),
+                              ),
                               trailing: Text(APP_VERSION),
                             ),
-                            ListTile(
-                              title: Text(
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  16.0, 0.0, 16.0, 16.0),
+                              child: Text(
                                 APP_DESCRIPTION,
-                                style: Theme.of(context).textTheme.bodyText2,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.bodyText1,
                               ),
                             ),
+                            const Divider(indent: 8, endIndent: 8),
                             Material(
                               color: Colors.grey[200],
                               child: ListTile(
