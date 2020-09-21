@@ -90,6 +90,8 @@ class CategoryCard extends StatelessWidget {
           ),
           Material(
             type: MaterialType.transparency,
+            borderRadius: BorderRadius.circular(12.0),
+            clipBehavior: Clip.antiAlias,
             child: InkWell(
               onTap: onTap,
               onHover: onHover,
