@@ -132,15 +132,27 @@ class _AboutScreenState extends State<AboutScreen>
                               height: 100,
                             ),
                             ListTile(
-                              title: Text(SOURCE_CODE),
-                              trailing: Icon(AntIcons.arrow_right),
-                              onTap: () => UrlHelper().openUrl(SOURCE_CODE_URL),
+                              title: Text(APP_NAME),
+                              trailing: Text(APP_VERSION),
                             ),
                             const Divider(indent: 8, endIndent: 8),
-                            ListTile(
-                              title: Text(BUGS),
-                              trailing: Icon(AntIcons.arrow_right),
-                              onTap: () => UrlHelper().openUrl(BUGS_URL),
+                            Material(
+                              color: Colors.grey[200],
+                              child: ListTile(
+                                title: Text(SOURCE_CODE),
+                                trailing: Icon(AntIcons.arrow_right),
+                                onTap: () =>
+                                    UrlHelper().openUrl(SOURCE_CODE_URL),
+                              ),
+                            ),
+                            const Divider(indent: 8, endIndent: 8),
+                            Material(
+                              color: Colors.grey[200],
+                              child: ListTile(
+                                title: Text(BUGS),
+                                trailing: Icon(AntIcons.arrow_right),
+                                onTap: () => UrlHelper().openUrl(BUGS_URL),
+                              ),
                             ),
                             const Divider(indent: 8, endIndent: 8),
                           ]),

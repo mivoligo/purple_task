@@ -1,4 +1,5 @@
 const String APP_NAME = 'Purple Task';
+const String APP_VERSION = '1.1.0';
 const String ADD_CATEGORY = 'Add Category';
 const String NEW_CATEGORY = 'New Category';
 const String CATEGORY_NAME = 'Name';
