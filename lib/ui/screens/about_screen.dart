@@ -135,6 +135,19 @@ class _AboutScreenState extends State<AboutScreen>
                               title: Text(APP_NAME),
                               trailing: Text(APP_VERSION),
                             ),
+                            ListTile(
+                              title: Text(
+                                APP_DESCRIPTION,
+                                style: Theme.of(context).textTheme.bodyText2,
+                              ),
+                            ),
+                            Material(
+                              color: Colors.grey[200],
+                              child: ListTile(
+                                  title: Text(LICENSE),
+                                  trailing: Text(LICENSE_SHORT),
+                                  onTap: () => _showLicenseDialog()),
+                            ),
                             const Divider(indent: 8, endIndent: 8),
                             Material(
                               color: Colors.grey[200],
@@ -165,5 +178,23 @@ class _AboutScreenState extends State<AboutScreen>
         ),
       ),
     );
+  }
+
+  _showLicenseDialog() async {
+    return showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            content: SingleChildScrollView(
+              child: Text(MIT_LICENSE),
+            ),
+            actions: [
+              SimpleButton(
+                text: CLOSE,
+                onPressed: Navigator.of(context).pop,
+              )
+            ],
+          );
+        });
   }
 }
