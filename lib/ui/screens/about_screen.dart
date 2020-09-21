@@ -127,6 +127,10 @@ class _AboutScreenState extends State<AboutScreen>
                       child: ListView(
                           padding: const EdgeInsets.symmetric(horizontal: 28.0),
                           children: [
+                            Image.asset(
+                              'assets/images/icon.png',
+                              height: 100,
+                            ),
                             ListTile(
                               title: Text(SOURCE_CODE),
                               trailing: Icon(AntIcons.arrow_right),
