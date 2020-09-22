@@ -5,7 +5,7 @@
 > Simple TO-DO app to help you get stuff done.
 
 
-<img src="https://img.shields.io/badge/license-MIT-green"> <img src="https://img.shields.io/badge/version-v1.0.0-orange"> <img src="https://img.shields.io/badge/updated-sept%202020-blue"> <img src="https://img.shields.io/badge/pull requests-1 open-yellow"> <img src="https://img.shields.io/badge/favorites-19-brightgreen">
+<img src="https://img.shields.io/badge/license-MIT-green"> <img src="https://img.shields.io/badge/version-v1.1.0-orange"> <img src="https://img.shields.io/badge/updated-sept%202020-blue"> <img src="https://img.shields.io/badge/pull requests-1 open-yellow"> <img src="https://img.shields.io/badge/favorites-19-brightgreen">
 
 ---
 
