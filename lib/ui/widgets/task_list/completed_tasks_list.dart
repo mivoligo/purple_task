@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../db_models/task.dart';
-import '../../../ui/widgets/task_item/task_item.dart';
+import '../../../db_models/db_models.dart';
+import '../../ui.dart';
 
 class CompletedTasksList extends StatelessWidget {
   final List<Task> list;
@@ -16,6 +16,7 @@ class CompletedTasksList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scrollbar(
       child: ListView.separated(
+        key: PageStorageKey('completed_tasks'),
         controller: controller,
         itemBuilder: (context, index) {
           Task task = list[index];
@@ -23,7 +24,7 @@ class CompletedTasksList extends StatelessWidget {
             task: task,
           );
         },
-        separatorBuilder: (context, index) => Divider(),
+        separatorBuilder: (context, index) => const Divider(),
         itemCount: list.length,
       ),
     );

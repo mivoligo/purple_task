@@ -1,15 +1,10 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import '../../globals/strings/strings.dart';
-import '../../db_models/category.dart';
-import '../view_models/new_category_view_model.dart';
-import './category_screen.dart';
-import './new_category_screen.dart';
-import '../../ui/view_models/category_view_model.dart';
-import '../../ui/widgets/add_category_button.dart';
-import '../../ui/widgets/category_card.dart';
-import '../../ui/widgets/greetings.dart';
+import '../../globals/globals.dart';
+import '../../db_models/db_models.dart';
+import '../ui.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -137,6 +132,34 @@ class _HomeScreenState extends State<HomeScreen>
                     );
                   }),
             ),
+            // Settings button
+            Positioned(
+              top: 16.0,
+              right: 16.0,
+              child: Hero(
+                tag: 'settings',
+                child: CustomIconButton(
+                  color: Colors.white,
+                  icon: Icon(AntIcons.setting),
+                  tooltip: SETTINGS,
+                  onPressed: () => openSettingsScreen(context),
+                ),
+              ),
+            ),
+            // About app button
+            Positioned(
+              top: 16.0,
+              right: 72.0,
+              child: Hero(
+                tag: 'about',
+                child: CustomIconButton(
+                  color: Colors.white,
+                  icon: Icon(AntIcons.info_circle),
+                  tooltip: ABOUT,
+                  onPressed: () => openAboutScreen(context),
+                ),
+              ),
+            ),
             // Add Category button
             AnimatedBuilder(
                 animation: _animationController,
@@ -183,6 +206,12 @@ class _HomeScreenState extends State<HomeScreen>
                                   _currentCategory = index;
                                 })
                               },
+                              // change background color when using keyboard
+                              onFocusChange: (v) => {
+                                setState(() {
+                                  _currentCategory = index;
+                                })
+                              },
                             ),
                           );
                         },
@@ -210,6 +239,38 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void openSettingsScreen(BuildContext context) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, anim1, anim2) => SettingsScreen(
+          backgroundColor: _color,
+        ),
+        transitionsBuilder: (context, anim1, anim2, child) {
+          return FadeTransition(
+            opacity: anim1,
+            child: child,
+          );
+        },
+      ),
+    );
+  }
+
+  void openAboutScreen(BuildContext context) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, anim1, anim2) => AboutScreen(
+          backgroundColor: _color,
+        ),
+        transitionsBuilder: (context, anim1, anim2, child) {
+          return FadeTransition(
+            opacity: anim1,
+            child: child,
+          );
+        },
       ),
     );
   }

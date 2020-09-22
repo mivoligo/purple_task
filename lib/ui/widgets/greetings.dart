@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../globals/strings/strings.dart';
-import '../../ui/view_models/task_view_model.dart';
+import '../../globals/globals.dart';
+import '../ui.dart';
 
 class Greetings extends StatelessWidget {
   final String greetings;
@@ -10,7 +10,7 @@ class Greetings extends StatelessWidget {
 
   const Greetings({
     Key key,
-    this.greetings,
+    @required this.greetings,
     this.topDistance = 0.0,
     this.distance = 32.0,
   }) : super(key: key);
@@ -29,7 +29,7 @@ class Greetings extends StatelessWidget {
           greetings,
           style: Theme.of(context).textTheme.headline5,
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         Consumer<TaskViewModel>(
           builder: (_, model, __) {
             int numberOfTasks = model.numberOfAllPlannedTasks();

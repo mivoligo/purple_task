@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../globals/strings/strings.dart';
-import '../../view_models/new_category_view_model.dart';
+import '../../../globals/globals.dart';
+import '../../ui.dart';
 
 class CategoryName extends StatelessWidget {
   final Function onSubmitted;
@@ -35,7 +35,7 @@ class CategoryName extends StatelessWidget {
                     text,
           ),
         ),
-        SizedBox(height: 4.0),
+        const SizedBox(height: 4.0),
         Text(
           CATEGORY_NAME,
           style: Theme.of(context).textTheme.bodyText2,

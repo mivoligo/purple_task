@@ -2,10 +2,10 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../globals/strings/strings.dart';
-import '../../../db_models/task.dart';
-import '../../../ui/view_models/task_view_model.dart';
-import '../../../ui/widgets/simple_button.dart';
+import '../../../helpers.dart';
+import '../../../globals/globals.dart';
+import '../../../db_models/db_models.dart';
+import '../../ui.dart';
 
 enum TaskState {
   Normal,
@@ -69,6 +69,10 @@ class _TaskItemState extends State<TaskItem> {
 
   @override
   Widget build(BuildContext context) {
+    final _settings = Provider.of<SettingsViewModel>(context, listen: false);
+    bool _displayDoneTaskTime = _settings.getDisplayTaskDOneTimePref();
+    String _timeFormat = _settings.getTimeFormat();
+    String _dateFormat = _settings.getDateFormat();
     return AnimatedContainer(
       duration: Duration(milliseconds: 300),
       child: Column(
@@ -79,9 +83,13 @@ class _TaskItemState extends State<TaskItem> {
                 activeColor: Colors.grey,
                 value: widget.task.isDone,
                 onChanged: (value) {
+                  final taskViewModel =
+                      Provider.of<TaskViewModel>(context, listen: false);
                   widget.task.isDone = value;
-                  Provider.of<TaskViewModel>(context, listen: false)
-                      .updateTask(widget.task.key, widget.task);
+                  if (widget.task.isDone) {
+                    widget.task.doneTime = taskViewModel.setTaskDoneTime();
+                  }
+                  taskViewModel.updateTask(widget.task.key, widget.task);
                 },
               ),
               SizedBox(width: 8.0),
@@ -118,22 +126,33 @@ class _TaskItemState extends State<TaskItem> {
               ),
               if (_taskState == TaskState.Normal)
                 IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     AntIcons.delete,
                     color: Colors.grey,
                   ),
                   onPressed: setTaskDelete,
                   tooltip: DELETE,
                 ),
-              if (_taskState == TaskState.EditName) SizedBox(width: 10.0),
+              if (_taskState == TaskState.EditName) const SizedBox(width: 10.0),
             ],
           ),
+          if (_displayDoneTaskTime &&
+              widget.task.isDone &&
+              widget.task.doneTime != null)
+            Row(
+              children: [
+                SizedBox(width: 8.0),
+                Text(
+                  '$COMPLETED: ${TimeConversion().millisToDateAndTime(widget.task.doneTime, dateFormat: _dateFormat, timeFormat: _timeFormat)}',
+                ),
+              ],
+            ),
           AnimatedContainer(
             height: _taskState == TaskState.Normal ? 0 : 56,
             duration: Duration(milliseconds: 90),
             child: Row(
               children: [
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 SimpleButton(
                   onPressed: setTaskNormal,
                   text: CANCEL,
@@ -166,7 +185,7 @@ class _TaskItemState extends State<TaskItem> {
                           }
                         : null,
                   ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
               ],
             ),
           ),

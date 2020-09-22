@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import '../../../globals/strings/strings.dart';
-import '../../view_models/new_category_view_model.dart';
-import '../../../ui/widgets/add_task_field.dart';
+import '../../../globals/globals.dart';
+import '../../ui.dart';
 
 class CategoryTasks extends StatefulWidget {
   @override
@@ -54,7 +52,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
             ),
           ),
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         Padding(
           padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 0.0),
           child: AddTaskField(
@@ -65,7 +63,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
             },
           ),
         ),
-        SizedBox(height: 4.0),
+        const SizedBox(height: 4.0),
         Text(
           TASK_SINGULAR_CAPITAL,
           textAlign: TextAlign.center,
@@ -79,7 +77,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
                 child: ListView.separated(
                   controller: _scrollController,
                   itemCount: value.tasks.length,
-                  separatorBuilder: (context, index) => Divider(),
+                  separatorBuilder: (context, index) => const Divider(),
                   itemBuilder: (context, index) {
                     return ListTile(
                       contentPadding: EdgeInsets.symmetric(horizontal: 0),

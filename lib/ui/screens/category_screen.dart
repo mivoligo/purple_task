@@ -2,16 +2,10 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import '../../globals/strings/strings.dart';
-import '../../db_models/task.dart';
-import '../view_models/category_view_model.dart';
-import '../view_models/task_view_model.dart';
-import '../widgets/add_task_field.dart';
-import '../widgets/category/category_menu_widget.dart';
-import '../widgets/task_list/all_tasks_list.dart';
-import '../widgets/category_header.dart';
-import '../widgets/task_list/completed_tasks_list.dart';
-import '../widgets/task_list/planned_task_list.dart';
+
+import '../../db_models/db_models.dart';
+import '../../globals/globals.dart';
+import '../ui.dart';
 
 class CategoryScreen extends StatefulWidget {
   final int currentIndex;
@@ -139,9 +133,9 @@ class _CategoryScreenState extends State<CategoryScreen>
               child: Container(
                 decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(24.0),
                     boxShadow: [
-                      BoxShadow(
+                      const BoxShadow(
                         color: Color(0xff45000000),
                         offset: Offset(0.0, 4.0),
                         blurRadius: 8.0,
@@ -158,38 +152,41 @@ class _CategoryScreenState extends State<CategoryScreen>
               backgroundColor: _isWide ? Colors.transparent : Colors.grey[200],
               body: Column(
                 children: [
+                  const SizedBox(height: 8.0),
                   AnimatedBuilder(
-                      animation: _fadeAnimation,
-                      builder: (context, child) {
-                        return Opacity(
-                          opacity: _fadeAnimation.value,
-                          child: Material(
-                            type: MaterialType.transparency,
-                            child: Row(
-                              children: [
-                                // Go back button
-                                SizedBox(width: 8.0),
-                                IconButton(
-                                  icon: Icon(AntIcons.arrow_left),
-                                  color: Colors.grey[700],
-                                  tooltip: CLOSE,
-                                  onPressed: () {
-                                    _animationController.reverse();
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                Spacer(),
-                                // Menu button
-                                CategoryMenuWidget(
-                                  categoryIndex: widget.currentIndex,
-                                ),
-                                SizedBox(width: 8.0),
-                              ],
-                            ),
+                    animation: _fadeAnimation,
+                    builder: (context, child) {
+                      return Opacity(
+                        opacity: _fadeAnimation.value,
+                        child: child,
+                      );
+                    },
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: Row(
+                        children: [
+                          // Go back button
+                          const SizedBox(width: 8.0),
+                          CustomIconButton(
+                            icon: Icon(AntIcons.arrow_left),
+                            color: Colors.white,
+                            tooltip: CLOSE,
+                            onPressed: () {
+                              _animationController.reverse();
+                              Navigator.of(context).pop();
+                            },
                           ),
-                        );
-                      }),
-                  SizedBox(height: 16.0),
+                          Spacer(),
+                          // Menu button
+                          CategoryMenuWidget(
+                            categoryIndex: widget.currentIndex,
+                          ),
+                          const SizedBox(width: 8.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 36.0),
@@ -209,7 +206,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     Color(categoryModel.currentCategory.color),
                                 size: 40),
                           ),
-                          SizedBox(height: 24.0),
+                          const SizedBox(height: 24.0),
                           // header with number of tasks, name and progress
                           Hero(
                             tag: 'header${categoryModel.currentCategory.id}',
@@ -259,7 +256,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                               ),
                             ),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           // Add task field
                           AnimatedBuilder(
                             animation: _fadeAnimation,
@@ -283,7 +280,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                               },
                             ),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           Expanded(
                             child: AnimatedBuilder(
                               animation: _fadeAnimation,

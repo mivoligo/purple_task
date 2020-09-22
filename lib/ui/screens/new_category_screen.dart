@@ -3,14 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import '../../globals/strings/strings.dart';
-import '../view_models/new_category_view_model.dart';
-import '../../ui/view_models/category_view_model.dart';
-import '../../ui/widgets/new_category/new_category_colors.dart';
-import '../../ui/widgets/new_category/new_category_icons.dart';
-import '../../ui/widgets/new_category/new_category_name.dart';
-import '../../ui/widgets/new_category/new_category_tasks.dart';
-import '../../ui/widgets/simple_button.dart';
+import '../../globals/globals.dart';
+import '../ui.dart';
 
 enum Progress {
   CategoryName,
@@ -174,19 +168,19 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                           ),
                           Column(
                             children: [
-                              SizedBox(height: 8.0),
+                              const SizedBox(height: 8.0),
                               Text(
                                 NEW_CATEGORY,
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
-                              SizedBox(height: 8.0),
+                              const SizedBox(height: 8.0),
                               Expanded(
                                 flex: 3,
                                 child: getProgressWidget(),
                               ),
                               Row(
                                 children: [
-                                  SizedBox(width: 16.0),
+                                  const SizedBox(width: 16.0),
                                   SimpleButton(
                                     text: CANCEL,
                                     onPressed: () {
@@ -207,10 +201,10 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                                         ? null
                                         : goToNext,
                                   ),
-                                  SizedBox(width: 16.0),
+                                  const SizedBox(width: 16.0),
                                 ],
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                             ],
                           ),
                         ],

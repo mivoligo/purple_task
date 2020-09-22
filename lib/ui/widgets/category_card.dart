@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../globals/strings/strings.dart';
-import '../../db_models/category.dart';
-import '../../ui/view_models/task_view_model.dart';
-import './category_header.dart';
+import '../../globals/globals.dart';
+import '../../db_models/db_models.dart';
+import '../ui.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;
   final VoidCallback onTap;
   final Function onHover;
+  final Function onFocusChange;
 
   const CategoryCard({
     Key key,
     this.category,
     this.onTap,
     this.onHover,
+    this.onFocusChange,
   }) : super(key: key);
 
   @override
@@ -44,8 +45,8 @@ class CategoryCard extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
+                  borderRadius: BorderRadius.circular(12.0),
+                  boxShadow: const [
                     BoxShadow(
                       color: Color(0xff45000000),
                       offset: Offset(0.0, 4.0),
@@ -89,9 +90,12 @@ class CategoryCard extends StatelessWidget {
           ),
           Material(
             type: MaterialType.transparency,
+            borderRadius: BorderRadius.circular(12.0),
+            clipBehavior: Clip.antiAlias,
             child: InkWell(
               onTap: onTap,
               onHover: onHover,
+              onFocusChange: onFocusChange,
             ),
           ),
         ],

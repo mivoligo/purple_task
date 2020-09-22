@@ -3,11 +3,9 @@ import 'dart:math';
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../globals/category_colors.dart';
-import '../../db_models/category.dart';
-import '../../db_models/task.dart';
-import 'category_view_model.dart';
-import 'task_view_model.dart';
+import '../../globals/globals.dart';
+import '../../db_models/db_models.dart';
+import '../ui.dart';
 
 class NewCategoryViewModel extends ChangeNotifier {
   String _name = '';
