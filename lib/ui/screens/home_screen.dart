@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen>
             // About app button
             Positioned(
               top: 16.0,
-              right: 64.0,
+              right: 72.0,
               child: Hero(
                 tag: 'about',
                 child: CustomIconButton(
