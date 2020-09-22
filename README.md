@@ -5,7 +5,7 @@
 > Simple TO-DO app to help you get stuff done.
 
 
-<img src="https://img.shields.io/badge/license-MIT-green"> <img src="https://img.shields.io/badge/version-v1.1.0-orange"> <img src="https://img.shields.io/badge/updated-sept%202020-blue"> <img src="https://img.shields.io/badge/pull requests-1 open-yellow"> <img src="https://img.shields.io/badge/favorites-19-brightgreen">
+![GitHub](https://img.shields.io/github/license/mivoligo/purple_task) <img src="https://img.shields.io/badge/version-v1.1.0-orange"> ![GitHub last commit](https://img.shields.io/github/last-commit/mivoligo/purple_task) ![GitHub pull requests](https://img.shields.io/github/issues-pr/mivoligo/purple_task) ![GitHub Repo stars](https://img.shields.io/github/stars/mivoligo/purple_task?style=flat)
 
 ---
 
