@@ -8,7 +8,7 @@ class CustomIconButton extends StatelessWidget {
 
   const CustomIconButton({
     Key key,
-    this.icon,
+    @required this.icon,
     this.color,
     this.tooltip,
     this.onPressed,
