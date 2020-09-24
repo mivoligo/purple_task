@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class AddCategoryButton extends StatelessWidget {
           height: 40,
           constraints: BoxConstraints(
             // Make sure the button is not too wide
-            maxWidth: min(300, MediaQuery.of(context).size.width - 80),
+            maxWidth: math.min(300, MediaQuery.of(context).size.width - 80),
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
