@@ -1,3 +1,4 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../globals/globals.dart';
@@ -54,16 +55,23 @@ class _ColorsListState extends State<ColorsList>
               child: child,
             );
           },
-          child: Container(
-            width: 64,
-            child: FlatButton(
-              padding: const EdgeInsets.all(0),
-              onPressed: () {
+          child: Material(
+            child: InkWell(
+              onFocusChange: (v) {
+                newCategoryProvider.color = categoryColors[index];
+              },
+              onTap: () {
                 newCategoryProvider.color = categoryColors[index];
               },
               child: Container(
                 width: 64,
                 color: Color(categoryColors[index]),
+                child: (newCategoryProvider.color == categoryColors[index])
+                    ? Icon(
+                        AntIcons.check_outline,
+                        color: Colors.white,
+                      )
+                    : null,
               ),
             ),
           ),
