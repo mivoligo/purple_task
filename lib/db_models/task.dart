@@ -17,10 +17,14 @@ class Task extends HiveObject {
   @HiveField(3)
   int doneTime;
 
+  @HiveField(4)
+  int dueDate;
+
   Task({
     @required this.name,
     @required this.isDone,
     @required this.categoryId,
     this.doneTime,
+    this.dueDate,
   });
 }
