@@ -10,6 +10,7 @@ import '../../ui.dart';
 enum TaskState {
   Normal,
   EditName,
+  Expanded,
   ConfirmDelete,
 }
 
@@ -36,20 +37,26 @@ class _TaskItemState extends State<TaskItem> {
     });
   }
 
-  setTaskDelete() {
+  setTaskExpanded() {
+    setState(() {
+      _taskState = TaskState.Expanded;
+    });
+  }
+
+  setTaskConfirmDelete() {
     setState(() {
       _taskState = TaskState.ConfirmDelete;
     });
   }
 
-  setTaskEdit() {
+  setTaskEditName() {
     setState(() {
       _textController.text = widget.task.name;
       _taskState = TaskState.EditName;
     });
   }
 
-  _updateField() {
+  _updateTextField() {
     setState(() {
       _hasText = _textController.text.isNotEmpty;
     });
@@ -57,7 +64,7 @@ class _TaskItemState extends State<TaskItem> {
 
   @override
   void initState() {
-    _textController.addListener(_updateField);
+    _textController.addListener(_updateTextField);
     super.initState();
   }
 
@@ -114,8 +121,9 @@ class _TaskItemState extends State<TaskItem> {
                             : null,
                       )
                     : InkWell(
-                        onTap:
-                            _taskState == TaskState.Normal ? setTaskEdit : null,
+                        onTap: _taskState == TaskState.Normal
+                            ? setTaskEditName
+                            : null,
                         child: Text(
                           widget.task.name,
                           style: widget.task.isDone
@@ -130,7 +138,7 @@ class _TaskItemState extends State<TaskItem> {
                     AntIcons.delete,
                     color: Colors.grey,
                   ),
-                  onPressed: setTaskDelete,
+                  onPressed: setTaskConfirmDelete,
                   tooltip: DELETE,
                 ),
               if (_taskState == TaskState.EditName) const SizedBox(width: 10.0),
