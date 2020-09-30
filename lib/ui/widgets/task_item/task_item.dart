@@ -121,7 +121,8 @@ class _TaskItemState extends State<TaskItem> {
                             : null,
                       )
                     : InkWell(
-                        onTap: _taskState == TaskState.Normal
+                        onTap: _taskState == TaskState.Normal ||
+                                _taskState == TaskState.Expanded
                             ? setTaskEditName
                             : null,
                         child: Text(
@@ -135,13 +136,22 @@ class _TaskItemState extends State<TaskItem> {
               if (_taskState == TaskState.Normal)
                 IconButton(
                   icon: const Icon(
-                    AntIcons.delete,
+                    AntIcons.down_outline,
                     color: Colors.grey,
                   ),
-                  onPressed: setTaskConfirmDelete,
-                  tooltip: DELETE,
+                  onPressed: setTaskExpanded,
+                  tooltip: OPTIONS,
                 ),
               if (_taskState == TaskState.EditName) const SizedBox(width: 10.0),
+              if (_taskState == TaskState.Expanded)
+                IconButton(
+                  icon: const Icon(
+                    AntIcons.up_outline,
+                    color: Colors.grey,
+                  ),
+                  onPressed: setTaskNormal,
+                  tooltip: CLOSE,
+                ),
             ],
           ),
           if (_displayDoneTaskTime &&
@@ -158,44 +168,52 @@ class _TaskItemState extends State<TaskItem> {
           AnimatedContainer(
             height: _taskState == TaskState.Normal ? 0 : 56,
             duration: Duration(milliseconds: 90),
-            child: Row(
-              children: [
-                const SizedBox(width: 10),
-                SimpleButton(
-                  onPressed: setTaskNormal,
-                  text: CANCEL,
-                ),
-                Spacer(),
-                if (_taskState == TaskState.ConfirmDelete)
-                  SimpleButton(
-                    text: DELETE,
-                    color: Colors.red,
-                    onPressed: () {
-                      Provider.of<TaskViewModel>(context, listen: false)
-                          .deleteTask(widget.task.key);
-                      setTaskNormal();
-                    },
-                  ),
-                if (_taskState == TaskState.EditName)
-                  SimpleButton(
-                    text: SAVE,
-                    color: Colors.green,
-                    onPressed: _hasText
-                        ? () {
-                            Task _task = Task(
-                              name: _textController.text,
-                              isDone: widget.task.isDone,
-                              categoryId: widget.task.categoryId,
-                            );
-                            Provider.of<TaskViewModel>(context, listen: false)
-                                .updateTask(widget.task.key, _task);
-                            setTaskNormal();
-                          }
-                        : null,
-                  ),
-                const SizedBox(width: 10),
-              ],
-            ),
+            child: (_taskState == TaskState.EditName)
+                ? Row(
+                    children: [
+                      const SizedBox(width: 10),
+                      SimpleButton(
+                        onPressed: setTaskNormal,
+                        text: CANCEL,
+                      ),
+                      Spacer(),
+                      SimpleButton(
+                        text: SAVE,
+                        color: Colors.green,
+                        onPressed: _hasText
+                            ? () {
+                                Task _task = Task(
+                                  name: _textController.text,
+                                  isDone: widget.task.isDone,
+                                  categoryId: widget.task.categoryId,
+                                );
+                                Provider.of<TaskViewModel>(context,
+                                        listen: false)
+                                    .updateTask(widget.task.key, _task);
+                                setTaskNormal();
+                              }
+                            : null,
+                      ),
+                      const SizedBox(width: 10),
+                    ],
+                  )
+                : null,
+          ),
+          AnimatedContainer(
+            height: _taskState == TaskState.Expanded ? 100 : 0,
+            duration: Duration(milliseconds: 120),
+            child: _taskState == TaskState.Expanded
+                ? Column(
+                    children: [
+                      Expanded(child: Row()),
+                      SimpleButton(
+                        text: DELETE,
+                        color: Colors.red,
+                        onPressed: () {},
+                      ),
+                    ],
+                  )
+                : null,
           ),
         ],
       ),
