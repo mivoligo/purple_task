@@ -166,7 +166,12 @@ class _TaskItemState extends State<TaskItem> {
               ],
             ),
           AnimatedContainer(
-            height: _taskState == TaskState.Normal ? 0 : 56,
+            height: _taskState == TaskState.Expanded ? 160 : 0,
+            duration: Duration(milliseconds: 120),
+            child: _taskState == TaskState.Expanded ? TaskOptions() : null,
+          ),
+          AnimatedContainer(
+            height: _taskState == TaskState.EditName ? 56 : 0,
             duration: Duration(milliseconds: 90),
             child: (_taskState == TaskState.EditName)
                 ? Row(
@@ -199,24 +204,52 @@ class _TaskItemState extends State<TaskItem> {
                   )
                 : null,
           ),
-          AnimatedContainer(
-            height: _taskState == TaskState.Expanded ? 100 : 0,
-            duration: Duration(milliseconds: 120),
-            child: _taskState == TaskState.Expanded
-                ? Column(
-                    children: [
-                      Expanded(child: Row()),
-                      SimpleButton(
-                        text: DELETE,
-                        color: Colors.red,
-                        onPressed: () {},
-                      ),
-                    ],
-                  )
-                : null,
-          ),
         ],
       ),
+    );
+  }
+}
+
+class TaskOptions extends StatelessWidget {
+  const TaskOptions({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 16),
+        Expanded(
+          child: Row(
+            children: [
+              const SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(CATEGORY),
+                  RaisedButton(onPressed: null),
+                ],
+              ),
+              const Spacer(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(DUE_DATE),
+                  RaisedButton(onPressed: null),
+                ],
+              ),
+              const SizedBox(width: 10),
+            ],
+          ),
+        ),
+        SimpleButton(
+          text: DELETE,
+          color: Colors.red,
+          onPressed: () {},
+        ),
+        const SizedBox(height: 8),
+      ],
     );
   }
 }

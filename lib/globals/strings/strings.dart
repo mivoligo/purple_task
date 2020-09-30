@@ -1,6 +1,7 @@
 const String APP_NAME = 'Purple Task';
 const String APP_VERSION = '1.1.0';
 const String APP_DESCRIPTION = 'Simple TO-DO app to help you get stuff done';
+const String CATEGORY = 'Category';
 const String ADD_CATEGORY = 'Add Category';
 const String NEW_CATEGORY = 'New Category';
 const String CATEGORY_NAME = 'Name';
@@ -29,6 +30,7 @@ const String TO_DO_TASKS = 'Planned Tasks';
 const String COMPLETED = 'Completed';
 const String COMPLETED_TASKS = 'Completed Tasks';
 const String OPTIONS = 'Options';
+const String DUE_DATE = 'Due date';
 // category menu items
 const String CHANGE_NAME = 'Change Name';
 const String CHANGE_COLOR = 'Change Color';
