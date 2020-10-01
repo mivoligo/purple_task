@@ -19,7 +19,7 @@ class DueDateSelector extends StatelessWidget {
       elevation: 1,
       child: PopupMenuButton(
         tooltip: SET_DUE_DATE,
-        onSelected: (item) => print(item),
+        onSelected: (item) => onItemSelected(context, item),
         itemBuilder: (context) {
           var list = List<PopupMenuEntry<Object>>();
           list.add(
@@ -67,5 +67,38 @@ class DueDateSelector extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  onItemSelected(context, item) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final tomorrow = DateTime(now.year, now.month, now.day + 1);
+    switch (item) {
+      case 0:
+        // set due date to today
+        task.dueDate = today.millisecondsSinceEpoch;
+        Provider.of<TaskViewModel>(context, listen: false)
+            .updateTask(task.key, task);
+        break;
+      case 1:
+        // set due date to tomorrow
+        task.dueDate = tomorrow.millisecondsSinceEpoch;
+        Provider.of<TaskViewModel>(context, listen: false)
+            .updateTask(task.key, task);
+        break;
+      case 2:
+        // set custom date
+        // TODO use date picker
+        task.dueDate = tomorrow.add(Duration(days: 6)).millisecondsSinceEpoch;
+        Provider.of<TaskViewModel>(context, listen: false)
+            .updateTask(task.key, task);
+        break;
+      case 3:
+        // set date to null
+        task.dueDate = null;
+        Provider.of<TaskViewModel>(context, listen: false)
+            .updateTask(task.key, task);
+        break;
+    }
   }
 }

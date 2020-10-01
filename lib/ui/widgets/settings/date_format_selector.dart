@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:purple_task/ui/ui.dart';
+import '../../ui.dart';
 import '../../../globals/globals.dart';
 import '../../../helpers.dart';
 
