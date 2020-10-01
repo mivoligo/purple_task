@@ -76,6 +76,7 @@ class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
     final _settings = Provider.of<SettingsViewModel>(context, listen: false);
+    final _taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
     bool _displayDoneTaskTime = _settings.getDisplayTaskDOneTimePref();
     String _timeFormat = _settings.getTimeFormat();
     String _dateFormat = _settings.getDateFormat();
@@ -89,13 +90,11 @@ class _TaskItemState extends State<TaskItem> {
                 activeColor: Colors.grey,
                 value: widget.task.isDone,
                 onChanged: (value) {
-                  final taskViewModel =
-                      Provider.of<TaskViewModel>(context, listen: false);
                   widget.task.isDone = value;
                   if (widget.task.isDone) {
-                    widget.task.doneTime = taskViewModel.setTaskDoneTime();
+                    widget.task.doneTime = _taskViewModel.setTaskDoneTime();
                   }
-                  taskViewModel.updateTask(widget.task.key, widget.task);
+                  _taskViewModel.updateTask(widget.task.key, widget.task);
                 },
               ),
               SizedBox(width: 8.0),
@@ -111,10 +110,10 @@ class _TaskItemState extends State<TaskItem> {
                                   name: _textController.text,
                                   isDone: widget.task.isDone,
                                   categoryId: widget.task.categoryId,
+                                  dueDate: widget.task.dueDate,
                                 );
-                                Provider.of<TaskViewModel>(context,
-                                        listen: false)
-                                    .updateTask(widget.task.key, _task);
+                                _taskViewModel.updateTask(
+                                    widget.task.key, _task);
                                 setTaskNormal();
                               }
                             : null,
@@ -132,6 +131,10 @@ class _TaskItemState extends State<TaskItem> {
                         ),
                       ),
               ),
+              const SizedBox(width: 8),
+              if (widget.task.dueDate != null)
+                Text(_taskViewModel.displayDueDate(
+                    widget.task.dueDate, _dateFormat)),
               if (_taskState == TaskState.Normal)
                 CustomIconButton(
                   icon: const Icon(
@@ -194,10 +197,10 @@ class _TaskItemState extends State<TaskItem> {
                                   name: _textController.text,
                                   isDone: widget.task.isDone,
                                   categoryId: widget.task.categoryId,
+                                  dueDate: widget.task.dueDate,
                                 );
-                                Provider.of<TaskViewModel>(context,
-                                        listen: false)
-                                    .updateTask(widget.task.key, _task);
+                                _taskViewModel.updateTask(
+                                    widget.task.key, _task);
                                 setTaskNormal();
                               }
                             : null,
