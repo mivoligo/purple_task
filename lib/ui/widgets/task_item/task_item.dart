@@ -1,4 +1,3 @@
-import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -134,21 +133,21 @@ class _TaskItemState extends State<TaskItem> {
                       ),
               ),
               if (_taskState == TaskState.Normal)
-                IconButton(
+                CustomIconButton(
                   icon: const Icon(
-                    AntIcons.down_outline,
-                    color: Colors.grey,
+                    Icons.arrow_drop_down,
                   ),
+                  color: Colors.transparent,
                   onPressed: setTaskExpanded,
                   tooltip: OPTIONS,
                 ),
               if (_taskState == TaskState.EditName) const SizedBox(width: 10.0),
               if (_taskState == TaskState.Expanded)
-                IconButton(
+                CustomIconButton(
                   icon: const Icon(
-                    AntIcons.up_outline,
-                    color: Colors.grey,
+                    Icons.arrow_drop_up,
                   ),
+                  color: Colors.transparent,
                   onPressed: setTaskNormal,
                   tooltip: CLOSE,
                 ),
