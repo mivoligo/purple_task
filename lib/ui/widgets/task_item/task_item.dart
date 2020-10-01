@@ -167,7 +167,11 @@ class _TaskItemState extends State<TaskItem> {
           AnimatedContainer(
             height: _taskState == TaskState.Expanded ? 160 : 0,
             duration: Duration(milliseconds: 120),
-            child: _taskState == TaskState.Expanded ? TaskOptions() : null,
+            child: _taskState == TaskState.Expanded
+                ? TaskOptions(
+                    task: widget.task,
+                  )
+                : null,
           ),
           AnimatedContainer(
             height: _taskState == TaskState.EditName ? 56 : 0,
@@ -210,8 +214,11 @@ class _TaskItemState extends State<TaskItem> {
 }
 
 class TaskOptions extends StatelessWidget {
+  final Task task;
+
   const TaskOptions({
     Key key,
+    @required this.task,
   }) : super(key: key);
 
   @override
@@ -235,7 +242,7 @@ class TaskOptions extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(DUE_DATE),
-                  DueDateSelector(),
+                  DueDateSelector(task: task),
                 ],
               ),
               const SizedBox(width: 10),

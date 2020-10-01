@@ -35,6 +35,7 @@ const String TODAY = 'Today';
 const String TOMORROW = 'Tomorrow';
 const String CUSTOM_DATE = 'Custom date';
 const String NO_DATE = 'No date';
+const String SET_DUE_DATE = 'Set due date';
 
 // category menu items
 const String CHANGE_NAME = 'Change Name';
