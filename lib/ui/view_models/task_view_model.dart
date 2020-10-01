@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import '../../globals/globals.dart';
 import '../../db_models/db_models.dart';
 
@@ -113,5 +114,25 @@ class TaskViewModel with ChangeNotifier {
   int setTaskDoneTime() {
     final now = DateTime.now().millisecondsSinceEpoch;
     return now;
+  }
+
+  String displayDueDate(int dateInMillis, String dateFormat) {
+    if (dateInMillis != null) {
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final tomorrow = DateTime(now.year, now.month, now.day + 1);
+      final dueDateTime =
+          DateTime.fromMillisecondsSinceEpoch(dateInMillis).toLocal();
+      final dueDate =
+          DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+      if (dueDate == today) {
+        return TODAY;
+      } else if (dueDate == tomorrow) {
+        return TOMORROW;
+      } else {
+        return DateFormat(dateFormat).format(dueDate);
+      }
+    }
+    return NO_DATE;
   }
 }

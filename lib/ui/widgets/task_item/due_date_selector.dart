@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import '../../../db_models/db_models.dart';
 import '../../../globals/globals.dart';
 
 class DueDateSelector extends StatelessWidget {
+  final Task task;
+
+  const DueDateSelector({Key key, this.task}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -41,7 +46,7 @@ class DueDateSelector extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            NO_DATE,
+            task.dueDate.toString(),
             style: Theme.of(context)
                 .textTheme
                 .subtitle1
