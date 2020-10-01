@@ -31,6 +31,11 @@ const String COMPLETED = 'Completed';
 const String COMPLETED_TASKS = 'Completed Tasks';
 const String OPTIONS = 'Options';
 const String DUE_DATE = 'Due date';
+const String TODAY = 'Today';
+const String TOMORROW = 'Tomorrow';
+const String CUSTOM_DATE = 'Custom date';
+const String NO_DATE = 'No date';
+
 // category menu items
 const String CHANGE_NAME = 'Change Name';
 const String CHANGE_COLOR = 'Change Color';

@@ -235,7 +235,7 @@ class TaskOptions extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(DUE_DATE),
-                  RaisedButton(onPressed: null),
+                  DueDateSelector(),
                 ],
               ),
               const SizedBox(width: 10),
