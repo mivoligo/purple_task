@@ -63,5 +63,9 @@ class CategorySelector extends StatelessWidget {
     );
   }
 
-  onItemSelected(context, item) {}
+  onItemSelected(context, item) {
+    task.categoryId = item;
+    Provider.of<TaskViewModel>(context, listen: false)
+        .updateTask(task.key, task);
+  }
 }
