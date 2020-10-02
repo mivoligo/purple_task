@@ -38,6 +38,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
       borderRadius: BorderRadius.circular(20),
       clipBehavior: Clip.antiAlias,
       child: PopupMenuButton(
+        tooltip: SHOW_OPTIONS,
         icon: Icon(
           AntIcons.menu,
           color: Colors.grey[700],

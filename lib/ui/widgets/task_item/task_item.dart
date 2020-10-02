@@ -141,7 +141,7 @@ class _TaskItemState extends State<TaskItem> {
                   ),
                   color: Colors.transparent,
                   onPressed: setTaskExpanded,
-                  tooltip: OPTIONS,
+                  tooltip: SHOW_OPTIONS,
                 ),
               if (_taskState == TaskState.Expanded)
                 CustomIconButton(
@@ -150,7 +150,7 @@ class _TaskItemState extends State<TaskItem> {
                   ),
                   color: Colors.transparent,
                   onPressed: setTaskNormal,
-                  tooltip: CLOSE,
+                  tooltip: HIDE_OPTIONS,
                 ),
             ],
           ),
