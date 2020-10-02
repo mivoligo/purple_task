@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:purple_task/ui/ui.dart';
+import '../../ui.dart';
 import '../../../db_models/db_models.dart';
 import '../../../globals/globals.dart';
 
@@ -88,10 +88,7 @@ class DueDateSelector extends StatelessWidget {
         break;
       case 2:
         // set custom date
-        // TODO use date picker
-        task.dueDate = tomorrow.add(Duration(days: 6)).millisecondsSinceEpoch;
-        Provider.of<TaskViewModel>(context, listen: false)
-            .updateTask(task.key, task);
+        useSelectedDate(context);
         break;
       case 3:
         // set date to null
@@ -99,6 +96,23 @@ class DueDateSelector extends StatelessWidget {
         Provider.of<TaskViewModel>(context, listen: false)
             .updateTask(task.key, task);
         break;
+    }
+  }
+
+  void useSelectedDate(context) async {
+    final dueDate = task.dueDate != null
+        ? DateTime.fromMillisecondsSinceEpoch(task.dueDate)
+        : DateTime.now();
+    final selectedDate = await showDatePicker(
+      context: context,
+      initialDate: dueDate,
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2100),
+    );
+    if (selectedDate != null) {
+      task.dueDate = selectedDate.millisecondsSinceEpoch;
+      Provider.of<TaskViewModel>(context, listen: false)
+          .updateTask(task.key, task);
     }
   }
 }
