@@ -20,32 +20,32 @@ class DueDateSelector extends StatelessWidget {
         tooltip: SET_DUE_DATE,
         onSelected: (item) => onItemSelected(context, item),
         itemBuilder: (context) {
-          var list = List<PopupMenuEntry<Object>>();
-          list.add(
+          var menuList = List<PopupMenuEntry<Object>>();
+          menuList.add(
             PopupMenuItem(
               child: Text(TODAY),
               value: 0,
             ),
           );
-          list.add(
+          menuList.add(
             PopupMenuItem(
               child: Text(TOMORROW),
               value: 1,
             ),
           );
-          list.add(
+          menuList.add(
             PopupMenuItem(
               child: Text(CUSTOM_DATE),
               value: 2,
             ),
           );
-          list.add(
+          menuList.add(
             PopupMenuItem(
               child: Text(NO_DATE),
               value: 3,
             ),
           );
-          return list;
+          return menuList;
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),

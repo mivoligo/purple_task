@@ -18,44 +18,44 @@ class DateFormatSelector extends StatelessWidget {
         tooltip: CHANGE_FORMAT,
         onSelected: (item) => _settings.setDateFormat(_formatList[item]),
         itemBuilder: (context) {
-          var list = List<PopupMenuEntry<Object>>();
-          list.add(
+          var menuList = List<PopupMenuEntry<Object>>();
+          menuList.add(
             PopupMenuItem(
               child: Text(timeConversion.formatDateNow(_formatList[0])),
               value: 0,
             ),
           );
-          list.add(
+          menuList.add(
             PopupMenuItem(
               child: Text(timeConversion.formatDateNow(_formatList[1])),
               value: 1,
             ),
           );
-          list.add(
+          menuList.add(
             PopupMenuItem(
               child: Text(timeConversion.formatDateNow(_formatList[2])),
               value: 2,
             ),
           );
-          list.add(
+          menuList.add(
             PopupMenuItem(
               child: Text(timeConversion.formatDateNow(_formatList[3])),
               value: 3,
             ),
           );
-          list.add(
+          menuList.add(
             PopupMenuItem(
               child: Text(timeConversion.formatDateNow(_formatList[4])),
               value: 4,
             ),
           );
-          list.add(
+          menuList.add(
             PopupMenuItem(
               child: Text(timeConversion.formatDateNow(_formatList[5])),
               value: 5,
             ),
           );
-          return list;
+          return menuList;
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),

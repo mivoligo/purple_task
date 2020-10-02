@@ -46,35 +46,35 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
         elevation: 4.0,
         onSelected: (item) => onItemSelected(context, item),
         itemBuilder: (context) {
-          var list = List<PopupMenuEntry<Object>>();
-          list.add(PopupMenuItem(
+          var menuList = List<PopupMenuEntry<Object>>();
+          menuList.add(PopupMenuItem(
             child: Text(DELETE_COMPLETED),
             value: 1,
           ));
-          list.add(PopupMenuItem(
+          menuList.add(PopupMenuItem(
             child: Text(DELETE_ALL_TASKS),
             value: 2,
           ));
-          list.add(PopupMenuDivider());
-          list.add(PopupMenuItem(
+          menuList.add(PopupMenuDivider());
+          menuList.add(PopupMenuItem(
             child: Text(DELETE_CATEGORY),
             value: 3,
           ));
-          list.add(PopupMenuDivider());
-          list.add(PopupMenuItem(
+          menuList.add(PopupMenuDivider());
+          menuList.add(PopupMenuItem(
             child: Text(CHANGE_NAME),
             value: 4,
           ));
-          list.add(PopupMenuItem(
+          menuList.add(PopupMenuItem(
             child: Text(CHANGE_COLOR),
             value: 5,
           ));
-          list.add(PopupMenuItem(
+          menuList.add(PopupMenuItem(
             child: Text(CHANGE_ICON),
             value: 6,
           ));
 
-          return list;
+          return menuList;
         },
       ),
     );

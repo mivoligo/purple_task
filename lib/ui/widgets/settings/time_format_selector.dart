@@ -28,20 +28,20 @@ class TimeFormatSelector extends StatelessWidget {
         tooltip: CHANGE_FORMAT,
         onSelected: (item) => _settings.setTimeFormat(_timeFormatList[item]),
         itemBuilder: (context) {
-          var list = List<PopupMenuEntry<Object>>();
-          list.add(
+          var menuList = List<PopupMenuEntry<Object>>();
+          menuList.add(
             PopupMenuItem(
               child: Text(timeConversion.formatDateNow(_timeFormatList[0])),
               value: 0,
             ),
           );
-          list.add(
+          menuList.add(
             PopupMenuItem(
               child: Text(timeConversion.formatDateNow(_timeFormatList[1])),
               value: 1,
             ),
           );
-          return list;
+          return menuList;
         },
       ),
     );

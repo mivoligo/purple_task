@@ -20,12 +20,12 @@ class CategorySelector extends StatelessWidget {
         tooltip: CHANGE_CATEGORY,
         onSelected: (item) => onItemSelected(context, item),
         itemBuilder: (context) {
-          var list = List<PopupMenuEntry<Object>>();
+          var menuList = List<PopupMenuEntry<Object>>();
           final categoryList =
               Provider.of<CategoryViewModel>(context, listen: false)
                   .getListOfCategories();
           for (var category in categoryList) {
-            list.add(PopupMenuItem(
+            menuList.add(PopupMenuItem(
               child: Row(
                 children: [
                   Icon(
@@ -43,7 +43,7 @@ class CategorySelector extends StatelessWidget {
               value: category.id,
             ));
           }
-          return list;
+          return menuList;
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
