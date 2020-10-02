@@ -234,45 +234,47 @@ class TaskOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 16),
-        Expanded(
-          child: Row(
-            children: [
-              const SizedBox(width: 4),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(CATEGORY),
-                  ),
-                  CategorySelector(task: task),
-                ],
-              ),
-              Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(DUE_DATE),
-                  ),
-                  DueDateSelector(task: task),
-                ],
-              ),
-              const SizedBox(width: 4),
-            ],
-          ),
+    return Container(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                const SizedBox(width: 4),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(CATEGORY),
+                    ),
+                    CategorySelector(task: task),
+                  ],
+                ),
+                Spacer(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(DUE_DATE),
+                    ),
+                    DueDateSelector(task: task),
+                  ],
+                ),
+                const SizedBox(width: 4),
+              ],
+            ),
+            const SizedBox(height: 16.0),
+            SimpleButton(
+              text: DELETE,
+              color: Colors.red,
+              onPressed: onDeletePressed,
+            ),
+          ],
         ),
-        SimpleButton(
-          text: DELETE,
-          color: Colors.red,
-          onPressed: onDeletePressed,
-        ),
-        const SizedBox(height: 4.0),
-      ],
+      ),
     );
   }
 }
