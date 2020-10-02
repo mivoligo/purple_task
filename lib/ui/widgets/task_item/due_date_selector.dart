@@ -108,6 +108,9 @@ class DueDateSelector extends StatelessWidget {
       initialDate: dueDate,
       firstDate: DateTime(2020),
       lastDate: DateTime(2100),
+      helpText: DUE_DATE,
+      cancelText: CANCEL,
+      confirmText: SAVE,
     );
     if (selectedDate != null) {
       task.dueDate = selectedDate.millisecondsSinceEpoch;
