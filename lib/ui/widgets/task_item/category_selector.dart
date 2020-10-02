@@ -49,12 +49,26 @@ class CategorySelector extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Consumer<CategoryViewModel>(
             builder: (context, value, child) {
-              return Text(
-                value.currentCategory.name,
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    .copyWith(color: Theme.of(context).primaryColor),
+              return Row(
+                children: [
+                  Icon(
+                    IconData(
+                      value.currentCategory.icon,
+                      fontFamily: 'AntIcons',
+                      fontPackage: 'ant_icons',
+                    ),
+                    color: Color(value.currentCategory.color),
+                    size: 18,
+                  ),
+                  const SizedBox(width: 4.0),
+                  Text(
+                    value.currentCategory.name,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        .copyWith(color: Theme.of(context).primaryColor),
+                  ),
+                ],
               );
             },
           ),
