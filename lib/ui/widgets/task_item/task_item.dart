@@ -173,6 +173,10 @@ class _TaskItemState extends State<TaskItem> {
             child: _taskState == TaskState.Expanded
                 ? TaskOptions(
                     task: widget.task,
+                    onDeletePressed: () {
+                      _taskViewModel.deleteTask(widget.task.key);
+                      setTaskNormal();
+                    },
                   )
                 : null,
           ),
@@ -218,10 +222,12 @@ class _TaskItemState extends State<TaskItem> {
 
 class TaskOptions extends StatelessWidget {
   final Task task;
+  final VoidCallback onDeletePressed;
 
   const TaskOptions({
     Key key,
     @required this.task,
+    @required this.onDeletePressed,
   }) : super(key: key);
 
   @override
@@ -255,7 +261,7 @@ class TaskOptions extends StatelessWidget {
         SimpleButton(
           text: DELETE,
           color: Colors.red,
-          onPressed: () {},
+          onPressed: onDeletePressed,
         ),
         const SizedBox(height: 8),
       ],
