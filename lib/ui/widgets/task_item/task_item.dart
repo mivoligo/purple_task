@@ -237,7 +237,7 @@ class TaskOptions extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(CATEGORY),
-                  RaisedButton(onPressed: null),
+                  CategorySelector(task: task),
                 ],
               ),
               const Spacer(),
