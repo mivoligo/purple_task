@@ -10,7 +10,6 @@ enum TaskState {
   Normal,
   EditName,
   Expanded,
-  ConfirmDelete,
 }
 
 class TaskItem extends StatefulWidget {
@@ -39,12 +38,6 @@ class _TaskItemState extends State<TaskItem> {
   setTaskExpanded() {
     setState(() {
       _taskState = TaskState.Expanded;
-    });
-  }
-
-  setTaskConfirmDelete() {
-    setState(() {
-      _taskState = TaskState.ConfirmDelete;
     });
   }
 
@@ -80,8 +73,13 @@ class _TaskItemState extends State<TaskItem> {
     bool _displayDoneTaskTime = _settings.getDisplayTaskDOneTimePref();
     String _timeFormat = _settings.getTimeFormat();
     String _dateFormat = _settings.getDateFormat();
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 300),
+    return Container(
+      decoration: BoxDecoration(
+        color: _taskState == TaskState.Normal
+            ? Colors.transparent
+            : Colors.grey[100],
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: Column(
         children: [
           Row(
@@ -97,7 +95,7 @@ class _TaskItemState extends State<TaskItem> {
                   _taskViewModel.updateTask(widget.task.key, widget.task);
                 },
               ),
-              SizedBox(width: 8.0),
+              SizedBox(width: 4.0),
               Expanded(
                 child: _taskState == TaskState.EditName
                     ? CupertinoTextField(
@@ -131,11 +129,12 @@ class _TaskItemState extends State<TaskItem> {
                         ),
                       ),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 8.0),
               if (widget.task.dueDate != null)
                 Text(_taskViewModel.displayDueDate(
                     widget.task.dueDate, _dateFormat)),
-              if (_taskState == TaskState.Normal)
+              if (_taskState == TaskState.Normal ||
+                  _taskState == TaskState.EditName)
                 CustomIconButton(
                   icon: const Icon(
                     Icons.arrow_drop_down,
@@ -144,7 +143,6 @@ class _TaskItemState extends State<TaskItem> {
                   onPressed: setTaskExpanded,
                   tooltip: OPTIONS,
                 ),
-              if (_taskState == TaskState.EditName) const SizedBox(width: 10.0),
               if (_taskState == TaskState.Expanded)
                 CustomIconButton(
                   icon: const Icon(
@@ -163,12 +161,16 @@ class _TaskItemState extends State<TaskItem> {
               children: [
                 SizedBox(width: 8.0),
                 Text(
-                  '$COMPLETED: ${TimeConversion().millisToDateAndTime(widget.task.doneTime, dateFormat: _dateFormat, timeFormat: _timeFormat)}',
+                  '$COMPLETED: ${TimeConversion().millisToDateAndTime(
+                    widget.task.doneTime,
+                    dateFormat: _dateFormat,
+                    timeFormat: _timeFormat,
+                  )}',
                 ),
               ],
             ),
           AnimatedContainer(
-            height: _taskState == TaskState.Expanded ? 160 : 0,
+            height: _taskState == TaskState.Expanded ? 140 : 0,
             duration: Duration(milliseconds: 120),
             child: _taskState == TaskState.Expanded
                 ? TaskOptions(
@@ -238,23 +240,29 @@ class TaskOptions extends StatelessWidget {
         Expanded(
           child: Row(
             children: [
-              const SizedBox(width: 10),
+              const SizedBox(width: 4),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(CATEGORY),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Text(CATEGORY),
+                  ),
                   CategorySelector(task: task),
                 ],
               ),
-              const Spacer(),
+              Spacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(DUE_DATE),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Text(DUE_DATE),
+                  ),
                   DueDateSelector(task: task),
                 ],
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 4),
             ],
           ),
         ),
@@ -263,7 +271,7 @@ class TaskOptions extends StatelessWidget {
           color: Colors.red,
           onPressed: onDeletePressed,
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 4.0),
       ],
     );
   }
