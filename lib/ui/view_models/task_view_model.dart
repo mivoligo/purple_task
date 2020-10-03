@@ -121,8 +121,7 @@ class TaskViewModel with ChangeNotifier {
       final now = DateTime.now();
       final today = DateTime(now.year, now.month, now.day);
       final tomorrow = DateTime(now.year, now.month, now.day + 1);
-      final dueDateTime =
-          DateTime.fromMillisecondsSinceEpoch(dateInMillis).toLocal();
+      final dueDateTime = DateTime.fromMillisecondsSinceEpoch(dateInMillis);
       final dueDate =
           DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
       if (dueDate == today) {
