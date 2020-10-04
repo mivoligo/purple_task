@@ -119,14 +119,28 @@ class _HomeScreenState extends State<HomeScreen>
                       child: AnimatedBuilder(
                           animation: _animationController,
                           builder: (context, child) {
-                            return Greetings(
-                              greetings: GREETINGS,
-                              distance:
-                                  animDouble(_animationController, 32.0, 60.0)
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: animDouble(
+                                          _animationController, 32.0, 200.0)
                                       .value,
-                              topDistance:
-                                  animDouble(_animationController, 0.0, 24.0)
+                                ),
+                                Greetings(greetings: GREETINGS),
+                                SizedBox(
+                                  height: animDouble(
+                                          _animationController, 32.0, 400.0)
                                       .value,
+                                ),
+                                Container(
+                                  width: _isWide ? 400 : _appWidth - 64,
+                                  height: 40,
+                                  child: AddTaskField(
+                                    addTask: () {},
+                                  ),
+                                ),
+                              ],
                             );
                           }),
                     );
@@ -157,17 +171,6 @@ class _HomeScreenState extends State<HomeScreen>
                   icon: Icon(AntIcons.info_circle),
                   tooltip: ABOUT,
                   onPressed: () => openAboutScreen(context),
-                ),
-              ),
-            ),
-            // Add New Task field
-            Positioned(
-              left: 32.0,
-              top: 160.0,
-              right: 32.0,
-              child: Container(
-                child: AddTaskField(
-                  addTask: () {},
                 ),
               ),
             ),

@@ -5,14 +5,10 @@ import '../ui.dart';
 
 class Greetings extends StatelessWidget {
   final String greetings;
-  final double topDistance;
-  final double distance;
 
   const Greetings({
     Key key,
     @required this.greetings,
-    this.topDistance = 0.0,
-    this.distance = 32.0,
   }) : super(key: key);
 
   @override
@@ -20,8 +16,6 @@ class Greetings extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: topDistance),
-        SizedBox(height: distance),
         Text(
           greetings,
           style: Theme.of(context).textTheme.headline5,
