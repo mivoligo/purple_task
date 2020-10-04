@@ -104,14 +104,9 @@ class _TaskItemState extends State<TaskItem> {
                         style: Theme.of(context).textTheme.subtitle1,
                         onSubmitted: _hasText
                             ? (v) {
-                                Task _task = Task(
-                                  name: _textController.text,
-                                  isDone: widget.task.isDone,
-                                  categoryId: widget.task.categoryId,
-                                  dueDate: widget.task.dueDate,
-                                );
+                                widget.task.name = _textController.text;
                                 _taskViewModel.updateTask(
-                                    widget.task.key, _task);
+                                    widget.task.key, widget.task);
                                 setTaskNormal();
                               }
                             : null,
@@ -199,14 +194,9 @@ class _TaskItemState extends State<TaskItem> {
                         color: Colors.green,
                         onPressed: _hasText
                             ? () {
-                                Task _task = Task(
-                                  name: _textController.text,
-                                  isDone: widget.task.isDone,
-                                  categoryId: widget.task.categoryId,
-                                  dueDate: widget.task.dueDate,
-                                );
+                                widget.task.name = _textController.text;
                                 _taskViewModel.updateTask(
-                                    widget.task.key, _task);
+                                    widget.task.key, widget.task);
                                 setTaskNormal();
                               }
                             : null,
