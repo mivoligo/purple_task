@@ -119,7 +119,11 @@ class _TaskItemState extends State<TaskItem> {
                         child: Text(
                           widget.task.name,
                           style: widget.task.isDone
-                              ? Theme.of(context).textTheme.subtitle2
+                              ? Theme.of(context).textTheme.subtitle1.copyWith(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w300,
+                                    decoration: TextDecoration.lineThrough,
+                                  )
                               : Theme.of(context).textTheme.subtitle1,
                         ),
                       ),
