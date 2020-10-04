@@ -160,6 +160,17 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
               ),
             ),
+            // Add New Task field
+            Positioned(
+              left: 32.0,
+              top: 160.0,
+              right: 32.0,
+              child: Container(
+                child: AddTaskField(
+                  addTask: () {},
+                ),
+              ),
+            ),
             // Add Category button
             AnimatedBuilder(
                 animation: _animationController,
