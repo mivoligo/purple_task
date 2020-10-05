@@ -24,7 +24,7 @@ class CompletedTasksList extends StatelessWidget {
             task: task,
           );
         },
-        separatorBuilder: (context, index) => const Divider(),
+        separatorBuilder: (context, index) => const Divider(height: 8.0),
         itemCount: list.length,
       ),
     );
