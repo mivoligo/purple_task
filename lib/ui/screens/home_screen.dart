@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen>
   AnimationController _animationController;
   PageController _pageController;
   ScrollController _scrollController;
+  ScrollController _quickListController;
 
   NewCategoryViewModel _newCategory; // NewCategory provider
 
@@ -44,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
     _pageController = PageController();
     _scrollController = ScrollController();
+    _quickListController = ScrollController();
   }
 
   @override
@@ -51,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen>
     _animationController.dispose();
     _pageController.dispose();
     _scrollController.dispose();
+    _quickListController.dispose();
     super.dispose();
   }
 
@@ -121,6 +124,7 @@ class _HomeScreenState extends State<HomeScreen>
                           builder: (context, child) {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
                               children: [
                                 SizedBox(
                                   height: animDouble(
@@ -142,14 +146,36 @@ class _HomeScreenState extends State<HomeScreen>
                                           Provider.of<TaskViewModel>(context,
                                               listen: false);
                                       String _name = _taskModel.newTaskName;
+
                                       Task task = Task(
                                           name: _name,
                                           categoryId: -1,
                                           isDone: false);
-                                      // _taskModel.addTask(task);
-                                      print('${task.name}, ${task.categoryId}');
+                                      _taskModel.addTask(task);
                                     },
                                   ),
+                                ),
+                                const SizedBox(height: 8.0),
+                                Builder(
+                                  builder: (context) {
+                                    final _taskModel =
+                                        Provider.of<TaskViewModel>(context);
+                                    final quickTaskList =
+                                        _taskModel.getAllTasksForCategory(-1);
+                                    return Container(
+                                      color: Colors.white,
+                                      child: LimitedBox(
+                                        maxWidth:
+                                            _isWide ? 400 : _appWidth - 64,
+                                        maxHeight: 200,
+                                        child: AllTasksList(
+                                          list: quickTaskList,
+                                          controller: _quickListController,
+                                          shrinkWrap: true,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ],
                             );
@@ -210,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen>
               right: 0,
               bottom: 64.0,
               child: Container(
-                height: _appHeight * 0.5,
+                height: _appHeight * 0.4,
                 child: _isWide
                     ? ListView.builder(
                         scrollDirection: Axis.horizontal,

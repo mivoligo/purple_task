@@ -49,6 +49,15 @@ class CategorySelector extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Consumer<CategoryViewModel>(
             builder: (context, value, child) {
+              if (task.categoryId == -1) {
+                return Text(
+                  NO_CATEGORY,
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1
+                      .copyWith(color: Theme.of(context).primaryColor),
+                );
+              }
               return Row(
                 children: [
                   Icon(

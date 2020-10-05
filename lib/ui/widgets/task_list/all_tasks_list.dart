@@ -5,11 +5,13 @@ import '../../ui.dart';
 class AllTasksList extends StatelessWidget {
   final List<Task> list;
   final ScrollController controller;
+  final bool shrinkWrap;
 
   const AllTasksList({
     Key key,
     @required this.list,
     @required this.controller,
+    this.shrinkWrap = false,
   }) : super(key: key);
 
   @override
@@ -17,6 +19,7 @@ class AllTasksList extends StatelessWidget {
     return Scrollbar(
       child: ListView.separated(
         key: PageStorageKey('all_tasks'),
+        shrinkWrap: shrinkWrap,
         controller: controller,
         itemBuilder: (context, index) {
           Task task = list[index];

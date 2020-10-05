@@ -37,6 +37,11 @@ class CategoryViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  bool checkIfCategoryExist(int categoryId) {
+    final box = Hive.box<Category>(CATEGORY_BOX);
+    return box.values.where((category) => category.id == categoryId).isNotEmpty;
+  }
+
   Category _currentCategory;
   Category get currentCategory => _currentCategory;
   set currentCategory(Category category) {
