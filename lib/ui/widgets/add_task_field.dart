@@ -55,6 +55,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
       controller: _controller,
       focusNode: _focusNode,
       placeholder: ADD_NEW_TASK,
+      padding: EdgeInsets.only(left: 16.0),
       style: Theme.of(context).textTheme.subtitle1,
       suffix: IconButton(
         color: _hasText ? Colors.blue : Colors.grey,
@@ -80,7 +81,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
           : null,
       decoration: BoxDecoration(
           color: Colors.grey[50],
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(20.0),
           boxShadow: [
             BoxShadow(color: Colors.grey[300], offset: Offset(0.0, -2.0)),
             BoxShadow(color: Colors.white, offset: Offset(0.0, 1.0)),

@@ -128,13 +128,13 @@ class _HomeScreenState extends State<HomeScreen>
                               children: [
                                 SizedBox(
                                   height: animDouble(
-                                          _animationController, 32.0, 200.0)
+                                          _animationController, 16.0, 200.0)
                                       .value,
                                 ),
                                 Greetings(greetings: GREETINGS),
                                 SizedBox(
                                   height: animDouble(
-                                          _animationController, 32.0, 400.0)
+                                          _animationController, 24.0, 400.0)
                                       .value,
                                 ),
                                 Container(
@@ -155,28 +155,12 @@ class _HomeScreenState extends State<HomeScreen>
                                     },
                                   ),
                                 ),
-                                const SizedBox(height: 8.0),
-                                Builder(
-                                  builder: (context) {
-                                    final _taskModel =
-                                        Provider.of<TaskViewModel>(context);
-                                    final quickTaskList =
-                                        _taskModel.getAllTasksForCategory(-1);
-                                    return Container(
-                                      color: Colors.white,
-                                      child: LimitedBox(
-                                        maxWidth:
-                                            _isWide ? 400 : _appWidth - 64,
-                                        maxHeight: 200,
-                                        child: AllTasksList(
-                                          list: quickTaskList,
-                                          controller: _quickListController,
-                                          shrinkWrap: true,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
+                                const SizedBox(height: 1.0),
+                                UncategorizedList(
+                                    appHeight: _appHeight,
+                                    isWide: _isWide,
+                                    appWidth: _appWidth,
+                                    quickListController: _quickListController),
                               ],
                             );
                           }),
@@ -382,5 +366,73 @@ class _HomeScreenState extends State<HomeScreen>
         );
       }
     }
+  }
+}
+
+class UncategorizedList extends StatelessWidget {
+  const UncategorizedList({
+    Key key,
+    @required double appHeight,
+    @required bool isWide,
+    @required double appWidth,
+    @required ScrollController quickListController,
+  })  : _appHeight = appHeight,
+        _isWide = isWide,
+        _appWidth = appWidth,
+        _quickListController = quickListController,
+        super(key: key);
+
+  final double _appHeight;
+  final bool _isWide;
+  final double _appWidth;
+  final ScrollController _quickListController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(
+      builder: (context) {
+        final _listHeight = _appHeight * 0.6 - 260;
+        final _taskModel = Provider.of<TaskViewModel>(context);
+        final quickTaskList = _taskModel.getAllTasksForCategory(-1);
+        if (quickTaskList.isNotEmpty)
+          return Row(
+            children: [
+              SizedBox(width: 20.0),
+              Container(
+                width: _isWide ? 400 : _appWidth - 100,
+                decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    )),
+                child: Row(
+                  children: [
+                    SizedBox(width: 10.0),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(NO_CATEGORY),
+                          LimitedBox(
+                            maxHeight: _listHeight,
+                            child: AllTasksList(
+                              list: quickTaskList,
+                              controller: _quickListController,
+                              shrinkWrap: true,
+                            ),
+                          ),
+                          SizedBox(height: 10.0),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        return SizedBox();
+      },
+    );
   }
 }
