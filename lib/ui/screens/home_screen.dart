@@ -405,7 +405,8 @@ class UncategorizedList extends StatelessWidget {
           return Row(
             children: [
               SizedBox(width: 20.0),
-              Container(
+              AnimatedContainer(
+                duration: Duration(milliseconds: 500),
                 width: _isWide ? 400 : _appWidth - 100,
                 decoration: BoxDecoration(
                     color: Colors.grey[200],

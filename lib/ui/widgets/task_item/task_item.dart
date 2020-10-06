@@ -84,6 +84,7 @@ class _TaskItemState extends State<TaskItem> {
         children: [
           Row(
             children: [
+              const SizedBox(width: 4.0),
               Checkbox(
                 activeColor: Colors.grey,
                 value: widget.task.isDone,
@@ -95,7 +96,7 @@ class _TaskItemState extends State<TaskItem> {
                   _taskViewModel.updateTask(widget.task.key, widget.task);
                 },
               ),
-              SizedBox(width: 4.0),
+              const SizedBox(width: 4.0),
               Expanded(
                 child: _taskState == TaskState.EditName
                     ? CupertinoTextField(
@@ -158,7 +159,7 @@ class _TaskItemState extends State<TaskItem> {
               widget.task.doneTime != null)
             Row(
               children: [
-                SizedBox(width: 8.0),
+                SizedBox(width: 10.0),
                 Text(
                   '$COMPLETED: ${TimeConversion().millisToDateAndTime(
                     widget.task.doneTime,
@@ -235,7 +236,7 @@ class TaskOptions extends StatelessWidget {
             const SizedBox(height: 16),
             Row(
               children: [
-                const SizedBox(width: 4),
+                const SizedBox(width: 6),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -257,7 +258,7 @@ class TaskOptions extends StatelessWidget {
                     DueDateSelector(task: task),
                   ],
                 ),
-                const SizedBox(width: 4),
+                const SizedBox(width: 6),
               ],
             ),
             const SizedBox(height: 16.0),
