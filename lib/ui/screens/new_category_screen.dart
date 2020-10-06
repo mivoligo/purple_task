@@ -131,14 +131,14 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
               child: Hero(
                 tag: 'new_category',
                 child: Material(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(12.0),
                   elevation: 4.0,
                   child: SingleChildScrollView(
                     child: AnimatedContainer(
                       duration: Duration(milliseconds: 100),
                       decoration: BoxDecoration(
                         color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
                       width: _cardWidth,
                       height: _cardHeight,
@@ -204,7 +204,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                                   const SizedBox(width: 16.0),
                                 ],
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 16.0),
                             ],
                           ),
                         ],

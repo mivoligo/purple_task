@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import '../../../globals/globals.dart';
 import '../../ui.dart';
@@ -21,11 +22,12 @@ class CategoryName extends StatelessWidget {
           child: CupertinoTextField(
             autofocus: true,
             textInputAction: TextInputAction.done,
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
             onSubmitted: onSubmitted,
             style: Theme.of(context).textTheme.headline4,
             decoration: BoxDecoration(
                 color: Colors.grey[50],
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(20.0),
                 boxShadow: [
                   BoxShadow(color: Colors.grey[300], offset: Offset(0.0, -2.0)),
                   BoxShadow(color: Colors.white, offset: Offset(0.0, 1.0)),
