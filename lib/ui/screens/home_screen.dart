@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen>
                                       .value,
                                 ),
                                 Container(
-                                  width: _isWide ? 400 : _appWidth - 64,
+                                  width: _isWide ? 440 : _appWidth - 64,
                                   height: 40,
                                   child: AddTaskField(
                                     addTask: () {
