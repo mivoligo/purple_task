@@ -291,6 +291,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                               child: getTasksList(),
                             ),
                           ),
+                          const SizedBox(height: 8.0),
                         ],
                       ),
                     ),
