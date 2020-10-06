@@ -6,10 +6,12 @@ import '../../../globals/globals.dart';
 
 class CategorySelector extends StatelessWidget {
   final Task task;
+  final VoidCallback onCategorySelected;
 
   const CategorySelector({
     Key key,
     @required this.task,
+    @required this.onCategorySelected,
   }) : super(key: key);
 
   @override
@@ -90,5 +92,6 @@ class CategorySelector extends StatelessWidget {
     task.categoryId = item;
     Provider.of<TaskViewModel>(context, listen: false)
         .updateTask(task.key, task);
+    onCategorySelected();
   }
 }

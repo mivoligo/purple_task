@@ -175,6 +175,9 @@ class _TaskItemState extends State<TaskItem> {
             child: _taskState == TaskState.Expanded
                 ? TaskOptions(
                     task: widget.task,
+                    onCategorySelected: () {
+                      setTaskNormal();
+                    },
                     onDeletePressed: () {
                       _taskViewModel.deleteTask(widget.task.key);
                       setTaskNormal();
@@ -220,11 +223,13 @@ class _TaskItemState extends State<TaskItem> {
 class TaskOptions extends StatelessWidget {
   final Task task;
   final VoidCallback onDeletePressed;
+  final VoidCallback onCategorySelected;
 
   const TaskOptions({
     Key key,
     @required this.task,
     @required this.onDeletePressed,
+    @required this.onCategorySelected,
   }) : super(key: key);
 
   @override
@@ -244,7 +249,10 @@ class TaskOptions extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: Text(CATEGORY),
                     ),
-                    CategorySelector(task: task),
+                    CategorySelector(
+                      task: task,
+                      onCategorySelected: onCategorySelected,
+                    ),
                   ],
                 ),
                 Spacer(),
