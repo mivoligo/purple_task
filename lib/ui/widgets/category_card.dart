@@ -24,8 +24,7 @@ class CategoryCard extends StatelessWidget {
     int _numberOfTasks = Provider.of<TaskViewModel>(context, listen: false)
         .numberOfPlannedTasksForCategory(category.id);
     double _completionProgress =
-        Provider.of<TaskViewModel>(context, listen: false)
-            .completionProgress(category.id);
+        Provider.of<TaskViewModel>(context).completionProgress(category.id);
     switch (_numberOfTasks) {
       case 0:
         _descriptionText = '$_numberOfTasks $TASK_PLURAL';
