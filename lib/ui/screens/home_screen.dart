@@ -137,30 +137,6 @@ class _HomeScreenState extends State<HomeScreen>
                                           _animationController, 24.0, 400.0)
                                       .value,
                                 ),
-                                Container(
-                                  width: _isWide ? 440 : _appWidth - 64,
-                                  height: 40,
-                                  child: AddTaskField(
-                                    addTask: () {
-                                      final _taskModel =
-                                          Provider.of<TaskViewModel>(context,
-                                              listen: false);
-                                      String _name = _taskModel.newTaskName;
-
-                                      Task task = Task(
-                                          name: _name,
-                                          categoryId: -1,
-                                          isDone: false);
-                                      _taskModel.addTask(task);
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(height: 1.0),
-                                UncategorizedList(
-                                    appHeight: _appHeight,
-                                    isWide: _isWide,
-                                    appWidth: _appWidth,
-                                    quickListController: _quickListController),
                               ],
                             );
                           }),
@@ -193,6 +169,35 @@ class _HomeScreenState extends State<HomeScreen>
                   tooltip: ABOUT,
                   onPressed: () => openAboutScreen(context),
                 ),
+              ),
+            ),
+            Positioned(
+              top: 128,
+              child: Column(
+                children: [
+                  Container(
+                    width: _isWide ? 440 : _appWidth - 64,
+                    height: 40,
+                    child: AddTaskField(
+                      addTask: () {
+                        final _taskModel =
+                            Provider.of<TaskViewModel>(context, listen: false);
+                        String _name = _taskModel.newTaskName;
+
+                        Task task =
+                            Task(name: _name, categoryId: -1, isDone: false);
+                        _taskModel.addTask(task);
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 1.0),
+                  UncategorizedList(
+                    appHeight: _appHeight,
+                    isWide: _isWide,
+                    appWidth: _appWidth,
+                    quickListController: _quickListController,
+                  ),
+                ],
               ),
             ),
             // Add Category button
@@ -402,43 +407,40 @@ class UncategorizedList extends StatelessWidget {
         final _taskModel = Provider.of<TaskViewModel>(context);
         final quickTaskList = _taskModel.getAllTasksForCategory(-1);
         if (quickTaskList.isNotEmpty)
-          return Row(
-            children: [
-              SizedBox(width: 20.0),
-              AnimatedContainer(
-                duration: Duration(milliseconds: 500),
-                width: _isWide ? 400 : _appWidth - 100,
-                decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    )),
-                child: Row(
-                  children: [
-                    SizedBox(width: 10.0),
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(NO_CATEGORY),
-                          LimitedBox(
-                            maxHeight: _listHeight,
-                            child: AllTasksList(
-                              list: quickTaskList,
-                              controller: _quickListController,
-                              shrinkWrap: true,
-                            ),
-                          ),
-                          SizedBox(height: 10.0),
-                        ],
+          return Container(
+            width: _isWide ? 400 : _appWidth - 100,
+            decoration: BoxDecoration(
+                color: Colors.white70,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(24),
+                  bottomRight: Radius.circular(24),
+                )),
+            child: Row(
+              children: [
+                SizedBox(width: 10.0),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        NO_CATEGORY,
+                        style: Theme.of(context).textTheme.subtitle1,
                       ),
-                    ),
-                    SizedBox(width: 10.0),
-                  ],
+                      LimitedBox(
+                        maxHeight: _listHeight,
+                        child: AllTasksList(
+                          list: quickTaskList,
+                          controller: _quickListController,
+                          shrinkWrap: true,
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(width: 10.0),
+              ],
+            ),
           );
         return SizedBox();
       },
