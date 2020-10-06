@@ -219,58 +219,60 @@ class _HomeScreenState extends State<HomeScreen>
               left: 0,
               right: 0,
               bottom: 64.0,
-              child: Container(
-                height: _appHeight * 0.4,
-                child: _isWide
-                    ? ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: _categoryList.length,
-                        controller: _scrollController,
-                        itemBuilder: (context, index) {
-                          Category category = _categoryList[index];
-                          return Container(
-                            width: 450,
-                            child: CategoryCard(
-                              category: category,
-                              onTap: () {
-                                openCategoryScreen(context, index);
+              child: _categoryList.isNotEmpty
+                  ? Container(
+                      height: _appHeight * 0.4,
+                      child: _isWide
+                          ? ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: _categoryList.length,
+                              controller: _scrollController,
+                              itemBuilder: (context, index) {
+                                Category category = _categoryList[index];
+                                return Container(
+                                  width: 450,
+                                  child: CategoryCard(
+                                    category: category,
+                                    onTap: () {
+                                      openCategoryScreen(context, index);
+                                    },
+                                    // change background color on mouse hover
+                                    onHover: (v) => {
+                                      setState(() {
+                                        _currentCategory = index;
+                                      })
+                                    },
+                                    // change background color when using keyboard
+                                    onFocusChange: (v) => {
+                                      setState(() {
+                                        _currentCategory = index;
+                                      })
+                                    },
+                                  ),
+                                );
                               },
-                              // change background color on mouse hover
-                              onHover: (v) => {
-                                setState(() {
+                            )
+                          : PageView.builder(
+                              controller: _pageController,
+                              itemCount: _categoryList.length,
+                              itemBuilder: (context, index) {
+                                Category category = _categoryList[index];
+                                return CategoryCard(
+                                  category: category,
+                                  onTap: () {
+                                    openCategoryScreen(context, index);
+                                  },
+                                );
+                              },
+                              onPageChanged: (int index) => setState(
+                                () {
+                                  // for setting background color same as current category
                                   _currentCategory = index;
-                                })
-                              },
-                              // change background color when using keyboard
-                              onFocusChange: (v) => {
-                                setState(() {
-                                  _currentCategory = index;
-                                })
-                              },
+                                },
+                              ),
                             ),
-                          );
-                        },
-                      )
-                    : PageView.builder(
-                        controller: _pageController,
-                        itemCount: _categoryList.length,
-                        itemBuilder: (context, index) {
-                          Category category = _categoryList[index];
-                          return CategoryCard(
-                            category: category,
-                            onTap: () {
-                              openCategoryScreen(context, index);
-                            },
-                          );
-                        },
-                        onPageChanged: (int index) => setState(
-                          () {
-                            // for setting background color same as current category
-                            _currentCategory = index;
-                          },
-                        ),
-                      ),
-              ),
+                    )
+                  : SizedBox(),
             ),
           ],
         ),
@@ -391,7 +393,12 @@ class UncategorizedList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final _listHeight = _appHeight * 0.6 - 260;
+        bool hasCategories =
+            Provider.of<CategoryViewModel>(context, listen: false)
+                .getListOfCategories()
+                .isNotEmpty;
+        final _listHeight =
+            hasCategories ? _appHeight * 0.6 - 260 : _appHeight - 272;
         final _taskModel = Provider.of<TaskViewModel>(context);
         final quickTaskList = _taskModel.getAllTasksForCategory(-1);
         if (quickTaskList.isNotEmpty)
@@ -426,6 +433,7 @@ class UncategorizedList extends StatelessWidget {
                         ],
                       ),
                     ),
+                    SizedBox(width: 10.0),
                   ],
                 ),
               ),
