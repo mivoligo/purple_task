@@ -218,23 +218,25 @@ class _HomeScreenState extends State<HomeScreen>
             ),
             // Add Category button
             AnimatedBuilder(
-                animation: _animationController,
-                builder: (context, child) {
-                  return Positioned(
-                    bottom: animDouble(_animationController, 16.0, 64.0).value,
-                    child: Hero(
-                      tag: 'new_category',
-                      child: AddCategoryButton(
-                        text: ADD_CATEGORY,
-                        opacity:
-                            animDouble(_animationController, 1.0, 0.0).value,
-                        onPressed: () {
-                          openNewCategory(context);
-                        },
-                      ),
-                    ),
-                  );
-                }),
+              animation: _animationController,
+              builder: (context, child) {
+                return Positioned(
+                  bottom: animDouble(_animationController, 16.0, 64.0).value,
+                  child: child,
+                );
+              },
+              child: Hero(
+                tag: 'new_category',
+                child: AddCategoryButton(
+                  text: ADD_CATEGORY,
+                  // opacity:
+                  //     animDouble(_animationController, 1.0, 0.0).value,
+                  onPressed: () {
+                    openNewCategory(context);
+                  },
+                ),
+              ),
+            ),
             // Category cards
             Positioned(
               left: 0,
