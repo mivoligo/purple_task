@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -173,31 +175,45 @@ class _HomeScreenState extends State<HomeScreen>
             ),
             Positioned(
               top: 128,
-              child: Column(
-                children: [
-                  Container(
-                    width: _isWide ? 440 : _appWidth - 64,
-                    height: 40,
-                    child: AddTaskField(
-                      addTask: () {
-                        final _taskModel =
-                            Provider.of<TaskViewModel>(context, listen: false);
-                        String _name = _taskModel.newTaskName;
+              child: AnimatedBuilder(
+                animation: _animationController,
+                builder: (context, child) {
+                  return Transform(
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001)
+                      ..rotateX(animDouble(
+                              _animationController, 0, 70 / 180 * math.pi)
+                          .value),
+                    alignment: Alignment.center,
+                    child: child,
+                  );
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      width: _isWide ? 440 : _appWidth - 64,
+                      height: 40,
+                      child: AddTaskField(
+                        addTask: () {
+                          final _taskModel = Provider.of<TaskViewModel>(context,
+                              listen: false);
+                          String _name = _taskModel.newTaskName;
 
-                        Task task =
-                            Task(name: _name, categoryId: -1, isDone: false);
-                        _taskModel.addTask(task);
-                      },
+                          Task task =
+                              Task(name: _name, categoryId: -1, isDone: false);
+                          _taskModel.addTask(task);
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 1.0),
-                  UncategorizedList(
-                    appHeight: _appHeight,
-                    isWide: _isWide,
-                    appWidth: _appWidth,
-                    quickListController: _quickListController,
-                  ),
-                ],
+                    const SizedBox(height: 1.0),
+                    UncategorizedList(
+                      appHeight: _appHeight,
+                      isWide: _isWide,
+                      appWidth: _appWidth,
+                      quickListController: _quickListController,
+                    ),
+                  ],
+                ),
               ),
             ),
             // Add Category button
