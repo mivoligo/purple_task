@@ -132,61 +132,53 @@ class _CategoryScreenState extends State<CategoryScreen>
               tag: 'main${categoryModel.currentCategory.id}',
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(24.0),
-                    boxShadow: [
-                      const BoxShadow(
-                        color: Color(0xff45000000),
-                        offset: Offset(0.0, 4.0),
-                        blurRadius: 8.0,
-                      ),
-                    ]),
+                  color: Colors.grey[200],
+                  borderRadius: _isWide ? BorderRadius.circular(24.0) : null,
+                  boxShadow: [
+                    const BoxShadow(
+                      color: Color(0xff45000000),
+                      offset: Offset(0.0, 4.0),
+                      blurRadius: 8.0,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 8.0),
+                    Row(
+                      children: [
+                        // Go back button
+                        const SizedBox(width: 8.0),
+                        CustomIconButton(
+                          icon: Icon(AntIcons.arrow_left),
+                          color: Colors.white,
+                          tooltip: CLOSE,
+                          onPressed: () {
+                            _animationController.reverse();
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        const Spacer(),
+                        // Menu button
+                        CategoryMenuWidget(
+                          categoryIndex: widget.currentIndex,
+                        ),
+                        const SizedBox(width: 8.0),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
           Positioned(
             width: _isWide ? 550 : _appWidth,
-            top: _isWide ? 50 : 0,
+            top: _isWide ? 120 : 64,
             bottom: _isWide ? 50 : 0,
             child: Scaffold(
               backgroundColor: _isWide ? Colors.transparent : Colors.grey[200],
               body: Column(
                 children: [
-                  const SizedBox(height: 8.0),
-                  AnimatedBuilder(
-                    animation: _fadeAnimation,
-                    builder: (context, child) {
-                      return Opacity(
-                        opacity: _fadeAnimation.value,
-                        child: child,
-                      );
-                    },
-                    child: Material(
-                      type: MaterialType.transparency,
-                      child: Row(
-                        children: [
-                          // Go back button
-                          const SizedBox(width: 8.0),
-                          CustomIconButton(
-                            icon: Icon(AntIcons.arrow_left),
-                            color: Colors.white,
-                            tooltip: CLOSE,
-                            onPressed: () {
-                              _animationController.reverse();
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          Spacer(),
-                          // Menu button
-                          CategoryMenuWidget(
-                            categoryIndex: widget.currentIndex,
-                          ),
-                          const SizedBox(width: 8.0),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 36.0),

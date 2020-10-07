@@ -343,6 +343,7 @@ class _HomeScreenState extends State<HomeScreen>
         pageBuilder: (context, anim1, anim2) => CategoryScreen(
           currentIndex: index,
         ),
+        transitionDuration: Duration(milliseconds: 400),
         transitionsBuilder: (context, anim1, anim2, child) {
           return FadeTransition(
             opacity: anim1,
