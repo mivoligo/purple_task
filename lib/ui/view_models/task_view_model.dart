@@ -46,6 +46,26 @@ class TaskViewModel with ChangeNotifier {
     return todaysTasks;
   }
 
+  List<Task> getTomorrowsTasksForCategory(int categoryId) {
+    final allTasksInCategory = getPlannedTasksForCategory(categoryId);
+    final now = DateTime.now();
+    final tomorrow = DateTime(now.year, now.month, now.day + 1);
+    List<Task> tomorrowTasks = [];
+    allTasksInCategory.forEach(
+      (task) {
+        if (task.dueDate != null) {
+          final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate);
+          final dueDate =
+              DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+          if (dueDate == tomorrow) {
+            tomorrowTasks.add(task);
+          }
+        }
+      },
+    );
+    return tomorrowTasks;
+  }
+
   List<Task> getCompletedTasksForCategory(int categoryId) {
     final box = Hive.box<Task>(TASK_BOX);
     return box.values
