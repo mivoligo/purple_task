@@ -103,6 +103,7 @@ class TaskViewModel with ChangeNotifier {
         }
       },
     );
+    futureTasks.sort((a, b) => a.dueDate.compareTo(b.dueDate));
     return futureTasks;
   }
 
