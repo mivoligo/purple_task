@@ -106,6 +106,19 @@ class TaskViewModel with ChangeNotifier {
     return futureTasks;
   }
 
+  List<Task> getNoDueDateTasksForCategory(int categoryId) {
+    final allTasksInCategory = getPlannedTasksForCategory(categoryId);
+    List<Task> noDueDateTasks = [];
+    allTasksInCategory.forEach(
+      (task) {
+        if (task.dueDate == null) {
+          noDueDateTasks.add(task);
+        }
+      },
+    );
+    return noDueDateTasks;
+  }
+
   List<Task> getCompletedTasksForCategory(int categoryId) {
     final box = Hive.box<Task>(TASK_BOX);
     return box.values
