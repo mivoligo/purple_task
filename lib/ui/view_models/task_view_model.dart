@@ -26,6 +26,26 @@ class TaskViewModel with ChangeNotifier {
         .toList();
   }
 
+  List<Task> getOverdueTasksForCategory(int categoryId) {
+    final allTasksInCategory = getPlannedTasksForCategory(categoryId);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    List<Task> overdueTasks = [];
+    allTasksInCategory.forEach(
+      (task) {
+        if (task.dueDate != null) {
+          final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate);
+          final dueDate =
+              DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+          if (dueDate.isBefore(today)) {
+            overdueTasks.add(task);
+          }
+        }
+      },
+    );
+    return overdueTasks;
+  }
+
   List<Task> getTodaysTasksForCategory(int categoryId) {
     final allTasksInCategory = getPlannedTasksForCategory(categoryId);
     final now = DateTime.now();
