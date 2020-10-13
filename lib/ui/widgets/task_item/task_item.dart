@@ -175,9 +175,8 @@ class _TaskItemState extends State<TaskItem> {
             child: _taskState == TaskState.Expanded
                 ? TaskOptions(
                     task: widget.task,
-                    onCategorySelected: () {
-                      setTaskNormal();
-                    },
+                    onCategorySelected: () => setTaskNormal(),
+                    onDateSelected: () => setTaskNormal(),
                     onDeletePressed: () {
                       _taskViewModel.deleteTask(widget.task.key);
                       setTaskNormal();
@@ -224,12 +223,14 @@ class TaskOptions extends StatelessWidget {
   final Task task;
   final VoidCallback onDeletePressed;
   final VoidCallback onCategorySelected;
+  final VoidCallback onDateSelected;
 
   const TaskOptions({
     Key key,
     @required this.task,
     @required this.onDeletePressed,
     @required this.onCategorySelected,
+    @required this.onDateSelected,
   }) : super(key: key);
 
   @override
@@ -263,7 +264,10 @@ class TaskOptions extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: Text(DUE_DATE),
                     ),
-                    DueDateSelector(task: task),
+                    DueDateSelector(
+                      task: task,
+                      onDateSelected: onDateSelected,
+                    ),
                   ],
                 ),
                 const SizedBox(width: 6),

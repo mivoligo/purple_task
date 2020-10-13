@@ -6,10 +6,12 @@ import '../../../globals/globals.dart';
 
 class DueDateSelector extends StatelessWidget {
   final Task task;
+  final VoidCallback onDateSelected;
 
   const DueDateSelector({
     Key key,
     @required this.task,
+    @required this.onDateSelected,
   }) : super(key: key);
 
   @override
@@ -76,26 +78,23 @@ class DueDateSelector extends StatelessWidget {
       case 0:
         // set due date to today
         task.dueDate = today.millisecondsSinceEpoch;
-        Provider.of<TaskViewModel>(context, listen: false)
-            .updateTask(task.key, task);
         break;
       case 1:
         // set due date to tomorrow
         task.dueDate = tomorrow.millisecondsSinceEpoch;
-        Provider.of<TaskViewModel>(context, listen: false)
-            .updateTask(task.key, task);
         break;
       case 2:
         // set custom date
         useSelectedDate(context);
-        break;
+        return;
       case 3:
         // set date to null
         task.dueDate = null;
-        Provider.of<TaskViewModel>(context, listen: false)
-            .updateTask(task.key, task);
         break;
     }
+    Provider.of<TaskViewModel>(context, listen: false)
+        .updateTask(task.key, task);
+    onDateSelected();
   }
 
   void useSelectedDate(context) async {
@@ -116,5 +115,6 @@ class DueDateSelector extends StatelessWidget {
       Provider.of<TaskViewModel>(context, listen: false)
           .updateTask(task.key, task);
     }
+    onDateSelected();
   }
 }
