@@ -43,19 +43,20 @@ class _CategoryScreenState extends State<CategoryScreen>
   Widget getTasksList() {
     switch (_navigationIndex) {
       case 0:
-        return AllTasksList(
-            list: _listOfAllTasks, controller: _scrollController);
-        break;
-      case 1:
         return PlannedTasksList(
             categoryId: categoryId, controller: _scrollController);
+        break;
+      case 1:
+        return AllTasksList(
+            list: _listOfAllTasks, controller: _scrollController);
         break;
       case 2:
         return CompletedTasksList(
             list: _listOfCompletedTasks, controller: _scrollController);
         break;
     }
-    return AllTasksList(list: _listOfAllTasks, controller: _scrollController);
+    return PlannedTasksList(
+        categoryId: categoryId, controller: _scrollController);
   }
 
   _scrollToEnd() async {
@@ -302,12 +303,12 @@ class _CategoryScreenState extends State<CategoryScreen>
                   },
                   items: [
                     BottomNavigationBarItem(
-                      label: ALL,
-                      icon: Icon(AntIcons.profile),
-                    ),
-                    BottomNavigationBarItem(
                       label: TO_DO,
                       icon: Icon(AntIcons.edit),
+                    ),
+                    BottomNavigationBarItem(
+                      label: ALL,
+                      icon: Icon(AntIcons.profile),
                     ),
                     BottomNavigationBarItem(
                       label: COMPLETED,
