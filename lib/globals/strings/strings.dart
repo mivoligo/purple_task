@@ -36,6 +36,8 @@ const String CUSTOM_DATE = 'Custom date';
 const String NO_DATE = 'No date';
 const String SET_DUE_DATE = 'Set due date';
 const String CHANGE_CATEGORY = 'Change category';
+const String OVERDUE = 'Overdue';
+const String LATER = 'Later';
 
 // category menu items
 const String CHANGE_NAME = 'Change Name';

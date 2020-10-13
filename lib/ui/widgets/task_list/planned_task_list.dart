@@ -1,31 +1,45 @@
 import 'package:flutter/material.dart';
-import '../../../db_models/db_models.dart';
+import 'package:provider/provider.dart';
+import '../../../globals/globals.dart';
 import '../../ui.dart';
 
 class PlannedTasksList extends StatelessWidget {
-  final List<Task> list;
+  final int categoryId;
   final ScrollController controller;
 
   const PlannedTasksList({
     Key key,
-    @required this.list,
+    @required this.categoryId,
     @required this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
     return Scrollbar(
-      child: ListView.separated(
-        key: PageStorageKey('planned_tasks'),
+      child: CustomScrollView(
+        key: PageStorageKey('planned tasks'),
         controller: controller,
-        itemBuilder: (context, index) {
-          Task task = list[index];
-          return TaskItem(
-            task: task,
-          );
-        },
-        separatorBuilder: (context, index) => const Divider(height: 8.0),
-        itemCount: list.length,
+        slivers: [
+          SliverTasksList(
+              list: taskViewModel.getNoDueDateTasksForCategory(categoryId)),
+          if (taskViewModel.getOverdueTasksForCategory(categoryId).isNotEmpty)
+            SliverTaskListHeader(title: OVERDUE),
+          SliverTasksList(
+              list: taskViewModel.getOverdueTasksForCategory(categoryId)),
+          if (taskViewModel.getTodaysTasksForCategory(categoryId).isNotEmpty)
+            SliverTaskListHeader(title: TODAY),
+          SliverTasksList(
+              list: taskViewModel.getTodaysTasksForCategory(categoryId)),
+          if (taskViewModel.getTomorrowsTasksForCategory(categoryId).isNotEmpty)
+            SliverTaskListHeader(title: TOMORROW),
+          SliverTasksList(
+              list: taskViewModel.getTomorrowsTasksForCategory(categoryId)),
+          if (taskViewModel.getFutureTasksForCategory(categoryId).isNotEmpty)
+            SliverTaskListHeader(title: LATER),
+          SliverTasksList(
+              list: taskViewModel.getFutureTasksForCategory(categoryId)),
+        ],
       ),
     );
   }
