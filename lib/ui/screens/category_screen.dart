@@ -2,6 +2,7 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
+import 'package:purple_task/ui/widgets/task_list/todays_task_list.dart';
 
 import '../../db_models/db_models.dart';
 import '../../globals/globals.dart';
@@ -29,6 +30,11 @@ class _CategoryScreenState extends State<CategoryScreen>
   List<Task> _listOfAllTasks;
   List<Task> _listOfPlannedTasks;
   List<Task> _listOfCompletedTasks;
+  List<Task> _noDueDateTasksList;
+  List<Task> _overdueTaskList;
+  List<Task> _todayTasksList;
+  List<Task> _tomorrowTasksList;
+  List<Task> _futureTaskList;
 
   // for scrolling to last element after adding task
   bool _needScroll = false;
@@ -100,6 +106,11 @@ class _CategoryScreenState extends State<CategoryScreen>
     _listOfAllTasks = taskModel.getAllTasksForCategory(categoryId);
     _listOfPlannedTasks = taskModel.getPlannedTasksForCategory(categoryId);
     _listOfCompletedTasks = taskModel.getCompletedTasksForCategory(categoryId);
+    _noDueDateTasksList = taskModel.getNoDueDateTasksForCategory(categoryId);
+    _overdueTaskList = taskModel.getOverdueTasksForCategory(categoryId);
+    _todayTasksList = taskModel.getTodaysTasksForCategory(categoryId);
+    _tomorrowTasksList = taskModel.getTomorrowsTasksForCategory(categoryId);
+    _futureTaskList = taskModel.getFutureTasksForCategory(categoryId);
 
     // Used to scroll to end of list after adding new task
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
@@ -280,7 +291,15 @@ class _CategoryScreenState extends State<CategoryScreen>
                                 opacity: _fadeAnimation.value,
                                 child: child,
                               ),
-                              child: getTasksList(),
+                              child: CustomScrollView(
+                                slivers: [
+                                  SliverTasksList(list: _noDueDateTasksList),
+                                  SliverTasksList(list: _overdueTaskList),
+                                  SliverTasksList(list: _todayTasksList),
+                                  SliverTasksList(list: _tomorrowTasksList),
+                                  SliverTasksList(list: _futureTaskList),
+                                ],
+                              ),
                             ),
                           ),
                           const SizedBox(height: 8.0),
