@@ -213,6 +213,7 @@ class _TaskItemState extends State<TaskItem> {
                   )
                 : null,
           ),
+          Divider(height: 4.0),
         ],
       ),
     );
