@@ -178,6 +178,7 @@ class TaskViewModel with ChangeNotifier {
     final now = DateTime.now();
     final yesterday = DateTime(now.year, now.month, now.day - 1);
     List<Task> earlierCompletedTasks = [];
+    List<Task> completedTasksWithoutDoneTime = [];
     allCompletedTasksForCategory.forEach(
       (task) {
         if (task.doneTime != null) {
@@ -187,10 +188,13 @@ class TaskViewModel with ChangeNotifier {
           if (doneDate.isBefore(yesterday)) {
             earlierCompletedTasks.add(task);
           }
+        } else {
+          completedTasksWithoutDoneTime.add(task);
         }
       },
     );
     earlierCompletedTasks.sort((b, a) => a.doneTime.compareTo(b.doneTime));
+    earlierCompletedTasks.addAll(completedTasksWithoutDoneTime);
     return earlierCompletedTasks;
   }
 
