@@ -60,7 +60,7 @@ class _CategoryScreenState extends State<CategoryScreen>
   _scrollToEnd() async {
     if (_needScroll) {
       _needScroll = false;
-      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+      _scrollController.animateTo(_scrollController.position.minScrollExtent,
           duration: Duration(milliseconds: 300), curve: Curves.ease);
     }
   }

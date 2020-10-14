@@ -118,7 +118,7 @@ class TaskViewModel with ChangeNotifier {
         }
       },
     );
-    return noDueDateTasks;
+    return noDueDateTasks.reversed.toList();
   }
 
   List<Task> getCompletedTasksForCategory(int categoryId) {
