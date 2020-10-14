@@ -1,31 +1,51 @@
 import 'package:flutter/material.dart';
-import '../../../db_models/db_models.dart';
+import 'package:provider/provider.dart';
+import '../../../globals/globals.dart';
 import '../../ui.dart';
 
 class CompletedTasksList extends StatelessWidget {
-  final List<Task> list;
+  final int categoryId;
   final ScrollController controller;
+  final bool shrinkWrap;
 
   const CompletedTasksList({
     Key key,
-    @required this.list,
+    @required this.categoryId,
     @required this.controller,
+    this.shrinkWrap = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
     return Scrollbar(
-      child: ListView.separated(
-        key: PageStorageKey('completed_tasks'),
+      child: CustomScrollView(
+        key: PageStorageKey('completed tasks'),
         controller: controller,
-        itemBuilder: (context, index) {
-          Task task = list[index];
-          return TaskItem(
-            task: task,
-          );
-        },
-        separatorBuilder: (context, index) => const Divider(height: 8.0),
-        itemCount: list.length,
+        shrinkWrap: shrinkWrap,
+        slivers: [
+          if (taskViewModel
+              .getTodayCompletedTasksForCategory(categoryId)
+              .isNotEmpty)
+            SliverTaskListHeader(title: COMPLETED_TODAY),
+          SliverTasksList(
+              list:
+                  taskViewModel.getTodayCompletedTasksForCategory(categoryId)),
+          if (taskViewModel
+              .getYesterdayCompletedTasksForCategory(categoryId)
+              .isNotEmpty)
+            SliverTaskListHeader(title: COMPLETED_YESTERDAY),
+          SliverTasksList(
+              list: taskViewModel
+                  .getYesterdayCompletedTasksForCategory(categoryId)),
+          if (taskViewModel
+              .getEarlierCompletedTasksForCategory(categoryId)
+              .isNotEmpty)
+            SliverTaskListHeader(title: COMPLETED_EARLIER),
+          SliverTasksList(
+              list: taskViewModel
+                  .getEarlierCompletedTasksForCategory(categoryId)),
+        ],
       ),
     );
   }

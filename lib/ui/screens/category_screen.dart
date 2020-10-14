@@ -26,7 +26,6 @@ class _CategoryScreenState extends State<CategoryScreen>
   ScrollController _scrollController;
   TextEditingController _categoryNameController;
 
-  List<Task> _listOfCompletedTasks;
   int categoryId;
 
   // for scrolling to last element after adding task
@@ -51,7 +50,7 @@ class _CategoryScreenState extends State<CategoryScreen>
         break;
       case 2:
         return CompletedTasksList(
-            list: _listOfCompletedTasks, controller: _scrollController);
+            categoryId: categoryId, controller: _scrollController);
         break;
     }
     return PlannedTasksList(
@@ -97,7 +96,6 @@ class _CategoryScreenState extends State<CategoryScreen>
     final taskModel = Provider.of<TaskViewModel>(context);
     final categoryModel = Provider.of<CategoryViewModel>(context);
     categoryId = categoryModel.currentCategory.id;
-    _listOfCompletedTasks = taskModel.getCompletedTasksForCategory(categoryId);
 
     // Used to scroll to end of list after adding new task
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
