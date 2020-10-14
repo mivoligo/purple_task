@@ -57,7 +57,7 @@ class _CategoryScreenState extends State<CategoryScreen>
         categoryId: categoryId, controller: _scrollController);
   }
 
-  _scrollToEnd() async {
+  _scrollToTop() async {
     if (_needScroll) {
       _needScroll = false;
       _scrollController.animateTo(_scrollController.position.minScrollExtent,
@@ -99,7 +99,7 @@ class _CategoryScreenState extends State<CategoryScreen>
 
     // Used to scroll to end of list after adding new task
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _scrollToEnd();
+      _scrollToTop();
     });
 
     return SafeArea(

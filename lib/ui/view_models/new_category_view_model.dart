@@ -46,7 +46,7 @@ class NewCategoryViewModel extends ChangeNotifier {
 
   List<Task> _tasks = [];
 
-  List<Task> get tasks => _tasks;
+  List<Task> get tasks => _tasks.reversed.toList();
 
   addTaskToTemporaryList(BuildContext context) {
     TaskViewModel taskModel =
