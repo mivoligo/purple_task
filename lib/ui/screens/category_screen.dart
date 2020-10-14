@@ -26,7 +26,6 @@ class _CategoryScreenState extends State<CategoryScreen>
   ScrollController _scrollController;
   TextEditingController _categoryNameController;
 
-  List<Task> _listOfAllTasks;
   List<Task> _listOfCompletedTasks;
   int categoryId;
 
@@ -48,7 +47,7 @@ class _CategoryScreenState extends State<CategoryScreen>
         break;
       case 1:
         return AllTasksList(
-            list: _listOfAllTasks, controller: _scrollController);
+            categoryId: categoryId, controller: _scrollController);
         break;
       case 2:
         return CompletedTasksList(
@@ -98,7 +97,6 @@ class _CategoryScreenState extends State<CategoryScreen>
     final taskModel = Provider.of<TaskViewModel>(context);
     final categoryModel = Provider.of<CategoryViewModel>(context);
     categoryId = categoryModel.currentCategory.id;
-    _listOfAllTasks = taskModel.getAllTasksForCategory(categoryId);
     _listOfCompletedTasks = taskModel.getCompletedTasksForCategory(categoryId);
 
     // Used to scroll to end of list after adding new task

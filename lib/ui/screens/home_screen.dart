@@ -448,7 +448,7 @@ class UncategorizedList extends StatelessWidget {
                       LimitedBox(
                         maxHeight: _listHeight,
                         child: AllTasksList(
-                          list: quickTaskList,
+                          categoryId: -1,
                           controller: _quickListController,
                           shrinkWrap: true,
                         ),
