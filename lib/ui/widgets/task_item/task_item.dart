@@ -73,149 +73,156 @@ class _TaskItemState extends State<TaskItem> {
     bool _displayDoneTaskTime = _settings.getDisplayTaskDOneTimePref();
     String _timeFormat = _settings.getTimeFormat();
     String _dateFormat = _settings.getDateFormat();
-    return Container(
-      decoration: BoxDecoration(
-        color: _taskState == TaskState.Normal
-            ? Colors.transparent
-            : Colors.grey[100],
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        children: [
-          Row(
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: _taskState == TaskState.Normal
+                ? Colors.transparent
+                : Colors.grey[100],
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
             children: [
-              const SizedBox(width: 4.0),
-              Checkbox(
-                activeColor: Colors.grey,
-                value: widget.task.isDone,
-                onChanged: (value) {
-                  widget.task.isDone = value;
-                  if (widget.task.isDone) {
-                    widget.task.doneTime = _taskViewModel.setTaskDoneTime();
-                  }
-                  _taskViewModel.updateTask(widget.task.key, widget.task);
-                },
-              ),
-              const SizedBox(width: 4.0),
-              Expanded(
-                child: _taskState == TaskState.EditName
-                    ? CupertinoTextField(
-                        controller: _textController,
-                        autofocus: true,
-                        style: Theme.of(context).textTheme.subtitle1,
-                        onSubmitted: _hasText
-                            ? (v) {
-                                widget.task.name = _textController.text;
-                                _taskViewModel.updateTask(
-                                    widget.task.key, widget.task);
-                                setTaskNormal();
-                              }
-                            : null,
-                      )
-                    : InkWell(
-                        onTap: _taskState == TaskState.Normal ||
-                                _taskState == TaskState.Expanded
-                            ? setTaskEditName
-                            : null,
-                        child: Text(
-                          widget.task.name,
-                          style: widget.task.isDone
-                              ? Theme.of(context).textTheme.subtitle1.copyWith(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w300,
-                                    decoration: TextDecoration.lineThrough,
-                                  )
-                              : Theme.of(context).textTheme.subtitle1,
-                        ),
+              Row(
+                children: [
+                  const SizedBox(width: 4.0),
+                  Checkbox(
+                    activeColor: Colors.grey,
+                    value: widget.task.isDone,
+                    onChanged: (value) {
+                      widget.task.isDone = value;
+                      if (widget.task.isDone) {
+                        widget.task.doneTime = _taskViewModel.setTaskDoneTime();
+                      }
+                      _taskViewModel.updateTask(widget.task.key, widget.task);
+                    },
+                  ),
+                  const SizedBox(width: 4.0),
+                  Expanded(
+                    child: _taskState == TaskState.EditName
+                        ? CupertinoTextField(
+                            controller: _textController,
+                            autofocus: true,
+                            style: Theme.of(context).textTheme.subtitle1,
+                            onSubmitted: _hasText
+                                ? (v) {
+                                    widget.task.name = _textController.text;
+                                    _taskViewModel.updateTask(
+                                        widget.task.key, widget.task);
+                                    setTaskNormal();
+                                  }
+                                : null,
+                          )
+                        : InkWell(
+                            onTap: _taskState == TaskState.Normal ||
+                                    _taskState == TaskState.Expanded
+                                ? setTaskEditName
+                                : null,
+                            child: Text(
+                              widget.task.name,
+                              style: widget.task.isDone
+                                  ? Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      .copyWith(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w300,
+                                        decoration: TextDecoration.lineThrough,
+                                      )
+                                  : Theme.of(context).textTheme.subtitle1,
+                            ),
+                          ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  if (widget.task.dueDate != null)
+                    Text(_taskViewModel.displayDueDate(
+                        widget.task.dueDate, _dateFormat)),
+                  if (_taskState == TaskState.Normal ||
+                      _taskState == TaskState.EditName)
+                    CustomIconButton(
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
                       ),
+                      color: Colors.transparent,
+                      onPressed: setTaskExpanded,
+                      tooltip: SHOW_OPTIONS,
+                    ),
+                  if (_taskState == TaskState.Expanded)
+                    CustomIconButton(
+                      icon: const Icon(
+                        Icons.arrow_drop_up,
+                      ),
+                      color: Colors.transparent,
+                      onPressed: setTaskNormal,
+                      tooltip: HIDE_OPTIONS,
+                    ),
+                ],
               ),
-              const SizedBox(width: 8.0),
-              if (widget.task.dueDate != null)
-                Text(_taskViewModel.displayDueDate(
-                    widget.task.dueDate, _dateFormat)),
-              if (_taskState == TaskState.Normal ||
-                  _taskState == TaskState.EditName)
-                CustomIconButton(
-                  icon: const Icon(
-                    Icons.arrow_drop_down,
-                  ),
-                  color: Colors.transparent,
-                  onPressed: setTaskExpanded,
-                  tooltip: SHOW_OPTIONS,
+              if (_displayDoneTaskTime &&
+                  widget.task.isDone &&
+                  widget.task.doneTime != null)
+                Row(
+                  children: [
+                    SizedBox(width: 10.0),
+                    Text(
+                      '$COMPLETED: ${TimeConversion().millisToDateAndTime(
+                        widget.task.doneTime,
+                        dateFormat: _dateFormat,
+                        timeFormat: _timeFormat,
+                      )}',
+                    ),
+                  ],
                 ),
-              if (_taskState == TaskState.Expanded)
-                CustomIconButton(
-                  icon: const Icon(
-                    Icons.arrow_drop_up,
-                  ),
-                  color: Colors.transparent,
-                  onPressed: setTaskNormal,
-                  tooltip: HIDE_OPTIONS,
-                ),
+              AnimatedContainer(
+                height: _taskState == TaskState.Expanded ? 140 : 0,
+                duration: Duration(milliseconds: 120),
+                child: _taskState == TaskState.Expanded
+                    ? TaskOptions(
+                        task: widget.task,
+                        onCategorySelected: () => setTaskNormal(),
+                        onDateSelected: () => setTaskNormal(),
+                        onDeletePressed: () {
+                          _taskViewModel.deleteTask(widget.task.key);
+                          setTaskNormal();
+                        },
+                      )
+                    : null,
+              ),
+              AnimatedContainer(
+                height: _taskState == TaskState.EditName ? 56 : 0,
+                duration: Duration(milliseconds: 90),
+                child: (_taskState == TaskState.EditName)
+                    ? Row(
+                        children: [
+                          const SizedBox(width: 10),
+                          SimpleButton(
+                            onPressed: setTaskNormal,
+                            text: CANCEL,
+                          ),
+                          Spacer(),
+                          SimpleButton(
+                            text: SAVE,
+                            color: Colors.green,
+                            onPressed: _hasText
+                                ? () {
+                                    widget.task.name = _textController.text;
+                                    _taskViewModel.updateTask(
+                                        widget.task.key, widget.task);
+                                    setTaskNormal();
+                                  }
+                                : null,
+                          ),
+                          const SizedBox(width: 10),
+                        ],
+                      )
+                    : null,
+              ),
             ],
           ),
-          if (_displayDoneTaskTime &&
-              widget.task.isDone &&
-              widget.task.doneTime != null)
-            Row(
-              children: [
-                SizedBox(width: 10.0),
-                Text(
-                  '$COMPLETED: ${TimeConversion().millisToDateAndTime(
-                    widget.task.doneTime,
-                    dateFormat: _dateFormat,
-                    timeFormat: _timeFormat,
-                  )}',
-                ),
-              ],
-            ),
-          AnimatedContainer(
-            height: _taskState == TaskState.Expanded ? 140 : 0,
-            duration: Duration(milliseconds: 120),
-            child: _taskState == TaskState.Expanded
-                ? TaskOptions(
-                    task: widget.task,
-                    onCategorySelected: () => setTaskNormal(),
-                    onDateSelected: () => setTaskNormal(),
-                    onDeletePressed: () {
-                      _taskViewModel.deleteTask(widget.task.key);
-                      setTaskNormal();
-                    },
-                  )
-                : null,
-          ),
-          AnimatedContainer(
-            height: _taskState == TaskState.EditName ? 56 : 0,
-            duration: Duration(milliseconds: 90),
-            child: (_taskState == TaskState.EditName)
-                ? Row(
-                    children: [
-                      const SizedBox(width: 10),
-                      SimpleButton(
-                        onPressed: setTaskNormal,
-                        text: CANCEL,
-                      ),
-                      Spacer(),
-                      SimpleButton(
-                        text: SAVE,
-                        color: Colors.green,
-                        onPressed: _hasText
-                            ? () {
-                                widget.task.name = _textController.text;
-                                _taskViewModel.updateTask(
-                                    widget.task.key, widget.task);
-                                setTaskNormal();
-                              }
-                            : null,
-                      ),
-                      const SizedBox(width: 10),
-                    ],
-                  )
-                : null,
-          ),
-          Divider(height: 4.0),
-        ],
-      ),
+        ),
+        Divider(height: 6.0),
+      ],
     );
   }
 }
