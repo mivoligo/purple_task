@@ -128,6 +128,72 @@ class TaskViewModel with ChangeNotifier {
         .toList();
   }
 
+  List<Task> getTodayCompletedTasksForCategory(int categoryId) {
+    final allCompletedTasksForCategory =
+        getCompletedTasksForCategory(categoryId);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    List<Task> todayCompletedTasks = [];
+    allCompletedTasksForCategory.forEach(
+      (task) {
+        if (task.doneTime != null) {
+          final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime);
+          final doneDate =
+              DateTime(doneTime.year, doneTime.month, doneTime.day);
+          if (doneDate == today) {
+            todayCompletedTasks.add(task);
+          }
+        }
+      },
+    );
+    todayCompletedTasks.sort((b, a) => a.doneTime.compareTo(b.doneTime));
+    return todayCompletedTasks;
+  }
+
+  List<Task> getYesterdayCompletedTasksForCategory(int categoryId) {
+    final allCompletedTasksForCategory =
+        getCompletedTasksForCategory(categoryId);
+    final now = DateTime.now();
+    final yesterday = DateTime(now.year, now.month, now.day - 1);
+    List<Task> yesterdayCompletedTasks = [];
+    allCompletedTasksForCategory.forEach(
+      (task) {
+        if (task.doneTime != null) {
+          final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime);
+          final doneDate =
+              DateTime(doneTime.year, doneTime.month, doneTime.day);
+          if (doneDate == yesterday) {
+            yesterdayCompletedTasks.add(task);
+          }
+        }
+      },
+    );
+    yesterdayCompletedTasks.sort((b, a) => a.doneTime.compareTo(b.doneTime));
+    return yesterdayCompletedTasks;
+  }
+
+  List<Task> getEarlierCompletedTasksForCategory(int categoryId) {
+    final allCompletedTasksForCategory =
+        getCompletedTasksForCategory(categoryId);
+    final now = DateTime.now();
+    final yesterday = DateTime(now.year, now.month, now.day - 1);
+    List<Task> earlierCompletedTasks = [];
+    allCompletedTasksForCategory.forEach(
+      (task) {
+        if (task.doneTime != null) {
+          final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime);
+          final doneDate =
+              DateTime(doneTime.year, doneTime.month, doneTime.day);
+          if (doneDate.isBefore(yesterday)) {
+            earlierCompletedTasks.add(task);
+          }
+        }
+      },
+    );
+    earlierCompletedTasks.sort((b, a) => a.doneTime.compareTo(b.doneTime));
+    return earlierCompletedTasks;
+  }
+
   addTask(Task task) async {
     var box = await Hive.openBox<Task>(TASK_BOX);
 
