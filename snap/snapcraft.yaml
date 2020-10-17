@@ -1,5 +1,5 @@
   name: purple-task
-  version: 1.1.0
+  version: 1.2.0
   summary: Simple TO-DO app to help you get stuff done
   description: Purple Task is
   confinement: strict

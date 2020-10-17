@@ -1,6 +1,6 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:purple_task/helpers.dart';
+import '../../helpers.dart';
 import '../../globals/globals.dart';
 import '../ui.dart';
 

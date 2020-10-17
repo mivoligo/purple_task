@@ -1,5 +1,5 @@
 const String APP_NAME = 'Purple Task';
-const String APP_VERSION = '1.1.0';
+const String APP_VERSION = '1.2.0';
 const String APP_DESCRIPTION = 'Simple TO-DO app to help you get stuff done';
 const String CATEGORY = 'Category';
 const String NO_CATEGORY = 'Uncategorized';
