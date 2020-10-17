@@ -55,8 +55,7 @@ $ snap install purple-task
 ---
 
 ## Contributing
-
-> Coming Soon
+- Feel free to report issues or help with existing.
 
 
 ---
