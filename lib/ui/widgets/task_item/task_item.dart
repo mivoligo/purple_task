@@ -127,7 +127,6 @@ class _TaskItemState extends State<TaskItem> {
                                       .subtitle1
                                       .copyWith(
                                         color: Colors.grey,
-                                        fontWeight: FontWeight.w300,
                                         decoration: TextDecoration.lineThrough,
                                       )
                                   : Theme.of(context).textTheme.subtitle1,
