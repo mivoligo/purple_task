@@ -21,6 +21,11 @@ void main() async {
   await Hive.openBox(SETTINGS_BOX);
   await Hive.openBox<Category>(CATEGORY_BOX);
   await Hive.openBox<Task>(TASK_BOX);
+
+  // Set app window size
+  AppWindowSize setWindowSize = AppWindowSizePluginBased(appWidth: 1200);
+  setWindowSize.setWindowSize();
+
   runApp(
     MultiProvider(
       providers: [
@@ -98,7 +103,8 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeScreen(),
+      // home: HomeScreen(),
+      home: Scaffold(),
     );
   }
 }
