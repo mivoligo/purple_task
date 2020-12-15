@@ -14,10 +14,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   double _appWidth;
   double _appHeight;
   bool _isWide;
+  Size _windowSize = WidgetsBinding.instance.window.physicalSize;
+  Size _tempWindowSize;
+  AppWindowSize _appWindowSize = AppWindowSizePluginBased();
 
   Color _color = Colors.deepPurple;
   AnimationController _animationController;
@@ -41,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 300),
@@ -56,7 +60,18 @@ class _HomeScreenState extends State<HomeScreen>
     _pageController.dispose();
     _scrollController.dispose();
     _quickListController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  // Used to save app window size on resize
+  @override
+  void didChangeMetrics() {
+    _tempWindowSize = WidgetsBinding.instance.window.physicalSize;
+    if (_windowSize != _tempWindowSize) {
+      _windowSize = _tempWindowSize;
+      _appWindowSize.saveWindowSize(_windowSize.width, _windowSize.height);
+    }
   }
 
   _scrollToEnd() async {
