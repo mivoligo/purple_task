@@ -1,7 +1,8 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../globals/category_colors.dart';
-import '../../view_models/new_category_view_model.dart';
+import '../../../globals/globals.dart';
+import '../../ui.dart';
 
 class ColorsList extends StatefulWidget {
   @override
@@ -54,16 +55,23 @@ class _ColorsListState extends State<ColorsList>
               child: child,
             );
           },
-          child: Container(
-            width: 64,
-            child: FlatButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {
+          child: Material(
+            child: InkWell(
+              onFocusChange: (v) {
+                newCategoryProvider.color = categoryColors[index];
+              },
+              onTap: () {
                 newCategoryProvider.color = categoryColors[index];
               },
               child: Container(
                 width: 64,
                 color: Color(categoryColors[index]),
+                child: (newCategoryProvider.color == categoryColors[index])
+                    ? Icon(
+                        AntIcons.check_outline,
+                        color: Colors.white,
+                      )
+                    : null,
               ),
             ),
           ),

@@ -3,6 +3,7 @@
 #include <flutter_linux/flutter_linux.h>
 
 #include "flutter/generated_plugin_registrant.h"
+#include "window_configuration.h"
 
 struct _MyApplication {
   GtkApplication parent_instance;
@@ -14,13 +15,12 @@ G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
 static void my_application_activate(GApplication* application) {
   GtkWindow* window =
       GTK_WINDOW(gtk_application_window_new(GTK_APPLICATION(application)));
-  GtkHeaderBar *header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
-  gtk_widget_show(GTK_WIDGET(header_bar));
-  gtk_header_bar_set_title(header_bar, "Purple Task");
-  gtk_header_bar_set_show_close_button(header_bar, TRUE);
-  gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
-  gtk_window_set_default_size(window, 500, 700);
   gtk_widget_show(GTK_WIDGET(window));
+  GdkWindow *gdk_window = gtk_widget_get_window(GTK_WIDGET(window));
+  gint scale_factor = gdk_window_get_scale_factor(gdk_window);
+  gtk_widget_set_size_request(GTK_WIDGET(window), kFlutterWindowWidth/scale_factor,
+                              kFlutterWindowHeight/scale_factor);
+  gtk_window_set_title(window, kFlutterWindowTitle);
 
   g_autoptr(FlDartProject) project = fl_dart_project_new();
 

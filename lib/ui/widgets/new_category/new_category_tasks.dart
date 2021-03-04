@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import '../../../globals/strings/strings.dart';
-import '../../view_models/new_category_view_model.dart';
-import '../../../ui/widgets/add_task_field.dart';
+import '../../../globals/globals.dart';
+import '../../ui.dart';
 
 class CategoryTasks extends StatefulWidget {
   @override
@@ -16,10 +14,10 @@ class _CategoryTasksState extends State<CategoryTasks> {
 
   bool _needScroll = false;
 
-  _scrollToEnd() async {
+  _scrollToTop() async {
     if (_needScroll) {
       _needScroll = false;
-      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+      _scrollController.animateTo(_scrollController.position.minScrollExtent,
           duration: Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
@@ -40,7 +38,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
   Widget build(BuildContext context) {
     // Used to scroll to end of list after adding new task
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _scrollToEnd();
+      _scrollToTop();
     });
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -54,7 +52,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
             ),
           ),
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         Padding(
           padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 0.0),
           child: AddTaskField(
@@ -65,21 +63,23 @@ class _CategoryTasksState extends State<CategoryTasks> {
             },
           ),
         ),
-        SizedBox(height: 4.0),
+        const SizedBox(height: 4.0),
         Text(
           TASK_SINGULAR_CAPITAL,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyText2,
         ),
         Expanded(
-          child: Consumer<NewCategoryViewModel>(
-            builder: (_, value, __) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 36.0),
-              child: Scrollbar(
-                child: ListView.separated(
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 36.0, vertical: 8.0),
+            child: Scrollbar(
+              child: Consumer<NewCategoryViewModel>(
+                builder: (_, value, __) => ListView.separated(
                   controller: _scrollController,
                   itemCount: value.tasks.length,
-                  separatorBuilder: (context, index) => Divider(),
+                  separatorBuilder: (context, index) =>
+                      const Divider(height: 6.0),
                   itemBuilder: (context, index) {
                     return ListTile(
                       contentPadding: EdgeInsets.symmetric(horizontal: 0),

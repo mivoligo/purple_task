@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import '../../globals/hive_names.dart';
-import '../../db_models/task.dart';
+import 'package:intl/intl.dart';
+import '../../globals/globals.dart';
+import '../../db_models/db_models.dart';
 
 class TaskViewModel with ChangeNotifier {
   String _newTaskName;
@@ -25,11 +26,176 @@ class TaskViewModel with ChangeNotifier {
         .toList();
   }
 
+  List<Task> getOverdueTasksForCategory(int categoryId) {
+    final allTasksInCategory = getPlannedTasksForCategory(categoryId);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    List<Task> overdueTasks = [];
+    allTasksInCategory.forEach(
+      (task) {
+        if (task.dueDate != null) {
+          final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate);
+          final dueDate =
+              DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+          if (dueDate.isBefore(today)) {
+            overdueTasks.add(task);
+          }
+        }
+      },
+    );
+    overdueTasks.sort((a, b) => a.dueDate.compareTo(b.dueDate));
+    return overdueTasks;
+  }
+
+  List<Task> getTodaysTasksForCategory(int categoryId) {
+    final allTasksInCategory = getPlannedTasksForCategory(categoryId);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    List<Task> todaysTasks = [];
+    allTasksInCategory.forEach(
+      (task) {
+        if (task.dueDate != null) {
+          final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate);
+          final dueDate =
+              DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+          if (dueDate == today) {
+            todaysTasks.add(task);
+          }
+        }
+      },
+    );
+    return todaysTasks;
+  }
+
+  List<Task> getTomorrowsTasksForCategory(int categoryId) {
+    final allTasksInCategory = getPlannedTasksForCategory(categoryId);
+    final now = DateTime.now();
+    final tomorrow = DateTime(now.year, now.month, now.day + 1);
+    List<Task> tomorrowTasks = [];
+    allTasksInCategory.forEach(
+      (task) {
+        if (task.dueDate != null) {
+          final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate);
+          final dueDate =
+              DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+          if (dueDate == tomorrow) {
+            tomorrowTasks.add(task);
+          }
+        }
+      },
+    );
+    return tomorrowTasks;
+  }
+
+  List<Task> getFutureTasksForCategory(int categoryId) {
+    final allTasksInCategory = getPlannedTasksForCategory(categoryId);
+    final now = DateTime.now();
+    final tomorrow = DateTime(now.year, now.month, now.day + 1);
+    List<Task> futureTasks = [];
+    allTasksInCategory.forEach(
+      (task) {
+        if (task.dueDate != null) {
+          final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate);
+          final dueDate =
+              DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+          if (dueDate.isAfter(tomorrow)) {
+            futureTasks.add(task);
+          }
+        }
+      },
+    );
+    futureTasks.sort((a, b) => a.dueDate.compareTo(b.dueDate));
+    return futureTasks;
+  }
+
+  List<Task> getNoDueDateTasksForCategory(int categoryId) {
+    final allTasksInCategory = getPlannedTasksForCategory(categoryId);
+    List<Task> noDueDateTasks = [];
+    allTasksInCategory.forEach(
+      (task) {
+        if (task.dueDate == null) {
+          noDueDateTasks.add(task);
+        }
+      },
+    );
+    return noDueDateTasks.reversed.toList();
+  }
+
   List<Task> getCompletedTasksForCategory(int categoryId) {
     final box = Hive.box<Task>(TASK_BOX);
     return box.values
         .where((task) => task.categoryId == categoryId && task.isDone == true)
         .toList();
+  }
+
+  List<Task> getTodayCompletedTasksForCategory(int categoryId) {
+    final allCompletedTasksForCategory =
+        getCompletedTasksForCategory(categoryId);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    List<Task> todayCompletedTasks = [];
+    allCompletedTasksForCategory.forEach(
+      (task) {
+        if (task.doneTime != null) {
+          final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime);
+          final doneDate =
+              DateTime(doneTime.year, doneTime.month, doneTime.day);
+          if (doneDate == today) {
+            todayCompletedTasks.add(task);
+          }
+        }
+      },
+    );
+    todayCompletedTasks.sort((b, a) => a.doneTime.compareTo(b.doneTime));
+    return todayCompletedTasks;
+  }
+
+  List<Task> getYesterdayCompletedTasksForCategory(int categoryId) {
+    final allCompletedTasksForCategory =
+        getCompletedTasksForCategory(categoryId);
+    final now = DateTime.now();
+    final yesterday = DateTime(now.year, now.month, now.day - 1);
+    List<Task> yesterdayCompletedTasks = [];
+    allCompletedTasksForCategory.forEach(
+      (task) {
+        if (task.doneTime != null) {
+          final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime);
+          final doneDate =
+              DateTime(doneTime.year, doneTime.month, doneTime.day);
+          if (doneDate == yesterday) {
+            yesterdayCompletedTasks.add(task);
+          }
+        }
+      },
+    );
+    yesterdayCompletedTasks.sort((b, a) => a.doneTime.compareTo(b.doneTime));
+    return yesterdayCompletedTasks;
+  }
+
+  List<Task> getEarlierCompletedTasksForCategory(int categoryId) {
+    final allCompletedTasksForCategory =
+        getCompletedTasksForCategory(categoryId);
+    final now = DateTime.now();
+    final yesterday = DateTime(now.year, now.month, now.day - 1);
+    List<Task> earlierCompletedTasks = [];
+    List<Task> completedTasksWithoutDoneTime = [];
+    allCompletedTasksForCategory.forEach(
+      (task) {
+        if (task.doneTime != null) {
+          final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime);
+          final doneDate =
+              DateTime(doneTime.year, doneTime.month, doneTime.day);
+          if (doneDate.isBefore(yesterday)) {
+            earlierCompletedTasks.add(task);
+          }
+        } else {
+          completedTasksWithoutDoneTime.add(task);
+        }
+      },
+    );
+    earlierCompletedTasks.sort((b, a) => a.doneTime.compareTo(b.doneTime));
+    earlierCompletedTasks.addAll(completedTasksWithoutDoneTime);
+    return earlierCompletedTasks;
   }
 
   addTask(Task task) async {
@@ -108,5 +274,29 @@ class TaskViewModel with ChangeNotifier {
         .toList();
     _tasks.forEach((element) => element.delete());
     notifyListeners();
+  }
+
+  int setTaskDoneTime() {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    return now;
+  }
+
+  String displayDueDate(int dateInMillis, String dateFormat) {
+    if (dateInMillis != null) {
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final tomorrow = DateTime(now.year, now.month, now.day + 1);
+      final dueDateTime = DateTime.fromMillisecondsSinceEpoch(dateInMillis);
+      final dueDate =
+          DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+      if (dueDate == today) {
+        return TODAY;
+      } else if (dueDate == tomorrow) {
+        return TOMORROW;
+      } else {
+        return DateFormat(dateFormat).format(dueDate);
+      }
+    }
+    return NO_DATE;
   }
 }

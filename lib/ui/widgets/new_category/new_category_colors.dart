@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../globals/strings/strings.dart';
-import '../../view_models/new_category_view_model.dart';
-import '../../../ui/widgets/new_category/colors_list.dart';
+import '../../../globals/globals.dart';
+import '../../ui.dart';
 
 class CategoryColor extends StatelessWidget {
   @override
@@ -19,9 +18,9 @@ class CategoryColor extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         Expanded(child: ColorsList()),
-        SizedBox(height: 4.0),
+        const SizedBox(height: 4.0),
         Text(
           COLOR,
           textAlign: TextAlign.center,

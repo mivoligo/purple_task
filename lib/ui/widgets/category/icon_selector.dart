@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../globals/category_icons.dart';
-import '../../view_models/category_view_model.dart';
+import '../../../globals/globals.dart';
+import '../../ui.dart';
 
 class IconSelector extends StatefulWidget {
   @override
@@ -58,7 +58,7 @@ class _IconSelectorState extends State<IconSelector>
             color: Colors.grey[300],
             width: 64.0,
             child: FlatButton(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               onPressed: () {
                 categoryModel.icon = categoryIcons[index];
               },

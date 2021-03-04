@@ -1,8 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import '../../globals/hive_names.dart';
-import '../../db_models/category.dart';
+import '../../globals/globals.dart';
+import '../../db_models/db_models.dart';
 
 class CategoryViewModel with ChangeNotifier {
   addCategory(Category category) async {
@@ -35,6 +35,11 @@ class CategoryViewModel with ChangeNotifier {
     box.deleteAt(index);
 
     notifyListeners();
+  }
+
+  bool checkIfCategoryExist(int categoryId) {
+    final box = Hive.box<Category>(CATEGORY_BOX);
+    return box.values.where((category) => category.id == categoryId).isNotEmpty;
   }
 
   Category _currentCategory;

@@ -36,6 +36,7 @@ pkg_check_modules(GTK REQUIRED IMPORTED_TARGET gtk+-3.0)
 add_executable(${BINARY_NAME}
   "main.cc"
   "my_application.cc"
+  "window_configuration.cc"
   "${FLUTTER_MANAGED_DIR}/generated_plugin_registrant.cc"
 )
 apply_standard_settings(${BINARY_NAME})

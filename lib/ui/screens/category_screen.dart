@@ -2,16 +2,10 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import '../../globals/strings/strings.dart';
-import '../../db_models/task.dart';
-import '../view_models/category_view_model.dart';
-import '../view_models/task_view_model.dart';
-import '../widgets/add_task_field.dart';
-import '../widgets/category/category_menu_widget.dart';
-import '../widgets/task_list/all_tasks_list.dart';
-import '../widgets/category_header.dart';
-import '../widgets/task_list/completed_tasks_list.dart';
-import '../widgets/task_list/planned_task_list.dart';
+
+import '../../db_models/db_models.dart';
+import '../../globals/globals.dart';
+import '../ui.dart';
 
 class CategoryScreen extends StatefulWidget {
   final int currentIndex;
@@ -32,9 +26,7 @@ class _CategoryScreenState extends State<CategoryScreen>
   ScrollController _scrollController;
   TextEditingController _categoryNameController;
 
-  List<Task> _listOfAllTasks;
-  List<Task> _listOfPlannedTasks;
-  List<Task> _listOfCompletedTasks;
+  int categoryId;
 
   // for scrolling to last element after adding task
   bool _needScroll = false;
@@ -49,25 +41,26 @@ class _CategoryScreenState extends State<CategoryScreen>
   Widget getTasksList() {
     switch (_navigationIndex) {
       case 0:
-        return AllTasksList(
-            list: _listOfAllTasks, controller: _scrollController);
+        return PlannedTasksList(
+            categoryId: categoryId, controller: _scrollController);
         break;
       case 1:
-        return PlannedTasksList(
-            list: _listOfPlannedTasks, controller: _scrollController);
+        return AllTasksList(
+            categoryId: categoryId, controller: _scrollController);
         break;
       case 2:
         return CompletedTasksList(
-            list: _listOfCompletedTasks, controller: _scrollController);
+            categoryId: categoryId, controller: _scrollController);
         break;
     }
-    return AllTasksList(list: _listOfAllTasks, controller: _scrollController);
+    return PlannedTasksList(
+        categoryId: categoryId, controller: _scrollController);
   }
 
-  _scrollToEnd() async {
+  _scrollToTop() async {
     if (_needScroll) {
       _needScroll = false;
-      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+      _scrollController.animateTo(_scrollController.position.minScrollExtent,
           duration: Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
@@ -102,14 +95,11 @@ class _CategoryScreenState extends State<CategoryScreen>
     _isWide = MediaQuery.of(context).size.width > 600;
     final taskModel = Provider.of<TaskViewModel>(context);
     final categoryModel = Provider.of<CategoryViewModel>(context);
-    int categoryId = categoryModel.currentCategory.id;
-    _listOfAllTasks = taskModel.getAllTasksForCategory(categoryId);
-    _listOfPlannedTasks = taskModel.getPlannedTasksForCategory(categoryId);
-    _listOfCompletedTasks = taskModel.getCompletedTasksForCategory(categoryId);
+    categoryId = categoryModel.currentCategory.id;
 
     // Used to scroll to end of list after adding new task
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _scrollToEnd();
+      _scrollToTop();
     });
 
     return SafeArea(
@@ -138,58 +128,53 @@ class _CategoryScreenState extends State<CategoryScreen>
               tag: 'main${categoryModel.currentCategory.id}',
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0xff45000000),
-                        offset: Offset(0.0, 4.0),
-                        blurRadius: 8.0,
-                      ),
-                    ]),
+                  color: Colors.grey[200],
+                  borderRadius: _isWide ? BorderRadius.circular(24.0) : null,
+                  boxShadow: [
+                    const BoxShadow(
+                      color: Color(0xff45000000),
+                      offset: Offset(0.0, 4.0),
+                      blurRadius: 8.0,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 8.0),
+                    Row(
+                      children: [
+                        // Go back button
+                        const SizedBox(width: 8.0),
+                        CustomIconButton(
+                          icon: Icon(AntIcons.arrow_left),
+                          color: Colors.white,
+                          tooltip: CLOSE,
+                          onPressed: () {
+                            _animationController.reverse();
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        const Spacer(),
+                        // Menu button
+                        CategoryMenuWidget(
+                          categoryIndex: widget.currentIndex,
+                        ),
+                        const SizedBox(width: 8.0),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
           Positioned(
             width: _isWide ? 550 : _appWidth,
-            top: _isWide ? 50 : 0,
+            top: _isWide ? 120 : 64,
             bottom: _isWide ? 50 : 0,
             child: Scaffold(
               backgroundColor: _isWide ? Colors.transparent : Colors.grey[200],
               body: Column(
                 children: [
-                  AnimatedBuilder(
-                      animation: _fadeAnimation,
-                      builder: (context, child) {
-                        return Opacity(
-                          opacity: _fadeAnimation.value,
-                          child: Material(
-                            type: MaterialType.transparency,
-                            child: Row(
-                              children: [
-                                // Go back button
-                                SizedBox(width: 8.0),
-                                IconButton(
-                                  icon: Icon(AntIcons.arrow_left),
-                                  color: Colors.grey[700],
-                                  tooltip: CLOSE,
-                                  onPressed: () {
-                                    _animationController.reverse();
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                Spacer(),
-                                // Menu button
-                                CategoryMenuWidget(
-                                  categoryIndex: widget.currentIndex,
-                                ),
-                                SizedBox(width: 8.0),
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                  SizedBox(height: 16.0),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 36.0),
@@ -209,7 +194,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     Color(categoryModel.currentCategory.color),
                                 size: 40),
                           ),
-                          SizedBox(height: 24.0),
+                          const SizedBox(height: 24.0),
                           // header with number of tasks, name and progress
                           Hero(
                             tag: 'header${categoryModel.currentCategory.id}',
@@ -259,7 +244,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                               ),
                             ),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           // Add task field
                           AnimatedBuilder(
                             animation: _fadeAnimation,
@@ -283,7 +268,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                               },
                             ),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           Expanded(
                             child: AnimatedBuilder(
                               animation: _fadeAnimation,
@@ -294,6 +279,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                               child: getTasksList(),
                             ),
                           ),
+                          const SizedBox(height: 8.0),
                         ],
                       ),
                     ),
@@ -313,12 +299,12 @@ class _CategoryScreenState extends State<CategoryScreen>
                   },
                   items: [
                     BottomNavigationBarItem(
-                      label: ALL,
-                      icon: Icon(AntIcons.profile),
-                    ),
-                    BottomNavigationBarItem(
                       label: TO_DO,
                       icon: Icon(AntIcons.edit),
+                    ),
+                    BottomNavigationBarItem(
+                      label: ALL,
+                      icon: Icon(AntIcons.profile),
                     ),
                     BottomNavigationBarItem(
                       label: COMPLETED,

@@ -1,5 +1,6 @@
-// List of colors used for category color. List is based on Material color palette.
+// List of colors used for category color.
 List<int> categoryColors = [
+  // based on Material colors palette
   0xfff44336,
   0xffe91e63,
   0xff9c27b0,
@@ -19,4 +20,19 @@ List<int> categoryColors = [
   0xff795548,
   0xff9e9e9e,
   0xff607d8b,
+  // Pastel colors
+  0xffffadad,
+  0xffffd6a5,
+  0xfffdffb6,
+  0xffcaffbf,
+  0xff9bf6ff,
+  0xffa0c4ff,
+  0xffbdb2ff,
+  0xffffc6ff,
+  0xffd0b8ac,
+  0xfff3d8c7,
+  0xffdcd7d3,
+  0xffbcf4de,
+  0xffeec6ca,
+  0xffffb7c3,
 ];

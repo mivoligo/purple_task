@@ -2,13 +2,9 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../globals/strings/strings.dart';
-import '../../../db_models/category.dart';
-import '../../view_models/category_view_model.dart';
-import '../../view_models/task_view_model.dart';
-import './color_selector.dart';
-import './confirmation_dialog.dart';
-import './icon_selector.dart';
+import '../../../globals/globals.dart';
+import '../../../db_models/db_models.dart';
+import '../../ui.dart';
 
 class CategoryMenuWidget extends StatefulWidget {
   final int categoryIndex;
@@ -28,11 +24,6 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   final textController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void dispose() {
     textController.dispose();
     super.dispose();
@@ -43,45 +34,50 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
     taskModel = Provider.of<TaskViewModel>(context, listen: false);
     categoryModel = Provider.of<CategoryViewModel>(context, listen: false);
 
-    return PopupMenuButton(
-      icon: Icon(
-        AntIcons.menu,
-        color: Colors.grey[700],
-      ),
-      offset: Offset(0, 48),
-      elevation: 4.0,
-      onSelected: (item) => onItemSelected(context, item),
-      itemBuilder: (context) {
-        var list = List<PopupMenuEntry<Object>>();
-        list.add(PopupMenuItem(
-          child: Text(DELETE_COMPLETED),
-          value: 1,
-        ));
-        list.add(PopupMenuItem(
-          child: Text(DELETE_ALL_TASKS),
-          value: 2,
-        ));
-        list.add(PopupMenuDivider());
-        list.add(PopupMenuItem(
-          child: Text(DELETE_CATEGORY),
-          value: 3,
-        ));
-        list.add(PopupMenuDivider());
-        list.add(PopupMenuItem(
-          child: Text(CHANGE_NAME),
-          value: 4,
-        ));
-        list.add(PopupMenuItem(
-          child: Text(CHANGE_COLOR),
-          value: 5,
-        ));
-        list.add(PopupMenuItem(
-          child: Text(CHANGE_ICON),
-          value: 6,
-        ));
+    return Material(
+      borderRadius: BorderRadius.circular(20),
+      clipBehavior: Clip.antiAlias,
+      child: PopupMenuButton(
+        tooltip: SHOW_OPTIONS,
+        icon: Icon(
+          AntIcons.menu,
+          color: Colors.grey[700],
+        ),
+        offset: const Offset(0, 48),
+        elevation: 4.0,
+        onSelected: (item) => onItemSelected(context, item),
+        itemBuilder: (context) {
+          var menuList = List<PopupMenuEntry<Object>>();
+          menuList.add(PopupMenuItem(
+            child: Text(DELETE_COMPLETED),
+            value: 1,
+          ));
+          menuList.add(PopupMenuItem(
+            child: Text(DELETE_ALL_TASKS),
+            value: 2,
+          ));
+          menuList.add(PopupMenuDivider());
+          menuList.add(PopupMenuItem(
+            child: Text(DELETE_CATEGORY),
+            value: 3,
+          ));
+          menuList.add(PopupMenuDivider());
+          menuList.add(PopupMenuItem(
+            child: Text(CHANGE_NAME),
+            value: 4,
+          ));
+          menuList.add(PopupMenuItem(
+            child: Text(CHANGE_COLOR),
+            value: 5,
+          ));
+          menuList.add(PopupMenuItem(
+            child: Text(CHANGE_ICON),
+            value: 6,
+          ));
 
-        return list;
-      },
+          return menuList;
+        },
+      ),
     );
   }
 
@@ -195,7 +191,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
                             color: Color(categoryModel.color),
                           ),
                         ),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         Expanded(
                           child: Container(child: ColorSelector()),
                         ),
@@ -236,7 +232,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
                             size: 28,
                           ),
                         ),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         Expanded(
                           child: Container(child: IconSelector()),
                         ),

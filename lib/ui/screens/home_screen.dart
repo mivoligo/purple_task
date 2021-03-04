@@ -1,15 +1,12 @@
+import 'dart:math' as math;
+
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import '../../globals/strings/strings.dart';
-import '../../db_models/category.dart';
-import '../view_models/new_category_view_model.dart';
-import './category_screen.dart';
-import './new_category_screen.dart';
-import '../../ui/view_models/category_view_model.dart';
-import '../../ui/widgets/add_category_button.dart';
-import '../../ui/widgets/category_card.dart';
-import '../../ui/widgets/greetings.dart';
+import '../../globals/globals.dart';
+import '../../db_models/db_models.dart';
+import '../ui.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -26,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen>
   AnimationController _animationController;
   PageController _pageController;
   ScrollController _scrollController;
+  ScrollController _quickListController;
 
   NewCategoryViewModel _newCategory; // NewCategory provider
 
@@ -49,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
     _pageController = PageController();
     _scrollController = ScrollController();
+    _quickListController = ScrollController();
   }
 
   @override
@@ -56,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen>
     _animationController.dispose();
     _pageController.dispose();
     _scrollController.dispose();
+    _quickListController.dispose();
     super.dispose();
   }
 
@@ -124,92 +124,213 @@ class _HomeScreenState extends State<HomeScreen>
                       child: AnimatedBuilder(
                           animation: _animationController,
                           builder: (context, child) {
-                            return Greetings(
-                              greetings: GREETINGS,
-                              distance:
-                                  animDouble(_animationController, 32.0, 60.0)
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                SizedBox(
+                                  height: animDouble(
+                                          _animationController, 16.0, 200.0)
                                       .value,
-                              topDistance:
-                                  animDouble(_animationController, 0.0, 24.0)
+                                ),
+                                Greetings(greetings: GREETINGS),
+                                SizedBox(
+                                  height: animDouble(
+                                          _animationController, 24.0, 400.0)
                                       .value,
+                                ),
+                              ],
                             );
                           }),
                     );
                   }),
             ),
-            // Add Category button
-            AnimatedBuilder(
+            // Settings button
+            Positioned(
+              top: 16.0,
+              right: 16.0,
+              child: Hero(
+                tag: 'settings',
+                child: CustomIconButton(
+                  color: Colors.white,
+                  icon: Icon(AntIcons.setting),
+                  tooltip: SETTINGS,
+                  onPressed: () => openSettingsScreen(context),
+                ),
+              ),
+            ),
+            // About app button
+            Positioned(
+              top: 16.0,
+              right: 72.0,
+              child: Hero(
+                tag: 'about',
+                child: CustomIconButton(
+                  color: Colors.white,
+                  icon: Icon(AntIcons.info_circle),
+                  tooltip: ABOUT,
+                  onPressed: () => openAboutScreen(context),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 128,
+              child: AnimatedBuilder(
                 animation: _animationController,
                 builder: (context, child) {
-                  return Positioned(
-                    bottom: animDouble(_animationController, 16.0, 64.0).value,
-                    child: Hero(
-                      tag: 'new_category',
-                      child: AddCategoryButton(
-                        text: ADD_CATEGORY,
-                        opacity:
-                            animDouble(_animationController, 1.0, 0.0).value,
-                        onPressed: () {
-                          openNewCategory(context);
+                  return Transform(
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001)
+                      ..rotateX(animDouble(
+                              _animationController, 0, 70 / 180 * math.pi)
+                          .value),
+                    alignment: Alignment.center,
+                    child: child,
+                  );
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      width: _isWide ? 440 : _appWidth - 64,
+                      height: 40,
+                      child: AddTaskField(
+                        addTask: () {
+                          final _taskModel = Provider.of<TaskViewModel>(context,
+                              listen: false);
+                          String _name = _taskModel.newTaskName;
+
+                          Task task =
+                              Task(name: _name, categoryId: -1, isDone: false);
+                          _taskModel.addTask(task);
                         },
                       ),
                     ),
-                  );
-                }),
+                    const SizedBox(height: 1.0),
+                    UncategorizedList(
+                      appHeight: _appHeight,
+                      isWide: _isWide,
+                      appWidth: _appWidth,
+                      quickListController: _quickListController,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Add Category button
+            AnimatedBuilder(
+              animation: _animationController,
+              builder: (context, child) {
+                return Positioned(
+                  bottom: animDouble(_animationController, 16.0, 64.0).value,
+                  child: child,
+                );
+              },
+              child: Hero(
+                tag: 'new_category',
+                child: AddCategoryButton(
+                  text: ADD_CATEGORY,
+                  // opacity:
+                  //     animDouble(_animationController, 1.0, 0.0).value,
+                  onPressed: () {
+                    openNewCategory(context);
+                  },
+                ),
+              ),
+            ),
             // Category cards
             Positioned(
               left: 0,
               right: 0,
               bottom: 64.0,
-              child: Container(
-                height: _appHeight * 0.5,
-                child: _isWide
-                    ? ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: _categoryList.length,
-                        controller: _scrollController,
-                        itemBuilder: (context, index) {
-                          Category category = _categoryList[index];
-                          return Container(
-                            width: 450,
-                            child: CategoryCard(
-                              category: category,
-                              onTap: () {
-                                openCategoryScreen(context, index);
+              child: _categoryList.isNotEmpty
+                  ? Container(
+                      height: _appHeight * 0.4,
+                      child: _isWide
+                          ? ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: _categoryList.length,
+                              controller: _scrollController,
+                              itemBuilder: (context, index) {
+                                Category category = _categoryList[index];
+                                return Container(
+                                  width: 450,
+                                  child: CategoryCard(
+                                    category: category,
+                                    onTap: () {
+                                      openCategoryScreen(context, index);
+                                    },
+                                    // change background color on mouse hover
+                                    onHover: (v) => {
+                                      setState(() {
+                                        _currentCategory = index;
+                                      })
+                                    },
+                                    // change background color when using keyboard
+                                    onFocusChange: (v) => {
+                                      setState(() {
+                                        _currentCategory = index;
+                                      })
+                                    },
+                                  ),
+                                );
                               },
-                              // change background color on mouse hover
-                              onHover: (v) => {
-                                setState(() {
+                            )
+                          : PageView.builder(
+                              controller: _pageController,
+                              itemCount: _categoryList.length,
+                              itemBuilder: (context, index) {
+                                Category category = _categoryList[index];
+                                return CategoryCard(
+                                  category: category,
+                                  onTap: () {
+                                    openCategoryScreen(context, index);
+                                  },
+                                );
+                              },
+                              onPageChanged: (int index) => setState(
+                                () {
+                                  // for setting background color same as current category
                                   _currentCategory = index;
-                                })
-                              },
+                                },
+                              ),
                             ),
-                          );
-                        },
-                      )
-                    : PageView.builder(
-                        controller: _pageController,
-                        itemCount: _categoryList.length,
-                        itemBuilder: (context, index) {
-                          Category category = _categoryList[index];
-                          return CategoryCard(
-                            category: category,
-                            onTap: () {
-                              openCategoryScreen(context, index);
-                            },
-                          );
-                        },
-                        onPageChanged: (int index) => setState(
-                          () {
-                            // for setting background color same as current category
-                            _currentCategory = index;
-                          },
-                        ),
-                      ),
-              ),
+                    )
+                  : SizedBox(),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void openSettingsScreen(BuildContext context) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, anim1, anim2) => SettingsScreen(
+          backgroundColor: _color,
+        ),
+        transitionsBuilder: (context, anim1, anim2, child) {
+          return FadeTransition(
+            opacity: anim1,
+            child: child,
+          );
+        },
+      ),
+    );
+  }
+
+  void openAboutScreen(BuildContext context) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, anim1, anim2) => AboutScreen(
+          backgroundColor: _color,
+        ),
+        transitionsBuilder: (context, anim1, anim2, child) {
+          return FadeTransition(
+            opacity: anim1,
+            child: child,
+          );
+        },
       ),
     );
   }
@@ -222,6 +343,7 @@ class _HomeScreenState extends State<HomeScreen>
         pageBuilder: (context, anim1, anim2) => CategoryScreen(
           currentIndex: index,
         ),
+        transitionDuration: Duration(milliseconds: 400),
         transitionsBuilder: (context, anim1, anim2, child) {
           return FadeTransition(
             opacity: anim1,
@@ -270,5 +392,77 @@ class _HomeScreenState extends State<HomeScreen>
         );
       }
     }
+  }
+}
+
+class UncategorizedList extends StatelessWidget {
+  const UncategorizedList({
+    Key key,
+    @required double appHeight,
+    @required bool isWide,
+    @required double appWidth,
+    @required ScrollController quickListController,
+  })  : _appHeight = appHeight,
+        _isWide = isWide,
+        _appWidth = appWidth,
+        _quickListController = quickListController,
+        super(key: key);
+
+  final double _appHeight;
+  final bool _isWide;
+  final double _appWidth;
+  final ScrollController _quickListController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(
+      builder: (context) {
+        bool hasCategories =
+            Provider.of<CategoryViewModel>(context, listen: false)
+                .getListOfCategories()
+                .isNotEmpty;
+        final _listHeight =
+            hasCategories ? _appHeight * 0.6 - 260 : _appHeight - 272;
+        final _taskModel = Provider.of<TaskViewModel>(context);
+        final quickTaskList = _taskModel.getAllTasksForCategory(-1);
+        if (quickTaskList.isNotEmpty)
+          return Container(
+            width: _isWide ? 400 : _appWidth - 100,
+            decoration: BoxDecoration(
+                color: Colors.white70,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(24),
+                  bottomRight: Radius.circular(24),
+                )),
+            child: Row(
+              children: [
+                SizedBox(width: 10.0),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        NO_CATEGORY,
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                      LimitedBox(
+                        maxHeight: _listHeight,
+                        child: AllTasksList(
+                          categoryId: -1,
+                          controller: _quickListController,
+                          shrinkWrap: true,
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 10.0),
+              ],
+            ),
+          );
+        return SizedBox();
+      },
+    );
   }
 }
