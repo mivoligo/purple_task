@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class SliverTaskListHeader extends StatelessWidget {
-  final String title;
-
   const SliverTaskListHeader({
     Key? key,
     required this.title,
   }) : super(key: key);
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {

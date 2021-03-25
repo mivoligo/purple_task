@@ -2,17 +2,18 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../globals/globals.dart';
+
 import '../../../db_models/db_models.dart';
+import '../../../globals/globals.dart';
 import '../../ui.dart';
 
 class CategoryMenuWidget extends StatefulWidget {
-  final int? categoryIndex;
-
   const CategoryMenuWidget({
     Key? key,
     required this.categoryIndex,
   }) : super(key: key);
+
+  final int? categoryIndex;
 
   @override
   _CategoryMenuWidgetState createState() => _CategoryMenuWidgetState();
@@ -38,7 +39,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
       borderRadius: BorderRadius.circular(20),
       clipBehavior: Clip.antiAlias,
       child: PopupMenuButton(
-        tooltip: SHOW_OPTIONS,
+        tooltip: showOptions,
         icon: Icon(
           AntIcons.menu,
           color: Colors.grey[700],
@@ -49,29 +50,29 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
         itemBuilder: (context) {
           var menuList = <PopupMenuEntry<Object>>[];
           menuList.add(PopupMenuItem(
-            child: Text(DELETE_COMPLETED),
+            child: Text(deleteCompleted),
             value: 1,
           ));
           menuList.add(PopupMenuItem(
-            child: Text(DELETE_ALL_TASKS),
+            child: Text(deleteAllTasks),
             value: 2,
           ));
           menuList.add(PopupMenuDivider());
           menuList.add(PopupMenuItem(
-            child: Text(DELETE_CATEGORY),
+            child: Text(deleteCategory),
             value: 3,
           ));
           menuList.add(PopupMenuDivider());
           menuList.add(PopupMenuItem(
-            child: Text(CHANGE_NAME),
+            child: Text(changeName),
             value: 4,
           ));
           menuList.add(PopupMenuItem(
-            child: Text(CHANGE_COLOR),
+            child: Text(changeColor),
             value: 5,
           ));
           menuList.add(PopupMenuItem(
-            child: Text(CHANGE_ICON),
+            child: Text(changeIcon),
             value: 6,
           ));
 
@@ -81,7 +82,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
     );
   }
 
-  void onItemSelected(context, item) {
+  void onItemSelected(BuildContext context, int item) {
     // get current color and icon here
     categoryModel.color = categoryModel.currentCategory!.color;
     categoryModel.icon = categoryModel.currentCategory!.icon;
@@ -91,12 +92,12 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
         showDialog(
           context: context,
           builder: (context) => ConfirmationDialog(
-            title: Q_DELETE_COMPLETED,
+            title: questionDeleteCompleted,
             content: Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Text(D_DELETE_COMPLETED),
+              child: Text(infoDeleteCompleted),
             ),
-            confirmationText: DELETE,
+            confirmationText: delete,
             confirmationColor: Colors.red,
             onConfirm: () => taskModel.deleteCompletedTasksForCategory(
                 categoryModel.currentCategory!.id),
@@ -108,12 +109,12 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
         showDialog(
           context: context,
           builder: (context) => ConfirmationDialog(
-            title: Q_DELETE_ALL,
+            title: questionDeleteAll,
             content: Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Text(D_DELETE_ALL),
+              child: Text(infoDeleteAll),
             ),
-            confirmationText: DELETE,
+            confirmationText: delete,
             confirmationColor: Colors.red,
             onConfirm: () => taskModel
                 .deleteAllTasksForCategory(categoryModel.currentCategory!.id),
@@ -125,12 +126,12 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
         showDialog(
           context: context,
           builder: (context) => ConfirmationDialog(
-            title: Q_DELETE_CATEGORY,
+            title: questionDeleteCategory,
             content: Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Text(D_DELETE_CATEGORY),
+              child: Text(infoDeleteCategory),
             ),
-            confirmationText: DELETE,
+            confirmationText: delete,
             confirmationColor: Colors.red,
             onConfirm: () {
               // delete tasks with category id
@@ -151,7 +152,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
           builder: (context) {
             textController.text = categoryModel.currentCategory!.name!;
             return ConfirmationDialog(
-              title: Q_CHANGE_NAME,
+              title: questionChangeName,
               content: Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: CupertinoTextField(
@@ -164,7 +165,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
                   },
                 ),
               ),
-              confirmationText: SAVE,
+              confirmationText: save,
               confirmationColor: Colors.green,
               onConfirm: updateCategoryName,
             );
@@ -177,7 +178,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
           context: context,
           builder: (context) {
             return ConfirmationDialog(
-              title: Q_CHANGE_COLOR,
+              title: questionChangeColor,
               content: StatefulBuilder(
                 builder: (context, setState) {
                   return Container(
@@ -200,7 +201,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
                   );
                 },
               ),
-              confirmationText: SAVE,
+              confirmationText: save,
               confirmationColor: Colors.green,
               onConfirm: updateCategoryColor,
             );
@@ -213,7 +214,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
           context: context,
           builder: (context) {
             return ConfirmationDialog(
-              title: Q_CHANGE_ICON,
+              title: questionChangeIcon,
               content: StatefulBuilder(
                 builder: (context, setState) {
                   return Container(
@@ -241,7 +242,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
                   );
                 },
               ),
-              confirmationText: SAVE,
+              confirmationText: save,
               confirmationColor: Colors.green,
               onConfirm: updateCategoryIcon,
             );
@@ -252,7 +253,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   }
 
   void updateCategoryName() {
-    Category _category = Category(
+    final _category = Category(
       name: textController.text,
       color: categoryModel.currentCategory!.color,
       icon: categoryModel.currentCategory!.icon,
@@ -263,7 +264,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   }
 
   void updateCategoryColor() {
-    Category _category = Category(
+    final _category = Category(
       name: categoryModel.currentCategory!.name,
       color: categoryModel.color,
       icon: categoryModel.currentCategory!.icon,
@@ -274,7 +275,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   }
 
   void updateCategoryIcon() {
-    Category _category = Category(
+    final _category = Category(
       name: categoryModel.currentCategory!.name,
       color: categoryModel.currentCategory!.color,
       icon: categoryModel.icon,

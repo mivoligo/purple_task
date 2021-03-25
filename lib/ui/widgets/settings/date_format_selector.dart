@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import '../../ui.dart';
+
 import '../../../globals/globals.dart';
 import '../../../helpers.dart';
+import '../../ui.dart';
 
 class DateFormatSelector extends StatelessWidget {
   @override
@@ -11,11 +12,11 @@ class DateFormatSelector extends StatelessWidget {
     final _settings = Provider.of<SettingsViewModel>(context);
     final _formatList =
         Provider.of<SettingsViewModel>(context, listen: false).dateFormats;
-    TimeConversion timeConversion = TimeConversion();
+    final timeConversion = TimeConversion();
     return Card(
       elevation: 1,
       child: PopupMenuButton(
-        tooltip: CHANGE_FORMAT,
+        tooltip: changeFormat,
         onSelected: (dynamic item) =>
             _settings.setDateFormat(_formatList[item]),
         itemBuilder: (context) {

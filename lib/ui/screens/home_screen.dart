@@ -4,8 +4,9 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import '../../globals/globals.dart';
+
 import '../../db_models/db_models.dart';
+import '../../globals/globals.dart';
 import '../ui.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen>
   bool? _isWide;
   Size? _windowSize = WidgetsBinding.instance!.window.physicalSize;
   Size? _tempWindowSize;
-  AppWindowSize _appWindowSize = AppWindowSizePluginBased();
+  final AppWindowSize _appWindowSize = AppWindowSizePluginBased();
 
   Color _color = Colors.deepPurple;
   late AnimationController _animationController;
@@ -148,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen>
                                           _animationController, 16.0, 200.0)
                                       .value,
                                 ),
-                                Greetings(greetings: GREETINGS),
+                                Greetings(greetings: greetings),
                                 SizedBox(
                                   height: animDouble(
                                           _animationController, 24.0, 400.0)
@@ -169,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen>
                 child: CustomIconButton(
                   color: Colors.white,
                   icon: Icon(AntIcons.setting),
-                  tooltip: SETTINGS,
+                  tooltip: settings,
                   onPressed: () => openSettingsScreen(context),
                 ),
               ),
@@ -183,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen>
                 child: CustomIconButton(
                   color: Colors.white,
                   icon: Icon(AntIcons.info_circle),
-                  tooltip: ABOUT,
+                  tooltip: about,
                   onPressed: () => openAboutScreen(context),
                 ),
               ),
@@ -212,9 +213,9 @@ class _HomeScreenState extends State<HomeScreen>
                         addTask: () {
                           final _taskModel = Provider.of<TaskViewModel>(context,
                               listen: false);
-                          String? _name = _taskModel.newTaskName;
+                          final _name = _taskModel.newTaskName;
 
-                          Task task =
+                          final task =
                               Task(name: _name, categoryId: -1, isDone: false);
                           _taskModel.addTask(task);
                         },
@@ -243,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen>
               child: Hero(
                 tag: 'new_category',
                 child: AddCategoryButton(
-                  text: ADD_CATEGORY,
+                  text: addCategory,
                   // opacity:
                   //     animDouble(_animationController, 1.0, 0.0).value,
                   onPressed: () {
@@ -266,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen>
                               itemCount: _categoryList.length,
                               controller: _scrollController,
                               itemBuilder: (context, index) {
-                                Category category = _categoryList[index];
+                                final category = _categoryList[index];
                                 return Container(
                                   width: 450,
                                   child: CategoryCard(
@@ -280,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen>
                                         _currentCategory = index;
                                       })
                                     },
-                                    // change background color when using keyboard
+                                    // change bground color when using keyboard
                                     onFocusChange: (v) => {
                                       setState(() {
                                         _currentCategory = index;
@@ -294,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen>
                               controller: _pageController,
                               itemCount: _categoryList.length,
                               itemBuilder: (context, index) {
-                                Category category = _categoryList[index];
+                                final category = _categoryList[index];
                                 return CategoryCard(
                                   category: category,
                                   onTap: () {
@@ -302,9 +303,10 @@ class _HomeScreenState extends State<HomeScreen>
                                   },
                                 );
                               },
-                              onPageChanged: (int index) => setState(
+                              onPageChanged: (index) => setState(
                                 () {
-                                  // for setting background color same as current category
+                                  // for setting background color
+                                  // same as current category
                                   _currentCategory = index;
                                 },
                               ),
@@ -395,7 +397,7 @@ class _HomeScreenState extends State<HomeScreen>
       // make sure _currentCategory is 0 after adding first new category
       if (_currentCategory < 0) _currentCategory = 0;
       // get length of category list from Hive
-      int _categoryListLength = _categoryList.length;
+      final _categoryListLength = _categoryList.length;
       // try to go to the created category
       if (_isWide!) {
         _needScroll = true;
@@ -417,7 +419,7 @@ class UncategorizedList extends StatelessWidget {
     required bool? isWide,
     required double? appWidth,
     required ScrollController? quickListController,
-  })  : _appHeight = appHeight,
+  })   : _appHeight = appHeight,
         _isWide = isWide,
         _appWidth = appWidth,
         _quickListController = quickListController,
@@ -432,7 +434,7 @@ class UncategorizedList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        bool hasCategories =
+        final hasCategories =
             Provider.of<CategoryViewModel>(context, listen: false)
                 .getListOfCategories()
                 .isNotEmpty;
@@ -440,7 +442,7 @@ class UncategorizedList extends StatelessWidget {
             hasCategories ? _appHeight! * 0.6 - 260 : _appHeight! - 272;
         final _taskModel = Provider.of<TaskViewModel>(context);
         final quickTaskList = _taskModel.getAllTasksForCategory(-1);
-        if (quickTaskList.isNotEmpty)
+        if (quickTaskList.isNotEmpty) {
           return Container(
             width: _isWide! ? 400 : _appWidth! - 100,
             decoration: BoxDecoration(
@@ -457,7 +459,7 @@ class UncategorizedList extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        NO_CATEGORY,
+                        noCategory,
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                       LimitedBox(
@@ -476,6 +478,7 @@ class UncategorizedList extends StatelessWidget {
               ],
             ),
           );
+        }
         return SizedBox();
       },
     );

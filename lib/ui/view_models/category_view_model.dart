@@ -1,12 +1,13 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import '../../globals/globals.dart';
-import '../../db_models/db_models.dart';
 
-class CategoryViewModel with ChangeNotifier {
-  addCategory(Category category) async {
-    var box = await Hive.openBox<Category>(CATEGORY_BOX);
+import '../../db_models/db_models.dart';
+import '../../globals/globals.dart';
+
+class CategoryViewModel extends ChangeNotifier {
+  Future<void> addCategory(Category category) async {
+    var box = await Hive.openBox<Category>(categoryBox);
 
     box.add(category);
 
@@ -14,23 +15,23 @@ class CategoryViewModel with ChangeNotifier {
   }
 
   List<Category> getListOfCategories() {
-    final box = Hive.box<Category>(CATEGORY_BOX);
+    final box = Hive.box<Category>(categoryBox);
 
-    List<Category> _categoryList = box.values.toList();
+    final _categoryList = box.values.toList();
 
     return _categoryList;
   }
 
-  updateCategory(int index, Category category) {
-    final box = Hive.box<Category>(CATEGORY_BOX);
+  void updateCategory(int index, Category category) {
+    final box = Hive.box<Category>(categoryBox);
 
     box.putAt(index, category);
 
     notifyListeners();
   }
 
-  deleteCategory(int index) {
-    final box = Hive.box<Category>(CATEGORY_BOX);
+  void deleteCategory(int index) {
+    final box = Hive.box<Category>(categoryBox);
 
     box.deleteAt(index);
 
@@ -38,7 +39,7 @@ class CategoryViewModel with ChangeNotifier {
   }
 
   bool checkIfCategoryExist(int categoryId) {
-    final box = Hive.box<Category>(CATEGORY_BOX);
+    final box = Hive.box<Category>(categoryBox);
     return box.values.where((category) => category.id == categoryId).isNotEmpty;
   }
 

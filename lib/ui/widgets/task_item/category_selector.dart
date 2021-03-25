@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../ui.dart';
+
 import '../../../db_models/db_models.dart';
 import '../../../globals/globals.dart';
+import '../../ui.dart';
 
 class CategorySelector extends StatelessWidget {
-  final Task? task;
-  final VoidCallback onCategorySelected;
-
   const CategorySelector({
     Key? key,
     required this.task,
     required this.onCategorySelected,
   }) : super(key: key);
 
+  final Task task;
+  final VoidCallback onCategorySelected;
+
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 1,
       child: PopupMenuButton(
-        tooltip: CHANGE_CATEGORY,
+        tooltip: changeCategory,
         onSelected: (dynamic item) => onItemSelected(context, item),
         itemBuilder: (context) {
           var menuList = <PopupMenuEntry<Object>>[];
@@ -51,9 +52,9 @@ class CategorySelector extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Consumer<CategoryViewModel>(
             builder: (context, value, child) {
-              if (task!.categoryId == -1) {
+              if (task.categoryId == -1) {
                 return Text(
-                  NO_CATEGORY,
+                  noCategory,
                   style: Theme.of(context)
                       .textTheme
                       .subtitle1!
@@ -88,10 +89,10 @@ class CategorySelector extends StatelessWidget {
     );
   }
 
-  onItemSelected(context, item) {
-    task!.categoryId = item;
+  void onItemSelected(BuildContext context, int? item) {
+    task.categoryId = item;
     Provider.of<TaskViewModel>(context, listen: false)
-        .updateTask(task!.key, task);
+        .updateTask(task.key, task);
     onCategorySelected();
   }
 }

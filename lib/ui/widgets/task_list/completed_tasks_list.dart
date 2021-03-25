@@ -4,16 +4,16 @@ import '../../../globals/globals.dart';
 import '../../ui.dart';
 
 class CompletedTasksList extends StatelessWidget {
-  final int? categoryId;
-  final ScrollController? controller;
-  final bool shrinkWrap;
-
   const CompletedTasksList({
     Key? key,
     required this.categoryId,
     required this.controller,
     this.shrinkWrap = false,
   }) : super(key: key);
+
+  final int? categoryId;
+  final ScrollController? controller;
+  final bool shrinkWrap;
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +27,21 @@ class CompletedTasksList extends StatelessWidget {
           if (taskViewModel
               .getTodayCompletedTasksForCategory(categoryId)
               .isNotEmpty)
-            SliverTaskListHeader(title: COMPLETED_TODAY),
+            SliverTaskListHeader(title: completedToday),
           SliverTasksList(
               list:
                   taskViewModel.getTodayCompletedTasksForCategory(categoryId)),
           if (taskViewModel
               .getYesterdayCompletedTasksForCategory(categoryId)
               .isNotEmpty)
-            SliverTaskListHeader(title: COMPLETED_YESTERDAY),
+            SliverTaskListHeader(title: completedYesterday),
           SliverTasksList(
               list: taskViewModel
                   .getYesterdayCompletedTasksForCategory(categoryId)),
           if (taskViewModel
               .getEarlierCompletedTasksForCategory(categoryId)
               .isNotEmpty)
-            SliverTaskListHeader(title: COMPLETED_EARLIER),
+            SliverTaskListHeader(title: completedEarlier),
           SliverTasksList(
               list: taskViewModel
                   .getEarlierCompletedTasksForCategory(categoryId)),

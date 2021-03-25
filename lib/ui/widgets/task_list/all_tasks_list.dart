@@ -4,16 +4,16 @@ import '../../../globals/globals.dart';
 import '../../ui.dart';
 
 class AllTasksList extends StatelessWidget {
-  final int? categoryId;
-  final ScrollController? controller;
-  final bool shrinkWrap;
-
   const AllTasksList({
     Key? key,
     required this.categoryId,
     required this.controller,
     this.shrinkWrap = false,
   }) : super(key: key);
+
+  final int? categoryId;
+  final ScrollController? controller;
+  final bool shrinkWrap;
 
   @override
   Widget build(BuildContext context) {
@@ -27,39 +27,39 @@ class AllTasksList extends StatelessWidget {
           SliverTasksList(
               list: taskViewModel.getNoDueDateTasksForCategory(categoryId)),
           if (taskViewModel.getOverdueTasksForCategory(categoryId).isNotEmpty)
-            SliverTaskListHeader(title: OVERDUE),
+            SliverTaskListHeader(title: overdue),
           SliverTasksList(
               list: taskViewModel.getOverdueTasksForCategory(categoryId)),
           if (taskViewModel.getTodaysTasksForCategory(categoryId).isNotEmpty)
-            SliverTaskListHeader(title: TODAY),
+            SliverTaskListHeader(title: today),
           SliverTasksList(
               list: taskViewModel.getTodaysTasksForCategory(categoryId)),
           if (taskViewModel.getTomorrowsTasksForCategory(categoryId).isNotEmpty)
-            SliverTaskListHeader(title: TOMORROW),
+            SliverTaskListHeader(title: tomorrow),
           SliverTasksList(
               list: taskViewModel.getTomorrowsTasksForCategory(categoryId)),
           if (taskViewModel.getFutureTasksForCategory(categoryId).isNotEmpty)
-            SliverTaskListHeader(title: LATER),
+            SliverTaskListHeader(title: later),
           SliverTasksList(
               list: taskViewModel.getFutureTasksForCategory(categoryId)),
           if (taskViewModel
               .getTodayCompletedTasksForCategory(categoryId)
               .isNotEmpty)
-            SliverTaskListHeader(title: COMPLETED_TODAY),
+            SliverTaskListHeader(title: completedToday),
           SliverTasksList(
               list:
                   taskViewModel.getTodayCompletedTasksForCategory(categoryId)),
           if (taskViewModel
               .getYesterdayCompletedTasksForCategory(categoryId)
               .isNotEmpty)
-            SliverTaskListHeader(title: COMPLETED_YESTERDAY),
+            SliverTaskListHeader(title: completedYesterday),
           SliverTasksList(
               list: taskViewModel
                   .getYesterdayCompletedTasksForCategory(categoryId)),
           if (taskViewModel
               .getEarlierCompletedTasksForCategory(categoryId)
               .isNotEmpty)
-            SliverTaskListHeader(title: COMPLETED_EARLIER),
+            SliverTaskListHeader(title: completedEarlier),
           SliverTasksList(
               list: taskViewModel
                   .getEarlierCompletedTasksForCategory(categoryId)),

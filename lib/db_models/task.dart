@@ -4,6 +4,14 @@ part 'task.g.dart';
 
 @HiveType(typeId: 2)
 class Task extends HiveObject {
+  Task({
+    required this.name,
+    required this.isDone,
+    required this.categoryId,
+    this.doneTime,
+    this.dueDate,
+  });
+
   @HiveField(0)
   String? name;
 
@@ -18,12 +26,4 @@ class Task extends HiveObject {
 
   @HiveField(4)
   int? dueDate;
-
-  Task({
-    required this.name,
-    required this.isDone,
-    required this.categoryId,
-    this.doneTime,
-    this.dueDate,
-  });
 }

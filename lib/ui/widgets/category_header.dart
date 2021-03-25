@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import '../ui.dart';
 
 class CategoryHeader extends StatelessWidget {
-  final String? title;
-  final String description;
-  final double progress;
-  final Color color;
-
   const CategoryHeader({
     Key? key,
     required this.title,
@@ -14,6 +9,11 @@ class CategoryHeader extends StatelessWidget {
     required this.progress,
     required this.color,
   }) : super(key: key);
+
+  final String? title;
+  final String description;
+  final double progress;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {

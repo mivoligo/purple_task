@@ -6,12 +6,12 @@ import '../../globals/globals.dart';
 import '../ui.dart';
 
 class AddTaskField extends StatefulWidget {
-  final Function addTask;
-
   const AddTaskField({
     Key? key,
     required this.addTask,
   }) : super(key: key);
+
+  final Function addTask;
 
   @override
   _AddTaskFieldState createState() => _AddTaskFieldState();
@@ -43,10 +43,11 @@ class _AddTaskFieldState extends State<AddTaskField> {
     });
   }
 
-  getTaskName(BuildContext context) {
-    if (_controller.text.isNotEmpty)
+  void getTaskName(BuildContext context) {
+    if (_controller.text.isNotEmpty) {
       Provider.of<TaskViewModel>(context, listen: false).newTaskName =
           _controller.text;
+    }
   }
 
   @override
@@ -54,7 +55,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
     return CupertinoTextField(
       controller: _controller,
       focusNode: _focusNode,
-      placeholder: ADD_NEW_TASK,
+      placeholder: addNewTask,
       padding: EdgeInsets.only(left: 16.0),
       style: Theme.of(context).textTheme.subtitle1,
       suffix: IconButton(

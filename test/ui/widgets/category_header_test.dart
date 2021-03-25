@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:purple_task/ui/ui.dart';
 
 void main() {
-  testWidgets('finds Column widget', (WidgetTester tester) async {
+  testWidgets('finds Column widget', (tester) async {
     await tester.pumpWidget(MaterialApp(
       home: CategoryHeader(
         title: '',
@@ -16,7 +16,7 @@ void main() {
     expect(column, findsOneWidget);
   });
 
-  testWidgets('finds AnimatedProgressBar widget', (WidgetTester tester) async {
+  testWidgets('finds AnimatedProgressBar widget', (tester) async {
     await tester.pumpWidget(MaterialApp(
       home: CategoryHeader(
         title: '',
@@ -29,7 +29,7 @@ void main() {
     expect(animatedProgressBar, findsOneWidget);
   });
 
-  testWidgets('should have title and description', (WidgetTester tester) async {
+  testWidgets('should have title and description', (tester) async {
     await tester.pumpWidget(MaterialApp(
       home: CategoryHeader(
         title: 'title',
@@ -45,7 +45,7 @@ void main() {
   });
 
   testWidgets('should have text % same as progress',
-      (WidgetTester tester) async {
+      (tester) async {
     final progressValue = 0.4843;
     await tester.pumpWidget(MaterialApp(
       home: CategoryHeader(

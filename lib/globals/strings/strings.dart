@@ -1,79 +1,79 @@
-const String APP_NAME = 'Purple Task';
-const String APP_VERSION = '1.2.1';
-const String APP_DESCRIPTION = 'Simple TO-DO app to help you get stuff done';
-const String CATEGORY = 'Category';
-const String NO_CATEGORY = 'Uncategorized';
-const String ADD_CATEGORY = 'Add Category';
-const String NEW_CATEGORY = 'New Category';
-const String CATEGORY_NAME = 'Name';
-const String EDIT = 'Edit';
-const String GREETINGS = 'Hello';
-const String DELETE = 'Delete';
-const String CLOSE = 'Close';
-const String CANCEL = 'Cancel';
-const String NEXT = 'Next';
-const String FINISH = 'Finish';
-const String SAVE = 'Save';
-const String COLOR = 'Color';
-const String ICON = 'Icon';
-const String TASK_SINGULAR_CAPITAL = 'Task';
-const String TASK_SINGULAR = 'task left';
-const String TASK_PLURAL = 'tasks left';
-const String NO_TASKS_GREETINGS = 'Nothing to do...Great!';
-const String GREETINGS_START = 'You have';
-const String GREETINGS_END_SINGULAR = 'task to complete';
-const String GREETINGS_END_PLURAL = 'tasks to complete';
-const String ADD_NEW_TASK = 'Add new task';
-const String ALL = 'All';
-const String TO_DO = 'To Do';
-const String COMPLETED = 'Completed';
-const String COMPLETED_TODAY = 'Completed today';
-const String COMPLETED_YESTERDAY = 'Completed yesterday';
-const String COMPLETED_EARLIER = 'Completed earlier';
-const String SHOW_OPTIONS = 'Show options';
-const String HIDE_OPTIONS = 'Hide options';
-const String DUE_DATE = 'Due date';
-const String TODAY = 'Today';
-const String TOMORROW = 'Tomorrow';
-const String CUSTOM_DATE = 'Custom date';
-const String NO_DATE = 'No date';
-const String SET_DUE_DATE = 'Set due date';
-const String CHANGE_CATEGORY = 'Change category';
-const String OVERDUE = 'Overdue';
-const String LATER = 'Later';
+const String appName = 'Purple Task';
+const String appVersion = '1.2.1';
+const String appDescription = 'Simple TO-DO app to help you get stuff done';
+const String category = 'Category';
+const String noCategory = 'Uncategorized';
+const String addCategory = 'Add Category';
+const String newCategory = 'New Category';
+const String categoryName = 'Name';
+const String edit = 'Edit';
+const String greetings = 'Hello';
+const String delete = 'Delete';
+const String close = 'Close';
+const String cancel = 'Cancel';
+const String next = 'Next';
+const String finish = 'Finish';
+const String save = 'Save';
+const String color = 'Color';
+const String icon = 'Icon';
+const String taskSingularCapital = 'Task';
+const String taskSingular = 'task left';
+const String taskPlural = 'tasks left';
+const String noTasksGreetings = 'Nothing to do...Great!';
+const String greetingsStart = 'You have';
+const String greetingsEndSingular = 'task to complete';
+const String greetingsEndPlural = 'tasks to complete';
+const String addNewTask = 'Add new task';
+const String all = 'All';
+const String toDo = 'To Do';
+const String completed = 'Completed';
+const String completedToday = 'Completed today';
+const String completedYesterday = 'Completed yesterday';
+const String completedEarlier = 'Completed earlier';
+const String showOptions = 'Show options';
+const String hideOptions = 'Hide options';
+const String dueDate = 'Due date';
+const String today = 'Today';
+const String tomorrow = 'Tomorrow';
+const String customDate = 'Custom date';
+const String noDate = 'No date';
+const String setDueDate = 'Set due date';
+const String changeCategory = 'Change category';
+const String overdue = 'Overdue';
+const String later = 'Later';
 
 // category menu items
-const String CHANGE_NAME = 'Change Name';
-const String CHANGE_COLOR = 'Change Color';
-const String CHANGE_ICON = 'Change Icon';
-const String DELETE_COMPLETED = 'Delete Completed Tasks';
-const String DELETE_ALL_TASKS = 'Delete All Tasks';
-const String DELETE_CATEGORY = 'Delete Category';
-const String Q_DELETE_COMPLETED = 'Delete completed tasks?';
-const String D_DELETE_COMPLETED =
+const String changeName = 'Change Name';
+const String changeColor = 'Change Color';
+const String changeIcon = 'Change Icon';
+const String deleteCompleted = 'Delete Completed Tasks';
+const String deleteAllTasks = 'Delete All Tasks';
+const String deleteCategory = 'Delete Category';
+const String questionDeleteCompleted = 'Delete completed tasks?';
+const String infoDeleteCompleted =
     'All tasks marked as completed will be deleted';
-const String Q_DELETE_ALL = 'Delete all tasks?';
-const String D_DELETE_ALL = 'All tasks in this category will be deleted';
-const String Q_DELETE_CATEGORY = 'Delete category?';
-const String D_DELETE_CATEGORY =
+const String questionDeleteAll = 'Delete all tasks?';
+const String infoDeleteAll = 'All tasks in this category will be deleted';
+const String questionDeleteCategory = 'Delete category?';
+const String infoDeleteCategory =
     'This category and all tasks in it will be deleted';
-const String Q_CHANGE_NAME = 'Change name of category';
-const String Q_CHANGE_COLOR = 'Change color of category';
-const String Q_CHANGE_ICON = 'Change icon of category';
+const String questionChangeName = 'Change name of category';
+const String questionChangeColor = 'Change color of category';
+const String questionChangeIcon = 'Change icon of category';
 // settings
-const String SETTINGS = 'Settings';
-const String DISPLAY_TIME_COMPLETED = 'Display task\'s completion time';
-const String TIME_FORMAT = 'Time format';
-const String DATE_FORMAT = 'Date format';
-const String CHANGE_FORMAT = 'Change format';
+const String settings = 'Settings';
+const String displayTimeCompleted = 'Display task\'s completion time';
+const String timeFormat = 'Time format';
+const String dateFormat = 'Date format';
+const String changeFormat = 'Change format';
 // about app
-const String ABOUT = 'About $APP_NAME';
-const String LICENSE = 'License';
-const String LICENSE_SHORT = 'MIT License';
-const String MIT_LICENSE = '''
+const String about = 'About $appName';
+const String license = 'License';
+const String licenseShort = 'MIT License';
+const String mitLicense = '''
 MIT License
 
-Copyright (c) 2020 Michał Prędotka
+Copyright (c) 2020-2021 Michał Prędotka
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -93,7 +93,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ''';
-const String SOURCE_CODE = 'View source code';
-const String SOURCE_CODE_URL = 'https://github.com/mivoligo/purple_task';
-const String BUGS = 'Report issues';
-const String BUGS_URL = 'https://github.com/mivoligo/purple_task/issues';
+const String sourceCode = 'View source code';
+const String sourceCodeUrl = 'https://github.com/mivoligo/purple_task';
+const String bugs = 'Report issues';
+const String bugsUrl = 'https://github.com/mivoligo/purple_task/issues';

@@ -65,7 +65,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
         ),
         const SizedBox(height: 4.0),
         Text(
-          TASK_SINGULAR_CAPITAL,
+          taskSingularCapital,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyText2,
         ),

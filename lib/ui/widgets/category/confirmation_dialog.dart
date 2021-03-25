@@ -3,12 +3,6 @@ import '../../../globals/globals.dart';
 import '../../ui.dart';
 
 class ConfirmationDialog extends StatefulWidget {
-  final String title;
-  final Widget? content;
-  final String confirmationText;
-  final Color confirmationColor;
-  final VoidCallback onConfirm;
-
   const ConfirmationDialog({
     Key? key,
     required this.title,
@@ -17,6 +11,12 @@ class ConfirmationDialog extends StatefulWidget {
     required this.confirmationColor,
     required this.onConfirm,
   }) : super(key: key);
+
+  final String title;
+  final Widget? content;
+  final String confirmationText;
+  final Color confirmationColor;
+  final VoidCallback onConfirm;
 
   @override
   _ConfirmationDialogState createState() => _ConfirmationDialogState();
@@ -35,7 +35,7 @@ class _ConfirmationDialogState extends State<ConfirmationDialog> {
       actionsPadding: EdgeInsets.symmetric(horizontal: 8.0),
       actions: [
         SimpleButton(
-          text: CANCEL,
+          text: cancel,
           onPressed: Navigator.of(context).pop,
         ),
         SimpleButton(

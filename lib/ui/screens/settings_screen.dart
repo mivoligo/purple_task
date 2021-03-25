@@ -5,12 +5,12 @@ import '../../globals/globals.dart';
 import '../ui.dart';
 
 class SettingsScreen extends StatefulWidget {
-  final Color backgroundColor;
-
   const SettingsScreen({
     Key? key,
     required this.backgroundColor,
   }) : super(key: key);
+
+  final Color backgroundColor;
 
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
@@ -43,8 +43,8 @@ class _SettingsScreenState extends State<SettingsScreen>
 
   @override
   Widget build(BuildContext context) {
-    double _appWidth = MediaQuery.of(context).size.width;
-    bool _isWide = MediaQuery.of(context).size.width > 600;
+    final _appWidth = MediaQuery.of(context).size.width;
+    final _isWide = MediaQuery.of(context).size.width > 600;
     return Scaffold(
       body: Container(
         child: Stack(
@@ -107,7 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                         CustomIconButton(
                           icon: Icon(AntIcons.arrow_left),
                           color: Colors.white,
-                          tooltip: CLOSE,
+                          tooltip: close,
                           onPressed: () {
                             _animationController.reverse();
                             Navigator.of(context).pop();
@@ -115,7 +115,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                         ),
                         Spacer(),
                         Text(
-                          SETTINGS,
+                          settings,
                           style: Theme.of(context).textTheme.headline4,
                         ),
                         Spacer(),
@@ -128,17 +128,17 @@ class _SettingsScreenState extends State<SettingsScreen>
                           padding: const EdgeInsets.symmetric(horizontal: 28.0),
                           children: [
                             ListTile(
-                              title: Text(TIME_FORMAT),
+                              title: Text(timeFormat),
                               trailing: TimeFormatSelector(),
                             ),
                             const Divider(indent: 8, endIndent: 8),
                             ListTile(
-                              title: Text(DATE_FORMAT),
+                              title: Text(dateFormat),
                               trailing: DateFormatSelector(),
                             ),
                             const Divider(indent: 8, endIndent: 8),
                             ListTile(
-                              title: Text(DISPLAY_TIME_COMPLETED),
+                              title: Text(displayTimeCompleted),
                               trailing: Switch(
                                 activeColor: Theme.of(context).primaryColor,
                                 value: Provider.of<SettingsViewModel>(context)
@@ -146,7 +146,8 @@ class _SettingsScreenState extends State<SettingsScreen>
                                 onChanged: (value) =>
                                     Provider.of<SettingsViewModel>(context,
                                             listen: false)
-                                        .setDisplayTaskDoneTimePref(value),
+                                        .setDisplayTaskDoneTimePref(
+                                            value: value),
                               ),
                             ),
                           ]),

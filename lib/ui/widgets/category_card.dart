@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../globals/globals.dart';
+
 import '../../db_models/db_models.dart';
+import '../../globals/globals.dart';
 import '../ui.dart';
 
 class CategoryCard extends StatelessWidget {
-  final Category? category;
-  final VoidCallback? onTap;
-  final Function? onHover;
-  final Function? onFocusChange;
-
   const CategoryCard({
     Key? key,
     this.category,
@@ -18,22 +14,27 @@ class CategoryCard extends StatelessWidget {
     this.onFocusChange,
   }) : super(key: key);
 
+  final Category? category;
+  final VoidCallback? onTap;
+  final Function? onHover;
+  final Function? onFocusChange;
+
   @override
   Widget build(BuildContext context) {
     String _descriptionText;
-    int _numberOfTasks = Provider.of<TaskViewModel>(context, listen: false)
+    final _numberOfTasks = Provider.of<TaskViewModel>(context, listen: false)
         .numberOfPlannedTasksForCategory(category!.id);
-    double _completionProgress =
+    final _completionProgress =
         Provider.of<TaskViewModel>(context).completionProgress(category!.id);
     switch (_numberOfTasks) {
       case 0:
-        _descriptionText = '$_numberOfTasks $TASK_PLURAL';
+        _descriptionText = '$_numberOfTasks $taskPlural';
         break;
       case 1:
-        _descriptionText = '$_numberOfTasks $TASK_SINGULAR';
+        _descriptionText = '$_numberOfTasks $taskSingular';
         break;
       default:
-        _descriptionText = '$_numberOfTasks $TASK_PLURAL';
+        _descriptionText = '$_numberOfTasks $taskPlural';
     }
     return Padding(
       padding: EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),

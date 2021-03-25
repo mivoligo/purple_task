@@ -24,7 +24,7 @@ class CategoryIcon extends StatelessWidget {
         ),
         const SizedBox(height: 4.0),
         Text(
-          ICON,
+          icon,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyText2,
         ),

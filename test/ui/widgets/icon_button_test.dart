@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:purple_task/ui/ui.dart';
 
 void main() {
-  testWidgets('finds IconButton widget', (WidgetTester tester) async {
+  testWidgets('finds IconButton widget', (tester) async {
     await tester.pumpWidget(MaterialApp(
       home: CustomIconButton(
         icon: Icon(Icons.add),
@@ -13,7 +13,7 @@ void main() {
     expect(button, findsOneWidget);
   });
 
-  testWidgets('finds tooltip', (WidgetTester tester) async {
+  testWidgets('finds tooltip', (tester) async {
     await tester.pumpWidget(MaterialApp(
       home: CustomIconButton(
         icon: Icon(Icons.add),
@@ -24,7 +24,7 @@ void main() {
     expect(tooltip, findsOneWidget);
   });
 
-  testWidgets('onPressed callback', (WidgetTester tester) async {
+  testWidgets('onPressed callback', (tester) async {
     var pressed = false;
     await tester.pumpWidget(MaterialApp(
       home: CustomIconButton(

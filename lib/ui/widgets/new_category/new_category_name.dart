@@ -6,12 +6,12 @@ import '../../../globals/globals.dart';
 import '../../ui.dart';
 
 class CategoryName extends StatelessWidget {
-  final Function? onSubmitted;
-
   const CategoryName({
     Key? key,
     this.onSubmitted,
   }) : super(key: key);
+
+  final Function? onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,8 @@ class CategoryName extends StatelessWidget {
                 color: Colors.grey[50],
                 borderRadius: BorderRadius.circular(20.0),
                 boxShadow: [
-                  BoxShadow(color: Colors.grey[300]!, offset: Offset(0.0, -2.0)),
+                  BoxShadow(
+                      color: Colors.grey[300]!, offset: Offset(0.0, -2.0)),
                   BoxShadow(color: Colors.white, offset: Offset(0.0, 1.0)),
                 ]),
             onChanged: (text) =>
@@ -39,7 +40,7 @@ class CategoryName extends StatelessWidget {
         ),
         const SizedBox(height: 4.0),
         Text(
-          CATEGORY_NAME,
+          categoryName,
           style: Theme.of(context).textTheme.bodyText2,
         ),
         Spacer(),

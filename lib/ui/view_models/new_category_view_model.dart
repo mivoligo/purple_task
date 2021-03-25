@@ -3,8 +3,9 @@ import 'dart:math';
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../globals/globals.dart';
+
 import '../../db_models/db_models.dart';
+import '../../globals/globals.dart';
 import '../ui.dart';
 
 class NewCategoryViewModel extends ChangeNotifier {
@@ -40,7 +41,7 @@ class NewCategoryViewModel extends ChangeNotifier {
   int? get categoryId => _categoryId;
 
   void setCategoryId() {
-    int timeStamp = DateTime.now().millisecondsSinceEpoch;
+    final timeStamp = DateTime.now().millisecondsSinceEpoch;
     _categoryId = timeStamp;
   }
 
@@ -48,10 +49,9 @@ class NewCategoryViewModel extends ChangeNotifier {
 
   List<Task> get tasks => _tasks.reversed.toList();
 
-  addTaskToTemporaryList(BuildContext context) {
-    TaskViewModel taskModel =
-        Provider.of<TaskViewModel>(context, listen: false);
-    Task task = Task(
+  void addTaskToTemporaryList(BuildContext context) {
+    final taskModel = Provider.of<TaskViewModel>(context, listen: false);
+    final task = Task(
       name: taskModel.newTaskName,
       isDone: false,
       categoryId: _categoryId,
@@ -60,12 +60,9 @@ class NewCategoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  addTasksToDb(BuildContext context) {
-    TaskViewModel taskModel =
-        Provider.of<TaskViewModel>(context, listen: false);
-    _tasks.forEach((task) {
-      taskModel.addTask(task);
-    });
+  void addTasksToDb(BuildContext context) {
+    final taskModel = Provider.of<TaskViewModel>(context, listen: false);
+    _tasks.forEach(taskModel.addTask);
   }
 
   // check if adding category was completed or canceled
@@ -79,10 +76,10 @@ class NewCategoryViewModel extends ChangeNotifier {
   }
 
   void addNewCategory(BuildContext context) {
-    int? id = _categoryId;
-    CategoryViewModel categoryModel =
+    final id = _categoryId;
+    final categoryModel =
         Provider.of<CategoryViewModel>(context, listen: false);
-    Category category = Category(
+    final category = Category(
       name: _name,
       color: _color,
       icon: _icon,
@@ -91,7 +88,7 @@ class NewCategoryViewModel extends ChangeNotifier {
     categoryModel.addCategory(category);
   }
 
-  resetNewCategory() {
+  void resetNewCategory() {
     final _random = Random();
     // reset name
     _name = '';

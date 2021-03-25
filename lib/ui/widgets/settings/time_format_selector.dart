@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../globals/globals.dart';
 import '../../../helpers.dart';
 import '../../ui.dart';
-import '../../../globals/globals.dart';
 
 class TimeFormatSelector extends StatelessWidget {
   @override
@@ -10,7 +11,7 @@ class TimeFormatSelector extends StatelessWidget {
     final _settings = Provider.of<SettingsViewModel>(context);
     final _timeFormatList =
         Provider.of<SettingsViewModel>(context, listen: false).timeFormats;
-    TimeConversion timeConversion = TimeConversion();
+    final timeConversion = TimeConversion();
 
     return Card(
       elevation: 1,
@@ -25,7 +26,7 @@ class TimeFormatSelector extends StatelessWidget {
                 .copyWith(color: Theme.of(context).primaryColor),
           ),
         ),
-        tooltip: CHANGE_FORMAT,
+        tooltip: changeFormat,
         onSelected: (dynamic item) =>
             _settings.setTimeFormat(_timeFormatList[item]),
         itemBuilder: (context) {

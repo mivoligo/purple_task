@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import '../../globals/globals.dart';
 
-class SettingsViewModel with ChangeNotifier {
+class SettingsViewModel extends ChangeNotifier {
   final List<String> _timeFormats = [
     'Hm', // 24h
     'jm', // a.m. p.m.
@@ -10,15 +10,15 @@ class SettingsViewModel with ChangeNotifier {
 
   List<String> get timeFormats => _timeFormats;
 
-  setTimeFormat(String value) {
-    final box = Hive.box(SETTINGS_BOX);
-    box.put(TIME_FORMAT_KEY, value);
+  void setTimeFormat(String value) {
+    final box = Hive.box(settingsBox);
+    box.put(timeFormatKey, value);
     notifyListeners();
   }
 
-  getTimeFormat() {
-    final box = Hive.box(SETTINGS_BOX);
-    String? timeFormat = box.get(TIME_FORMAT_KEY, defaultValue: 'Hm');
+  String getTimeFormat() {
+    final box = Hive.box(settingsBox);
+    String timeFormat = box.get(timeFormatKey, defaultValue: 'Hm');
     return timeFormat;
   }
 
@@ -33,27 +33,27 @@ class SettingsViewModel with ChangeNotifier {
 
   List<String> get dateFormats => _dateFormats;
 
-  setDateFormat(String value) {
-    final box = Hive.box(SETTINGS_BOX);
-    box.put(DATE_FORMAT_KEY, value);
+  void setDateFormat(String value) {
+    final box = Hive.box(settingsBox);
+    box.put(dateFormatKey, value);
     notifyListeners();
   }
 
-  getDateFormat() {
-    final box = Hive.box(SETTINGS_BOX);
-    String? dateFormat = box.get(DATE_FORMAT_KEY, defaultValue: 'd MMM y');
+  String getDateFormat() {
+    final box = Hive.box(settingsBox);
+    String dateFormat = box.get(dateFormatKey, defaultValue: 'd MMM y');
     return dateFormat;
   }
 
-  setDisplayTaskDoneTimePref(bool value) {
-    final box = Hive.box(SETTINGS_BOX);
-    box.put(DISPLAY_TASK_DONE_TIME_PREF_KEY, value);
+  void setDisplayTaskDoneTimePref({required bool value}) {
+    final box = Hive.box(settingsBox);
+    box.put(displayTaskDonePrefKey, value);
     notifyListeners();
   }
 
-  getDisplayTaskDOneTimePref() {
-    final box = Hive.box(SETTINGS_BOX);
-    bool? pref = box.get(DISPLAY_TASK_DONE_TIME_PREF_KEY, defaultValue: true);
+  bool getDisplayTaskDOneTimePref() {
+    final box = Hive.box(settingsBox);
+    bool pref = box.get(displayTaskDonePrefKey, defaultValue: true);
     return pref;
   }
 }

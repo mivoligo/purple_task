@@ -7,10 +7,10 @@ import '../../globals/globals.dart';
 import '../ui.dart';
 
 enum Progress {
-  CategoryName,
-  CategoryColor,
-  CategoryIcon,
-  CategoryTasks,
+  categoryName,
+  categoryColor,
+  categoryIcon,
+  categoryTasks,
 }
 
 class NewCategoryScreen extends StatefulWidget {
@@ -19,39 +19,39 @@ class NewCategoryScreen extends StatefulWidget {
 }
 
 class _NewCategoryScreenState extends State<NewCategoryScreen> {
-  Progress progress = Progress.CategoryName;
+  Progress progress = Progress.categoryName;
   late NewCategoryViewModel newCategoryProvider;
   CategoryViewModel? categoryDb;
   FocusNode? _focusNode;
 
   Widget getProgressWidget() {
     switch (progress) {
-      case Progress.CategoryName:
+      case Progress.categoryName:
         return CategoryName(
           onSubmitted: (_) => goToColorSelector(),
         );
-      case Progress.CategoryColor:
+      case Progress.categoryColor:
         return CategoryColor();
-      case Progress.CategoryIcon:
+      case Progress.categoryIcon:
         return CategoryIcon();
-      case Progress.CategoryTasks:
+      case Progress.categoryTasks:
         return CategoryTasks();
     }
   }
 
   void goToNext() {
     switch (progress) {
-      case Progress.CategoryName:
+      case Progress.categoryName:
         goToColorSelector();
         break;
-      case Progress.CategoryColor:
+      case Progress.categoryColor:
         goToIconSelector();
         break;
-      case Progress.CategoryIcon:
+      case Progress.categoryIcon:
         newCategoryProvider.setCategoryId();
         goToAddingTasks();
         break;
-      case Progress.CategoryTasks:
+      case Progress.categoryTasks:
         newCategoryProvider.addNewCategory(context);
         newCategoryProvider.addTasksToDb(context);
         newCategoryProvider.addingNewCategoryCompleted = true;
@@ -63,7 +63,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
   void goToColorSelector() {
     if (newCategoryProvider.name.isNotEmpty) {
       setState(() {
-        progress = Progress.CategoryColor;
+        progress = Progress.categoryColor;
         _focusNode!.requestFocus();
       });
     }
@@ -71,13 +71,13 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
 
   void goToIconSelector() {
     setState(() {
-      progress = Progress.CategoryIcon;
+      progress = Progress.categoryIcon;
     });
   }
 
   void goToAddingTasks() {
     setState(() {
-      progress = Progress.CategoryTasks;
+      progress = Progress.categoryTasks;
     });
   }
 
@@ -96,13 +96,14 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double _appWidth = MediaQuery.of(context).size.width;
-    double _appHeight = MediaQuery.of(context).size.height;
-    double _verticalPadding = MediaQuery.of(context).padding.vertical;
-    double _verticalInset = MediaQuery.of(context).viewInsets.vertical;
-    double _cardWidth = min(550, _appWidth - 64);
-    double _cardHeight =
-        min(400, _appHeight - _verticalPadding - _verticalInset - 32.0);
+    final _appWidth = MediaQuery.of(context).size.width;
+    final _appHeight = MediaQuery.of(context).size.height;
+    final _verticalPadding = MediaQuery.of(context).padding.vertical;
+    final _verticalInset = MediaQuery.of(context).viewInsets.vertical;
+    final _cardWidth = min(550, _appWidth - 64).toDouble();
+    final _cardHeight =
+        min(400, _appHeight - _verticalPadding - _verticalInset - 32.0)
+            .toDouble();
     newCategoryProvider = Provider.of<NewCategoryViewModel>(context);
     return Scaffold(
       body: Container(
@@ -147,8 +148,8 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                             child: Consumer<NewCategoryViewModel>(
                               builder: (_, value, __) => AnimatedOpacity(
                                 duration: Duration(milliseconds: 300),
-                                opacity: progress == Progress.CategoryIcon ||
-                                        progress == Progress.CategoryTasks
+                                opacity: progress == Progress.categoryIcon ||
+                                        progress == Progress.categoryTasks
                                     ? 1.0
                                     : 0.0,
                                 child: Icon(
@@ -167,7 +168,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                             children: [
                               const SizedBox(height: 8.0),
                               Text(
-                                NEW_CATEGORY,
+                                newCategory,
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
                               const SizedBox(height: 8.0),
@@ -179,7 +180,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                                 children: [
                                   const SizedBox(width: 16.0),
                                   SimpleButton(
-                                    text: CANCEL,
+                                    text: cancel,
                                     onPressed: () {
                                       Provider.of<NewCategoryViewModel>(context,
                                               listen: false)
@@ -190,9 +191,9 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                                   Spacer(),
                                   SimpleButton(
                                     focusNode: _focusNode,
-                                    text: progress == Progress.CategoryTasks
-                                        ? FINISH
-                                        : NEXT,
+                                    text: progress == Progress.categoryTasks
+                                        ? finish
+                                        : next,
                                     color: Colors.green,
                                     onPressed: newCategoryProvider.name.isEmpty
                                         ? null

@@ -1,16 +1,17 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-import '../../helpers.dart';
+
 import '../../globals/globals.dart';
+import '../../helpers.dart';
 import '../ui.dart';
 
 class AboutScreen extends StatefulWidget {
-  final Color backgroundColor;
-
   const AboutScreen({
     Key? key,
     required this.backgroundColor,
   }) : super(key: key);
+
+  final Color backgroundColor;
 
   @override
   _AboutScreenState createState() => _AboutScreenState();
@@ -43,8 +44,8 @@ class _AboutScreenState extends State<AboutScreen>
 
   @override
   Widget build(BuildContext context) {
-    double _appWidth = MediaQuery.of(context).size.width;
-    bool _isWide = MediaQuery.of(context).size.width > 600;
+    final _appWidth = MediaQuery.of(context).size.width;
+    final _isWide = MediaQuery.of(context).size.width > 600;
     return Scaffold(
       body: Container(
         child: Stack(
@@ -107,7 +108,7 @@ class _AboutScreenState extends State<AboutScreen>
                         CustomIconButton(
                           icon: Icon(AntIcons.arrow_left),
                           color: Colors.white,
-                          tooltip: CLOSE,
+                          tooltip: close,
                           onPressed: () {
                             _animationController.reverse();
                             Navigator.of(context).pop();
@@ -115,7 +116,7 @@ class _AboutScreenState extends State<AboutScreen>
                         ),
                         Spacer(),
                         Text(
-                          ABOUT,
+                          about,
                           style: Theme.of(context).textTheme.headline4,
                         ),
                         Spacer(),
@@ -133,19 +134,19 @@ class _AboutScreenState extends State<AboutScreen>
                             ),
                             ListTile(
                               title: Text(
-                                APP_NAME,
+                                appName,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1!
                                     .copyWith(color: Colors.black),
                               ),
-                              trailing: Text(APP_VERSION),
+                              trailing: Text(appVersion),
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(
                                   16.0, 0.0, 16.0, 16.0),
                               child: Text(
-                                APP_DESCRIPTION,
+                                appDescription,
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
@@ -154,27 +155,27 @@ class _AboutScreenState extends State<AboutScreen>
                             Material(
                               color: Colors.grey[200],
                               child: ListTile(
-                                  title: Text(LICENSE),
-                                  trailing: Text(LICENSE_SHORT),
-                                  onTap: () => _showLicenseDialog()),
-                            ),
-                            const Divider(indent: 8, endIndent: 8),
-                            Material(
-                              color: Colors.grey[200],
-                              child: ListTile(
-                                title: Text(SOURCE_CODE),
-                                trailing: Icon(AntIcons.arrow_right),
-                                onTap: () =>
-                                    UrlHelper().openUrl(SOURCE_CODE_URL),
+                                title: Text(license),
+                                trailing: Text(licenseShort),
+                                onTap: _showLicenseDialog,
                               ),
                             ),
                             const Divider(indent: 8, endIndent: 8),
                             Material(
                               color: Colors.grey[200],
                               child: ListTile(
-                                title: Text(BUGS),
+                                title: Text(sourceCode),
                                 trailing: Icon(AntIcons.arrow_right),
-                                onTap: () => UrlHelper().openUrl(BUGS_URL),
+                                onTap: () => UrlHelper().openUrl(sourceCodeUrl),
+                              ),
+                            ),
+                            const Divider(indent: 8, endIndent: 8),
+                            Material(
+                              color: Colors.grey[200],
+                              child: ListTile(
+                                title: Text(bugs),
+                                trailing: Icon(AntIcons.arrow_right),
+                                onTap: () => UrlHelper().openUrl(bugsUrl),
                               ),
                             ),
                             const Divider(indent: 8, endIndent: 8),
@@ -196,11 +197,11 @@ class _AboutScreenState extends State<AboutScreen>
         builder: (_) {
           return AlertDialog(
             content: SingleChildScrollView(
-              child: Text(MIT_LICENSE),
+              child: Text(mitLicense),
             ),
             actions: [
               SimpleButton(
-                text: CLOSE,
+                text: close,
                 onPressed: Navigator.of(context).pop,
               )
             ],

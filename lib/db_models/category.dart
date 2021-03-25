@@ -4,6 +4,13 @@ part 'category.g.dart';
 
 @HiveType(typeId: 0)
 class Category {
+  Category({
+    required this.name,
+    required this.color,
+    required this.icon,
+    required this.id,
+  });
+
   @HiveField(0)
   final String? name;
 
@@ -15,11 +22,4 @@ class Category {
 
   @HiveField(3)
   final int? id;
-
-  Category({
-    required this.name,
-    required this.color,
-    required this.icon,
-    required this.id,
-  });
 }

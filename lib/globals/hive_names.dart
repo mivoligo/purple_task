@@ -1,8 +1,8 @@
-const String CATEGORY_BOX = 'category_box';
-const String TASK_BOX = 'task_box';
-const String SETTINGS_BOX = 'settings_box';
-const String TIME_FORMAT_KEY = 'time_format';
-const String DATE_FORMAT_KEY = 'date_format';
-const String DISPLAY_TASK_DONE_TIME_PREF_KEY = 'display_task_done_pref';
-const String APP_WIDTH_KEY = 'app_width';
-const String APP_HEIGHT_KEY = 'app_height';
+const String categoryBox = 'category_box';
+const String taskBox = 'task_box';
+const String settingsBox = 'settings_box';
+const String timeFormatKey = 'time_format';
+const String dateFormatKey = 'date_format';
+const String displayTaskDonePrefKey = 'display_task_done_pref';
+const String appWidthKey = 'app_width';
+const String appHeightKey = 'app_height';

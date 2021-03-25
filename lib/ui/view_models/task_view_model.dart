@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import '../../globals/globals.dart';
-import '../../db_models/db_models.dart';
 
-class TaskViewModel with ChangeNotifier {
+import '../../db_models/db_models.dart';
+import '../../globals/globals.dart';
+
+class TaskViewModel extends ChangeNotifier {
   String? _newTaskName;
 
   String? get newTaskName => _newTaskName;
@@ -15,12 +16,12 @@ class TaskViewModel with ChangeNotifier {
   }
 
   List<Task> getAllTasksForCategory(int categoryId) {
-    final box = Hive.box<Task>(TASK_BOX);
+    final box = Hive.box<Task>(taskBox);
     return box.values.where((task) => task.categoryId == categoryId).toList();
   }
 
   List<Task> getPlannedTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(TASK_BOX);
+    final box = Hive.box<Task>(taskBox);
     return box.values
         .where((task) => task.categoryId == categoryId && task.isDone == false)
         .toList();
@@ -30,19 +31,18 @@ class TaskViewModel with ChangeNotifier {
     final allTasksInCategory = getPlannedTasksForCategory(categoryId);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    List<Task> overdueTasks = [];
-    allTasksInCategory.forEach(
-      (task) {
-        if (task.dueDate != null) {
-          final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
-          final dueDate =
-              DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
-          if (dueDate.isBefore(today)) {
-            overdueTasks.add(task);
-          }
+    var overdueTasks = <Task>[];
+    for (var task in allTasksInCategory) {
+      if (task.dueDate != null) {
+        final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
+        final dueDate =
+            DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+        if (dueDate.isBefore(today)) {
+          overdueTasks.add(task);
         }
-      },
-    );
+      }
+    }
+    ;
     overdueTasks.sort((a, b) => a.dueDate!.compareTo(b.dueDate!));
     return overdueTasks;
   }
@@ -51,19 +51,17 @@ class TaskViewModel with ChangeNotifier {
     final allTasksInCategory = getPlannedTasksForCategory(categoryId);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    List<Task> todaysTasks = [];
-    allTasksInCategory.forEach(
-      (task) {
-        if (task.dueDate != null) {
-          final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
-          final dueDate =
-              DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
-          if (dueDate == today) {
-            todaysTasks.add(task);
-          }
+    var todaysTasks = <Task>[];
+    for (var task in allTasksInCategory) {
+      if (task.dueDate != null) {
+        final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
+        final dueDate =
+            DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+        if (dueDate == today) {
+          todaysTasks.add(task);
         }
-      },
-    );
+      }
+    }
     return todaysTasks;
   }
 
@@ -71,19 +69,17 @@ class TaskViewModel with ChangeNotifier {
     final allTasksInCategory = getPlannedTasksForCategory(categoryId);
     final now = DateTime.now();
     final tomorrow = DateTime(now.year, now.month, now.day + 1);
-    List<Task> tomorrowTasks = [];
-    allTasksInCategory.forEach(
-      (task) {
-        if (task.dueDate != null) {
-          final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
-          final dueDate =
-              DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
-          if (dueDate == tomorrow) {
-            tomorrowTasks.add(task);
-          }
+    var tomorrowTasks = <Task>[];
+    for (var task in allTasksInCategory) {
+      if (task.dueDate != null) {
+        final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
+        final dueDate =
+            DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+        if (dueDate == tomorrow) {
+          tomorrowTasks.add(task);
         }
-      },
-    );
+      }
+    }
     return tomorrowTasks;
   }
 
@@ -91,38 +87,34 @@ class TaskViewModel with ChangeNotifier {
     final allTasksInCategory = getPlannedTasksForCategory(categoryId);
     final now = DateTime.now();
     final tomorrow = DateTime(now.year, now.month, now.day + 1);
-    List<Task> futureTasks = [];
-    allTasksInCategory.forEach(
-      (task) {
-        if (task.dueDate != null) {
-          final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
-          final dueDate =
-              DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
-          if (dueDate.isAfter(tomorrow)) {
-            futureTasks.add(task);
-          }
+    var futureTasks = <Task>[];
+    for (var task in allTasksInCategory) {
+      if (task.dueDate != null) {
+        final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
+        final dueDate =
+            DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+        if (dueDate.isAfter(tomorrow)) {
+          futureTasks.add(task);
         }
-      },
-    );
+      }
+    }
     futureTasks.sort((a, b) => a.dueDate!.compareTo(b.dueDate!));
     return futureTasks;
   }
 
   List<Task> getNoDueDateTasksForCategory(int? categoryId) {
     final allTasksInCategory = getPlannedTasksForCategory(categoryId);
-    List<Task> noDueDateTasks = [];
-    allTasksInCategory.forEach(
-      (task) {
-        if (task.dueDate == null) {
-          noDueDateTasks.add(task);
-        }
-      },
-    );
+    var noDueDateTasks = <Task>[];
+    for (var task in allTasksInCategory) {
+      if (task.dueDate == null) {
+        noDueDateTasks.add(task);
+      }
+    }
     return noDueDateTasks.reversed.toList();
   }
 
   List<Task> getCompletedTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(TASK_BOX);
+    final box = Hive.box<Task>(taskBox);
     return box.values
         .where((task) => task.categoryId == categoryId && task.isDone == true)
         .toList();
@@ -133,19 +125,16 @@ class TaskViewModel with ChangeNotifier {
         getCompletedTasksForCategory(categoryId);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    List<Task> todayCompletedTasks = [];
-    allCompletedTasksForCategory.forEach(
-      (task) {
-        if (task.doneTime != null) {
-          final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
-          final doneDate =
-              DateTime(doneTime.year, doneTime.month, doneTime.day);
-          if (doneDate == today) {
-            todayCompletedTasks.add(task);
-          }
+    var todayCompletedTasks = <Task>[];
+    for (var task in allCompletedTasksForCategory) {
+      if (task.doneTime != null) {
+        final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
+        final doneDate = DateTime(doneTime.year, doneTime.month, doneTime.day);
+        if (doneDate == today) {
+          todayCompletedTasks.add(task);
         }
-      },
-    );
+      }
+    }
     todayCompletedTasks.sort((b, a) => a.doneTime!.compareTo(b.doneTime!));
     return todayCompletedTasks;
   }
@@ -155,19 +144,16 @@ class TaskViewModel with ChangeNotifier {
         getCompletedTasksForCategory(categoryId);
     final now = DateTime.now();
     final yesterday = DateTime(now.year, now.month, now.day - 1);
-    List<Task> yesterdayCompletedTasks = [];
-    allCompletedTasksForCategory.forEach(
-      (task) {
-        if (task.doneTime != null) {
-          final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
-          final doneDate =
-              DateTime(doneTime.year, doneTime.month, doneTime.day);
-          if (doneDate == yesterday) {
-            yesterdayCompletedTasks.add(task);
-          }
+    var yesterdayCompletedTasks = <Task>[];
+    for (var task in allCompletedTasksForCategory) {
+      if (task.doneTime != null) {
+        final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
+        final doneDate = DateTime(doneTime.year, doneTime.month, doneTime.day);
+        if (doneDate == yesterday) {
+          yesterdayCompletedTasks.add(task);
         }
-      },
-    );
+      }
+    }
     yesterdayCompletedTasks.sort((b, a) => a.doneTime!.compareTo(b.doneTime!));
     return yesterdayCompletedTasks;
   }
@@ -177,29 +163,26 @@ class TaskViewModel with ChangeNotifier {
         getCompletedTasksForCategory(categoryId);
     final now = DateTime.now();
     final yesterday = DateTime(now.year, now.month, now.day - 1);
-    List<Task> earlierCompletedTasks = [];
-    List<Task> completedTasksWithoutDoneTime = [];
-    allCompletedTasksForCategory.forEach(
-      (task) {
-        if (task.doneTime != null) {
-          final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
-          final doneDate =
-              DateTime(doneTime.year, doneTime.month, doneTime.day);
-          if (doneDate.isBefore(yesterday)) {
-            earlierCompletedTasks.add(task);
-          }
-        } else {
-          completedTasksWithoutDoneTime.add(task);
+    var earlierCompletedTasks = <Task>[];
+    var completedTasksWithoutDoneTime = <Task>[];
+    for (var task in allCompletedTasksForCategory) {
+      if (task.doneTime != null) {
+        final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
+        final doneDate = DateTime(doneTime.year, doneTime.month, doneTime.day);
+        if (doneDate.isBefore(yesterday)) {
+          earlierCompletedTasks.add(task);
         }
-      },
-    );
+      } else {
+        completedTasksWithoutDoneTime.add(task);
+      }
+    }
     earlierCompletedTasks.sort((b, a) => a.doneTime!.compareTo(b.doneTime!));
     earlierCompletedTasks.addAll(completedTasksWithoutDoneTime);
     return earlierCompletedTasks;
   }
 
-  addTask(Task task) async {
-    var box = await Hive.openBox<Task>(TASK_BOX);
+  Future<void> addTask(Task task) async {
+    var box = await Hive.openBox<Task>(taskBox);
 
     box.add(task);
 
@@ -207,29 +190,29 @@ class TaskViewModel with ChangeNotifier {
   }
 
   int numberOfAllPlannedTasks() {
-    final box = Hive.box<Task>(TASK_BOX);
-    int result = box.values.where((task) => task.isDone == false).length;
+    final box = Hive.box<Task>(taskBox);
+    final result = box.values.where((task) => task.isDone == false).length;
     return result;
   }
 
   int numberOfAllTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(TASK_BOX);
-    int result =
+    final box = Hive.box<Task>(taskBox);
+    final result =
         box.values.where((task) => task.categoryId == categoryId).length;
     return result;
   }
 
   int numberOfCompletedTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(TASK_BOX);
-    int result = box.values
+    final box = Hive.box<Task>(taskBox);
+    final result = box.values
         .where((task) => task.categoryId == categoryId && task.isDone == true)
         .length;
     return result;
   }
 
   int numberOfPlannedTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(TASK_BOX);
-    int result = box.values
+    final box = Hive.box<Task>(taskBox);
+    final result = box.values
         .where((task) => task.categoryId == categoryId && task.isDone == false)
         .length;
     return result;
@@ -243,36 +226,40 @@ class TaskViewModel with ChangeNotifier {
         numberOfAllTasksForCategory(categoryId);
   }
 
-  updateTask(dynamic key, Task? task) {
-    final box = Hive.box<Task?>(TASK_BOX);
+  void updateTask(dynamic key, Task task) {
+    final box = Hive.box<Task>(taskBox);
 
     box.put(key, task);
 
     notifyListeners();
   }
 
-  deleteTask(dynamic key) {
-    final box = Hive.box<Task>(TASK_BOX);
+  void deleteTask(dynamic key) {
+    final box = Hive.box<Task>(taskBox);
 
     box.delete(key);
 
     notifyListeners();
   }
 
-  deleteAllTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(TASK_BOX);
+  void deleteAllTasksForCategory(int? categoryId) {
+    final box = Hive.box<Task>(taskBox);
     List _tasks =
         box.values.where((task) => task.categoryId == categoryId).toList();
-    _tasks.forEach((element) => element.delete());
+    for (var task in _tasks) {
+      task.delete();
+    }
     notifyListeners();
   }
 
-  deleteCompletedTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(TASK_BOX);
+  void deleteCompletedTasksForCategory(int? categoryId) {
+    final box = Hive.box<Task>(taskBox);
     List _tasks = box.values
         .where((task) => task.categoryId == categoryId && task.isDone == true)
         .toList();
-    _tasks.forEach((element) => element.delete());
+    for (var task in _tasks) {
+      task.delete();
+    }
     notifyListeners();
   }
 
@@ -284,19 +271,19 @@ class TaskViewModel with ChangeNotifier {
   String displayDueDate(int? dateInMillis, String? dateFormat) {
     if (dateInMillis != null) {
       final now = DateTime.now();
-      final today = DateTime(now.year, now.month, now.day);
-      final tomorrow = DateTime(now.year, now.month, now.day + 1);
+      final todayDate = DateTime(now.year, now.month, now.day);
+      final tomorrowDate = DateTime(now.year, now.month, now.day + 1);
       final dueDateTime = DateTime.fromMillisecondsSinceEpoch(dateInMillis);
       final dueDate =
           DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
-      if (dueDate == today) {
-        return TODAY;
-      } else if (dueDate == tomorrow) {
-        return TOMORROW;
+      if (dueDate == todayDate) {
+        return today;
+      } else if (dueDate == tomorrowDate) {
+        return tomorrow;
       } else {
         return DateFormat(dateFormat).format(dueDate);
       }
     }
-    return NO_DATE;
+    return noDate;
   }
 }

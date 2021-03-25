@@ -8,12 +8,12 @@ import '../../globals/globals.dart';
 import '../ui.dart';
 
 class CategoryScreen extends StatefulWidget {
-  final int? currentIndex;
-
   const CategoryScreen({
     Key? key,
     this.currentIndex,
   }) : super(key: key);
+
+  final int? currentIndex;
 
   @override
   _CategoryScreenState createState() => _CategoryScreenState();
@@ -145,7 +145,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                         CustomIconButton(
                           icon: Icon(AntIcons.arrow_left),
                           color: Colors.white,
-                          tooltip: CLOSE,
+                          tooltip: close,
                           onPressed: () {
                             _animationController.reverse();
                             Navigator.of(context).pop();
@@ -212,22 +212,22 @@ class _CategoryScreenState extends State<CategoryScreen>
                               type: MaterialType.transparency,
                               child: Consumer<TaskViewModel>(
                                 builder: (_, _taskModel, __) {
-                                  int numberOfTasks = _taskModel
+                                  final numberOfTasks = _taskModel
                                       .numberOfPlannedTasksForCategory(
                                           categoryId);
                                   String _descriptionText;
                                   switch (numberOfTasks) {
                                     case 0:
                                       _descriptionText =
-                                          '$numberOfTasks $TASK_PLURAL';
+                                          '$numberOfTasks $taskPlural';
                                       break;
                                     case 1:
                                       _descriptionText =
-                                          '$numberOfTasks $TASK_SINGULAR';
+                                          '$numberOfTasks $taskSingular';
                                       break;
                                     default:
                                       _descriptionText =
-                                          '$numberOfTasks $TASK_PLURAL';
+                                          '$numberOfTasks $taskPlural';
                                   }
                                   return CategoryHeader(
                                     title: categoryModel.currentCategory!.name,
@@ -253,10 +253,10 @@ class _CategoryScreenState extends State<CategoryScreen>
                             },
                             child: AddTaskField(
                               addTask: () {
-                                String? name = taskModel.newTaskName;
-                                int? categoryId =
+                                final name = taskModel.newTaskName;
+                                final categoryId =
                                     categoryModel.currentCategory!.id;
-                                Task task = Task(
+                                final task = Task(
                                     name: name,
                                     categoryId: categoryId,
                                     isDone: false);
@@ -296,15 +296,15 @@ class _CategoryScreenState extends State<CategoryScreen>
                   },
                   items: [
                     BottomNavigationBarItem(
-                      label: TO_DO,
+                      label: toDo,
                       icon: Icon(AntIcons.edit),
                     ),
                     BottomNavigationBarItem(
-                      label: ALL,
+                      label: all,
                       icon: Icon(AntIcons.profile),
                     ),
                     BottomNavigationBarItem(
-                      label: COMPLETED,
+                      label: completed,
                       icon: Icon(AntIcons.check_circle),
                     ),
                   ],

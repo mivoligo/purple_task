@@ -22,7 +22,7 @@ class CategoryColor extends StatelessWidget {
         Expanded(child: ColorsList()),
         const SizedBox(height: 4.0),
         Text(
-          COLOR,
+          color,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyText2,
         ),
