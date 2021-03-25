@@ -18,7 +18,7 @@ class SettingsViewModel with ChangeNotifier {
 
   getTimeFormat() {
     final box = Hive.box(SETTINGS_BOX);
-    String timeFormat = box.get(TIME_FORMAT_KEY, defaultValue: 'Hm');
+    String? timeFormat = box.get(TIME_FORMAT_KEY, defaultValue: 'Hm');
     return timeFormat;
   }
 
@@ -41,7 +41,7 @@ class SettingsViewModel with ChangeNotifier {
 
   getDateFormat() {
     final box = Hive.box(SETTINGS_BOX);
-    String dateFormat = box.get(DATE_FORMAT_KEY, defaultValue: 'd MMM y');
+    String? dateFormat = box.get(DATE_FORMAT_KEY, defaultValue: 'd MMM y');
     return dateFormat;
   }
 
@@ -53,7 +53,7 @@ class SettingsViewModel with ChangeNotifier {
 
   getDisplayTaskDOneTimePref() {
     final box = Hive.box(SETTINGS_BOX);
-    bool pref = box.get(DISPLAY_TASK_DONE_TIME_PREF_KEY, defaultValue: true);
+    bool? pref = box.get(DISPLAY_TASK_DONE_TIME_PREF_KEY, defaultValue: true);
     return pref;
   }
 }

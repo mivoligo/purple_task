@@ -6,8 +6,8 @@ import '../../globals/globals.dart';
 import '../ui.dart';
 
 class AppWindowSizePluginBased implements AppWindowSize {
-  double _appWidth;
-  double _appHeight;
+  double? _appWidth;
+  double? _appHeight;
 
   @override
   saveWindowSize(double width, double height) {
@@ -21,9 +21,9 @@ class AppWindowSizePluginBased implements AppWindowSize {
       final screen = window.screen;
       if (screen != null) {
         final screenFrame = screen.visibleFrame;
-        final left = ((screenFrame.width - _appWidth) / 2).roundToDouble();
-        final top = ((screenFrame.height - _appHeight) / 3).roundToDouble();
-        final frame = Rect.fromLTWH(left, top, _appWidth, _appHeight);
+        final left = ((screenFrame.width - _appWidth!) / 2).roundToDouble();
+        final top = ((screenFrame.height - _appHeight!) / 3).roundToDouble();
+        final frame = Rect.fromLTWH(left, top, _appWidth!, _appHeight!);
         window_size.setWindowFrame(frame);
       }
     });

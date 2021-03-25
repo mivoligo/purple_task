@@ -13,10 +13,10 @@ enum TaskState {
 }
 
 class TaskItem extends StatefulWidget {
-  final Task task;
+  final Task? task;
 
   const TaskItem({
-    Key key,
+    Key? key,
     this.task,
   }) : super(key: key);
 
@@ -43,7 +43,7 @@ class _TaskItemState extends State<TaskItem> {
 
   setTaskEditName() {
     setState(() {
-      _textController.text = widget.task.name;
+      _textController.text = widget.task!.name!;
       _taskState = TaskState.EditName;
     });
   }
@@ -71,8 +71,8 @@ class _TaskItemState extends State<TaskItem> {
     final _settings = Provider.of<SettingsViewModel>(context, listen: false);
     final _taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
     bool _displayDoneTaskTime = _settings.getDisplayTaskDOneTimePref();
-    String _timeFormat = _settings.getTimeFormat();
-    String _dateFormat = _settings.getDateFormat();
+    String? _timeFormat = _settings.getTimeFormat();
+    String? _dateFormat = _settings.getDateFormat();
     return Column(
       children: [
         Container(
@@ -89,13 +89,13 @@ class _TaskItemState extends State<TaskItem> {
                   const SizedBox(width: 4.0),
                   Checkbox(
                     activeColor: Colors.grey,
-                    value: widget.task.isDone,
+                    value: widget.task!.isDone,
                     onChanged: (value) {
-                      widget.task.isDone = value;
-                      if (widget.task.isDone) {
-                        widget.task.doneTime = _taskViewModel.setTaskDoneTime();
+                      widget.task!.isDone = value;
+                      if (widget.task!.isDone!) {
+                        widget.task!.doneTime = _taskViewModel.setTaskDoneTime();
                       }
-                      _taskViewModel.updateTask(widget.task.key, widget.task);
+                      _taskViewModel.updateTask(widget.task!.key, widget.task);
                     },
                   ),
                   const SizedBox(width: 4.0),
@@ -107,9 +107,9 @@ class _TaskItemState extends State<TaskItem> {
                             style: Theme.of(context).textTheme.subtitle1,
                             onSubmitted: _hasText
                                 ? (v) {
-                                    widget.task.name = _textController.text;
+                                    widget.task!.name = _textController.text;
                                     _taskViewModel.updateTask(
-                                        widget.task.key, widget.task);
+                                        widget.task!.key, widget.task);
                                     setTaskNormal();
                                   }
                                 : null,
@@ -120,11 +120,11 @@ class _TaskItemState extends State<TaskItem> {
                                 ? setTaskEditName
                                 : null,
                             child: Text(
-                              widget.task.name,
-                              style: widget.task.isDone
+                              widget.task!.name!,
+                              style: widget.task!.isDone!
                                   ? Theme.of(context)
                                       .textTheme
-                                      .subtitle1
+                                      .subtitle1!
                                       .copyWith(
                                         color: Colors.grey,
                                         decoration: TextDecoration.lineThrough,
@@ -134,9 +134,9 @@ class _TaskItemState extends State<TaskItem> {
                           ),
                   ),
                   const SizedBox(width: 8.0),
-                  if (widget.task.dueDate != null)
+                  if (widget.task!.dueDate != null)
                     Text(_taskViewModel.displayDueDate(
-                        widget.task.dueDate, _dateFormat)),
+                        widget.task!.dueDate, _dateFormat)),
                   if (_taskState == TaskState.Normal ||
                       _taskState == TaskState.EditName)
                     CustomIconButton(
@@ -159,14 +159,14 @@ class _TaskItemState extends State<TaskItem> {
                 ],
               ),
               if (_displayDoneTaskTime &&
-                  widget.task.isDone &&
-                  widget.task.doneTime != null)
+                  widget.task!.isDone! &&
+                  widget.task!.doneTime != null)
                 Row(
                   children: [
                     SizedBox(width: 10.0),
                     Text(
                       '$COMPLETED: ${TimeConversion().millisToDateAndTime(
-                        widget.task.doneTime,
+                        widget.task!.doneTime!,
                         dateFormat: _dateFormat,
                         timeFormat: _timeFormat,
                       )}',
@@ -182,7 +182,7 @@ class _TaskItemState extends State<TaskItem> {
                         onCategorySelected: () => setTaskNormal(),
                         onDateSelected: () => setTaskNormal(),
                         onDeletePressed: () {
-                          _taskViewModel.deleteTask(widget.task.key);
+                          _taskViewModel.deleteTask(widget.task!.key);
                           setTaskNormal();
                         },
                       )
@@ -205,9 +205,9 @@ class _TaskItemState extends State<TaskItem> {
                             color: Colors.green,
                             onPressed: _hasText
                                 ? () {
-                                    widget.task.name = _textController.text;
+                                    widget.task!.name = _textController.text;
                                     _taskViewModel.updateTask(
-                                        widget.task.key, widget.task);
+                                        widget.task!.key, widget.task);
                                     setTaskNormal();
                                   }
                                 : null,
@@ -227,17 +227,17 @@ class _TaskItemState extends State<TaskItem> {
 }
 
 class TaskOptions extends StatelessWidget {
-  final Task task;
+  final Task? task;
   final VoidCallback onDeletePressed;
   final VoidCallback onCategorySelected;
   final VoidCallback onDateSelected;
 
   const TaskOptions({
-    Key key,
-    @required this.task,
-    @required this.onDeletePressed,
-    @required this.onCategorySelected,
-    @required this.onDateSelected,
+    Key? key,
+    required this.task,
+    required this.onDeletePressed,
+    required this.onCategorySelected,
+    required this.onDateSelected,
   }) : super(key: key);
 
   @override

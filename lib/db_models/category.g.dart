@@ -17,10 +17,10 @@ class CategoryAdapter extends TypeAdapter<Category> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Category(
-      name: fields[0] as String,
-      color: fields[1] as int,
-      icon: fields[2] as int,
-      id: fields[3] as int,
+      name: fields[0] as String?,
+      color: fields[1] as int?,
+      icon: fields[2] as int?,
+      id: fields[3] as int?,
     );
   }
 

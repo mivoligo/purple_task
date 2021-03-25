@@ -4,14 +4,14 @@ import '../../../globals/globals.dart';
 import '../../ui.dart';
 
 class CompletedTasksList extends StatelessWidget {
-  final int categoryId;
-  final ScrollController controller;
+  final int? categoryId;
+  final ScrollController? controller;
   final bool shrinkWrap;
 
   const CompletedTasksList({
-    Key key,
-    @required this.categoryId,
-    @required this.controller,
+    Key? key,
+    required this.categoryId,
+    required this.controller,
     this.shrinkWrap = false,
   }) : super(key: key);
 

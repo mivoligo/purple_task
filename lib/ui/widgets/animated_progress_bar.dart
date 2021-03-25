@@ -5,9 +5,9 @@ class AnimatedProgressBar extends StatelessWidget {
   final double value;
 
   const AnimatedProgressBar({
-    Key key,
-    @required this.color,
-    @required this.value,
+    Key? key,
+    required this.color,
+    required this.value,
   }) : super(key: key);
 
   @override

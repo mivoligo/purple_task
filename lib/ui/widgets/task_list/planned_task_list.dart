@@ -4,13 +4,13 @@ import '../../../globals/globals.dart';
 import '../../ui.dart';
 
 class PlannedTasksList extends StatelessWidget {
-  final int categoryId;
-  final ScrollController controller;
+  final int? categoryId;
+  final ScrollController? controller;
 
   const PlannedTasksList({
-    Key key,
-    @required this.categoryId,
-    @required this.controller,
+    Key? key,
+    required this.categoryId,
+    required this.controller,
   }) : super(key: key);
 
   @override

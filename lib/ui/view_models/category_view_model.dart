@@ -42,27 +42,27 @@ class CategoryViewModel with ChangeNotifier {
     return box.values.where((category) => category.id == categoryId).isNotEmpty;
   }
 
-  Category _currentCategory;
-  Category get currentCategory => _currentCategory;
-  set currentCategory(Category category) {
+  Category? _currentCategory;
+  Category? get currentCategory => _currentCategory;
+  set currentCategory(Category? category) {
     _currentCategory = category;
     notifyListeners();
   }
 
-  int _color;
+  int? _color;
 
-  int get color => _color;
+  int? get color => _color;
 
-  set color(int value) {
+  set color(int? value) {
     _color = value;
     notifyListeners();
   }
 
-  int _icon = AntIcons.folder.codePoint;
+  int? _icon = AntIcons.folder.codePoint;
 
-  int get icon => _icon;
+  int? get icon => _icon;
 
-  set icon(int value) {
+  set icon(int? value) {
     _icon = value;
     notifyListeners();
   }

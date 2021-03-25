@@ -8,8 +8,8 @@ class AboutScreen extends StatefulWidget {
   final Color backgroundColor;
 
   const AboutScreen({
-    Key key,
-    @required this.backgroundColor,
+    Key? key,
+    required this.backgroundColor,
   }) : super(key: key);
 
   @override
@@ -18,8 +18,8 @@ class AboutScreen extends StatefulWidget {
 
 class _AboutScreenState extends State<AboutScreen>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation _fadeAnimation;
+  late AnimationController _animationController;
+  late Animation _fadeAnimation;
 
   @override
   void initState() {
@@ -57,7 +57,7 @@ class _AboutScreenState extends State<AboutScreen>
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.grey[850],
+                      Colors.grey[850]!,
                       widget.backgroundColor,
                     ]),
               ),
@@ -136,7 +136,7 @@ class _AboutScreenState extends State<AboutScreen>
                                 APP_NAME,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1
+                                    .bodyText1!
                                     .copyWith(color: Colors.black),
                               ),
                               trailing: Text(APP_VERSION),

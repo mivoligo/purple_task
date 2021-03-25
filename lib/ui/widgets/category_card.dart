@@ -5,13 +5,13 @@ import '../../db_models/db_models.dart';
 import '../ui.dart';
 
 class CategoryCard extends StatelessWidget {
-  final Category category;
-  final VoidCallback onTap;
-  final Function onHover;
-  final Function onFocusChange;
+  final Category? category;
+  final VoidCallback? onTap;
+  final Function? onHover;
+  final Function? onFocusChange;
 
   const CategoryCard({
-    Key key,
+    Key? key,
     this.category,
     this.onTap,
     this.onHover,
@@ -22,9 +22,9 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String _descriptionText;
     int _numberOfTasks = Provider.of<TaskViewModel>(context, listen: false)
-        .numberOfPlannedTasksForCategory(category.id);
+        .numberOfPlannedTasksForCategory(category!.id);
     double _completionProgress =
-        Provider.of<TaskViewModel>(context).completionProgress(category.id);
+        Provider.of<TaskViewModel>(context).completionProgress(category!.id);
     switch (_numberOfTasks) {
       case 0:
         _descriptionText = '$_numberOfTasks $TASK_PLURAL';
@@ -40,7 +40,7 @@ class CategoryCard extends StatelessWidget {
       child: Stack(
         children: [
           Hero(
-            tag: 'main${category.id}',
+            tag: 'main${category!.id}',
             child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -58,15 +58,15 @@ class CategoryCard extends StatelessWidget {
             left: 16.0,
             top: 16.0,
             child: Hero(
-              tag: 'icon${category.id}',
+              tag: 'icon${category!.id}',
               child: Icon(
                 IconData(
-                  category.icon,
+                  category!.icon!,
                   fontFamily: 'AntIcons',
                   fontPackage: 'ant_icons',
                 ),
                 size: 40.0,
-                color: Color(category.color),
+                color: Color(category!.color!),
               ),
             ),
           ),
@@ -75,12 +75,12 @@ class CategoryCard extends StatelessWidget {
             right: 24.0,
             bottom: 16.0,
             child: Hero(
-              tag: 'header${category.id}',
+              tag: 'header${category!.id}',
               child: Material(
                 type: MaterialType.transparency,
                 child: CategoryHeader(
-                  title: category.name,
-                  color: Color(category.color),
+                  title: category!.name,
+                  color: Color(category!.color!),
                   description: _descriptionText,
                   progress: _completionProgress,
                 ),
@@ -93,8 +93,8 @@ class CategoryCard extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             child: InkWell(
               onTap: onTap,
-              onHover: onHover,
-              onFocusChange: onFocusChange,
+              onHover: onHover as void Function(bool)?,
+              onFocusChange: onFocusChange as void Function(bool)?,
             ),
           ),
         ],

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class CustomIconButton extends StatelessWidget {
   final Icon icon;
-  final Color color;
-  final String tooltip;
-  final VoidCallback onPressed;
+  final Color? color;
+  final String? tooltip;
+  final VoidCallback? onPressed;
 
   const CustomIconButton({
-    Key key,
-    @required this.icon,
+    Key? key,
+    required this.icon,
     this.color,
     this.tooltip,
     this.onPressed,

@@ -8,9 +8,9 @@ class AddCategoryButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const AddCategoryButton({
-    Key key,
-    @required this.text,
-    @required this.onPressed,
+    Key? key,
+    required this.text,
+    required this.onPressed,
   }) : super(key: key);
 
   @override

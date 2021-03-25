@@ -8,10 +8,10 @@ import '../../globals/globals.dart';
 import '../ui.dart';
 
 class CategoryScreen extends StatefulWidget {
-  final int currentIndex;
+  final int? currentIndex;
 
   const CategoryScreen({
-    Key key,
+    Key? key,
     this.currentIndex,
   }) : super(key: key);
 
@@ -21,12 +21,12 @@ class CategoryScreen extends StatefulWidget {
 
 class _CategoryScreenState extends State<CategoryScreen>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation _fadeAnimation;
-  ScrollController _scrollController;
-  TextEditingController _categoryNameController;
+  late AnimationController _animationController;
+  late Animation _fadeAnimation;
+  ScrollController? _scrollController;
+  late TextEditingController _categoryNameController;
 
-  int categoryId;
+  int? categoryId;
 
   // for scrolling to last element after adding task
   bool _needScroll = false;
@@ -34,8 +34,8 @@ class _CategoryScreenState extends State<CategoryScreen>
   // Index for bottom navigation
   int _navigationIndex = 0;
 
-  double _appWidth;
-  bool _isWide;
+  double? _appWidth;
+  late bool _isWide;
 
   // display correct list according to bottom navigation
   Widget getTasksList() {
@@ -43,15 +43,12 @@ class _CategoryScreenState extends State<CategoryScreen>
       case 0:
         return PlannedTasksList(
             categoryId: categoryId, controller: _scrollController);
-        break;
       case 1:
         return AllTasksList(
             categoryId: categoryId, controller: _scrollController);
-        break;
       case 2:
         return CompletedTasksList(
             categoryId: categoryId, controller: _scrollController);
-        break;
     }
     return PlannedTasksList(
         categoryId: categoryId, controller: _scrollController);
@@ -60,7 +57,7 @@ class _CategoryScreenState extends State<CategoryScreen>
   _scrollToTop() async {
     if (_needScroll) {
       _needScroll = false;
-      _scrollController.animateTo(_scrollController.position.minScrollExtent,
+      _scrollController!.animateTo(_scrollController!.position.minScrollExtent,
           duration: Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
@@ -84,7 +81,7 @@ class _CategoryScreenState extends State<CategoryScreen>
   @override
   void dispose() {
     _animationController.dispose();
-    _scrollController.dispose();
+    _scrollController!.dispose();
     _categoryNameController.dispose();
     super.dispose();
   }
@@ -95,10 +92,10 @@ class _CategoryScreenState extends State<CategoryScreen>
     _isWide = MediaQuery.of(context).size.width > 600;
     final taskModel = Provider.of<TaskViewModel>(context);
     final categoryModel = Provider.of<CategoryViewModel>(context);
-    categoryId = categoryModel.currentCategory.id;
+    categoryId = categoryModel.currentCategory!.id;
 
     // Used to scroll to end of list after adding new task
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+    SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
       _scrollToTop();
     });
 
@@ -114,8 +111,8 @@ class _CategoryScreenState extends State<CategoryScreen>
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.grey[850],
-                  Color(categoryModel.currentCategory.color),
+                  Colors.grey[850]!,
+                  Color(categoryModel.currentCategory!.color!),
                 ],
               ),
             ),
@@ -125,7 +122,7 @@ class _CategoryScreenState extends State<CategoryScreen>
             top: _isWide ? 50 : 0,
             bottom: _isWide ? 50 : 0,
             child: Hero(
-              tag: 'main${categoryModel.currentCategory.id}',
+              tag: 'main${categoryModel.currentCategory!.id}',
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
@@ -183,21 +180,21 @@ class _CategoryScreenState extends State<CategoryScreen>
                         children: [
                           // Category icon
                           Hero(
-                            tag: 'icon${categoryModel.currentCategory.id}',
+                            tag: 'icon${categoryModel.currentCategory!.id}',
                             child: Icon(
                                 IconData(
-                                  categoryModel.currentCategory.icon,
+                                  categoryModel.currentCategory!.icon!,
                                   fontFamily: 'AntIcons',
                                   fontPackage: 'ant_icons',
                                 ),
-                                color:
-                                    Color(categoryModel.currentCategory.color),
+                                color: Color(
+                                    categoryModel.currentCategory!.color!),
                                 size: 40),
                           ),
                           const SizedBox(height: 24.0),
                           // header with number of tasks, name and progress
                           Hero(
-                            tag: 'header${categoryModel.currentCategory.id}',
+                            tag: 'header${categoryModel.currentCategory!.id}',
                             // get rid of overflow error
                             // https://github.com/flutter/flutter/issues/27320
                             flightShuttleBuilder: (
@@ -233,12 +230,12 @@ class _CategoryScreenState extends State<CategoryScreen>
                                           '$numberOfTasks $TASK_PLURAL';
                                   }
                                   return CategoryHeader(
-                                    title: categoryModel.currentCategory.name,
+                                    title: categoryModel.currentCategory!.name,
                                     description: _descriptionText,
                                     progress: _taskModel
                                         .completionProgress(categoryId),
                                     color: Color(
-                                        categoryModel.currentCategory.color),
+                                        categoryModel.currentCategory!.color!),
                                   );
                                 },
                               ),
@@ -256,9 +253,9 @@ class _CategoryScreenState extends State<CategoryScreen>
                             },
                             child: AddTaskField(
                               addTask: () {
-                                String name = taskModel.newTaskName;
-                                int categoryId =
-                                    categoryModel.currentCategory.id;
+                                String? name = taskModel.newTaskName;
+                                int? categoryId =
+                                    categoryModel.currentCategory!.id;
                                 Task task = Task(
                                     name: name,
                                     categoryId: categoryId,

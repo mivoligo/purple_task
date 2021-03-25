@@ -21,14 +21,15 @@ class TimeFormatSelector extends StatelessWidget {
             timeConversion.formatDateNow(_settings.getTimeFormat()),
             style: Theme.of(context)
                 .textTheme
-                .subtitle1
+                .subtitle1!
                 .copyWith(color: Theme.of(context).primaryColor),
           ),
         ),
         tooltip: CHANGE_FORMAT,
-        onSelected: (item) => _settings.setTimeFormat(_timeFormatList[item]),
+        onSelected: (dynamic item) =>
+            _settings.setTimeFormat(_timeFormatList[item]),
         itemBuilder: (context) {
-          var menuList = List<PopupMenuEntry<Object>>();
+          var menuList = <PopupMenuEntry<Object>>[];
           menuList.add(
             PopupMenuItem(
               child: Text(timeConversion.formatDateNow(_timeFormatList[0])),

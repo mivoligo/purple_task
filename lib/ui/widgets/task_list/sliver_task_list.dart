@@ -6,8 +6,8 @@ class SliverTasksList extends StatelessWidget {
   final List<Task> list;
 
   const SliverTasksList({
-    Key key,
-    @required this.list,
+    Key? key,
+    required this.list,
   }) : super(key: key);
 
   @override

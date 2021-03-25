@@ -4,18 +4,18 @@ import '../../ui.dart';
 
 class ConfirmationDialog extends StatefulWidget {
   final String title;
-  final Widget content;
+  final Widget? content;
   final String confirmationText;
   final Color confirmationColor;
   final VoidCallback onConfirm;
 
   const ConfirmationDialog({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.content,
-    @required this.confirmationText,
-    @required this.confirmationColor,
-    @required this.onConfirm,
+    required this.confirmationText,
+    required this.confirmationColor,
+    required this.onConfirm,
   }) : super(key: key);
 
   @override

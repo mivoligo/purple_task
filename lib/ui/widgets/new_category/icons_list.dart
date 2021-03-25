@@ -10,8 +10,8 @@ class IconsList extends StatefulWidget {
 
 class _IconsListState extends State<IconsList>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<EdgeInsets> _padding;
+  late AnimationController _animationController;
+  late Animation<EdgeInsets> _padding;
 
   @override
   void initState() {

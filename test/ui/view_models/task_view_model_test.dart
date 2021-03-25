@@ -6,7 +6,7 @@ void main() {
   group('Due date', () {
     test('should return no date', () {
       final model = TaskViewModel();
-      final dateInMillis = null;
+      final dynamic dateInMillis = null;
       final dateFormat = 'yMd';
       expect(model.displayDueDate(dateInMillis, dateFormat), NO_DATE);
     });

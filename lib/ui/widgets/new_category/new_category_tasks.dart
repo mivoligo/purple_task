@@ -10,14 +10,14 @@ class CategoryTasks extends StatefulWidget {
 }
 
 class _CategoryTasksState extends State<CategoryTasks> {
-  ScrollController _scrollController;
+  ScrollController? _scrollController;
 
   bool _needScroll = false;
 
   _scrollToTop() async {
     if (_needScroll) {
       _needScroll = false;
-      _scrollController.animateTo(_scrollController.position.minScrollExtent,
+      _scrollController!.animateTo(_scrollController!.position.minScrollExtent,
           duration: Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
@@ -30,14 +30,14 @@ class _CategoryTasksState extends State<CategoryTasks> {
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    _scrollController!.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     // Used to scroll to end of list after adding new task
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+    SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
       _scrollToTop();
     });
     return Column(
@@ -83,7 +83,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                      title: Text(value.tasks[index].name),
+                      title: Text(value.tasks[index].name!),
                     );
                   },
                 ),

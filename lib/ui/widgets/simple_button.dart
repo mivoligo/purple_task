@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class SimpleButton extends StatelessWidget {
   final String text;
   final Color color;
-  final VoidCallback onPressed;
-  final FocusNode focusNode;
+  final VoidCallback? onPressed;
+  final FocusNode? focusNode;
 
   const SimpleButton({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
     this.color = Colors.grey,
-    @required this.onPressed,
+    required this.onPressed,
     this.focusNode,
   }) : super(key: key);
 

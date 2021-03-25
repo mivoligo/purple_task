@@ -35,9 +35,9 @@ class NewCategoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  int _categoryId;
+  int? _categoryId;
 
-  int get categoryId => _categoryId;
+  int? get categoryId => _categoryId;
 
   void setCategoryId() {
     int timeStamp = DateTime.now().millisecondsSinceEpoch;
@@ -79,7 +79,7 @@ class NewCategoryViewModel extends ChangeNotifier {
   }
 
   void addNewCategory(BuildContext context) {
-    int id = _categoryId;
+    int? id = _categoryId;
     CategoryViewModel categoryModel =
         Provider.of<CategoryViewModel>(context, listen: false);
     Category category = Category(

@@ -16,9 +16,10 @@ class DateFormatSelector extends StatelessWidget {
       elevation: 1,
       child: PopupMenuButton(
         tooltip: CHANGE_FORMAT,
-        onSelected: (item) => _settings.setDateFormat(_formatList[item]),
+        onSelected: (dynamic item) =>
+            _settings.setDateFormat(_formatList[item]),
         itemBuilder: (context) {
-          var menuList = List<PopupMenuEntry<Object>>();
+          var menuList = <PopupMenuEntry<Object>>[];
           menuList.add(
             PopupMenuItem(
               child: Text(timeConversion.formatDateNow(_formatList[0])),
@@ -63,7 +64,7 @@ class DateFormatSelector extends StatelessWidget {
             timeConversion.formatDateNow(_settings.getDateFormat()),
             style: Theme.of(context)
                 .textTheme
-                .subtitle1
+                .subtitle1!
                 .copyWith(color: Theme.of(context).primaryColor),
           ),
         ),

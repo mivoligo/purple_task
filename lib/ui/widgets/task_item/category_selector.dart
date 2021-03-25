@@ -5,13 +5,13 @@ import '../../../db_models/db_models.dart';
 import '../../../globals/globals.dart';
 
 class CategorySelector extends StatelessWidget {
-  final Task task;
+  final Task? task;
   final VoidCallback onCategorySelected;
 
   const CategorySelector({
-    Key key,
-    @required this.task,
-    @required this.onCategorySelected,
+    Key? key,
+    required this.task,
+    required this.onCategorySelected,
   }) : super(key: key);
 
   @override
@@ -20,9 +20,9 @@ class CategorySelector extends StatelessWidget {
       elevation: 1,
       child: PopupMenuButton(
         tooltip: CHANGE_CATEGORY,
-        onSelected: (item) => onItemSelected(context, item),
+        onSelected: (dynamic item) => onItemSelected(context, item),
         itemBuilder: (context) {
-          var menuList = List<PopupMenuEntry<Object>>();
+          var menuList = <PopupMenuEntry<Object>>[];
           final categoryList =
               Provider.of<CategoryViewModel>(context, listen: false)
                   .getListOfCategories();
@@ -32,14 +32,14 @@ class CategorySelector extends StatelessWidget {
                 children: [
                   Icon(
                     IconData(
-                      category.icon,
+                      category.icon!,
                       fontFamily: 'AntIcons',
                       fontPackage: 'ant_icons',
                     ),
-                    color: Color(category.color),
+                    color: Color(category.color!),
                   ),
                   const SizedBox(width: 8),
-                  Text(category.name),
+                  Text(category.name!),
                 ],
               ),
               value: category.id,
@@ -51,12 +51,12 @@ class CategorySelector extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Consumer<CategoryViewModel>(
             builder: (context, value, child) {
-              if (task.categoryId == -1) {
+              if (task!.categoryId == -1) {
                 return Text(
                   NO_CATEGORY,
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle1
+                      .subtitle1!
                       .copyWith(color: Theme.of(context).primaryColor),
                 );
               }
@@ -64,19 +64,19 @@ class CategorySelector extends StatelessWidget {
                 children: [
                   Icon(
                     IconData(
-                      value.currentCategory.icon,
+                      value.currentCategory!.icon!,
                       fontFamily: 'AntIcons',
                       fontPackage: 'ant_icons',
                     ),
-                    color: Color(value.currentCategory.color),
+                    color: Color(value.currentCategory!.color!),
                     size: 18,
                   ),
                   const SizedBox(width: 4.0),
                   Text(
-                    value.currentCategory.name,
+                    value.currentCategory!.name!,
                     style: Theme.of(context)
                         .textTheme
-                        .subtitle1
+                        .subtitle1!
                         .copyWith(color: Theme.of(context).primaryColor),
                   ),
                 ],
@@ -89,9 +89,9 @@ class CategorySelector extends StatelessWidget {
   }
 
   onItemSelected(context, item) {
-    task.categoryId = item;
+    task!.categoryId = item;
     Provider.of<TaskViewModel>(context, listen: false)
-        .updateTask(task.key, task);
+        .updateTask(task!.key, task);
     onCategorySelected();
   }
 }

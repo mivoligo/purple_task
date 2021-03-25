@@ -7,8 +7,8 @@ class Greetings extends StatelessWidget {
   final String greetings;
 
   const Greetings({
-    Key key,
-    @required this.greetings,
+    Key? key,
+    required this.greetings,
   }) : super(key: key);
 
   @override

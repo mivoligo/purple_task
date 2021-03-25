@@ -15,24 +15,24 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin, WidgetsBindingObserver {
-  double _appWidth;
-  double _appHeight;
-  bool _isWide;
-  Size _windowSize = WidgetsBinding.instance.window.physicalSize;
-  Size _tempWindowSize;
+  double? _appWidth;
+  double? _appHeight;
+  bool? _isWide;
+  Size? _windowSize = WidgetsBinding.instance!.window.physicalSize;
+  Size? _tempWindowSize;
   AppWindowSize _appWindowSize = AppWindowSizePluginBased();
 
   Color _color = Colors.deepPurple;
-  AnimationController _animationController;
-  PageController _pageController;
-  ScrollController _scrollController;
-  ScrollController _quickListController;
+  late AnimationController _animationController;
+  PageController? _pageController;
+  ScrollController? _scrollController;
+  ScrollController? _quickListController;
 
-  NewCategoryViewModel _newCategory; // NewCategory provider
+  late NewCategoryViewModel _newCategory; // NewCategory provider
 
-  List<Category> _categoryList;
+  late List<Category> _categoryList;
 
-  CategoryViewModel _categoryViewModel;
+  late CategoryViewModel _categoryViewModel;
 
   // for setting background color based on category color
   int _currentCategory = 0;
@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 300),
@@ -57,27 +57,27 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void dispose() {
     _animationController.dispose();
-    _pageController.dispose();
-    _scrollController.dispose();
-    _quickListController.dispose();
-    WidgetsBinding.instance.removeObserver(this);
+    _pageController!.dispose();
+    _scrollController!.dispose();
+    _quickListController!.dispose();
+    WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
   }
 
   // Used to save app window size on resize
   @override
   void didChangeMetrics() {
-    _tempWindowSize = WidgetsBinding.instance.window.physicalSize;
+    _tempWindowSize = WidgetsBinding.instance!.window.physicalSize;
     if (_windowSize != _tempWindowSize) {
       _windowSize = _tempWindowSize;
-      _appWindowSize.saveWindowSize(_windowSize.width, _windowSize.height);
+      _appWindowSize.saveWindowSize(_windowSize!.width, _windowSize!.height);
     }
   }
 
   _scrollToEnd() async {
     if (_needScroll) {
       _needScroll = false;
-      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+      _scrollController!.animateTo(_scrollController!.position.maxScrollExtent,
           duration: Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
@@ -91,13 +91,13 @@ class _HomeScreenState extends State<HomeScreen>
     _categoryViewModel = Provider.of<CategoryViewModel>(context);
     _categoryList = _categoryViewModel.getListOfCategories();
     _pageController = PageController(
-      viewportFraction: (_appWidth - 48) / _appWidth,
+      viewportFraction: (_appWidth! - 48) / _appWidth!,
       initialPage: 0,
     );
 
     // set background color to category color
     if (_categoryList.isNotEmpty) {
-      _color = Color(_categoryList[_currentCategory].color);
+      _color = Color(_categoryList[_currentCategory].color!);
     }
 
     // use in various places to animate between double values
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     // Used to scroll to end of list after adding new category
     // when using ListView
-    SchedulerBinding.instance.addPostFrameCallback((_) => _scrollToEnd());
+    SchedulerBinding.instance!.addPostFrameCallback((_) => _scrollToEnd());
 
     return Scaffold(
       body: SafeArea(
@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen>
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.grey[850], _color, _color]),
+                    colors: [Colors.grey[850]!, _color, _color]),
               ),
             ),
             // Greetings
@@ -206,13 +206,13 @@ class _HomeScreenState extends State<HomeScreen>
                 child: Column(
                   children: [
                     Container(
-                      width: _isWide ? 440 : _appWidth - 64,
+                      width: _isWide! ? 440 : _appWidth! - 64,
                       height: 40,
                       child: AddTaskField(
                         addTask: () {
                           final _taskModel = Provider.of<TaskViewModel>(context,
                               listen: false);
-                          String _name = _taskModel.newTaskName;
+                          String? _name = _taskModel.newTaskName;
 
                           Task task =
                               Task(name: _name, categoryId: -1, isDone: false);
@@ -237,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen>
               builder: (context, child) {
                 return Positioned(
                   bottom: animDouble(_animationController, 16.0, 64.0).value,
-                  child: child,
+                  child: child!,
                 );
               },
               child: Hero(
@@ -259,8 +259,8 @@ class _HomeScreenState extends State<HomeScreen>
               bottom: 64.0,
               child: _categoryList.isNotEmpty
                   ? Container(
-                      height: _appHeight * 0.4,
-                      child: _isWide
+                      height: _appHeight! * 0.4,
+                      child: _isWide!
                           ? ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: _categoryList.length,
@@ -397,10 +397,10 @@ class _HomeScreenState extends State<HomeScreen>
       // get length of category list from Hive
       int _categoryListLength = _categoryList.length;
       // try to go to the created category
-      if (_isWide) {
+      if (_isWide!) {
         _needScroll = true;
       } else {
-        _pageController.animateToPage(
+        _pageController!.animateToPage(
           _categoryListLength,
           duration: Duration(milliseconds: 300),
           curve: Curves.ease,
@@ -412,21 +412,21 @@ class _HomeScreenState extends State<HomeScreen>
 
 class UncategorizedList extends StatelessWidget {
   const UncategorizedList({
-    Key key,
-    @required double appHeight,
-    @required bool isWide,
-    @required double appWidth,
-    @required ScrollController quickListController,
+    Key? key,
+    required double? appHeight,
+    required bool? isWide,
+    required double? appWidth,
+    required ScrollController? quickListController,
   })  : _appHeight = appHeight,
         _isWide = isWide,
         _appWidth = appWidth,
         _quickListController = quickListController,
         super(key: key);
 
-  final double _appHeight;
-  final bool _isWide;
-  final double _appWidth;
-  final ScrollController _quickListController;
+  final double? _appHeight;
+  final bool? _isWide;
+  final double? _appWidth;
+  final ScrollController? _quickListController;
 
   @override
   Widget build(BuildContext context) {
@@ -437,12 +437,12 @@ class UncategorizedList extends StatelessWidget {
                 .getListOfCategories()
                 .isNotEmpty;
         final _listHeight =
-            hasCategories ? _appHeight * 0.6 - 260 : _appHeight - 272;
+            hasCategories ? _appHeight! * 0.6 - 260 : _appHeight! - 272;
         final _taskModel = Provider.of<TaskViewModel>(context);
         final quickTaskList = _taskModel.getAllTasksForCategory(-1);
         if (quickTaskList.isNotEmpty)
           return Container(
-            width: _isWide ? 400 : _appWidth - 100,
+            width: _isWide! ? 400 : _appWidth! - 100,
             decoration: BoxDecoration(
                 color: Colors.white70,
                 borderRadius: BorderRadius.only(

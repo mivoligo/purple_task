@@ -9,8 +9,8 @@ class AddTaskField extends StatefulWidget {
   final Function addTask;
 
   const AddTaskField({
-    Key key,
-    @required this.addTask,
+    Key? key,
+    required this.addTask,
   }) : super(key: key);
 
   @override
@@ -83,7 +83,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
           color: Colors.grey[50],
           borderRadius: BorderRadius.circular(20.0),
           boxShadow: [
-            BoxShadow(color: Colors.grey[300], offset: Offset(0.0, -2.0)),
+            BoxShadow(color: Colors.grey[300]!, offset: Offset(0.0, -2.0)),
             BoxShadow(color: Colors.white, offset: Offset(0.0, 1.0)),
           ]),
     );

@@ -20,9 +20,9 @@ class NewCategoryScreen extends StatefulWidget {
 
 class _NewCategoryScreenState extends State<NewCategoryScreen> {
   Progress progress = Progress.CategoryName;
-  NewCategoryViewModel newCategoryProvider;
-  CategoryViewModel categoryDb;
-  FocusNode _focusNode;
+  late NewCategoryViewModel newCategoryProvider;
+  CategoryViewModel? categoryDb;
+  FocusNode? _focusNode;
 
   Widget getProgressWidget() {
     switch (progress) {
@@ -37,9 +37,6 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
       case Progress.CategoryTasks:
         return CategoryTasks();
     }
-    return CategoryName(
-      onSubmitted: (_) => goToColorSelector(),
-    );
   }
 
   void goToNext() {
@@ -67,7 +64,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
     if (newCategoryProvider.name.isNotEmpty) {
       setState(() {
         progress = Progress.CategoryColor;
-        _focusNode.requestFocus();
+        _focusNode!.requestFocus();
       });
     }
   }
@@ -93,7 +90,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
   @override
   void dispose() {
     newCategoryProvider.resetNewCategory();
-    _focusNode.dispose();
+    _focusNode!.dispose();
     super.dispose();
   }
 
@@ -120,7 +117,7 @@ class _NewCategoryScreenState extends State<NewCategoryScreen> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Colors.grey[850],
+                        Colors.grey[850]!,
                         Color(value.color),
                         Color(value.color),
                       ]),

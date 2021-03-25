@@ -11,8 +11,8 @@ class ColorSelector extends StatefulWidget {
 
 class _ColorSelectorState extends State<ColorSelector>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<EdgeInsets> _padding;
+  late AnimationController _animationController;
+  late Animation<EdgeInsets> _padding;
 
   @override
   void initState() {

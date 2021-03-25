@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import '../ui.dart';
 
 class CategoryHeader extends StatelessWidget {
-  final String title;
+  final String? title;
   final String description;
   final double progress;
   final Color color;
 
   const CategoryHeader({
-    Key key,
-    @required this.title,
-    @required this.description,
-    @required this.progress,
-    @required this.color,
+    Key? key,
+    required this.title,
+    required this.description,
+    required this.progress,
+    required this.color,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class CategoryHeader extends StatelessWidget {
         const SizedBox(height: 8.0),
         // category name
         Text(
-          title,
+          title!,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.headline4,
         ),

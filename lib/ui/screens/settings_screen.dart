@@ -8,8 +8,8 @@ class SettingsScreen extends StatefulWidget {
   final Color backgroundColor;
 
   const SettingsScreen({
-    Key key,
-    @required this.backgroundColor,
+    Key? key,
+    required this.backgroundColor,
   }) : super(key: key);
 
   @override
@@ -18,8 +18,8 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation _fadeAnimation;
+  late AnimationController _animationController;
+  late Animation _fadeAnimation;
 
   @override
   void initState() {
@@ -57,7 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.grey[850],
+                      Colors.grey[850]!,
                       widget.backgroundColor,
                     ]),
               ),

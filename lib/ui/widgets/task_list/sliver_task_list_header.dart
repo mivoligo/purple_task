@@ -4,8 +4,8 @@ class SliverTaskListHeader extends StatelessWidget {
   final String title;
 
   const SliverTaskListHeader({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
   }) : super(key: key);
 
   @override

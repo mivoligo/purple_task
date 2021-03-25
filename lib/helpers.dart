@@ -1,12 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TimeConversion {
   millisToDateAndTime(
     int input, {
-    @required String dateFormat,
-    @required String timeFormat,
+    required String? dateFormat,
+    required String? timeFormat,
   }) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(input);
     DateTime localDateTime = dateTime.toLocal();
@@ -15,7 +14,7 @@ class TimeConversion {
     return '$date, $time';
   }
 
-  String formatDateNow(String pattern) {
+  String formatDateNow(String? pattern) {
     DateTime dateTime = DateTime.now();
     return DateFormat(pattern).format(dateTime.toLocal());
   }
