@@ -1,0 +1,16 @@
+name: ant_icons
+description: Icons based on Ant Design.
+publish_to: none
+
+environment:
+  sdk: ">=2.7.0-0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+  fonts:
+    - family: AntIcons
+      fonts:
+        - asset: lib/icons/ant.ttf
