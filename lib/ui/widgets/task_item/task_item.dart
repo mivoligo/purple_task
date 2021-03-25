@@ -44,7 +44,7 @@ class _TaskItemState extends State<TaskItem> {
 
   void setTaskEditName() {
     setState(() {
-      _textController.text = widget.task.name!;
+      _textController.text = widget.task.name;
       _taskState = TaskState.editNameTaskState;
     });
   }
@@ -92,8 +92,10 @@ class _TaskItemState extends State<TaskItem> {
                     activeColor: Colors.grey,
                     value: widget.task.isDone,
                     onChanged: (value) {
-                      widget.task.isDone = value;
-                      if (widget.task.isDone!) {
+                      if (value != null) {
+                        widget.task.isDone = value;
+                      }
+                      if (widget.task.isDone) {
                         widget.task.doneTime = _taskViewModel.setTaskDoneTime();
                       }
                       _taskViewModel.updateTask(widget.task.key, widget.task);
@@ -121,8 +123,8 @@ class _TaskItemState extends State<TaskItem> {
                                 ? setTaskEditName
                                 : null,
                             child: Text(
-                              widget.task.name!,
-                              style: widget.task.isDone!
+                              widget.task.name,
+                              style: widget.task.isDone
                                   ? Theme.of(context)
                                       .textTheme
                                       .subtitle1!
@@ -160,7 +162,7 @@ class _TaskItemState extends State<TaskItem> {
                 ],
               ),
               if (_displayDoneTaskTime &&
-                  widget.task.isDone! &&
+                  widget.task.isDone &&
                   widget.task.doneTime != null)
                 Row(
                   children: [

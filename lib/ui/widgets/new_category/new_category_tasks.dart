@@ -83,7 +83,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                      title: Text(value.tasks[index].name!),
+                      title: Text(value.tasks[index].name),
                     );
                   },
                 ),

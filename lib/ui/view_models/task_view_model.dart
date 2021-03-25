@@ -6,11 +6,11 @@ import '../../db_models/db_models.dart';
 import '../../globals/globals.dart';
 
 class TaskViewModel extends ChangeNotifier {
-  String? _newTaskName;
+  late String _newTaskName;
 
-  String? get newTaskName => _newTaskName;
+  String get newTaskName => _newTaskName;
 
-  set newTaskName(String? value) {
+  set newTaskName(String value) {
     _newTaskName = value;
     notifyListeners();
   }

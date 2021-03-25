@@ -89,7 +89,7 @@ class CategorySelector extends StatelessWidget {
     );
   }
 
-  void onItemSelected(BuildContext context, int? item) {
+  void onItemSelected(BuildContext context, int item) {
     task.categoryId = item;
     Provider.of<TaskViewModel>(context, listen: false)
         .updateTask(task.key, task);

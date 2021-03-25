@@ -258,7 +258,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     categoryModel.currentCategory!.id;
                                 final task = Task(
                                     name: name,
-                                    categoryId: categoryId,
+                                    categoryId: categoryId!,
                                     isDone: false);
                                 taskModel.addTask(task);
                                 _needScroll = true;

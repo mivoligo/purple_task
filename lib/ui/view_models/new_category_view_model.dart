@@ -36,9 +36,9 @@ class NewCategoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  int? _categoryId;
+  late int _categoryId;
 
-  int? get categoryId => _categoryId;
+  int get categoryId => _categoryId;
 
   void setCategoryId() {
     final timeStamp = DateTime.now().millisecondsSinceEpoch;
