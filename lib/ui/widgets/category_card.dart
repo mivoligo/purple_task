@@ -62,12 +62,12 @@ class CategoryCard extends StatelessWidget {
               tag: 'icon${category!.id}',
               child: Icon(
                 IconData(
-                  category!.icon!,
+                  category!.icon,
                   fontFamily: 'AntIcons',
                   fontPackage: 'ant_icons',
                 ),
                 size: 40.0,
-                color: Color(category!.color!),
+                color: Color(category!.color),
               ),
             ),
           ),
@@ -81,7 +81,7 @@ class CategoryCard extends StatelessWidget {
                 type: MaterialType.transparency,
                 child: CategoryHeader(
                   title: category!.name,
-                  color: Color(category!.color!),
+                  color: Color(category!.color),
                   description: _descriptionText,
                   progress: _completionProgress,
                 ),

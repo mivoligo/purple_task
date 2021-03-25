@@ -112,7 +112,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.grey[850]!,
-                  Color(categoryModel.currentCategory!.color!),
+                  Color(categoryModel.currentCategory!.color),
                 ],
               ),
             ),
@@ -183,12 +183,12 @@ class _CategoryScreenState extends State<CategoryScreen>
                             tag: 'icon${categoryModel.currentCategory!.id}',
                             child: Icon(
                                 IconData(
-                                  categoryModel.currentCategory!.icon!,
+                                  categoryModel.currentCategory!.icon,
                                   fontFamily: 'AntIcons',
                                   fontPackage: 'ant_icons',
                                 ),
-                                color: Color(
-                                    categoryModel.currentCategory!.color!),
+                                color:
+                                    Color(categoryModel.currentCategory!.color),
                                 size: 40),
                           ),
                           const SizedBox(height: 24.0),
@@ -235,7 +235,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     progress: _taskModel
                                         .completionProgress(categoryId),
                                     color: Color(
-                                        categoryModel.currentCategory!.color!),
+                                        categoryModel.currentCategory!.color),
                                   );
                                 },
                               ),
@@ -258,7 +258,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     categoryModel.currentCategory!.id;
                                 final task = Task(
                                     name: name,
-                                    categoryId: categoryId!,
+                                    categoryId: categoryId,
                                     isDone: false);
                                 taskModel.addTask(task);
                                 _needScroll = true;

@@ -98,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     // set background color to category color
     if (_categoryList.isNotEmpty) {
-      _color = Color(_categoryList[_currentCategory].color!);
+      _color = Color(_categoryList[_currentCategory].color);
     }
 
     // use in various places to animate between double values

@@ -50,20 +50,20 @@ class CategoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  int? _color;
+  late int _color;
 
-  int? get color => _color;
+  int get color => _color;
 
-  set color(int? value) {
+  set color(int value) {
     _color = value;
     notifyListeners();
   }
 
-  int? _icon = AntIcons.folder.codePoint;
+  int _icon = AntIcons.folder.codePoint;
 
-  int? get icon => _icon;
+  int get icon => _icon;
 
-  set icon(int? value) {
+  set icon(int value) {
     _icon = value;
     notifyListeners();
   }

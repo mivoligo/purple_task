@@ -150,7 +150,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
         showDialog(
           context: context,
           builder: (context) {
-            textController.text = categoryModel.currentCategory!.name!;
+            textController.text = categoryModel.currentCategory!.name;
             return ConfirmationDialog(
               title: questionChangeName,
               content: Padding(
@@ -189,7 +189,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
                         Consumer<CategoryViewModel>(
                           builder: (_, categoryModel, __) => Container(
                             height: 20,
-                            color: Color(categoryModel.color!),
+                            color: Color(categoryModel.color),
                           ),
                         ),
                         const SizedBox(height: 16.0),
@@ -225,11 +225,11 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
                         Consumer<CategoryViewModel>(
                           builder: (_, categoryModel, __) => Icon(
                             IconData(
-                              categoryModel.icon!,
+                              categoryModel.icon,
                               fontFamily: 'AntIcons',
                               fontPackage: 'ant_icons',
                             ),
-                            color: Color(categoryModel.currentCategory!.color!),
+                            color: Color(categoryModel.currentCategory!.color),
                             size: 28,
                           ),
                         ),

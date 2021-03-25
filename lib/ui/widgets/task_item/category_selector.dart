@@ -33,14 +33,14 @@ class CategorySelector extends StatelessWidget {
                 children: [
                   Icon(
                     IconData(
-                      category.icon!,
+                      category.icon,
                       fontFamily: 'AntIcons',
                       fontPackage: 'ant_icons',
                     ),
-                    color: Color(category.color!),
+                    color: Color(category.color),
                   ),
                   const SizedBox(width: 8),
-                  Text(category.name!),
+                  Text(category.name),
                 ],
               ),
               value: category.id,
@@ -65,16 +65,16 @@ class CategorySelector extends StatelessWidget {
                 children: [
                   Icon(
                     IconData(
-                      value.currentCategory!.icon!,
+                      value.currentCategory!.icon,
                       fontFamily: 'AntIcons',
                       fontPackage: 'ant_icons',
                     ),
-                    color: Color(value.currentCategory!.color!),
+                    color: Color(value.currentCategory!.color),
                     size: 18,
                   ),
                   const SizedBox(width: 4.0),
                   Text(
-                    value.currentCategory!.name!,
+                    value.currentCategory!.name,
                     style: Theme.of(context)
                         .textTheme
                         .subtitle1!

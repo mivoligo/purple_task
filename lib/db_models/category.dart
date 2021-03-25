@@ -12,14 +12,14 @@ class Category {
   });
 
   @HiveField(0)
-  final String? name;
+  final String name;
 
   @HiveField(1)
-  final int? color;
+  final int color;
 
   @HiveField(2)
-  final int? icon;
+  final int icon;
 
   @HiveField(3)
-  final int? id;
+  final int id;
 }
