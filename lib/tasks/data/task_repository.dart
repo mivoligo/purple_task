@@ -1,5 +1,7 @@
+import 'model/task.dart';
+
 class TaskRepository {
-  addTask() {}
+  addTask(Task task) {}
 
   updateTask() {}
 
