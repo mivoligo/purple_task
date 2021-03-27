@@ -1,13 +1,23 @@
-import 'model/category.dart';
+import 'package:hive/hive.dart';
+import '../../db_models/category.dart';
+import '../../globals/hive_names.dart';
 
 class CategoryRepository {
-  addCategory(Category category) {}
+  Box<Category> box = Hive.box<Category>(categoryBox);
 
-  updateCategory(Category category) {}
+  void addCategory(Category category) {
+    box.add(category);
+  }
 
-  deleteCategory(Category category) {}
+  void updateCategory(int index, Category category) {
+    box.putAt(index, category);
+  }
+
+  void deleteCategory(int index) {
+    box.deleteAt(index);
+  }
 
   List<Category> getCategories() {
-    return [];
+    return box.values.toList();
   }
 }
