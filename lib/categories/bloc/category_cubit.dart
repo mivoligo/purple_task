@@ -7,7 +7,7 @@ import '../data/category_repository.dart';
 part 'category_state.dart';
 
 class CategoryCubit extends Cubit<CategoryState> {
-  CategoryCubit({required CategoryRepository categoryRepository})
+  CategoryCubit(CategoryRepository categoryRepository)
       : _categoryRepository = categoryRepository,
         super(CategoryInitial());
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:purple_task/categories/ui/category_list.dart';
 
 import 'db_models/db_models.dart';
 import 'globals/globals.dart';
@@ -101,7 +102,7 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeScreen(),
+      home: CategoryView(),
     );
   }
 }
