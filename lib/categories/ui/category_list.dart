@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../bloc/category_cubit.dart';
 import '../data/category_repository.dart';
+import 'new_category_creator.dart';
 
 class CategoryView extends StatelessWidget {
   @override
@@ -25,9 +27,6 @@ class CategoryList extends StatelessWidget {
       body: Container(
         child: BlocBuilder<CategoryCubit, CategoryState>(
           builder: (context, state) {
-            if (state is CategoryInitial) {
-              return Text('Initial');
-            }
             if (state is CategoryLoading) {
               return CircularProgressIndicator();
             }
@@ -40,7 +39,11 @@ class CategoryList extends StatelessWidget {
                   return ListTile(
                     title: Text(
                       '${category.name}',
-                      style: TextStyle(color: Color(category.color)),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.remove),
+                      onPressed: () =>
+                          context.read<CategoryCubit>().removeCategory(index),
                     ),
                   );
                 },
@@ -50,6 +53,13 @@ class CategoryList extends StatelessWidget {
             return const SizedBox();
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => NewCategoryCreator(),
+          ));
+        },
       ),
     );
   }

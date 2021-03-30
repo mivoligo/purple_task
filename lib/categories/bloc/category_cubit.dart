@@ -7,9 +7,7 @@ import '../data/category_repository.dart';
 part 'category_state.dart';
 
 class CategoryCubit extends Cubit<CategoryState> {
-  CategoryCubit(CategoryRepository categoryRepository)
-      : _categoryRepository = categoryRepository,
-        super(CategoryInitial());
+  CategoryCubit(this._categoryRepository) : super(CategoryInitial());
 
   final CategoryRepository _categoryRepository;
 
@@ -21,5 +19,19 @@ class CategoryCubit extends Cubit<CategoryState> {
     } on Exception {
       emit(CategoryError());
     }
+  }
+
+  void addCategory({
+    required String name,
+    required int color,
+    required int icon,
+  }) {
+    _categoryRepository.addCategory();
+    loadCategories();
+  }
+
+  void removeCategory(int index) {
+    _categoryRepository.deleteCategory(index);
+    loadCategories();
   }
 }
