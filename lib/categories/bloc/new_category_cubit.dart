@@ -17,7 +17,11 @@ class NewCategoryCubit extends Cubit<NewCategoryState> {
 
   void setName(String name) {
     _categoryRepository.name = name;
-    emit(NewCategoryColor(name));
+    emit(NewCategoryColor(name, _categoryRepository.color));
+  }
+
+  void changeColor(int color) {
+    emit(NewCategoryColor(_categoryRepository.name, color));
   }
 
   void setColor(int color) {

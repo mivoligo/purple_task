@@ -19,12 +19,13 @@ class NewCategoryName extends NewCategoryState {
 }
 
 class NewCategoryColor extends NewCategoryState {
-  NewCategoryColor(this.name);
+  NewCategoryColor(this.name, this.color);
 
   final String name;
+  final int color;
 
   @override
-  List<Object> get props => [name];
+  List<Object> get props => [name, color];
 }
 
 class NewCategoryIcon extends NewCategoryState {}

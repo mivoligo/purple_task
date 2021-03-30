@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/new_category_cubit.dart';
 import '../data/category_repository.dart';
+import 'new_category_color.dart';
 import 'new_category_name.dart';
 
 class NewCategoryCreator extends StatelessWidget {
@@ -40,7 +41,16 @@ class NewCategoryCreatorView extends StatelessWidget {
           // return Container();
         }
         if (state is NewCategoryColor) {
-          return Container();
+          return CategoryColor(
+            color: state.color,
+            selectedColor: state.color,
+            onNext: () =>
+                context.read<NewCategoryCubit>().setColor(state.color),
+            onCancel: () {
+              context.read<NewCategoryCubit>().cancelNewCategoryCreator();
+              Navigator.of(context).pop();
+            },
+          );
         }
         if (state is NewCategoryIcon) {
           return Container();
