@@ -31,6 +31,8 @@ class NewCategoryCreatorView extends StatelessWidget {
           return CategoryName(
             textEditingController: nameController,
             color: state.color,
+            onSubmitted: () =>
+                context.read<NewCategoryCubit>().setName(nameController.text),
             onNext: () =>
                 context.read<NewCategoryCubit>().setName(nameController.text),
             onCancel: () {

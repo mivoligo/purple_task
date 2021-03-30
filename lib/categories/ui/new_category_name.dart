@@ -8,15 +8,14 @@ class CategoryName extends StatelessWidget {
   CategoryName({
     Key? key,
     required this.color,
-    this.onSubmitted,
+    required this.onSubmitted,
     required this.onNext,
     required this.onCancel,
     required this.textEditingController,
   }) : super(key: key);
 
-  // final Function onTextChanged;
   final int color;
-  final Function? onSubmitted;
+  final Function onSubmitted;
   final VoidCallback onNext;
   final VoidCallback onCancel;
   final TextEditingController textEditingController;
@@ -46,29 +45,23 @@ class CategoryName extends StatelessWidget {
                       ),
                       Padding(
                         padding:
-                            const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 0.0),
+                            const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 4.0),
                         child: CupertinoTextField(
                           autofocus: true,
                           controller: textEditingController,
                           textInputAction: TextInputAction.done,
                           padding: EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 4.0),
-                          onSubmitted: onSubmitted as void Function(String)?,
+                            horizontal: 16.0,
+                            vertical: 4.0,
+                          ),
+                          onSubmitted: (_) =>
+                              textEditingController.text.isNotEmpty
+                                  ? onSubmitted()
+                                  : null,
                           style: Theme.of(context).textTheme.headline4,
-                          decoration: BoxDecoration(
-                              color: Colors.grey.shade50,
-                              borderRadius: BorderRadius.circular(20.0),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey.shade300,
-                                    offset: Offset(0.0, -2.0)),
-                                BoxShadow(
-                                    color: Colors.white,
-                                    offset: Offset(0.0, 1.0)),
-                              ]),
+                          decoration: CustomStyles().inputDecoration,
                         ),
                       ),
-                      const SizedBox(height: 4.0),
                       Text(
                         categoryName,
                         style: Theme.of(context).textTheme.bodyText2,
@@ -89,7 +82,9 @@ class CategoryName extends StatelessWidget {
                             child: SimpleButton(
                               text: next,
                               color: Colors.green,
-                              onPressed: onNext,
+                              onPressed: textEditingController.text.isNotEmpty
+                                  ? onNext
+                                  : null,
                             ),
                           ),
                         ],
