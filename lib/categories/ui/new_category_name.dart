@@ -41,7 +41,10 @@ class CategoryName extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(newCategory),
+                        child: Text(
+                          newCategory,
+                          style: CustomStyles().textStyleTitle,
+                        ),
                       ),
                       Padding(
                         padding:

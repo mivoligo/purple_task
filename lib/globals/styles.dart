@@ -9,4 +9,10 @@ class CustomStyles {
       BoxShadow(color: Colors.white, offset: Offset(0.0, 1.0)),
     ],
   );
+
+  final textStyleTitle = TextStyle(
+    color: Color(0xFF616161),
+    fontSize: 18.0,
+    fontWeight: FontWeight.w400,
+  );
 }
