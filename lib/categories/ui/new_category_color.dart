@@ -53,14 +53,18 @@ class CategoryColor extends StatelessWidget {
                     style: CustomStyles().textStyleBigName,
                   ),
                 ),
-                Spacer(),
-                const SizedBox(height: 8.0),
                 Expanded(
                   child: ColorSelector(
                     selectedColor: selectedColor,
                   ),
                 ),
-                const SizedBox(height: 4.0),
+                Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Text(
+                    'Color', // TODO use const string
+                    textAlign: TextAlign.center,
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Row(

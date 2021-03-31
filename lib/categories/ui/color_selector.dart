@@ -1,6 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../globals/globals.dart';
 import '../bloc/new_category_cubit.dart';
@@ -17,74 +18,54 @@ class ColorSelector extends StatefulWidget {
   _ColorSelectorState createState() => _ColorSelectorState();
 }
 
-class _ColorSelectorState extends State<ColorSelector>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<EdgeInsets> _padding;
-
-  @override
-  void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 300),
-    );
-    _padding = EdgeInsetsTween(
-      begin: EdgeInsets.symmetric(horizontal: 100.0),
-      end: EdgeInsets.symmetric(horizontal: 4.0),
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.ease,
-      ),
-    );
-    _animationController.forward();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
+class _ColorSelectorState extends State<ColorSelector> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: categoryColors.length,
-      itemBuilder: (context, index) {
-        return AnimatedBuilder(
-          animation: _animationController,
-          builder: (context, child) {
-            return Padding(
-              padding: _padding.value,
-              child: child,
-            );
-          },
-          child: Material(
-            child: InkWell(
-              onFocusChange: (v) {
-                BlocProvider.of<NewCategoryCubit>(context)
-                    .changeColor(categoryColors[index]);
-              },
-              onTap: () {
-                BlocProvider.of<NewCategoryCubit>(context)
-                    .changeColor(categoryColors[index]);
-              },
-              child: Container(
-                width: 64,
-                color: Color(categoryColors[index]),
-                child: (widget.selectedColor == categoryColors[index])
-                    ? Icon(
-                        AntIcons.check_outline,
-                        color: Colors.white,
-                      )
-                    : null,
+    return AnimationLimiter(
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+        ),
+        scrollDirection: Axis.horizontal,
+        itemCount: categoryColors.length,
+        itemBuilder: (context, index) {
+          return AnimationConfiguration.staggeredGrid(
+            position: index,
+            columnCount: 3,
+            duration: const Duration(milliseconds: 300),
+            child: ScaleAnimation(
+              child: FadeInAnimation(
+                child: Padding(
+                  padding: (widget.selectedColor == categoryColors[index])
+                      ? const EdgeInsets.all(4.0)
+                      : const EdgeInsets.all(8.0),
+                  child: Card(
+                    color: Color(categoryColors[index]),
+                    elevation:
+                        (widget.selectedColor == categoryColors[index]) ? 4 : 2,
+                    child: InkWell(
+                      onFocusChange: (v) {
+                        BlocProvider.of<NewCategoryCubit>(context)
+                            .changeColor(categoryColors[index]);
+                      },
+                      onTap: () {
+                        BlocProvider.of<NewCategoryCubit>(context)
+                            .changeColor(categoryColors[index]);
+                      },
+                      child: (widget.selectedColor == categoryColors[index])
+                          ? Icon(
+                              AntIcons.check_outline,
+                              color: Colors.white,
+                            )
+                          : null,
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

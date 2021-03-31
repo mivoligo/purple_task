@@ -25,6 +25,7 @@ dependencies:
   equatable: ^2.0.0
   bloc: ^7.0.0
   flutter_bloc: ^7.0.0
+  flutter_staggered_animations: ^1.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
