@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:purple_task/categories/ui/new_category_icon.dart';
 
 import '../bloc/new_category_cubit.dart';
 import '../data/category_repository.dart';
@@ -56,7 +57,16 @@ class NewCategoryCreatorView extends StatelessWidget {
           );
         }
         if (state is NewCategoryIcon) {
-          return Container();
+          return CategoryIcon(
+            name: state.name,
+            color: state.color,
+            onNext: () => context.read<NewCategoryCubit>().setIcon(state.icon),
+            onCancel: () {
+              context.read<NewCategoryCubit>().cancelNewCategoryCreator();
+              Navigator.of(context).pop();
+            },
+            selectedIcon: state.icon,
+          );
         }
         if (state is NewCategoryTasks) {
           return Container();

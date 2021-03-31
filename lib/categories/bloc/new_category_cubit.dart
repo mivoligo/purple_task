@@ -20,13 +20,22 @@ class NewCategoryCubit extends Cubit<NewCategoryState> {
     emit(NewCategoryColor(name, _categoryRepository.color));
   }
 
-  void changeColor(int color) {
+  void changeTempColor(int color) {
     emit(NewCategoryColor(_categoryRepository.name, color));
   }
 
   void setColor(int color) {
     _categoryRepository.color = color;
-    emit(NewCategoryIcon());
+    emit(NewCategoryIcon(
+      _categoryRepository.name,
+      _categoryRepository.color,
+      _categoryRepository.icon,
+    ));
+  }
+
+  void changeTempIcon(int icon) {
+    emit(NewCategoryIcon(
+        _categoryRepository.name, _categoryRepository.color, icon));
   }
 
   void setIcon(int icon) {

@@ -1,4 +1,3 @@
-import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -6,19 +5,19 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../globals/globals.dart';
 import '../bloc/new_category_cubit.dart';
 
-class ColorSelector extends StatefulWidget {
-  const ColorSelector({
+class IconSelector extends StatefulWidget {
+  const IconSelector({
     Key? key,
-    required this.selectedColor,
+    required this.selectedIcon,
   }) : super(key: key);
 
-  final int selectedColor;
+  final int selectedIcon;
 
   @override
-  _ColorSelectorState createState() => _ColorSelectorState();
+  _IconSelectorState createState() => _IconSelectorState();
 }
 
-class _ColorSelectorState extends State<ColorSelector> {
+class _IconSelectorState extends State<IconSelector> {
   @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
@@ -27,7 +26,7 @@ class _ColorSelectorState extends State<ColorSelector> {
           crossAxisCount: 3,
         ),
         scrollDirection: Axis.horizontal,
-        itemCount: categoryColors.length,
+        itemCount: categoryIcons.length,
         itemBuilder: (context, index) {
           return AnimationConfiguration.staggeredGrid(
             position: index,
@@ -36,28 +35,33 @@ class _ColorSelectorState extends State<ColorSelector> {
             child: ScaleAnimation(
               child: FadeInAnimation(
                 child: Padding(
-                  padding: (widget.selectedColor == categoryColors[index])
+                  padding: (widget.selectedIcon == categoryIcons[index])
                       ? const EdgeInsets.all(4.0)
                       : const EdgeInsets.all(8.0),
                   child: Card(
-                    color: Color(categoryColors[index]),
+                    color: Colors.grey.shade300,
                     elevation:
-                        (widget.selectedColor == categoryColors[index]) ? 4 : 2,
+                        (widget.selectedIcon == categoryIcons[index]) ? 4 : 2,
                     child: InkWell(
                       onFocusChange: (v) {
                         BlocProvider.of<NewCategoryCubit>(context)
-                            .changeTempColor(categoryColors[index]);
+                            .changeTempIcon(categoryIcons[index]);
                       },
                       onTap: () {
                         BlocProvider.of<NewCategoryCubit>(context)
-                            .changeTempColor(categoryColors[index]);
+                            .changeTempIcon(categoryIcons[index]);
                       },
-                      child: (widget.selectedColor == categoryColors[index])
-                          ? Icon(
-                              AntIcons.check_outline,
-                              color: Colors.white,
-                            )
-                          : null,
+                      child: Icon(
+                        IconData(
+                          categoryIcons[index],
+                          fontFamily: 'AntIcons',
+                          fontPackage: 'ant_icons',
+                        ),
+                        color: Colors.grey.shade800,
+                        size: (widget.selectedIcon == categoryIcons[index])
+                            ? 30
+                            : 24,
+                      ),
                     ),
                   ),
                 ),
