@@ -85,9 +85,10 @@ class CategoryName extends StatelessWidget {
                             child: SimpleButton(
                               text: next,
                               color: Colors.green,
-                              onPressed: textEditingController.text.isNotEmpty
-                                  ? onNext
-                                  : null,
+                              onPressed: () =>
+                                  textEditingController.text.isNotEmpty
+                                      ? onNext()
+                                      : null, // TODO Add info about empty input
                             ),
                           ),
                         ],
