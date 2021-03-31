@@ -15,4 +15,10 @@ class CustomStyles {
     fontSize: 18.0,
     fontWeight: FontWeight.w400,
   );
+
+  final textStyleBigName = TextStyle(
+    color: Colors.black,
+    fontSize: 24.0,
+    fontWeight: FontWeight.w400,
+  );
 }

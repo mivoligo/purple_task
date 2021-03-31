@@ -8,12 +8,14 @@ import 'color_selector.dart';
 class CategoryColor extends StatelessWidget {
   CategoryColor({
     Key? key,
+    required this.name,
     required this.color,
     required this.onNext,
     required this.onCancel,
     required this.selectedColor,
   }) : super(key: key);
 
+  final String name;
   final int color;
   final VoidCallback onNext;
   final VoidCallback onCancel;
@@ -34,38 +36,44 @@ class CategoryColor extends StatelessWidget {
             ),
             elevation: 6,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    newCategory,
+                    textAlign: TextAlign.center,
+                    style: CustomStyles().textStyleTitle,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(48.0, 20.0, 32.0, 4.0),
+                  child: Text(
+                    name,
+                    style: CustomStyles().textStyleBigName,
+                  ),
+                ),
+                Spacer(),
+                const SizedBox(height: 8.0),
                 Expanded(
-                  child: Column(
+                  child: ColorSelector(
+                    selectedColor: selectedColor,
+                  ),
+                ),
+                const SizedBox(height: 4.0),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SizedBox(height: 4.0),
-                      Text(
-                        'color', // TODO use global
-                        style: Theme.of(context).textTheme.bodyText2,
+                      SimpleButton(
+                        text: cancel,
+                        onPressed: onCancel,
                       ),
-                      Spacer(),
-                      const SizedBox(height: 8.0),
-                      Expanded(
-                        child: ColorSelector(
-                          selectedColor: selectedColor,
-                        ),
-                      ),
-                      const SizedBox(height: 4.0),
-                      Row(
-                        children: [
-                          const SizedBox(width: 16.0),
-                          SimpleButton(
-                            text: cancel,
-                            onPressed: onCancel,
-                          ),
-                          Spacer(),
-                          SimpleButton(
-                            text: next,
-                            color: Colors.green,
-                            onPressed: onNext,
-                          ),
-                          const SizedBox(width: 16.0),
-                        ],
+                      SimpleButton(
+                        text: next,
+                        color: Colors.green,
+                        onPressed: onNext,
                       ),
                     ],
                   ),

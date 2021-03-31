@@ -36,62 +36,50 @@ class CategoryName extends StatelessWidget {
             elevation: 6,
             child: Column(
               children: [
-                Expanded(
-                  child: Column(
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    newCategory,
+                    style: CustomStyles().textStyleTitle,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 4.0),
+                  child: CupertinoTextField(
+                    autofocus: true,
+                    controller: textEditingController,
+                    textInputAction: TextInputAction.done,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 4.0,
+                    ),
+                    onSubmitted: (_) => textEditingController.text.isNotEmpty
+                        ? onSubmitted()
+                        : null,
+                    style: CustomStyles().textStyleBigName,
+                    decoration: CustomStyles().inputDecoration,
+                  ),
+                ),
+                Text(
+                  categoryName,
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(
-                          newCategory,
-                          style: CustomStyles().textStyleTitle,
-                        ),
+                      SimpleButton(
+                        text: cancel,
+                        onPressed: onCancel,
                       ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 4.0),
-                        child: CupertinoTextField(
-                          autofocus: true,
-                          controller: textEditingController,
-                          textInputAction: TextInputAction.done,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 16.0,
-                            vertical: 4.0,
-                          ),
-                          onSubmitted: (_) =>
-                              textEditingController.text.isNotEmpty
-                                  ? onSubmitted()
-                                  : null,
-                          style: Theme.of(context).textTheme.headline4,
-                          decoration: CustomStyles().inputDecoration,
-                        ),
-                      ),
-                      Text(
-                        categoryName,
-                        style: Theme.of(context).textTheme.bodyText2,
-                      ),
-                      Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SimpleButton(
-                              text: cancel,
-                              onPressed: onCancel,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SimpleButton(
-                              text: next,
-                              color: Colors.green,
-                              onPressed: () =>
-                                  textEditingController.text.isNotEmpty
-                                      ? onNext()
-                                      : null, // TODO Add info about empty input
-                            ),
-                          ),
-                        ],
+                      SimpleButton(
+                        text: next,
+                        color: Colors.green,
+                        onPressed: () => textEditingController.text.isNotEmpty
+                            ? onNext()
+                            : null, // TODO Add info about empty input
                       ),
                     ],
                   ),

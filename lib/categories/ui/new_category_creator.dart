@@ -44,6 +44,7 @@ class NewCategoryCreatorView extends StatelessWidget {
         }
         if (state is NewCategoryColor) {
           return CategoryColor(
+            name: state.name,
             color: state.color,
             selectedColor: state.color,
             onNext: () =>
