@@ -27,6 +27,7 @@ class CategoryTasks extends StatelessWidget {
       color: color,
       onNext: onNext,
       onCancel: onCancel,
+      okButtonText: finish,
       customWidget: Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
