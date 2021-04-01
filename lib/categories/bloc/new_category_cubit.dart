@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
 import '../data/category_repository.dart';
 
 part 'new_category_state.dart';
@@ -48,4 +49,8 @@ class NewCategoryCubit extends Cubit<NewCategoryState> {
   }
 
   void cancelNewCategoryCreator() {}
+
+  void addNewCategory() {
+    _categoryRepository.addCategory();
+  }
 }

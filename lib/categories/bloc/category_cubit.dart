@@ -11,23 +11,14 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   final CategoryRepository _categoryRepository;
 
-  Future<void> loadCategories() async {
+  void loadCategories() {
     emit(CategoryLoading());
     try {
-      final categories = await _categoryRepository.getCategories();
+      final categories = _categoryRepository.getCategories();
       emit(CategoryLoaded(categories));
     } on Exception {
       emit(CategoryError());
     }
-  }
-
-  void addCategory({
-    required String name,
-    required int color,
-    required int icon,
-  }) {
-    _categoryRepository.addCategory();
-    loadCategories();
   }
 
   void removeCategory(int index) {

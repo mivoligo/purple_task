@@ -15,7 +15,7 @@ class CategoryRepository {
   late int color;
   int icon = AntIcons.folder.codePoint;
 
-  void addCategory() {
+  Future<void> addCategory() async {
     final id = DateTime.now().millisecondsSinceEpoch;
     final category = Category(
       name: name,
@@ -23,7 +23,7 @@ class CategoryRepository {
       icon: icon,
       id: id,
     );
-    box.add(category);
+    await box.add(category);
   }
 
   void updateCategory(int index, Category category) {

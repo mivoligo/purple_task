@@ -55,10 +55,11 @@ class CategoryList extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
+        onPressed: () async {
+          await Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => NewCategoryCreator(),
           ));
+          context.read<CategoryCubit>().loadCategories();
         },
       ),
     );

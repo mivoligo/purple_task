@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../bloc/new_category_cubit.dart';
 import '../data/category_repository.dart';
 import 'new_category_color.dart';
@@ -12,9 +11,8 @@ class NewCategoryCreator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NewCategoryCubit(
-        CategoryRepository(),
-      )..startNewCategoryCreator(),
+      create: (context) =>
+          NewCategoryCubit(CategoryRepository())..startNewCategoryCreator(),
       child: NewCategoryCreatorView(),
     );
   }
@@ -70,7 +68,10 @@ class NewCategoryCreatorView extends StatelessWidget {
           return CategoryTasks(
             name: state.name,
             color: state.color,
-            onNext: () {},
+            onNext: () {
+              newCategoryCubit.addNewCategory();
+              Navigator.of(context).pop();
+            },
             onCancel: () {
               newCategoryCubit.cancelNewCategoryCreator();
               Navigator.of(context).pop();
