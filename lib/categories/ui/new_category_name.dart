@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../globals/globals.dart';
-import '../../ui/ui.dart';
+import 'new_category_base.dart';
 
 class CategoryName extends StatelessWidget {
   CategoryName({
@@ -22,89 +22,39 @@ class CategoryName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xFF303030),
-                    Color(color),
-                    Color(color),
-                  ]),
-            ),
-          ),
-          Center(
-            child: SizedBox(
-              width: 600,
-              height: 500,
-              child: Card(
-                margin: const EdgeInsets.all(32),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+    return NewCategoryBase(
+      color: color,
+      onSubmitted: onSubmitted,
+      onNext: () => textEditingController.text.isNotEmpty ? onNext() : null,
+      onCancel: onCancel,
+      textEditingController: textEditingController,
+      customWidget: Expanded(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 4.0),
+              child: CupertinoTextField(
+                autofocus: true,
+                controller: textEditingController,
+                textInputAction: TextInputAction.done,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 4.0,
                 ),
-                elevation: 6,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text(
-                        newCategory,
-                        style: CustomStyles().textStyleTitle,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 4.0),
-                      child: CupertinoTextField(
-                        autofocus: true,
-                        controller: textEditingController,
-                        textInputAction: TextInputAction.done,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                          vertical: 4.0,
-                        ),
-                        onSubmitted: (_) =>
-                            textEditingController.text.isNotEmpty
-                                ? onSubmitted()
-                                : null,
-                        style: CustomStyles().textStyleBigName,
-                        decoration: CustomStyles().inputDecoration,
-                      ),
-                    ),
-                    Text(
-                      categoryName,
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SimpleButton(
-                            text: cancel,
-                            onPressed: onCancel,
-                          ),
-                          SimpleButton(
-                            text: next,
-                            color: Colors.green,
-                            onPressed: () =>
-                                textEditingController.text.isNotEmpty
-                                    ? onNext()
-                                    : null, // TODO Add info about empty input
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                onSubmitted: (_) => textEditingController.text.isNotEmpty
+                    ? onSubmitted()
+                    : null,
+                style: CustomStyles().textStyleBigName,
+                decoration: CustomStyles().inputDecoration,
               ),
             ),
-          ),
-        ],
+            Text(
+              categoryName,
+              style: Theme.of(context).textTheme.bodyText2,
+            ),
+            Spacer(),
+          ],
+        ),
       ),
     );
   }
