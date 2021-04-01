@@ -40,7 +40,11 @@ class NewCategoryCubit extends Cubit<NewCategoryState> {
 
   void setIcon(int icon) {
     _categoryRepository.icon = icon;
-    emit(NewCategoryTasks());
+    emit(NewCategoryTasks(
+      _categoryRepository.name,
+      _categoryRepository.color,
+      _categoryRepository.icon,
+    ));
   }
 
   void cancelNewCategoryCreator() {}

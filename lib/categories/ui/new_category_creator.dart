@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:purple_task/categories/ui/new_category_icon.dart';
 
 import '../bloc/new_category_cubit.dart';
 import '../data/category_repository.dart';
 import 'new_category_color.dart';
+import 'new_category_icon.dart';
 import 'new_category_name.dart';
+import 'new_category_tasks.dart';
 
 class NewCategoryCreator extends StatelessWidget {
   @override
@@ -41,7 +42,6 @@ class NewCategoryCreatorView extends StatelessWidget {
               Navigator.of(context).pop();
             },
           );
-          // return Container();
         }
         if (state is NewCategoryColor) {
           return CategoryColor(
@@ -69,7 +69,16 @@ class NewCategoryCreatorView extends StatelessWidget {
           );
         }
         if (state is NewCategoryTasks) {
-          return Container();
+          return CategoryTasks(
+            name: state.name,
+            color: state.color,
+            onNext: () {},
+            onCancel: () {
+              context.read<NewCategoryCubit>().cancelNewCategoryCreator();
+              Navigator.of(context).pop();
+            },
+            selectedIcon: state.icon,
+          );
         }
         return const SizedBox();
       },

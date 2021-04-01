@@ -39,4 +39,13 @@ class NewCategoryIcon extends NewCategoryState {
   List<Object> get props => [name, color, icon];
 }
 
-class NewCategoryTasks extends NewCategoryState {}
+class NewCategoryTasks extends NewCategoryState {
+  NewCategoryTasks(this.name, this.color, this.icon);
+
+  final String name;
+  final int color;
+  final int icon;
+
+  @override
+  List<Object> get props => [name, color, icon];
+}
