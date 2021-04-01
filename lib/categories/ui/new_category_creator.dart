@@ -26,6 +26,7 @@ class NewCategoryCreatorView extends StatelessWidget {
     return BlocBuilder<NewCategoryCubit, NewCategoryState>(
       builder: (context, state) {
         final nameController = TextEditingController();
+        final newCategoryCubit = context.read<NewCategoryCubit>();
         if (state is NewCategoryInitial) {
           return CircularProgressIndicator();
         }
@@ -33,12 +34,10 @@ class NewCategoryCreatorView extends StatelessWidget {
           return CategoryName(
             textEditingController: nameController,
             color: state.color,
-            onSubmitted: () =>
-                context.read<NewCategoryCubit>().setName(nameController.text),
-            onNext: () =>
-                context.read<NewCategoryCubit>().setName(nameController.text),
+            onSubmitted: () => newCategoryCubit.setName(nameController.text),
+            onNext: () => newCategoryCubit.setName(nameController.text),
             onCancel: () {
-              context.read<NewCategoryCubit>().cancelNewCategoryCreator();
+              newCategoryCubit.cancelNewCategoryCreator();
               Navigator.of(context).pop();
             },
           );
@@ -48,10 +47,9 @@ class NewCategoryCreatorView extends StatelessWidget {
             name: state.name,
             color: state.color,
             selectedColor: state.color,
-            onNext: () =>
-                context.read<NewCategoryCubit>().setColor(state.color),
+            onNext: () => newCategoryCubit.setColor(state.color),
             onCancel: () {
-              context.read<NewCategoryCubit>().cancelNewCategoryCreator();
+              newCategoryCubit.cancelNewCategoryCreator();
               Navigator.of(context).pop();
             },
           );
@@ -60,9 +58,9 @@ class NewCategoryCreatorView extends StatelessWidget {
           return CategoryIcon(
             name: state.name,
             color: state.color,
-            onNext: () => context.read<NewCategoryCubit>().setIcon(state.icon),
+            onNext: () => newCategoryCubit.setIcon(state.icon),
             onCancel: () {
-              context.read<NewCategoryCubit>().cancelNewCategoryCreator();
+              newCategoryCubit.cancelNewCategoryCreator();
               Navigator.of(context).pop();
             },
             selectedIcon: state.icon,
@@ -74,7 +72,7 @@ class NewCategoryCreatorView extends StatelessWidget {
             color: state.color,
             onNext: () {},
             onCancel: () {
-              context.read<NewCategoryCubit>().cancelNewCategoryCreator();
+              newCategoryCubit.cancelNewCategoryCreator();
               Navigator.of(context).pop();
             },
             selectedIcon: state.icon,
