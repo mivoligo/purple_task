@@ -88,6 +88,7 @@ class CategoryColor extends StatelessWidget {
                             onPressed: onCancel,
                           ),
                           SimpleButton(
+                            autofocus: true,
                             text: next,
                             color: Colors.green,
                             onPressed: onNext,

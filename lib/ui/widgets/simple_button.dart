@@ -7,16 +7,19 @@ class SimpleButton extends StatelessWidget {
     this.color = Colors.grey,
     required this.onPressed,
     this.focusNode,
+    this.autofocus = false,
   }) : super(key: key);
 
   final String text;
   final Color color;
   final VoidCallback? onPressed;
   final FocusNode? focusNode;
+  final bool autofocus;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
+      autofocus: autofocus,
       focusNode: focusNode,
       onPressed: onPressed,
       style: TextButton.styleFrom(
