@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:purple_task/categories/ui/category_element.dart';
 
 import '../bloc/category_cubit.dart';
 import '../data/category_repository.dart';
@@ -36,15 +37,18 @@ class CategoryList extends StatelessWidget {
                 itemCount: categories.length,
                 itemBuilder: (context, index) {
                   final category = categories[index];
-                  return ListTile(
-                    title: Text(
-                      '${category.name}',
-                    ),
-                    trailing: IconButton(
-                      icon: Icon(Icons.remove),
-                      onPressed: () =>
-                          context.read<CategoryCubit>().removeCategory(index),
-                    ),
+                  // return ListTile(
+                  //   title: Text(
+                  //     '${category.name}',
+                  //   ),
+                  //   trailing: IconButton(
+                  //     icon: Icon(Icons.remove),
+                  //     onPressed: () =>
+                  //         context.read<CategoryCubit>().removeCategory(index),
+                  //   ),
+                  // );
+                  return CategoryElement(
+                    category: category,
                   );
                 },
               );
