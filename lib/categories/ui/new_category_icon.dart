@@ -62,6 +62,13 @@ class CategoryIcon extends StatelessWidget {
                 selectedIcon: selectedIcon,
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Text(
+                'Icon', // TODO use const string
+                textAlign: TextAlign.center,
+              ),
+            ),
           ],
         ),
       ),

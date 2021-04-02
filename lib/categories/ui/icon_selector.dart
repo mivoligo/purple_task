@@ -21,46 +21,46 @@ class _IconSelectorState extends State<IconSelector> {
   @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-        ),
+      child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categoryIcons.length,
         itemBuilder: (context, index) {
-          return AnimationConfiguration.staggeredGrid(
+          return AnimationConfiguration.staggeredList(
             position: index,
-            columnCount: 3,
             duration: const Duration(milliseconds: 300),
-            child: ScaleAnimation(
+            child: SlideAnimation(
+              horizontalOffset: 100,
               child: FadeInAnimation(
                 child: Padding(
                   padding: (widget.selectedIcon == categoryIcons[index])
-                      ? const EdgeInsets.all(4.0)
-                      : const EdgeInsets.all(8.0),
-                  child: Card(
-                    color: Colors.grey.shade300,
-                    elevation:
-                        (widget.selectedIcon == categoryIcons[index]) ? 4 : 2,
-                    child: InkWell(
-                      onFocusChange: (v) {
-                        BlocProvider.of<NewCategoryCubit>(context)
-                            .changeTempIcon(categoryIcons[index]);
-                      },
-                      onTap: () {
-                        BlocProvider.of<NewCategoryCubit>(context)
-                            .changeTempIcon(categoryIcons[index]);
-                      },
-                      child: Icon(
-                        IconData(
-                          categoryIcons[index],
-                          fontFamily: 'AntIcons',
-                          fontPackage: 'ant_icons',
+                      ? const EdgeInsets.symmetric(vertical: 10, horizontal: 4)
+                      : const EdgeInsets.symmetric(vertical: 20, horizontal: 4),
+                  child: SizedBox(
+                    width: 70,
+                    child: Card(
+                      color: Colors.grey.shade300,
+                      elevation:
+                          (widget.selectedIcon == categoryIcons[index]) ? 6 : 1,
+                      child: InkWell(
+                        onFocusChange: (v) {
+                          BlocProvider.of<NewCategoryCubit>(context)
+                              .changeTempIcon(categoryIcons[index]);
+                        },
+                        onTap: () {
+                          BlocProvider.of<NewCategoryCubit>(context)
+                              .changeTempIcon(categoryIcons[index]);
+                        },
+                        child: Icon(
+                          IconData(
+                            categoryIcons[index],
+                            fontFamily: 'AntIcons',
+                            fontPackage: 'ant_icons',
+                          ),
+                          color: Colors.grey.shade800,
+                          size: (widget.selectedIcon == categoryIcons[index])
+                              ? 30
+                              : 24,
                         ),
-                        color: Colors.grey.shade800,
-                        size: (widget.selectedIcon == categoryIcons[index])
-                            ? 30
-                            : 24,
                       ),
                     ),
                   ),
