@@ -14,6 +14,7 @@ class NewCategoryBase extends StatelessWidget {
     required this.onCancel,
     this.textEditingController,
     this.okButtonText = next,
+    required this.focusNode,
   }) : super(key: key);
 
   final Widget customWidget;
@@ -23,6 +24,7 @@ class NewCategoryBase extends StatelessWidget {
   final VoidCallback onCancel;
   final TextEditingController? textEditingController;
   final String okButtonText;
+  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +76,7 @@ class NewCategoryBase extends StatelessWidget {
                             text: okButtonText,
                             color: Colors.green,
                             onPressed: onNext,
+                            focusNode: focusNode,
                           ),
                         ],
                       ),

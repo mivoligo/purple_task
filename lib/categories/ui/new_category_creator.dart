@@ -19,6 +19,8 @@ class NewCategoryCreator extends StatelessWidget {
 }
 
 class NewCategoryCreatorView extends StatelessWidget {
+  final focusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NewCategoryCubit, NewCategoryState>(
@@ -30,9 +32,15 @@ class NewCategoryCreatorView extends StatelessWidget {
         }
         if (state is NewCategoryName) {
           return CategoryName(
+            focusNode: focusNode,
             textEditingController: nameController,
             color: state.color,
-            onSubmitted: () => newCategoryCubit.setName(nameController.text),
+            onSubmitted: () {
+              focusNode.unfocus();
+              print('unfocused');
+              FocusScope.of(context).requestFocus(focusNode);
+              newCategoryCubit.setName(nameController.text);
+            },
             onNext: () => newCategoryCubit.setName(nameController.text),
             onCancel: () {
               newCategoryCubit.cancelNewCategoryCreator();
@@ -42,6 +50,7 @@ class NewCategoryCreatorView extends StatelessWidget {
         }
         if (state is NewCategoryColor) {
           return CategoryColor(
+            focusNode: focusNode,
             name: state.name,
             color: state.color,
             selectedColor: state.color,
@@ -54,6 +63,7 @@ class NewCategoryCreatorView extends StatelessWidget {
         }
         if (state is NewCategoryIcon) {
           return CategoryIcon(
+            focusNode: focusNode,
             name: state.name,
             color: state.color,
             onNext: () => newCategoryCubit.setIcon(state.icon),
@@ -66,6 +76,7 @@ class NewCategoryCreatorView extends StatelessWidget {
         }
         if (state is NewCategoryTasks) {
           return CategoryTasks(
+            focusNode: focusNode,
             name: state.name,
             color: state.color,
             onNext: () {

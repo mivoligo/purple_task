@@ -13,6 +13,7 @@ class CategoryColor extends StatelessWidget {
     required this.onNext,
     required this.onCancel,
     required this.selectedColor,
+    required this.focusNode,
   }) : super(key: key);
 
   final String name;
@@ -20,10 +21,12 @@ class CategoryColor extends StatelessWidget {
   final VoidCallback onNext;
   final VoidCallback onCancel;
   final int selectedColor;
+  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
     return NewCategoryBase(
+      focusNode: focusNode,
       color: color,
       onNext: onNext,
       onCancel: onCancel,

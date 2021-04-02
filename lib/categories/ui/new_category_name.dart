@@ -12,6 +12,7 @@ class CategoryName extends StatelessWidget {
     required this.onNext,
     required this.onCancel,
     required this.textEditingController,
+    required this.focusNode,
   }) : super(key: key);
 
   final int color;
@@ -19,10 +20,12 @@ class CategoryName extends StatelessWidget {
   final VoidCallback onNext;
   final VoidCallback onCancel;
   final TextEditingController textEditingController;
+  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
     return NewCategoryBase(
+      focusNode: focusNode,
       color: color,
       onSubmitted: onSubmitted,
       onNext: () => textEditingController.text.isNotEmpty ? onNext() : null,
