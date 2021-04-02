@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../globals/globals.dart';
-import '../../ui/ui.dart';
+import '../../../globals/globals.dart';
+import '../../../ui/ui.dart';
 import 'new_category_base.dart';
 
 class CategoryTasks extends StatelessWidget {

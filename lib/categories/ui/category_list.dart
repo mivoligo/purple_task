@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/category_cubit.dart';
 import '../data/category_repository.dart';
-import 'new_category_creator.dart';
+import 'new_category/new_category_creator.dart';
 
 class CategoryView extends StatelessWidget {
   @override

@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../globals/globals.dart';
-import 'color_selector.dart';
+import '../../../globals/globals.dart';
+import 'icon_selector.dart';
 import 'new_category_base.dart';
 
-class CategoryColor extends StatelessWidget {
-  CategoryColor({
+class CategoryIcon extends StatelessWidget {
+  CategoryIcon({
     Key? key,
     required this.name,
     required this.color,
     required this.onNext,
     required this.onCancel,
-    required this.selectedColor,
+    required this.selectedIcon,
     required this.focusNode,
   }) : super(key: key);
 
@@ -20,7 +20,7 @@ class CategoryColor extends StatelessWidget {
   final int color;
   final VoidCallback onNext;
   final VoidCallback onCancel;
-  final int selectedColor;
+  final int selectedIcon;
   final FocusNode focusNode;
 
   @override
@@ -35,21 +35,37 @@ class CategoryColor extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(48.0, 20.0, 32.0, 4.0),
-              child: Text(
-                name,
-                style: CustomStyles().textStyleBigName,
+              padding: const EdgeInsets.fromLTRB(8.0, 15.0, 32.0, 4.0),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 2),
+                    child: Icon(
+                      IconData(
+                        selectedIcon,
+                        fontFamily: 'AntIcons',
+                        fontPackage: 'ant_icons',
+                      ),
+                      color: Color(color),
+                      size: 38,
+                    ),
+                  ),
+                  Text(
+                    name,
+                    style: CustomStyles().textStyleBigName,
+                  ),
+                ],
               ),
             ),
             Expanded(
-              child: ColorSelector(
-                selectedColor: selectedColor,
+              child: IconSelector(
+                selectedIcon: selectedIcon,
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(2.0),
               child: Text(
-                'Color', // TODO use const string
+                'Icon', // TODO use const string
                 textAlign: TextAlign.center,
               ),
             ),

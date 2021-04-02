@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/new_category_cubit.dart';
-import '../data/category_repository.dart';
+import '../../bloc/new_category_cubit.dart';
+import '../../data/category_repository.dart';
 import 'new_category_color.dart';
 import 'new_category_icon.dart';
 import 'new_category_name.dart';
