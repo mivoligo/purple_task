@@ -23,21 +23,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth > 1000) {
-          return Row(
-            children: [
-              SizedBox(
-                width: 500,
-                child: CategoryView(),
-              ),
-              Expanded(
-                child: Container(
-                  color: Colors.blueGrey,
-                ),
-              ),
-            ],
-          );
-        } else {
+        if (constraints.maxWidth < 1000) {
           return Column(
             children: [
               Expanded(
@@ -61,6 +47,20 @@ class HomePage extends StatelessWidget {
                     );
                     context.read<CategoryCubit>().loadCategories();
                   },
+                ),
+              ),
+            ],
+          );
+        } else {
+          return Row(
+            children: [
+              SizedBox(
+                width: 500,
+                child: CategoryView(),
+              ),
+              Expanded(
+                child: Container(
+                  color: Colors.blueGrey,
                 ),
               ),
             ],

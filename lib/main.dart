@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'category_observer.dart';
 import 'db_models/db_models.dart';
 import 'globals/globals.dart';
-import 'home_page.dart';
+import 'home_view.dart';
 import 'ui/ui.dart';
 
 void main() async {
