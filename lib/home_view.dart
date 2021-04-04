@@ -21,52 +21,93 @@ class HomeView extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (constraints.maxWidth < 1000) {
-          return Column(
-            children: [
-              Expanded(
-                child: Container(
-                  color: Colors.green,
-                ),
-              ),
-              SizedBox(
-                height: 260,
-                child: CategoryView(),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: AddCategoryButton(
-                  text: addCategory,
-                  onPressed: () async {
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => NewCategoryCreator(),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF303030),
+              Colors.purple,
+              Colors.purple,
+            ]),
+      ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth < 1000) {
+            //
+            // NARROW LAYOUT
+            //
+            return Column(
+              children: [
+                Expanded(
+                  child: Container(
+                      // color: Colors.green,
                       ),
-                    );
-                    context.read<CategoryCubit>().loadCategories();
-                  },
                 ),
-              ),
-            ],
-          );
-        } else {
-          return Row(
-            children: [
-              SizedBox(
-                width: 500,
-                child: CategoryView(),
-              ),
-              Expanded(
-                child: Container(
-                  color: Colors.blueGrey,
+                SizedBox(
+                  height: 260,
+                  child: CategoryView(),
                 ),
-              ),
-            ],
-          );
-        }
-      },
+                NewCategoryButton(),
+              ],
+            );
+          } else {
+            //
+            // WIDE LAYOUT
+            //
+            return Row(
+              children: [
+                SizedBox(
+                  width: 500,
+                  child: Column(
+                    children: [
+                      Expanded(child: CategoryView()),
+                      NewCategoryButton(),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                      // color: Colors.blueGrey,
+                      ),
+                ),
+              ],
+            );
+          }
+        },
+      ),
+    );
+  }
+}
+
+class NewCategoryButton extends StatelessWidget {
+  const NewCategoryButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: 'addCategoryHero',
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: AddCategoryButton(
+          text: addCategory,
+          onPressed: () async {
+            await Navigator.of(context).push(PageRouteBuilder(
+              pageBuilder: (context, anim1, anim2) => NewCategoryCreator(),
+              transitionsBuilder: (context, anim1, anim2, child) {
+                return FadeTransition(
+                  opacity: anim1,
+                  child: child,
+                );
+              },
+            ));
+            context.read<CategoryCubit>().loadCategories();
+          },
+        ),
+      ),
     );
   }
 }

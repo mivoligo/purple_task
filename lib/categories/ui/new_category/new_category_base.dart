@@ -44,44 +44,47 @@ class NewCategoryBase extends StatelessWidget {
             ),
           ),
           Center(
-            child: SizedBox(
-              width: 600,
-              height: 500,
-              child: Card(
-                margin: const EdgeInsets.all(32),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                elevation: 6,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text(
-                        newCategory,
-                        style: CustomStyles().textStyleTitle,
+            child: Hero(
+              tag: 'addCategoryHero',
+              child: SizedBox(
+                width: 600,
+                height: 500,
+                child: Card(
+                  margin: const EdgeInsets.all(32),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 6,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(
+                          newCategory,
+                          style: CustomStyles().textStyleTitle,
+                        ),
                       ),
-                    ),
-                    customWidget,
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SimpleButton(
-                            text: cancel,
-                            onPressed: onCancel,
-                          ),
-                          SimpleButton(
-                            text: okButtonText,
-                            color: Colors.green,
-                            onPressed: onNext,
-                            focusNode: focusNode,
-                          ),
-                        ],
+                      customWidget,
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SimpleButton(
+                              text: cancel,
+                              onPressed: onCancel,
+                            ),
+                            SimpleButton(
+                              text: okButtonText,
+                              color: Colors.green,
+                              onPressed: onNext,
+                              focusNode: focusNode,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
