@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'categories/bloc/category_cubit.dart';
+import 'categories/data/category_repository.dart';
 import 'categories/ui/category_list.dart';
+import 'categories/ui/new_category/new_category_creator.dart';
 import 'globals/globals.dart';
 import 'ui/ui.dart';
+
+class HomeView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => CategoryCubit(CategoryRepository())..loadCategories(),
+      child: HomePage(),
+    );
+  }
+}
 
 class HomePage extends StatelessWidget {
   @override
@@ -37,7 +51,17 @@ class HomePage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: AddCategoryButton(text: addCategory, onPressed: () {}),
+                child: AddCategoryButton(
+                  text: addCategory,
+                  onPressed: () async {
+                    await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => NewCategoryCreator(),
+                      ),
+                    );
+                    context.read<CategoryCubit>().loadCategories();
+                  },
+                ),
               ),
             ],
           );
