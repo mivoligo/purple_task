@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../db_models/db_models.dart';
 import '../../globals/globals.dart';
 import '../../ui/widgets/animated_progress_bar.dart';
+import '../../ui/widgets/category_header.dart';
 
 class CategoryElement extends StatelessWidget {
   const CategoryElement({
@@ -11,12 +12,14 @@ class CategoryElement extends StatelessWidget {
     this.onTap,
     this.onHover,
     this.onFocusChange,
+    this.isInVerticalList = false,
   }) : super(key: key);
 
   final Category category;
   final VoidCallback? onTap;
   final Function? onHover;
   final Function? onFocusChange;
+  final bool isInVerticalList;
 
   @override
   Widget build(BuildContext context) {
@@ -45,51 +48,130 @@ class CategoryElement extends StatelessWidget {
       elevation: 2,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: isInVerticalList
+            ? ShortView(
+                category: category,
+                descriptionText: _descriptionText,
+                completionProgress: _completionProgress)
+            : TallView(
+                category: category,
+                descriptionText: _descriptionText,
+                completionProgress: _completionProgress,
+              ),
+      ),
+    );
+  }
+}
+
+class ShortView extends StatelessWidget {
+  const ShortView({
+    Key? key,
+    required this.category,
+    required String descriptionText,
+    required double completionProgress,
+  })   : _descriptionText = descriptionText,
+        _completionProgress = completionProgress,
+        super(key: key);
+
+  final Category category;
+  final String _descriptionText;
+  final double _completionProgress;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
           children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 2),
-                  child: Icon(
-                    IconData(
-                      category.icon,
-                      fontFamily: 'AntIcons',
-                      fontPackage: 'ant_icons',
-                    ),
-                    size: 38.0,
-                    color: Color(category.color),
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(right: 2),
+              child: Icon(
+                IconData(
+                  category.icon,
+                  fontFamily: 'AntIcons',
+                  fontPackage: 'ant_icons',
                 ),
-                Text(
-                  '${category.name}',
-                  style: CustomStyles().textStyleBigName,
-                )
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 4, top: 12, right: 8),
-              child: Text(_descriptionText),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: AnimatedProgressBar(
-                      value: _completionProgress,
-                      color: Color(category.color),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Text('${(_completionProgress * 100).toInt()}%'),
-                ],
+                size: 38.0,
+                color: Color(category.color),
               ),
             ),
+            Text(
+              '${category.name}',
+              style: CustomStyles().textStyleBigName,
+            )
           ],
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.only(left: 4, top: 12, right: 8),
+          child: Text(_descriptionText),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: AnimatedProgressBar(
+                  value: _completionProgress,
+                  color: Color(category.color),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text('${(_completionProgress * 100).toInt()}%'),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class TallView extends StatelessWidget {
+  const TallView({
+    Key? key,
+    required this.category,
+    required String descriptionText,
+    required double completionProgress,
+  })   : _descriptionText = descriptionText,
+        _completionProgress = completionProgress,
+        super(key: key);
+
+  final Category category;
+  final String _descriptionText;
+  final double _completionProgress;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Row(
+            children: [
+              Icon(
+                IconData(
+                  category.icon,
+                  fontFamily: 'AntIcons',
+                  fontPackage: 'ant_icons',
+                ),
+                size: 42.0,
+                color: Color(category.color),
+              ),
+            ],
+          ),
+        ),
+        Spacer(),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CategoryHeader(
+            title: category.name,
+            description: _descriptionText,
+            progress: _completionProgress,
+            color: Color(category.color),
+          ),
+        ),
+      ],
     );
   }
 }
