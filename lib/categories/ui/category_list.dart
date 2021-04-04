@@ -38,11 +38,15 @@ class CategoryList extends StatelessWidget {
             );
           } else if (appWindowWidth < 1000) {
             return ListView.builder(
+              scrollDirection: Axis.horizontal,
               itemCount: categories.length,
               itemBuilder: (context, index) {
                 final category = categories[index];
-                return CategoryElement(
-                  category: category,
+                return SizedBox(
+                  width: 400,
+                  child: CategoryElement(
+                    category: category,
+                  ),
                 );
               },
             );

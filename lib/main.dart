@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-import 'categories/ui/category_list.dart';
-import 'category_observer.dart';
+import 'package:provider/provider.dart';
 
+import 'category_observer.dart';
 import 'db_models/db_models.dart';
 import 'globals/globals.dart';
+import 'home_page.dart';
 import 'ui/ui.dart';
 
 void main() async {
@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: CategoryView(),
+      home: HomePage(),
     );
   }
 }
