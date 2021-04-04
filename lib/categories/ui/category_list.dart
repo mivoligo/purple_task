@@ -29,7 +29,12 @@ class CategoryList extends StatelessWidget {
           final categories = state.categories;
           final appWindowWidth = MediaQuery.of(context).size.width;
           if (appWindowWidth < 600) {
+            var _pageController = PageController(
+              viewportFraction: (appWindowWidth - 48) / appWindowWidth,
+              initialPage: 0,
+            );
             return PageView.builder(
+              controller: _pageController,
               itemCount: categories.length,
               itemBuilder: (context, index) {
                 final category = categories[index];

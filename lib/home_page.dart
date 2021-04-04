@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'categories/ui/category_list.dart';
+import 'globals/globals.dart';
+import 'ui/ui.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -29,8 +32,12 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 300,
+                height: 260,
                 child: CategoryView(),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: AddCategoryButton(text: addCategory, onPressed: () {}),
               ),
             ],
           );
