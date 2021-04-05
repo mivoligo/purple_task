@@ -6,13 +6,14 @@ import '../data/category_repository.dart';
 part 'new_category_state.dart';
 
 class NewCategoryCubit extends Cubit<NewCategoryState> {
-  NewCategoryCubit(this._categoryRepository) : super(NewCategoryInitial());
+  NewCategoryCubit(this._categoryRepository) : super(NewCategoryEmpty());
 
   final CategoryRepository _categoryRepository;
 
-  void startNewCategoryCreator() {
-    emit(NewCategoryInitial());
+  Future<void> startNewCategoryCreator() async {
     _categoryRepository.setRandomColor();
+    emit(NewCategoryInitial(color: _categoryRepository.color));
+    await Future.delayed(Duration(milliseconds: 200));
     emit(NewCategoryName(color: _categoryRepository.color));
   }
 
@@ -47,8 +48,6 @@ class NewCategoryCubit extends Cubit<NewCategoryState> {
       _categoryRepository.icon,
     ));
   }
-
-  void cancelNewCategoryCreator() {}
 
   void addNewCategory() {
     _categoryRepository.addCategory();

@@ -7,7 +7,16 @@ abstract class NewCategoryState extends Equatable {
   List<Object> get props => [];
 }
 
-class NewCategoryInitial extends NewCategoryState {}
+class NewCategoryEmpty extends NewCategoryState {}
+
+class NewCategoryInitial extends NewCategoryState {
+  NewCategoryInitial({required this.color});
+
+  final int color;
+
+  @override
+  List<Object> get props => [color];
+}
 
 class NewCategoryName extends NewCategoryState {
   NewCategoryName({required this.color});

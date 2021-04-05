@@ -4,6 +4,7 @@ import '../../bloc/new_category_cubit.dart';
 import '../../data/category_repository.dart';
 import 'new_category_color.dart';
 import 'new_category_icon.dart';
+import 'new_category_initial.dart';
 import 'new_category_name.dart';
 import 'new_category_tasks.dart';
 
@@ -28,7 +29,7 @@ class NewCategoryCreatorView extends StatelessWidget {
         final nameController = TextEditingController();
         final newCategoryCubit = context.read<NewCategoryCubit>();
         if (state is NewCategoryInitial) {
-          return CircularProgressIndicator();
+          return CategoryInitial(color: state.color);
         }
         if (state is NewCategoryName) {
           return CategoryName(
@@ -43,7 +44,6 @@ class NewCategoryCreatorView extends StatelessWidget {
             },
             onNext: () => newCategoryCubit.setName(nameController.text),
             onCancel: () {
-              newCategoryCubit.cancelNewCategoryCreator();
               Navigator.of(context).pop();
             },
           );
@@ -56,7 +56,6 @@ class NewCategoryCreatorView extends StatelessWidget {
             selectedColor: state.color,
             onNext: () => newCategoryCubit.setColor(state.color),
             onCancel: () {
-              newCategoryCubit.cancelNewCategoryCreator();
               Navigator.of(context).pop();
             },
           );
@@ -68,7 +67,6 @@ class NewCategoryCreatorView extends StatelessWidget {
             color: state.color,
             onNext: () => newCategoryCubit.setIcon(state.icon),
             onCancel: () {
-              newCategoryCubit.cancelNewCategoryCreator();
               Navigator.of(context).pop();
             },
             selectedIcon: state.icon,
@@ -84,7 +82,6 @@ class NewCategoryCreatorView extends StatelessWidget {
               Navigator.of(context).pop();
             },
             onCancel: () {
-              newCategoryCubit.cancelNewCategoryCreator();
               Navigator.of(context).pop();
             },
             selectedIcon: state.icon,
