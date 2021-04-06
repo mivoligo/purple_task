@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/category_cubit.dart';
+import '../bloc/category_list_cubit.dart';
 import 'category_element.dart';
 
 class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoryCubit, CategoryState>(
+    return BlocBuilder<CategoryCubit, CategoryListState>(
       builder: (context, state) {
-        if (state is CategoryLoading) {
+        if (state is CategoryListLoading) {
           return Center(child: CircularProgressIndicator());
         }
-        if (state is CategoryLoaded) {
+        if (state is CategoryListLoaded) {
           final categories = state.categories;
           final appWindowWidth = MediaQuery.of(context).size.width;
           if (appWindowWidth < 600) {

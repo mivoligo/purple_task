@@ -4,20 +4,20 @@ import 'package:equatable/equatable.dart';
 import '../../db_models/category.dart';
 import '../data/category_repository.dart';
 
-part 'category_state.dart';
+part 'category_list_state.dart';
 
-class CategoryCubit extends Cubit<CategoryState> {
-  CategoryCubit(this._categoryRepository) : super(CategoryInitial());
+class CategoryCubit extends Cubit<CategoryListState> {
+  CategoryCubit(this._categoryRepository) : super(CategoryListInitial());
 
   final CategoryRepository _categoryRepository;
 
   void loadCategories() {
-    emit(CategoryLoading());
+    emit(CategoryListLoading());
     try {
       final categories = _categoryRepository.getCategories();
-      emit(CategoryLoaded(categories));
+      emit(CategoryListLoaded(categories));
     } on Exception {
-      emit(CategoryError());
+      emit(CategoryListError());
     }
   }
 
