@@ -9,14 +9,14 @@ class CategoryElement extends StatelessWidget {
   const CategoryElement({
     Key? key,
     required this.category,
-    this.onTap,
+    required this.onTap,
     this.onHover,
     this.onFocusChange,
     this.isInVerticalList = false,
   }) : super(key: key);
 
   final Category category;
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
   final Function? onHover;
   final Function? onFocusChange;
   final bool isInVerticalList;
@@ -46,18 +46,24 @@ class CategoryElement extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: isInVerticalList
-            ? ShortView(
-                category: category,
-                descriptionText: _descriptionText,
-                completionProgress: _completionProgress)
-            : TallView(
-                category: category,
-                descriptionText: _descriptionText,
-                completionProgress: _completionProgress,
-              ),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        onHover: (_) => onHover,
+        onFocusChange: (_) => onFocusChange,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: isInVerticalList
+              ? ShortView(
+                  category: category,
+                  descriptionText: _descriptionText,
+                  completionProgress: _completionProgress)
+              : TallView(
+                  category: category,
+                  descriptionText: _descriptionText,
+                  completionProgress: _completionProgress,
+                ),
+        ),
       ),
     );
   }

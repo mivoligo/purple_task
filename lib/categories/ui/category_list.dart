@@ -25,7 +25,10 @@ class CategoryView extends StatelessWidget {
               itemCount: categories.length,
               itemBuilder: (context, index) {
                 final category = categories[index];
-                return CategoryElement(category: category);
+                return CategoryElement(
+                  category: category,
+                  onTap: () {},
+                );
               },
             );
           } else if (appWindowWidth < 1000) {
@@ -38,6 +41,7 @@ class CategoryView extends StatelessWidget {
                   width: 400,
                   child: CategoryElement(
                     category: category,
+                    onTap: () {},
                   ),
                 );
               },
@@ -50,6 +54,7 @@ class CategoryView extends StatelessWidget {
                 return CategoryElement(
                   category: category,
                   isInVerticalList: true,
+                  onTap: () {},
                 );
               },
             );
