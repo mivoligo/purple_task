@@ -10,7 +10,7 @@ class CategoryHeader extends StatelessWidget {
     required this.color,
   }) : super(key: key);
 
-  final String? title;
+  final String title;
   final String description;
   final double progress;
   final Color color;
@@ -28,7 +28,7 @@ class CategoryHeader extends StatelessWidget {
         const SizedBox(height: 8.0),
         // category name
         Text(
-          title!,
+          title,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.headline4,
         ),

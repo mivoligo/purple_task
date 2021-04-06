@@ -10,26 +10,42 @@ class CategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(),
-        Icon(
-          IconData(
-            category.icon,
-            fontFamily: 'AntIcons',
-            fontPackage: 'ant_icons',
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 12.0,
+        horizontal: 32.0,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Icon(
+                IconData(
+                  category.icon,
+                  fontFamily: 'AntIcons',
+                  fontPackage: 'ant_icons',
+                ),
+                size: 42.0,
+                color: Color(category.color),
+              ),
+            ],
           ),
-          size: 38.0,
-          color: Color(category.color),
-        ),
-        Text('data'),
-        Text(category.name),
-        AnimatedProgressBar(
-          color: Color(category.color),
-          value: 0.6,
-        ),
-        AddTaskField(addTask: () {}),
-      ],
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 20.0,
+              horizontal: 4.0,
+            ),
+            child: CategoryHeader(
+              title: category.name,
+              description: 'sdada',
+              progress: 0.3,
+              color: Color(category.color),
+            ),
+          ),
+          AddTaskField(addTask: () {}),
+        ],
+      ),
     );
   }
 }
