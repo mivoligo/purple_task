@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 260,
-                  child: CategoryView(),
+                  child: CategoryList(),
                 ),
                 NewCategoryButton(),
               ],
@@ -62,7 +62,7 @@ class HomePage extends StatelessWidget {
                   width: 500,
                   child: Column(
                     children: [
-                      Expanded(child: CategoryView()),
+                      Expanded(child: CategoryList()),
                       NewCategoryButton(),
                     ],
                   ),
