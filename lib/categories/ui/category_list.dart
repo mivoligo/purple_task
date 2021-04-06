@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:purple_task/categories/ui/category_page.dart';
 
 import '../bloc/category_list_cubit.dart';
 import 'category_element.dart';
@@ -27,7 +28,15 @@ class CategoryList extends StatelessWidget {
                 final category = categories[index];
                 return CategoryElement(
                   category: category,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) {
+                        return CategoryPage(
+                          category: category,
+                        );
+                      },
+                    ));
+                  },
                 );
               },
             );
@@ -41,7 +50,15 @@ class CategoryList extends StatelessWidget {
                   width: 400,
                   child: CategoryElement(
                     category: category,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) {
+                          return CategoryPage(
+                            category: category,
+                          );
+                        },
+                      ));
+                    },
                   ),
                 );
               },
