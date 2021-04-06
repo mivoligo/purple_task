@@ -7,7 +7,7 @@ import 'category_element.dart';
 class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoryCubit, CategoryListState>(
+    return BlocBuilder<CategoryListCubit, CategoryListState>(
       builder: (context, state) {
         if (state is CategoryListLoading) {
           return Center(child: CircularProgressIndicator());

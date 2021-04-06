@@ -12,7 +12,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => CategoryCubit(CategoryRepository())..loadCategories(),
+      create: (_) => CategoryListCubit(CategoryRepository())..loadCategories(),
       child: HomePage(),
     );
   }
@@ -104,7 +104,7 @@ class NewCategoryButton extends StatelessWidget {
                 );
               },
             ));
-            context.read<CategoryCubit>().loadCategories();
+            context.read<CategoryListCubit>().loadCategories();
           },
         ),
       ),

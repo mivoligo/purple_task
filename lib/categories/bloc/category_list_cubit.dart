@@ -6,8 +6,8 @@ import '../data/category_repository.dart';
 
 part 'category_list_state.dart';
 
-class CategoryCubit extends Cubit<CategoryListState> {
-  CategoryCubit(this._categoryRepository) : super(CategoryListInitial());
+class CategoryListCubit extends Cubit<CategoryListState> {
+  CategoryListCubit(this._categoryRepository) : super(CategoryListInitial());
 
   final CategoryRepository _categoryRepository;
 
