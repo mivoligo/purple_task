@@ -1,3 +1,4 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -6,50 +7,43 @@ import '../data/category_repository.dart';
 part 'new_category_state.dart';
 
 class NewCategoryCubit extends Cubit<NewCategoryState> {
-  NewCategoryCubit(this._categoryRepository) : super(NewCategoryEmpty());
+  NewCategoryCubit(this._categoryRepository)
+      : super(NewCategoryState.initial());
 
   final CategoryRepository _categoryRepository;
 
   Future<void> startNewCategoryCreator() async {
     _categoryRepository.setRandomColor();
-    emit(NewCategoryInitial(color: _categoryRepository.color));
+    emit(state.copyWith(color: _categoryRepository.color));
     await Future.delayed(Duration(milliseconds: 200));
-    emit(NewCategoryName(color: _categoryRepository.color));
+    emit(state.copyWith(status: NewCategoryStatus.name));
   }
 
   void setName(String name) {
-    _categoryRepository.name = name;
-    emit(NewCategoryColor(name, _categoryRepository.color));
+    emit(state.copyWith(name: name, status: NewCategoryStatus.color));
   }
 
   void changeTempColor(int color) {
-    emit(NewCategoryColor(_categoryRepository.name, color));
+    emit(state.copyWith(color: color));
   }
 
   void setColor(int color) {
-    _categoryRepository.color = color;
-    emit(NewCategoryIcon(
-      _categoryRepository.name,
-      _categoryRepository.color,
-      _categoryRepository.icon,
-    ));
+    emit(state.copyWith(color: color, status: NewCategoryStatus.icon));
   }
 
   void changeTempIcon(int icon) {
-    emit(NewCategoryIcon(
-        _categoryRepository.name, _categoryRepository.color, icon));
+    emit(state.copyWith(icon: icon));
   }
 
   void setIcon(int icon) {
-    _categoryRepository.icon = icon;
-    emit(NewCategoryTasks(
-      _categoryRepository.name,
-      _categoryRepository.color,
-      _categoryRepository.icon,
-    ));
+    emit(state.copyWith(icon: icon, status: NewCategoryStatus.tasks));
   }
 
   void addNewCategory() {
-    _categoryRepository.addCategory();
+    _categoryRepository.addCategory(
+      name: state.name,
+      icon: state.icon,
+      color: state.color,
+    );
   }
 }

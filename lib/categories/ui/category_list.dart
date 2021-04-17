@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:purple_task/categories/ui/category_page.dart';
 
 import '../bloc/category_list_cubit.dart';
 import 'category_element.dart';
+import 'category_page.dart';
 
 class CategoryList extends StatelessWidget {
   @override

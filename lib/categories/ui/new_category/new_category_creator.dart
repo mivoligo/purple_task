@@ -28,10 +28,10 @@ class NewCategoryCreatorView extends StatelessWidget {
       builder: (context, state) {
         final nameController = TextEditingController();
         final newCategoryCubit = context.read<NewCategoryCubit>();
-        if (state is NewCategoryInitial) {
+        if (state.status == NewCategoryStatus.initial) {
           return CategoryInitial(color: state.color);
         }
-        if (state is NewCategoryName) {
+        if (state.status == NewCategoryStatus.name) {
           return CategoryName(
             focusNode: focusNode,
             textEditingController: nameController,
@@ -48,7 +48,7 @@ class NewCategoryCreatorView extends StatelessWidget {
             },
           );
         }
-        if (state is NewCategoryColor) {
+        if (state.status == NewCategoryStatus.color) {
           return CategoryColor(
             focusNode: focusNode,
             name: state.name,
@@ -60,7 +60,7 @@ class NewCategoryCreatorView extends StatelessWidget {
             },
           );
         }
-        if (state is NewCategoryIcon) {
+        if (state.status == NewCategoryStatus.icon) {
           return CategoryIcon(
             focusNode: focusNode,
             name: state.name,
@@ -72,7 +72,7 @@ class NewCategoryCreatorView extends StatelessWidget {
             selectedIcon: state.icon,
           );
         }
-        if (state is NewCategoryTasks) {
+        if (state.status == NewCategoryStatus.tasks) {
           return CategoryTasks(
             focusNode: focusNode,
             name: state.name,

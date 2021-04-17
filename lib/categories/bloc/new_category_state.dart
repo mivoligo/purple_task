@@ -1,60 +1,43 @@
 part of 'new_category_cubit.dart';
 
-abstract class NewCategoryState extends Equatable {
-  const NewCategoryState();
+enum NewCategoryStatus { initial, name, color, icon, tasks }
 
-  @override
-  List<Object> get props => [];
-}
+class NewCategoryState extends Equatable {
+  const NewCategoryState({
+    required this.name,
+    required this.color,
+    required this.icon,
+    required this.status,
+  });
 
-class NewCategoryEmpty extends NewCategoryState {}
-
-class NewCategoryInitial extends NewCategoryState {
-  NewCategoryInitial({required this.color});
-
-  final int color;
-
-  @override
-  List<Object> get props => [color];
-}
-
-class NewCategoryName extends NewCategoryState {
-  NewCategoryName({required this.color});
-
-  final int color;
-
-  @override
-  List<Object> get props => [color];
-}
-
-class NewCategoryColor extends NewCategoryState {
-  NewCategoryColor(this.name, this.color);
-
-  final String name;
-  final int color;
-
-  @override
-  List<Object> get props => [name, color];
-}
-
-class NewCategoryIcon extends NewCategoryState {
-  NewCategoryIcon(this.name, this.color, this.icon);
+  factory NewCategoryState.initial() {
+    return NewCategoryState(
+      name: '',
+      color: 1,
+      icon: AntIcons.folder.codePoint,
+      status: NewCategoryStatus.initial,
+    );
+  }
 
   final String name;
   final int color;
   final int icon;
+  final NewCategoryStatus status;
 
   @override
-  List<Object> get props => [name, color, icon];
-}
+  List<Object> get props => [name, color, icon, status];
 
-class NewCategoryTasks extends NewCategoryState {
-  NewCategoryTasks(this.name, this.color, this.icon);
-
-  final String name;
-  final int color;
-  final int icon;
-
-  @override
-  List<Object> get props => [name, color, icon];
+  NewCategoryState copyWith({
+    String? name,
+    int? color,
+    int? icon,
+    NewCategoryStatus? status,
+  }) {
+    return NewCategoryState(
+      name: name ?? this.name,
+      color: color ?? this.color,
+      icon: icon ?? this.icon,
+      status: status ?? this.status,
+    );
+  }
 }
