@@ -13,7 +13,7 @@ class CategoryRepository {
   late Color color;
   final random = Random();
 
-  Future<void> addCategory({
+  Future<Category> addCategory({
     required String name,
     required Color color,
     required int icon,
@@ -26,6 +26,7 @@ class CategoryRepository {
       id: id,
     );
     await box.add(category.toEntity());
+    return category;
   }
 
   void updateCategory(int index, CategoryEntity category) {
@@ -36,8 +37,8 @@ class CategoryRepository {
     box.deleteAt(index);
   }
 
-  List<CategoryEntity> getCategories() {
-    return box.values.toList();
+  List<Category> getCategories() {
+    return box.values.map((e) => Category.fromEntity(e)).toList();
   }
 
   void setRandomColor() {

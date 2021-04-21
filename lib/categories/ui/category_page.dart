@@ -1,15 +1,15 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 
-import '../../db_models/category.dart';
 import '../../globals/globals.dart';
 import '../../ui/ui.dart';
+import '../data/model/category.dart';
 import 'category_view.dart';
 
 class CategoryPage extends StatelessWidget {
   const CategoryPage({Key? key, required this.category}) : super(key: key);
 
-  final CategoryEntity category;
+  final Category category;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +28,8 @@ class CategoryPage extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         colors: [
                           Color(0xFF303030),
-                          Color(category.color),
-                          Color(category.color),
+                          category.color,
+                          category.color,
                         ]),
                   ),
                 ),
@@ -63,7 +63,7 @@ class _CategoryCardWithControls extends StatelessWidget {
     required this.category,
   }) : super(key: key);
 
-  final CategoryEntity category;
+  final Category category;
 
   @override
   Widget build(BuildContext context) {

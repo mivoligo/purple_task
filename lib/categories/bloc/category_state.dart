@@ -17,7 +17,7 @@ class CategoryState extends Equatable {
     );
   }
 
-  final CategoryEntity? category;
+  final Category? category;
   final CategoryStatus status;
   final String errorMessage;
 
@@ -25,7 +25,7 @@ class CategoryState extends Equatable {
   List<Object?> get props => [category, status, errorMessage];
 
   CategoryState copyWith({
-    CategoryEntity? category,
+    Category? category,
     CategoryStatus? status,
     String? errorMessage,
   }) {

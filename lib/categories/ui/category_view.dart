@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../db_models/category.dart';
 import '../../ui/ui.dart';
+import '../data/model/category.dart';
 
 class CategoryView extends StatelessWidget {
   const CategoryView({Key? key, required this.category}) : super(key: key);
 
-  final CategoryEntity category;
+  final Category category;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CategoryView extends StatelessWidget {
                   fontPackage: 'ant_icons',
                 ),
                 size: 42.0,
-                color: Color(category.color),
+                color: category.color,
               ),
             ],
           ),
@@ -40,7 +40,7 @@ class CategoryView extends StatelessWidget {
               title: category.name,
               description: 'sdada',
               progress: 0.3,
-              color: Color(category.color),
+              color: category.color,
             ),
           ),
           AddTaskField(addTask: () {}),

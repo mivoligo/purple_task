@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../db_models/db_models.dart';
 import '../../globals/globals.dart';
 import '../../ui/widgets/animated_progress_bar.dart';
 import '../../ui/widgets/category_header.dart';
+import '../data/model/category.dart';
 
 class CategoryElement extends StatelessWidget {
   const CategoryElement({
@@ -15,7 +15,7 @@ class CategoryElement extends StatelessWidget {
     this.isInVerticalList = false,
   }) : super(key: key);
 
-  final CategoryEntity category;
+  final Category category;
   final VoidCallback onTap;
   final Function? onHover;
   final Function? onFocusChange;
@@ -79,7 +79,7 @@ class ShortView extends StatelessWidget {
         _completionProgress = completionProgress,
         super(key: key);
 
-  final CategoryEntity category;
+  final Category category;
   final String _descriptionText;
   final double _completionProgress;
 
@@ -99,7 +99,7 @@ class ShortView extends StatelessWidget {
                   fontPackage: 'ant_icons',
                 ),
                 size: 38.0,
-                color: Color(category.color),
+                color: category.color,
               ),
             ),
             Text(
@@ -119,7 +119,7 @@ class ShortView extends StatelessWidget {
               Expanded(
                 child: AnimatedProgressBar(
                   value: _completionProgress,
-                  color: Color(category.color),
+                  color: category.color,
                 ),
               ),
               const SizedBox(width: 8),
@@ -142,7 +142,7 @@ class TallView extends StatelessWidget {
         _completionProgress = completionProgress,
         super(key: key);
 
-  final CategoryEntity category;
+  final Category category;
   final String _descriptionText;
   final double _completionProgress;
 
@@ -162,7 +162,7 @@ class TallView extends StatelessWidget {
                   fontPackage: 'ant_icons',
                 ),
                 size: 42.0,
-                color: Color(category.color),
+                color: category.color,
               ),
             ],
           ),
@@ -174,7 +174,7 @@ class TallView extends StatelessWidget {
             title: category.name,
             description: _descriptionText,
             progress: _completionProgress,
-            color: Color(category.color),
+            color: category.color,
           ),
         ),
       ],
