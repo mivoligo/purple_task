@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'category.g.dart';
 
 @HiveType(typeId: 0)
-class CategoryEntity {
+class CategoryEntity extends HiveObject {
   CategoryEntity({
     required this.name,
     required this.color,
