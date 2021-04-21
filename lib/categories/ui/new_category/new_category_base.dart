@@ -18,7 +18,7 @@ class NewCategoryBase extends StatelessWidget {
   }) : super(key: key);
 
   final Widget customWidget;
-  final int color;
+  final Color color;
   final Function? onSubmitted;
   final VoidCallback onNext;
   final VoidCallback onCancel;
@@ -38,8 +38,8 @@ class NewCategoryBase extends StatelessWidget {
                   end: Alignment.bottomCenter,
                   colors: [
                     Color(0xFF303030),
-                    Color(color),
-                    Color(color),
+                    color,
+                    color,
                   ]),
             ),
           ),

@@ -1,19 +1,21 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:hive/hive.dart';
 
 import '../../db_models/category.dart';
 import '../../globals/globals.dart';
+import 'model/category.dart';
 
 class CategoryRepository {
-  Box<Category> box = Hive.box<Category>(categoryBox);
+  Box<CategoryEntity> box = Hive.box<CategoryEntity>(categoryBox);
 
-  late int color;
+  late Color color;
   final random = Random();
 
   Future<void> addCategory({
     required String name,
-    required int color,
+    required Color color,
     required int icon,
   }) async {
     final id = DateTime.now().millisecondsSinceEpoch;
@@ -23,10 +25,10 @@ class CategoryRepository {
       icon: icon,
       id: id,
     );
-    await box.add(category);
+    await box.add(category.toEntity());
   }
 
-  void updateCategory(int index, Category category) {
+  void updateCategory(int index, CategoryEntity category) {
     box.putAt(index, category);
   }
 
@@ -34,11 +36,11 @@ class CategoryRepository {
     box.deleteAt(index);
   }
 
-  List<Category> getCategories() {
+  List<CategoryEntity> getCategories() {
     return box.values.toList();
   }
 
   void setRandomColor() {
-    color = categoryColors[random.nextInt(categoryColors.length)];
+    color = Color(categoryColors[random.nextInt(categoryColors.length)]);
   }
 }

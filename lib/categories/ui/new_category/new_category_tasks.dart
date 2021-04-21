@@ -17,7 +17,7 @@ class CategoryTasks extends StatelessWidget {
   }) : super(key: key);
 
   final String name;
-  final int color;
+  final Color color;
   final VoidCallback onNext;
   final VoidCallback onCancel;
   final int selectedIcon;
@@ -47,7 +47,7 @@ class CategoryTasks extends StatelessWidget {
                         fontFamily: 'AntIcons',
                         fontPackage: 'ant_icons',
                       ),
-                      color: Color(color),
+                      color: color,
                       size: 38,
                     ),
                   ),

@@ -13,7 +13,7 @@ class CategoryListLoading extends CategoryListState {}
 class CategoryListLoaded extends CategoryListState {
   CategoryListLoaded(this.categories);
 
-  final List<Category> categories;
+  final List<CategoryEntity> categories;
 
   @override
   List<Object> get props => [categories];

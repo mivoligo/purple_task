@@ -79,7 +79,7 @@ class NewCategoryViewModel extends ChangeNotifier {
     final id = _categoryId;
     final categoryModel =
         Provider.of<CategoryViewModel>(context, listen: false);
-    final category = Category(
+    final category = CategoryEntity(
       name: _name,
       color: _color,
       icon: _icon,

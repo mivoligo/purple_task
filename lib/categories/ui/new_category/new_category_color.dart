@@ -17,10 +17,10 @@ class CategoryColor extends StatelessWidget {
   }) : super(key: key);
 
   final String name;
-  final int color;
+  final Color color;
   final VoidCallback onNext;
   final VoidCallback onCancel;
-  final int selectedColor;
+  final Color selectedColor;
   final FocusNode focusNode;
 
   @override

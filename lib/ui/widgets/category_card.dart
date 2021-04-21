@@ -14,7 +14,7 @@ class CategoryCard extends StatelessWidget {
     this.onFocusChange,
   }) : super(key: key);
 
-  final Category? category;
+  final CategoryEntity? category;
   final VoidCallback? onTap;
   final Function? onHover;
   final Function? onFocusChange;

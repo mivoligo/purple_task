@@ -253,7 +253,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   }
 
   void updateCategoryName() {
-    final _category = Category(
+    final _category = CategoryEntity(
       name: textController.text,
       color: categoryModel.currentCategory!.color,
       icon: categoryModel.currentCategory!.icon,
@@ -264,7 +264,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   }
 
   void updateCategoryColor() {
-    final _category = Category(
+    final _category = CategoryEntity(
       name: categoryModel.currentCategory!.name,
       color: categoryModel.color,
       icon: categoryModel.currentCategory!.icon,
@@ -275,7 +275,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   }
 
   void updateCategoryIcon() {
-    final _category = Category(
+    final _category = CategoryEntity(
       name: categoryModel.currentCategory!.name,
       color: categoryModel.currentCategory!.color,
       icon: categoryModel.icon,

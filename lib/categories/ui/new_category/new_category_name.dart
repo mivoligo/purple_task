@@ -15,7 +15,7 @@ class CategoryName extends StatelessWidget {
     required this.focusNode,
   }) : super(key: key);
 
-  final int color;
+  final Color color;
   final Function onSubmitted;
   final VoidCallback onNext;
   final VoidCallback onCancel;

@@ -13,14 +13,14 @@ class NewCategoryState extends Equatable {
   factory NewCategoryState.initial() {
     return NewCategoryState(
       name: '',
-      color: 1,
+      color: Colors.purple,
       icon: AntIcons.folder.codePoint,
       status: NewCategoryStatus.initial,
     );
   }
 
   final String name;
-  final int color;
+  final Color color;
   final int icon;
   final NewCategoryStatus status;
 
@@ -29,7 +29,7 @@ class NewCategoryState extends Equatable {
 
   NewCategoryState copyWith({
     String? name,
-    int? color,
+    Color? color,
     int? icon,
     NewCategoryStatus? status,
   }) {

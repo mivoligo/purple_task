@@ -6,24 +6,24 @@ import '../../db_models/db_models.dart';
 import '../../globals/globals.dart';
 
 class CategoryViewModel extends ChangeNotifier {
-  Future<void> addCategory(Category category) async {
-    var box = await Hive.openBox<Category>(categoryBox);
+  Future<void> addCategory(CategoryEntity category) async {
+    var box = await Hive.openBox<CategoryEntity>(categoryBox);
 
     box.add(category);
 
     notifyListeners();
   }
 
-  List<Category> getListOfCategories() {
-    final box = Hive.box<Category>(categoryBox);
+  List<CategoryEntity> getListOfCategories() {
+    final box = Hive.box<CategoryEntity>(categoryBox);
 
     final _categoryList = box.values.toList();
 
     return _categoryList;
   }
 
-  void updateCategory(int index, Category category) {
-    final box = Hive.box<Category>(categoryBox);
+  void updateCategory(int index, CategoryEntity category) {
+    final box = Hive.box<CategoryEntity>(categoryBox);
 
     box.putAt(index, category);
 
@@ -31,7 +31,7 @@ class CategoryViewModel extends ChangeNotifier {
   }
 
   void deleteCategory(int index) {
-    final box = Hive.box<Category>(categoryBox);
+    final box = Hive.box<CategoryEntity>(categoryBox);
 
     box.deleteAt(index);
 
@@ -39,13 +39,13 @@ class CategoryViewModel extends ChangeNotifier {
   }
 
   bool checkIfCategoryExist(int categoryId) {
-    final box = Hive.box<Category>(categoryBox);
+    final box = Hive.box<CategoryEntity>(categoryBox);
     return box.values.where((category) => category.id == categoryId).isNotEmpty;
   }
 
-  Category? _currentCategory;
-  Category? get currentCategory => _currentCategory;
-  set currentCategory(Category? category) {
+  CategoryEntity? _currentCategory;
+  CategoryEntity? get currentCategory => _currentCategory;
+  set currentCategory(CategoryEntity? category) {
     _currentCategory = category;
     notifyListeners();
   }

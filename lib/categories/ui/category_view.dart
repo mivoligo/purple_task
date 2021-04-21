@@ -6,7 +6,7 @@ import '../../ui/ui.dart';
 class CategoryView extends StatelessWidget {
   const CategoryView({Key? key, required this.category}) : super(key: key);
 
-  final Category category;
+  final CategoryEntity category;
 
   @override
   Widget build(BuildContext context) {

@@ -3,8 +3,8 @@ import 'package:hive/hive.dart';
 part 'category.g.dart';
 
 @HiveType(typeId: 0)
-class Category {
-  Category({
+class CategoryEntity {
+  CategoryEntity({
     required this.name,
     required this.color,
     required this.icon,

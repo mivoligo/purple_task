@@ -9,7 +9,7 @@ import 'category_view.dart';
 class CategoryPage extends StatelessWidget {
   const CategoryPage({Key? key, required this.category}) : super(key: key);
 
-  final Category category;
+  final CategoryEntity category;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class _CategoryCardWithControls extends StatelessWidget {
     required this.category,
   }) : super(key: key);
 
-  final Category category;
+  final CategoryEntity category;
 
   @override
   Widget build(BuildContext context) {

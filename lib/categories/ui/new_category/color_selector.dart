@@ -12,7 +12,7 @@ class ColorSelector extends StatefulWidget {
     required this.selectedColor,
   }) : super(key: key);
 
-  final int selectedColor;
+  final Color selectedColor;
 
   @override
   _ColorSelectorState createState() => _ColorSelectorState();
@@ -33,31 +33,33 @@ class _ColorSelectorState extends State<ColorSelector> {
               horizontalOffset: 100,
               child: FadeInAnimation(
                 child: Padding(
-                  padding: (widget.selectedColor == categoryColors[index])
+                  padding: widget.selectedColor == Color(categoryColors[index])
                       ? const EdgeInsets.symmetric(vertical: 10, horizontal: 4)
                       : const EdgeInsets.symmetric(vertical: 20, horizontal: 4),
                   child: SizedBox(
                     width: 70,
                     child: Card(
                       color: Color(categoryColors[index]),
-                      elevation: (widget.selectedColor == categoryColors[index])
-                          ? 6
-                          : 1,
+                      elevation:
+                          widget.selectedColor == Color(categoryColors[index])
+                              ? 6
+                              : 1,
                       child: InkWell(
                         onFocusChange: (v) {
                           BlocProvider.of<NewCategoryCubit>(context)
-                              .changeTempColor(categoryColors[index]);
+                              .changeTempColor(Color(categoryColors[index]));
                         },
                         onTap: () {
                           BlocProvider.of<NewCategoryCubit>(context)
-                              .changeTempColor(categoryColors[index]);
+                              .changeTempColor(Color(categoryColors[index]));
                         },
-                        child: (widget.selectedColor == categoryColors[index])
-                            ? Icon(
-                                AntIcons.check_outline,
-                                color: Colors.white,
-                              )
-                            : null,
+                        child:
+                            widget.selectedColor == Color(categoryColors[index])
+                                ? Icon(
+                                    AntIcons.check_outline,
+                                    color: Colors.white,
+                                  )
+                                : null,
                       ),
                     ),
                   ),

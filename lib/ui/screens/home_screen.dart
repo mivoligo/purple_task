@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   late NewCategoryViewModel _newCategory; // NewCategory provider
 
-  late List<Category> _categoryList;
+  late List<CategoryEntity> _categoryList;
 
   late CategoryViewModel _categoryViewModel;
 
@@ -419,7 +419,7 @@ class UncategorizedList extends StatelessWidget {
     required bool? isWide,
     required double? appWidth,
     required ScrollController? quickListController,
-  })   : _appHeight = appHeight,
+  })  : _appHeight = appHeight,
         _isWide = isWide,
         _appWidth = appWidth,
         _quickListController = quickListController,

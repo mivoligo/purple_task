@@ -1,6 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 import '../data/category_repository.dart';
 
@@ -23,11 +24,11 @@ class NewCategoryCubit extends Cubit<NewCategoryState> {
     emit(state.copyWith(name: name, status: NewCategoryStatus.color));
   }
 
-  void changeTempColor(int color) {
+  void changeTempColor(Color color) {
     emit(state.copyWith(color: color));
   }
 
-  void setColor(int color) {
+  void setColor(Color color) {
     emit(state.copyWith(color: color, status: NewCategoryStatus.icon));
   }
 

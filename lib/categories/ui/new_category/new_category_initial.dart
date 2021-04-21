@@ -6,7 +6,7 @@ class CategoryInitial extends StatelessWidget {
     required this.color,
   }) : super(key: key);
 
-  final int color;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class CategoryInitial extends StatelessWidget {
                   end: Alignment.bottomCenter,
                   colors: [
                     Color(0xFF303030),
-                    Color(color),
-                    Color(color),
+                    color,
+                    color,
                   ]),
             ),
           ),

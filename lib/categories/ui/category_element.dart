@@ -15,7 +15,7 @@ class CategoryElement extends StatelessWidget {
     this.isInVerticalList = false,
   }) : super(key: key);
 
-  final Category category;
+  final CategoryEntity category;
   final VoidCallback onTap;
   final Function? onHover;
   final Function? onFocusChange;
@@ -75,11 +75,11 @@ class ShortView extends StatelessWidget {
     required this.category,
     required String descriptionText,
     required double completionProgress,
-  })   : _descriptionText = descriptionText,
+  })  : _descriptionText = descriptionText,
         _completionProgress = completionProgress,
         super(key: key);
 
-  final Category category;
+  final CategoryEntity category;
   final String _descriptionText;
   final double _completionProgress;
 
@@ -138,11 +138,11 @@ class TallView extends StatelessWidget {
     required this.category,
     required String descriptionText,
     required double completionProgress,
-  })   : _descriptionText = descriptionText,
+  })  : _descriptionText = descriptionText,
         _completionProgress = completionProgress,
         super(key: key);
 
-  final Category category;
+  final CategoryEntity category;
   final String _descriptionText;
   final double _completionProgress;
 
