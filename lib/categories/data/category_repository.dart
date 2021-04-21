@@ -33,8 +33,11 @@ class CategoryRepository {
     box.putAt(index, category);
   }
 
-  void deleteCategory(int index) {
-    box.deleteAt(index);
+  Future<Category> deleteCategory(Category category) async {
+    await box.values
+        .firstWhere((element) => element.id == category.id)
+        .delete();
+    return category;
   }
 
   List<Category> getCategories() {

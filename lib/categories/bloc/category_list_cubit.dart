@@ -21,8 +21,8 @@ class CategoryListCubit extends Cubit<CategoryListState> {
     }
   }
 
-  void removeCategory(int index) {
-    _categoryRepository.deleteCategory(index);
+  void removeCategory(Category category) {
+    _categoryRepository.deleteCategory(category);
     loadCategories();
   }
 }

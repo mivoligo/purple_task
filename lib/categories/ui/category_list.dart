@@ -71,7 +71,9 @@ class CategoryList extends StatelessWidget {
                 return CategoryElement(
                   category: category,
                   isInVerticalList: true,
-                  onTap: () {},
+                  onTap: () {
+                    context.read<CategoryListCubit>().removeCategory(category);
+                  },
                 );
               },
             );
