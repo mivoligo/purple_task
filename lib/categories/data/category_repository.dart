@@ -29,8 +29,11 @@ class CategoryRepository {
     return category;
   }
 
-  void updateCategory(int index, CategoryEntity category) {
-    box.putAt(index, category);
+  Future<Category> updateCategory(Category category) async {
+    final key =
+        box.values.firstWhere((element) => element.id == category.id).key;
+    await box.put(key, category.toEntity());
+    return category;
   }
 
   Future<Category> deleteCategory(Category category) async {
