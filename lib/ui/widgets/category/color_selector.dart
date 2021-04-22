@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 import '../../../globals/globals.dart';
 import '../../ui.dart';
 
-class ColorSelector extends StatefulWidget {
+class ColourSelector extends StatefulWidget {
   @override
-  _ColorSelectorState createState() => _ColorSelectorState();
+  _ColourSelectorState createState() => _ColourSelectorState();
 }
 
-class _ColorSelectorState extends State<ColorSelector>
+class _ColourSelectorState extends State<ColourSelector>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<EdgeInsets> _padding;

@@ -183,7 +183,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
                         ),
                         const SizedBox(height: 16.0),
                         Expanded(
-                          child: Container(child: ColorSelector()),
+                          child: Container(child: ColourSelector()),
                         ),
                       ],
                     ),
