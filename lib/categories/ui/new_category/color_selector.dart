@@ -41,27 +41,17 @@ class ColorSelector extends StatelessWidget {
                       elevation: isSelected ? 6 : 1,
                       child: InkWell(
                         onFocusChange: isInCreator
-                            ? (v) {
-                                context
-                                    .read<NewCategoryCubit>()
-                                    .changeTempColor(
-                                        Color(categoryColors[index]));
-                              }
-                            : (v) {
-                                context.read<CategoryCubit>().updateColor(
-                                    color: Color(categoryColors[index]));
-                              },
+                            ? (v) => context
+                                .read<NewCategoryCubit>()
+                                .changeTempColor(Color(categoryColors[index]))
+                            : (v) => context.read<CategoryCubit>().updateColor(
+                                color: Color(categoryColors[index])),
                         onTap: isInCreator
-                            ? () {
-                                context
-                                    .read<NewCategoryCubit>()
-                                    .changeTempColor(
-                                        Color(categoryColors[index]));
-                              }
-                            : () {
-                                context.read<CategoryCubit>().updateColor(
-                                    color: Color(categoryColors[index]));
-                              },
+                            ? () => context
+                                .read<NewCategoryCubit>()
+                                .changeTempColor(Color(categoryColors[index]))
+                            : () => context.read<CategoryCubit>().updateColor(
+                                color: Color(categoryColors[index])),
                         child: isSelected
                             ? Icon(
                                 AntIcons.check_outline,

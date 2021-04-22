@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 import '../../../globals/globals.dart';
 import '../../ui.dart';
 
-class IconSelector extends StatefulWidget {
+class IconsSelector extends StatefulWidget {
   @override
-  _IconSelectorState createState() => _IconSelectorState();
+  _IconsSelectorState createState() => _IconsSelectorState();
 }
 
-class _IconSelectorState extends State<IconSelector>
+class _IconsSelectorState extends State<IconsSelector>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<EdgeInsets> _padding;

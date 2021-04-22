@@ -8,6 +8,7 @@ import '../../ui/widgets/widgets.dart';
 import '../bloc/category_cubit.dart';
 import '../data/model/category.dart';
 import 'new_category/color_selector.dart';
+import 'new_category/icon_selector.dart';
 
 class CategoryMenu extends StatefulWidget {
   const CategoryMenu({required this.category});
@@ -215,26 +216,30 @@ class _CategoryMenuState extends State<CategoryMenu> {
           builder: (context) {
             return ConfirmationDialog(
               title: questionChangeIcon,
-              content: StatefulBuilder(
-                builder: (context, setState) {
-                  return Container(
+              content: BlocBuilder<CategoryCubit, CategoryState>(
+                builder: (context, state) {
+                  return SizedBox(
                     width: 500,
-                    height: 100,
+                    height: 200,
                     child: Column(
                       children: [
                         Icon(
-                          // IconData(
-                          //   categoryModel.icon,
-                          //   fontFamily: 'AntIcons',
-                          //   fontPackage: 'ant_icons',
-                          // ),
-                          Icons.animation,
+                          IconData(
+                            state.category!.icon,
+                            fontFamily: 'AntIcons',
+                            fontPackage: 'ant_icons',
+                          ),
                           color: Colors.blueGrey,
                           size: 28,
                         ),
                         const SizedBox(height: 16.0),
                         Expanded(
-                          child: Container(child: IconSelector()),
+                          child: Container(
+                            child: IconSelector(
+                              selectedIcon: state.category!.icon,
+                              isInCreator: false,
+                            ),
+                          ),
                         ),
                       ],
                     ),

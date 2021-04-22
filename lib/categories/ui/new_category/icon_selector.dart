@@ -3,21 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../../globals/globals.dart';
+import '../../bloc/category_cubit.dart';
 import '../../bloc/new_category_cubit.dart';
 
-class IconSelector extends StatefulWidget {
+class IconSelector extends StatelessWidget {
   const IconSelector({
-    Key? key,
     required this.selectedIcon,
-  }) : super(key: key);
+    this.isInCreator = true,
+  });
 
   final int selectedIcon;
+  final bool isInCreator;
 
-  @override
-  _IconSelectorState createState() => _IconSelectorState();
-}
-
-class _IconSelectorState extends State<IconSelector> {
   @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
@@ -25,6 +22,7 @@ class _IconSelectorState extends State<IconSelector> {
         scrollDirection: Axis.horizontal,
         itemCount: categoryIcons.length,
         itemBuilder: (context, index) {
+          final isSelected = selectedIcon == categoryIcons[index];
           return AnimationConfiguration.staggeredList(
             position: index,
             duration: const Duration(milliseconds: 300),
@@ -32,24 +30,29 @@ class _IconSelectorState extends State<IconSelector> {
               horizontalOffset: 100,
               child: FadeInAnimation(
                 child: Padding(
-                  padding: (widget.selectedIcon == categoryIcons[index])
+                  padding: isSelected
                       ? const EdgeInsets.symmetric(vertical: 10, horizontal: 4)
                       : const EdgeInsets.symmetric(vertical: 20, horizontal: 4),
                   child: SizedBox(
                     width: 70,
                     child: Card(
                       color: Colors.grey.shade300,
-                      elevation:
-                          (widget.selectedIcon == categoryIcons[index]) ? 6 : 1,
+                      elevation: isSelected ? 6 : 1,
                       child: InkWell(
-                        onFocusChange: (v) {
-                          BlocProvider.of<NewCategoryCubit>(context)
-                              .changeTempIcon(categoryIcons[index]);
-                        },
-                        onTap: () {
-                          BlocProvider.of<NewCategoryCubit>(context)
-                              .changeTempIcon(categoryIcons[index]);
-                        },
+                        onFocusChange: isInCreator
+                            ? (v) => context
+                                .read<NewCategoryCubit>()
+                                .changeTempIcon(categoryIcons[index])
+                            : (v) => context
+                                .read<CategoryCubit>()
+                                .updateIcon(icon: categoryIcons[index]),
+                        onTap: isInCreator
+                            ? () => context
+                                .read<NewCategoryCubit>()
+                                .changeTempIcon(categoryIcons[index])
+                            : () => context
+                                .read<CategoryCubit>()
+                                .updateIcon(icon: categoryIcons[index]),
                         child: Icon(
                           IconData(
                             categoryIcons[index],
@@ -57,9 +60,7 @@ class _IconSelectorState extends State<IconSelector> {
                             fontPackage: 'ant_icons',
                           ),
                           color: Colors.grey.shade800,
-                          size: (widget.selectedIcon == categoryIcons[index])
-                              ? 30
-                              : 24,
+                          size: isSelected ? 30 : 24,
                         ),
                       ),
                     ),
