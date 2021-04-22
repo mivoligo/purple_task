@@ -6,19 +6,11 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../../globals/globals.dart';
 import '../../bloc/new_category_cubit.dart';
 
-class ColorSelector extends StatefulWidget {
-  const ColorSelector({
-    Key? key,
-    required this.selectedColor,
-  }) : super(key: key);
+class ColorSelector extends StatelessWidget {
+  const ColorSelector({required this.selectedColor});
 
   final Color selectedColor;
 
-  @override
-  _ColorSelectorState createState() => _ColorSelectorState();
-}
-
-class _ColorSelectorState extends State<ColorSelector> {
   @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
@@ -26,6 +18,7 @@ class _ColorSelectorState extends State<ColorSelector> {
         scrollDirection: Axis.horizontal,
         itemCount: categoryColors.length,
         itemBuilder: (context, index) {
+          final isSelected = selectedColor == Color(categoryColors[index]);
           return AnimationConfiguration.staggeredList(
             position: index,
             duration: const Duration(milliseconds: 300),
@@ -33,33 +26,31 @@ class _ColorSelectorState extends State<ColorSelector> {
               horizontalOffset: 100,
               child: FadeInAnimation(
                 child: Padding(
-                  padding: widget.selectedColor == Color(categoryColors[index])
+                  padding: isSelected
                       ? const EdgeInsets.symmetric(vertical: 10, horizontal: 4)
                       : const EdgeInsets.symmetric(vertical: 20, horizontal: 4),
                   child: SizedBox(
                     width: 70,
                     child: Card(
                       color: Color(categoryColors[index]),
-                      elevation:
-                          widget.selectedColor == Color(categoryColors[index])
-                              ? 6
-                              : 1,
+                      elevation: isSelected ? 6 : 1,
                       child: InkWell(
                         onFocusChange: (v) {
-                          BlocProvider.of<NewCategoryCubit>(context)
+                          context
+                              .read<NewCategoryCubit>()
                               .changeTempColor(Color(categoryColors[index]));
                         },
                         onTap: () {
-                          BlocProvider.of<NewCategoryCubit>(context)
+                          context
+                              .read<NewCategoryCubit>()
                               .changeTempColor(Color(categoryColors[index]));
                         },
-                        child:
-                            widget.selectedColor == Color(categoryColors[index])
-                                ? Icon(
-                                    AntIcons.check_outline,
-                                    color: Colors.white,
-                                  )
-                                : null,
+                        child: isSelected
+                            ? Icon(
+                                AntIcons.check_outline,
+                                color: Colors.white,
+                              )
+                            : null,
                       ),
                     ),
                   ),

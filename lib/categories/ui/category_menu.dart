@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../globals/globals.dart';
 import '../../ui/widgets/widgets.dart';
 import '../bloc/category_cubit.dart';
+import 'new_category/color_selector.dart';
 
 class CategoryMenu extends StatefulWidget {
   const CategoryMenu();
@@ -138,7 +139,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
       case 4:
         showDialog(
           context: context,
-          builder: (context) {
+          builder: (_) {
             textController.text = categoryCubit.state.category?.name ?? '';
             return ConfirmationDialog(
               title: questionChangeName,
@@ -150,15 +151,18 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   style: Theme.of(context).textTheme.subtitle1,
                   onChanged: (value) => categoryCubit.updateName(name: value),
                   onSubmitted: (v) {
-                    categoryCubit.updateCategory();
+                    _updateCategory(context,
+                        categoryCubit.state.status == CategoryStatus.editing);
                     Navigator.of(context).pop();
                   },
                 ),
               ),
               confirmationText: save,
               confirmationColor: Colors.green,
-              onConfirm: () => _updateCategory(context,
-                  categoryCubit.state.status == CategoryStatus.editing),
+              onConfirm: () {
+                _updateCategory(context,
+                    categoryCubit.state.status == CategoryStatus.editing);
+              },
             );
           },
         );
@@ -167,28 +171,28 @@ class _CategoryMenuState extends State<CategoryMenu> {
       case 5:
         showDialog(
           context: context,
-          builder: (context) {
+          builder: (_) {
             return ConfirmationDialog(
               title: questionChangeColor,
-              content: StatefulBuilder(
-                builder: (context, setState) {
-                  return Container(
-                    width: 500,
-                    height: 100,
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 20,
-                          color: Colors.blueGrey,
-                        ),
-                        const SizedBox(height: 16.0),
-                        Expanded(
-                          child: Container(child: ColourSelector()),
-                        ),
-                      ],
+              content: Container(
+                width: 500,
+                height: 100,
+                child: Column(
+                  children: [
+                    Container(
+                      height: 20,
+                      color: categoryCubit.state.category?.color,
                     ),
-                  );
-                },
+                    const SizedBox(height: 16.0),
+                    Expanded(
+                      child: Container(
+                          child: ColorSelector(
+                        selectedColor: categoryCubit.state.category!.color,
+                        // isInCreator: false,
+                      )),
+                    ),
+                  ],
+                ),
               ),
               confirmationText: save,
               confirmationColor: Colors.green,
@@ -247,8 +251,4 @@ class _CategoryMenuState extends State<CategoryMenu> {
       context.read<CategoryCubit>().updateCategory();
     }
   }
-
-  void updateCategoryColor() {}
-
-  void updateCategoryIcon() {}
 }
