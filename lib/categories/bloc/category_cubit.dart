@@ -13,6 +13,10 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   final CategoryRepository _categoryRepository;
 
+  void loadCategory({required Category category}) {
+    emit(state.copyWith(category: category, status: CategoryStatus.initial));
+  }
+
   void updateName({required String name}) {
     emit(state.copyWith(
       category: state.category?.copyWith(name: name),
