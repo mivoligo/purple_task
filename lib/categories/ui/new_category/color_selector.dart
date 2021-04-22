@@ -4,12 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../../globals/globals.dart';
+import '../../bloc/category_cubit.dart';
 import '../../bloc/new_category_cubit.dart';
 
 class ColorSelector extends StatelessWidget {
-  const ColorSelector({required this.selectedColor});
+  const ColorSelector({
+    required this.selectedColor,
+    this.isInCreator = true,
+  });
 
   final Color selectedColor;
+  final bool isInCreator;
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +40,28 @@ class ColorSelector extends StatelessWidget {
                       color: Color(categoryColors[index]),
                       elevation: isSelected ? 6 : 1,
                       child: InkWell(
-                        onFocusChange: (v) {
-                          context
-                              .read<NewCategoryCubit>()
-                              .changeTempColor(Color(categoryColors[index]));
-                        },
-                        onTap: () {
-                          context
-                              .read<NewCategoryCubit>()
-                              .changeTempColor(Color(categoryColors[index]));
-                        },
+                        onFocusChange: isInCreator
+                            ? (v) {
+                                context
+                                    .read<NewCategoryCubit>()
+                                    .changeTempColor(
+                                        Color(categoryColors[index]));
+                              }
+                            : (v) {
+                                context.read<CategoryCubit>().updateColor(
+                                    color: Color(categoryColors[index]));
+                              },
+                        onTap: isInCreator
+                            ? () {
+                                context
+                                    .read<NewCategoryCubit>()
+                                    .changeTempColor(
+                                        Color(categoryColors[index]));
+                              }
+                            : () {
+                                context.read<CategoryCubit>().updateColor(
+                                    color: Color(categoryColors[index]));
+                              },
                         child: isSelected
                             ? Icon(
                                 AntIcons.check_outline,

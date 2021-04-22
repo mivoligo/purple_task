@@ -6,10 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../globals/globals.dart';
 import '../../ui/widgets/widgets.dart';
 import '../bloc/category_cubit.dart';
+import '../data/model/category.dart';
 import 'new_category/color_selector.dart';
 
 class CategoryMenu extends StatefulWidget {
-  const CategoryMenu();
+  const CategoryMenu({required this.category});
+
+  final Category category;
 
   @override
   _CategoryMenuState createState() => _CategoryMenuState();
@@ -140,7 +143,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
         showDialog(
           context: context,
           builder: (_) {
-            textController.text = categoryCubit.state.category?.name ?? '';
+            textController.text = widget.category.name;
             return ConfirmationDialog(
               title: questionChangeName,
               content: Padding(
@@ -174,25 +177,28 @@ class _CategoryMenuState extends State<CategoryMenu> {
           builder: (_) {
             return ConfirmationDialog(
               title: questionChangeColor,
-              content: Container(
-                width: 500,
-                height: 100,
-                child: Column(
-                  children: [
-                    Container(
-                      height: 20,
-                      color: categoryCubit.state.category?.color,
-                    ),
-                    const SizedBox(height: 16.0),
-                    Expanded(
-                      child: Container(
+              content: BlocBuilder<CategoryCubit, CategoryState>(
+                builder: (context, state) {
+                  return SizedBox(
+                    width: 500,
+                    height: 200,
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 20,
+                          color: state.category!.color,
+                        ),
+                        const SizedBox(height: 16.0),
+                        Expanded(
                           child: ColorSelector(
-                        selectedColor: categoryCubit.state.category!.color,
-                        // isInCreator: false,
-                      )),
+                            selectedColor: state.category!.color,
+                            isInCreator: false,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
               confirmationText: save,
               confirmationColor: Colors.green,
