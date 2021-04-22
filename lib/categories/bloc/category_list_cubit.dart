@@ -20,9 +20,4 @@ class CategoryListCubit extends Cubit<CategoryListState> {
       emit(CategoryListError());
     }
   }
-
-  void removeCategory(Category category) {
-    _categoryRepository.deleteCategory(category);
-    loadCategories();
-  }
 }

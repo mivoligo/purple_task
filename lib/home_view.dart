@@ -14,11 +14,13 @@ class HomeView extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<CategoryListCubit>(
-          create: (_) =>
-              CategoryListCubit(CategoryRepository())..loadCategories(),
+          create: (_) => CategoryListCubit(context.read<CategoryRepository>())
+            ..loadCategories(),
         ),
         BlocProvider<CategoryCubit>(
-          create: (_) => CategoryCubit(),
+          create: (_) => CategoryCubit(
+            categoryRepository: context.read<CategoryRepository>(),
+          ),
         ),
       ],
       child: HomePage(),
