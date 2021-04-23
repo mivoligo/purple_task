@@ -78,15 +78,17 @@ class _CategoryMenuState extends State<CategoryMenu> {
   }
 
   void onItemSelected(BuildContext context, int item) {
-    // get current color and icon here
-    // categoryModel.color = categoryModel.currentCategory!.color;
-    // categoryModel.icon = categoryModel.currentCategory!.icon;
     final categoryCubit = context.read<CategoryCubit>();
+    final oldName = categoryCubit.state.category!.name;
+    final oldColor = categoryCubit.state.category!.color;
+    final oldIcon = categoryCubit.state.category!.icon;
+
     switch (item) {
       // delete completed tasks from category
       case 1:
         showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (_) => ConfirmationDialog(
             title: questionDeleteCompleted,
             content: Padding(
@@ -104,6 +106,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
       case 2:
         showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (_) => ConfirmationDialog(
             title: questionDeleteAll,
             content: Padding(
@@ -121,6 +124,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
       case 3:
         showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (_) => ConfirmationDialog(
             title: questionDeleteCategory,
             content: Padding(
@@ -146,6 +150,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
       case 4:
         showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (_) {
             textController.text = widget.category.name;
             return ConfirmationDialog(
@@ -169,8 +174,12 @@ class _CategoryMenuState extends State<CategoryMenu> {
               onConfirm: () {
                 _updateCategory(context,
                     categoryCubit.state.status == CategoryStatus.editing);
+                Navigator.of(context).pop();
               },
-              onCancel: () => Navigator.of(context).pop(),
+              onCancel: () {
+                categoryCubit.nameChanged(name: oldName);
+                Navigator.of(context).pop();
+              },
             );
           },
         );
@@ -179,6 +188,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
       case 5:
         showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (_) {
             return ConfirmationDialog(
               title: questionChangeColor,
@@ -214,7 +224,10 @@ class _CategoryMenuState extends State<CategoryMenu> {
               confirmationColor: Colors.green,
               onConfirm: () => _updateCategory(context,
                   categoryCubit.state.status == CategoryStatus.editing),
-              onCancel: () => Navigator.of(context).pop(),
+              onCancel: () {
+                categoryCubit.colorChanged(color: oldColor);
+                Navigator.of(context).pop();
+              },
             );
           },
         );
@@ -223,10 +236,16 @@ class _CategoryMenuState extends State<CategoryMenu> {
       case 6:
         showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (context) {
             return ConfirmationDialog(
               title: questionChangeIcon,
-              content: BlocBuilder<CategoryCubit, CategoryState>(
+              content: BlocConsumer<CategoryCubit, CategoryState>(
+                listener: (context, state) {
+                  if (state.status == CategoryStatus.success) {
+                    Navigator.of(context).pop();
+                  }
+                },
                 builder: (context, state) {
                   return SizedBox(
                     width: 500,
@@ -260,7 +279,10 @@ class _CategoryMenuState extends State<CategoryMenu> {
               confirmationColor: Colors.green,
               onConfirm: () => _updateCategory(context,
                   categoryCubit.state.status == CategoryStatus.editing),
-              onCancel: () => Navigator.of(context).pop(),
+              onCancel: () {
+                categoryCubit.iconChanged(icon: oldIcon);
+                Navigator.of(context).pop();
+              },
             );
           },
         );
