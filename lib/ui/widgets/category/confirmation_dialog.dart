@@ -37,10 +37,7 @@ class ConfirmationDialog extends StatelessWidget {
         ),
         SimpleButton(
           text: confirmationText,
-          onPressed: () {
-            onConfirm();
-            Navigator.of(context).pop();
-          },
+          onPressed: onConfirm,
           color: confirmationColor,
         )
       ],

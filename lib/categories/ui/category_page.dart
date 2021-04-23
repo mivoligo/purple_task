@@ -10,7 +10,7 @@ import 'category_menu.dart';
 import 'category_view.dart';
 
 class CategoryPage extends StatelessWidget {
-  const CategoryPage({Key? key, required this.category}) : super(key: key);
+  const CategoryPage({required this.category});
 
   final Category category;
 

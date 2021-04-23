@@ -17,21 +17,21 @@ class CategoryCubit extends Cubit<CategoryState> {
     emit(state.copyWith(category: category, status: CategoryStatus.initial));
   }
 
-  void updateName({required String name}) {
+  void nameChanged({required String name}) {
     emit(state.copyWith(
       category: state.category?.copyWith(name: name),
       status: CategoryStatus.initial,
     ));
   }
 
-  void updateColor({required Color color}) {
+  void colorChanged({required Color color}) {
     emit(state.copyWith(
       category: state.category?.copyWith(color: color),
       status: CategoryStatus.initial,
     ));
   }
 
-  void updateIcon({required int icon}) {
+  void iconChanged({required int icon}) {
     emit(state.copyWith(
       category: state.category?.copyWith(icon: icon),
       status: CategoryStatus.initial,

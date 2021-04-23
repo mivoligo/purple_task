@@ -4,7 +4,7 @@ import '../../ui/ui.dart';
 import '../data/model/category.dart';
 
 class CategoryView extends StatelessWidget {
-  const CategoryView({Key? key, required this.category}) : super(key: key);
+  const CategoryView({required this.category});
 
   final Category category;
 

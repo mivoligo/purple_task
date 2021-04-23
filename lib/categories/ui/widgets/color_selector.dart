@@ -43,14 +43,14 @@ class ColorSelector extends StatelessWidget {
                         onFocusChange: isInCreator
                             ? (_) => context
                                 .read<NewCategoryCubit>()
-                                .changeTempColor(Color(categoryColors[index]))
-                            : (_) => context.read<CategoryCubit>().updateColor(
+                                .colorChanged(Color(categoryColors[index]))
+                            : (_) => context.read<CategoryCubit>().colorChanged(
                                 color: Color(categoryColors[index])),
                         onTap: isInCreator
                             ? () => context
                                 .read<NewCategoryCubit>()
-                                .changeTempColor(Color(categoryColors[index]))
-                            : () => context.read<CategoryCubit>().updateColor(
+                                .colorChanged(Color(categoryColors[index]))
+                            : () => context.read<CategoryCubit>().colorChanged(
                                 color: Color(categoryColors[index])),
                         child: isSelected
                             ? Icon(

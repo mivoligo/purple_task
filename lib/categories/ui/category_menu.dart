@@ -156,7 +156,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   controller: textController,
                   autofocus: true,
                   style: Theme.of(context).textTheme.subtitle1,
-                  onChanged: (value) => categoryCubit.updateName(name: value),
+                  onChanged: (value) => categoryCubit.nameChanged(name: value),
                   onSubmitted: (v) {
                     _updateCategory(context,
                         categoryCubit.state.status == CategoryStatus.editing);
@@ -182,7 +182,12 @@ class _CategoryMenuState extends State<CategoryMenu> {
           builder: (_) {
             return ConfirmationDialog(
               title: questionChangeColor,
-              content: BlocBuilder<CategoryCubit, CategoryState>(
+              content: BlocConsumer<CategoryCubit, CategoryState>(
+                listener: (context, state) {
+                  if (state.status == CategoryStatus.success) {
+                    Navigator.of(context).pop();
+                  }
+                },
                 builder: (context, state) {
                   return SizedBox(
                     width: 500,

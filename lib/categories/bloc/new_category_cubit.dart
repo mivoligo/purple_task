@@ -24,7 +24,7 @@ class NewCategoryCubit extends Cubit<NewCategoryState> {
     emit(state.copyWith(name: name, status: NewCategoryStatus.color));
   }
 
-  void changeTempColor(Color color) {
+  void colorChanged(Color color) {
     emit(state.copyWith(color: color));
   }
 
@@ -32,7 +32,7 @@ class NewCategoryCubit extends Cubit<NewCategoryState> {
     emit(state.copyWith(color: color, status: NewCategoryStatus.icon));
   }
 
-  void changeTempIcon(int icon) {
+  void iconChanged(int icon) {
     emit(state.copyWith(icon: icon));
   }
 

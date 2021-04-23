@@ -42,17 +42,17 @@ class IconSelector extends StatelessWidget {
                         onFocusChange: isInCreator
                             ? (_) => context
                                 .read<NewCategoryCubit>()
-                                .changeTempIcon(categoryIcons[index])
+                                .iconChanged(categoryIcons[index])
                             : (_) => context
                                 .read<CategoryCubit>()
-                                .updateIcon(icon: categoryIcons[index]),
+                                .iconChanged(icon: categoryIcons[index]),
                         onTap: isInCreator
                             ? () => context
                                 .read<NewCategoryCubit>()
-                                .changeTempIcon(categoryIcons[index])
+                                .iconChanged(categoryIcons[index])
                             : () => context
                                 .read<CategoryCubit>()
-                                .updateIcon(icon: categoryIcons[index]),
+                                .iconChanged(icon: categoryIcons[index]),
                         child: Icon(
                           IconData(
                             categoryIcons[index],
