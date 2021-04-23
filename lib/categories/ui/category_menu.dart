@@ -141,6 +141,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
 
               // pop category screen
               Navigator.of(context).pop();
+              Navigator.of(context).pop();
             },
             onCancel: () => Navigator.of(context).pop(),
           ),

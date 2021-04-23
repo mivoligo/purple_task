@@ -28,14 +28,17 @@ class CategoryList extends StatelessWidget {
                 final category = categories[index];
                 return CategoryElement(
                   category: category,
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) {
-                        return CategoryPage(
-                          category: category,
-                        );
-                      },
-                    ));
+                  onTap: () async {
+                    await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return CategoryPage(
+                            category: category,
+                          );
+                        },
+                      ),
+                    );
+                    context.read<CategoryListCubit>().loadCategories();
                   },
                 );
               },
@@ -50,14 +53,17 @@ class CategoryList extends StatelessWidget {
                   width: 400,
                   child: CategoryElement(
                     category: category,
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) {
-                          return CategoryPage(
-                            category: category,
-                          );
-                        },
-                      ));
+                    onTap: () async {
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return CategoryPage(
+                              category: category,
+                            );
+                          },
+                        ),
+                      );
+                      context.read<CategoryListCubit>().loadCategories();
                     },
                   ),
                 );
