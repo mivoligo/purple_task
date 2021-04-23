@@ -96,6 +96,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
             confirmationText: delete,
             confirmationColor: Colors.red,
             onConfirm: () {},
+            onCancel: () => Navigator.of(context).pop(),
           ),
         );
         break;
@@ -112,6 +113,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
             confirmationText: delete,
             confirmationColor: Colors.red,
             onConfirm: () {},
+            onCancel: () => Navigator.of(context).pop(),
           ),
         );
         break;
@@ -136,6 +138,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
               // pop category screen
               Navigator.of(context).pop();
             },
+            onCancel: () => Navigator.of(context).pop(),
           ),
         );
         break;
@@ -167,6 +170,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
                 _updateCategory(context,
                     categoryCubit.state.status == CategoryStatus.editing);
               },
+              onCancel: () => Navigator.of(context).pop(),
             );
           },
         );
@@ -205,6 +209,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
               confirmationColor: Colors.green,
               onConfirm: () => _updateCategory(context,
                   categoryCubit.state.status == CategoryStatus.editing),
+              onCancel: () => Navigator.of(context).pop(),
             );
           },
         );
@@ -250,6 +255,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
               confirmationColor: Colors.green,
               onConfirm: () => _updateCategory(context,
                   categoryCubit.state.status == CategoryStatus.editing),
+              onCancel: () => Navigator.of(context).pop(),
             );
           },
         );

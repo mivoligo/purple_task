@@ -92,6 +92,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
         showDialog(
           context: context,
           builder: (context) => ConfirmationDialog(
+            onCancel: () => Navigator.of(context).pop(),
             title: questionDeleteCompleted,
             content: Padding(
               padding: const EdgeInsets.all(24.0),
@@ -109,6 +110,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
         showDialog(
           context: context,
           builder: (context) => ConfirmationDialog(
+            onCancel: () => Navigator.of(context).pop(),
             title: questionDeleteAll,
             content: Padding(
               padding: const EdgeInsets.all(24.0),
@@ -126,6 +128,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
         showDialog(
           context: context,
           builder: (context) => ConfirmationDialog(
+            onCancel: () => Navigator.of(context).pop(),
             title: questionDeleteCategory,
             content: Padding(
               padding: const EdgeInsets.all(24.0),
@@ -152,6 +155,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
           builder: (context) {
             textController.text = categoryModel.currentCategory!.name;
             return ConfirmationDialog(
+              onCancel: () => Navigator.of(context).pop(),
               title: questionChangeName,
               content: Padding(
                 padding: const EdgeInsets.all(24.0),
@@ -178,6 +182,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
           context: context,
           builder: (context) {
             return ConfirmationDialog(
+              onCancel: () => Navigator.of(context).pop(),
               title: questionChangeColor,
               content: StatefulBuilder(
                 builder: (context, setState) {
@@ -214,6 +219,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
           context: context,
           builder: (context) {
             return ConfirmationDialog(
+              onCancel: () => Navigator.of(context).pop(),
               title: questionChangeIcon,
               content: StatefulBuilder(
                 builder: (context, setState) {
