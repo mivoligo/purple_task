@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import '../../../db_models/db_models.dart';
 
 class Task extends Equatable {
   Task({
@@ -9,11 +10,31 @@ class Task extends Equatable {
     this.doneTime,
   });
 
+  factory Task.fromEntity(TaskEntity entity) {
+    return Task(
+      name: entity.name,
+      isDone: entity.isDone,
+      categoryId: entity.categoryId,
+      dueDate: entity.dueDate,
+      doneTime: entity.doneTime,
+    );
+  }
+
   final String name;
   final bool isDone;
   final int categoryId;
   final int? dueDate;
   final int? doneTime;
+
+  TaskEntity toEntity() {
+    return TaskEntity(
+      name: name,
+      isDone: isDone,
+      categoryId: categoryId,
+      dueDate: dueDate,
+      doneTime: doneTime,
+    );
+  }
 
   Task copyWith({
     String? name,
@@ -32,14 +53,5 @@ class Task extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        name,
-        isDone,
-        categoryId,
-        dueDate,
-        doneTime,
-      ];
-
-  @override
-  bool? get stringify => true;
+  List<Object?> get props => [name, isDone, categoryId, dueDate, doneTime];
 }
