@@ -1,9 +1,23 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
 import '../data/model/task.dart';
+import '../data/task_repository.dart';
 
 part 'task_list_state.dart';
 
 class TaskListCubit extends Cubit<TaskListState> {
-  TaskListCubit() : super(TaskListInitial());
+  TaskListCubit(this._taskRepository) : super(TaskListInitial());
+
+  final TaskRepository _taskRepository;
+
+  void loadTasksForCategory(int categoryId) {
+    emit(TaskListLoading());
+    try {
+      final tasks = _taskRepository.getAllTasksForCategory(categoryId);
+      emit(TaskListLoaded(tasks: tasks));
+    } on Exception catch (_) {
+      emit(TaskListError());
+    }
+  }
 }
