@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../globals/globals.dart';
-import 'icon_selector.dart';
+import '../widgets/icon_selector.dart';
 import 'new_category_base.dart';
 
 class CategoryIcon extends StatelessWidget {

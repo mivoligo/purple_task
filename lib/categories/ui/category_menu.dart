@@ -7,8 +7,8 @@ import '../../../globals/globals.dart';
 import '../../ui/widgets/widgets.dart';
 import '../bloc/category_cubit.dart';
 import '../data/model/category.dart';
-import 'new_category/color_selector.dart';
-import 'new_category/icon_selector.dart';
+import 'widgets/color_selector.dart';
+import 'widgets/icon_selector.dart';
 
 class CategoryMenu extends StatefulWidget {
   const CategoryMenu({required this.category});

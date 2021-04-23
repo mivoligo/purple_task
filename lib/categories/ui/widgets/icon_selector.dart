@@ -40,10 +40,10 @@ class IconSelector extends StatelessWidget {
                       elevation: isSelected ? 6 : 1,
                       child: InkWell(
                         onFocusChange: isInCreator
-                            ? (v) => context
+                            ? (_) => context
                                 .read<NewCategoryCubit>()
                                 .changeTempIcon(categoryIcons[index])
-                            : (v) => context
+                            : (_) => context
                                 .read<CategoryCubit>()
                                 .updateIcon(icon: categoryIcons[index]),
                         onTap: isInCreator

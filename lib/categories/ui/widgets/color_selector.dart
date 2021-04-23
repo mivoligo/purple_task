@@ -41,10 +41,10 @@ class ColorSelector extends StatelessWidget {
                       elevation: isSelected ? 6 : 1,
                       child: InkWell(
                         onFocusChange: isInCreator
-                            ? (v) => context
+                            ? (_) => context
                                 .read<NewCategoryCubit>()
                                 .changeTempColor(Color(categoryColors[index]))
-                            : (v) => context.read<CategoryCubit>().updateColor(
+                            : (_) => context.read<CategoryCubit>().updateColor(
                                 color: Color(categoryColors[index])),
                         onTap: isInCreator
                             ? () => context
