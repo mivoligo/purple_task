@@ -1,11 +1,30 @@
+import 'package:hive/hive.dart';
+
+import '../../db_models/db_models.dart';
+import '../../globals/globals.dart';
 import 'model/task.dart';
 
 class TaskRepository {
-  addTask(Task task) {}
+  Box<TaskEntity> box = Hive.box<TaskEntity>(taskBox);
 
-  updateTask() {}
+  Future<Task> addTask(Task task) async {
+    await box.add(task.toEntity());
+    return task;
+  }
 
-  deleteTask() {}
+  Future<Task> updateTask(Task task) async {
+    await box.put(task.key, task.toEntity());
+    return task;
+  }
 
-  getAllTasksForCategory(int categoryId) {}
+  Future<Task> deleteTask(Task task) async {
+    await box.values.firstWhere((element) => element.key == task.key).delete();
+    return task;
+  }
+
+  List<Task> getAllTasksForCategory(int categoryId) {
+    final matches = box.values.where((task) => task.categoryId == categoryId);
+
+    return matches.map((e) => Task.fromEntity(e)).toList();
+  }
 }
