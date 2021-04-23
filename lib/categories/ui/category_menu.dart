@@ -170,7 +170,6 @@ class _CategoryMenuState extends State<CategoryMenu> {
                 ),
               ),
               confirmationText: save,
-              confirmationColor: Colors.green,
               onConfirm: () {
                 _updateCategory(context,
                     categoryCubit.state.status == CategoryStatus.editing);
@@ -221,7 +220,6 @@ class _CategoryMenuState extends State<CategoryMenu> {
                 },
               ),
               confirmationText: save,
-              confirmationColor: Colors.green,
               onConfirm: () => _updateCategory(context,
                   categoryCubit.state.status == CategoryStatus.editing),
               onCancel: () {
@@ -276,7 +274,6 @@ class _CategoryMenuState extends State<CategoryMenu> {
                 },
               ),
               confirmationText: save,
-              confirmationColor: Colors.green,
               onConfirm: () => _updateCategory(context,
                   categoryCubit.state.status == CategoryStatus.editing),
               onCancel: () {

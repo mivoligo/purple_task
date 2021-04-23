@@ -8,7 +8,7 @@ class ConfirmationDialog extends StatelessWidget {
     required this.title,
     this.content,
     required this.confirmationText,
-    required this.confirmationColor,
+    this.confirmationColor = Colors.green,
     required this.onConfirm,
     required this.onCancel,
   }) : super(key: key);
@@ -29,7 +29,7 @@ class ConfirmationDialog extends StatelessWidget {
         style: Theme.of(context).textTheme.headline4,
       ),
       content: content,
-      actionsPadding: EdgeInsets.symmetric(horizontal: 8.0),
+      buttonPadding: EdgeInsets.all(16.0),
       actions: [
         SimpleButton(
           text: cancel,
