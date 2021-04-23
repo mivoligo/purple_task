@@ -215,8 +215,8 @@ class _HomeScreenState extends State<HomeScreen>
                               listen: false);
                           final _name = _taskModel.newTaskName;
 
-                          final task =
-                              Task(name: _name, categoryId: -1, isDone: false);
+                          final task = TaskEntity(
+                              name: _name, categoryId: -1, isDone: false);
                           _taskModel.addTask(task);
                         },
                       ),

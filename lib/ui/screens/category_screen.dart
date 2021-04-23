@@ -256,7 +256,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                 final name = taskModel.newTaskName;
                                 final categoryId =
                                     categoryModel.currentCategory!.id;
-                                final task = Task(
+                                final task = TaskEntity(
                                     name: name,
                                     categoryId: categoryId,
                                     isDone: false);

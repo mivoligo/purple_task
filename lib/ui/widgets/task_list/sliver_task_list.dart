@@ -8,7 +8,7 @@ class SliverTasksList extends StatelessWidget {
     required this.list,
   }) : super(key: key);
 
-  final List<Task> list;
+  final List<TaskEntity> list;
 
   @override
   Widget build(BuildContext context) {

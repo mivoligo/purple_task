@@ -3,8 +3,8 @@ import 'package:hive/hive.dart';
 part 'task.g.dart';
 
 @HiveType(typeId: 2)
-class Task extends HiveObject {
-  Task({
+class TaskEntity extends HiveObject {
+  TaskEntity({
     required this.name,
     required this.isDone,
     required this.categoryId,

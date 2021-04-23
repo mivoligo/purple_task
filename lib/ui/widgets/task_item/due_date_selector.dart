@@ -12,7 +12,7 @@ class DueDateSelector extends StatelessWidget {
     required this.onDateSelected,
   }) : super(key: key);
 
-  final Task task;
+  final TaskEntity task;
   final VoidCallback onDateSelected;
 
   @override

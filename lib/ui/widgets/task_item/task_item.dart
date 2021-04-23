@@ -19,7 +19,7 @@ class TaskItem extends StatefulWidget {
     required this.task,
   }) : super(key: key);
 
-  final Task task;
+  final TaskEntity task;
 
   @override
   _TaskItemState createState() => _TaskItemState();
@@ -238,7 +238,7 @@ class TaskOptions extends StatelessWidget {
     required this.onDateSelected,
   }) : super(key: key);
 
-  final Task task;
+  final TaskEntity task;
   final VoidCallback onDeletePressed;
   final VoidCallback onCategorySelected;
   final VoidCallback onDateSelected;

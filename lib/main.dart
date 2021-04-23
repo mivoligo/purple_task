@@ -24,7 +24,7 @@ void main() async {
   // make sure hive boxes are opened before showing UI
   await Hive.openBox(settingsBox);
   await Hive.openBox<CategoryEntity>(categoryBox);
-  await Hive.openBox<Task>(taskBox);
+  await Hive.openBox<TaskEntity>(taskBox);
 
   // Bloc observer
   Bloc.observer = CategoryObserver();

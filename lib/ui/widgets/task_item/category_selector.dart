@@ -12,7 +12,7 @@ class CategorySelector extends StatelessWidget {
     required this.onCategorySelected,
   }) : super(key: key);
 
-  final Task task;
+  final TaskEntity task;
   final VoidCallback onCategorySelected;
 
   @override

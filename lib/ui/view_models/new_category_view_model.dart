@@ -45,13 +45,13 @@ class NewCategoryViewModel extends ChangeNotifier {
     _categoryId = timeStamp;
   }
 
-  List<Task> _tasks = [];
+  List<TaskEntity> _tasks = [];
 
-  List<Task> get tasks => _tasks.reversed.toList();
+  List<TaskEntity> get tasks => _tasks.reversed.toList();
 
   void addTaskToTemporaryList(BuildContext context) {
     final taskModel = Provider.of<TaskViewModel>(context, listen: false);
-    final task = Task(
+    final task = TaskEntity(
       name: taskModel.newTaskName,
       isDone: false,
       categoryId: _categoryId,
