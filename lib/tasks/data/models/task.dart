@@ -4,7 +4,7 @@ import '../../../db_models/db_models.dart';
 class Task extends Equatable {
   Task({
     required this.name,
-    required this.isDone,
+    this.isDone = false,
     required this.categoryId,
     this.dueDate,
     this.doneTime,
