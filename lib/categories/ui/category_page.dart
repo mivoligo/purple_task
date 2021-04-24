@@ -114,8 +114,10 @@ class _CategoryCardWithControls extends StatelessWidget {
             ],
           ),
         ),
-        CategoryView(
-          category: category,
+        Expanded(
+          child: CategoryView(
+            category: category,
+          ),
         ),
       ],
     );

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../tasks/bloc/task_list_cubit.dart';
+import '../../tasks/ui/task_tile.dart';
 
 import '../../ui/ui.dart';
 import '../data/models/category.dart';
@@ -15,37 +18,51 @@ class CategoryView extends StatelessWidget {
         vertical: 12.0,
         horizontal: 32.0,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              Icon(
-                IconData(
-                  category.icon,
-                  fontFamily: 'AntIcons',
-                  fontPackage: 'ant_icons',
+      child:
+          BlocBuilder<TaskListCubit, TaskListState>(builder: (context, state) {
+        final tasks = state is TaskListLoaded ? state.tasks : [];
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  IconData(
+                    category.icon,
+                    fontFamily: 'AntIcons',
+                    fontPackage: 'ant_icons',
+                  ),
+                  size: 42.0,
+                  color: category.color,
                 ),
-                size: 42.0,
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 20.0,
+                horizontal: 4.0,
+              ),
+              child: CategoryHeader(
+                title: category.name,
+                description: '${tasks.length}',
+                progress: 0.3,
                 color: category.color,
               ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 20.0,
-              horizontal: 4.0,
             ),
-            child: CategoryHeader(
-              title: category.name,
-              description: 'sdada',
-              progress: 0.3,
-              color: category.color,
-            ),
-          ),
-          AddTaskField(addTask: () {}),
-        ],
-      ),
+            AddTaskField(addTask: () {}),
+            if (state is TaskListLoaded)
+              Expanded(
+                child: ListView.builder(
+                  itemCount: tasks.length,
+                  itemBuilder: (context, index) {
+                    final task = tasks[index];
+                    return TaskTile(name: task.name);
+                  },
+                ),
+              )
+          ],
+        );
+      }),
     );
   }
 }

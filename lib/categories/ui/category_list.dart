@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../tasks/bloc/task_list_cubit.dart';
 
 import '../bloc/category_list_cubit.dart';
 import 'category_element.dart';
@@ -57,6 +58,9 @@ class CategoryList extends StatelessWidget {
                       await Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
+                            context
+                                .read<TaskListCubit>()
+                                .loadTasksForCategory(category.id);
                             return CategoryPage(
                               category: category,
                             );
