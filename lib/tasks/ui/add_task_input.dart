@@ -1,27 +1,47 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../globals/globals.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddTaskInput extends StatefulWidget {
-  const AddTaskInput({required this.onSubmitted});
+import '../../globals/globals.dart';
+import '../bloc/new_task_cubit.dart';
+import '../data/repositories/task_repository.dart';
+
+class AddTaskInput extends StatelessWidget {
+  const AddTaskInput({this.categoryId = -1});
+
+  final int categoryId;
 
   @override
-  _AddTaskInputState createState() => _AddTaskInputState();
-
-  final VoidCallback onSubmitted;
+  Widget build(BuildContext context) {
+    return BlocProvider<NewTaskCubit>(
+      create: (context) => NewTaskCubit(context.read<TaskRepository>())
+        ..loadEmptyTask(categoryId: categoryId),
+      child: AddTaskInputChild(),
+    );
+  }
 }
 
-class _AddTaskInputState extends State<AddTaskInput> {
+class AddTaskInputChild extends StatefulWidget {
+  const AddTaskInputChild();
+
+  @override
+  _AddTaskInputChildState createState() => _AddTaskInputChildState();
+
+// final VoidCallback onSubmitted;
+}
+
+class _AddTaskInputChildState extends State<AddTaskInputChild> {
   final controller = TextEditingController();
   final focusNode = FocusNode();
 
-  bool hasText = false;
+  // bool hasText = controller.text.isNotEmpty ;
 
   @override
   void initState() {
     // for real time updates of text entry UI
-    controller.addListener(updateField);
+    // controller.addListener(updateField);
+    controller.text = '';
     super.initState();
   }
 
@@ -32,47 +52,58 @@ class _AddTaskInputState extends State<AddTaskInput> {
     super.dispose();
   }
 
-  void updateField() {
-    setState(() {
-      hasText = controller.text.isNotEmpty;
-    });
-  }
+  // void updateField() {
+  //   setState(() {
+  //     hasText = controller.text.isNotEmpty;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTextField(
-      controller: controller,
-      focusNode: focusNode,
-      placeholder: addNewTask,
-      padding: EdgeInsets.only(left: 16.0),
-      style: Theme.of(context).textTheme.subtitle1,
-      suffix: IconButton(
-        color: hasText ? Colors.blue : Colors.grey,
-        icon: Icon(
-          AntIcons.plus_circle,
+    return BlocBuilder<NewTaskCubit, NewTaskState>(builder: (context, state) {
+      var hasText = controller.text.trim().isNotEmpty;
+      return CupertinoTextField(
+        controller: controller,
+        focusNode: focusNode,
+        placeholder: addNewTask,
+        padding: EdgeInsets.only(left: 16.0),
+        style: Theme.of(context).textTheme.subtitle1,
+        decoration: CustomStyles().inputDecoration,
+        suffix: IconButton(
+          color: hasText ? Colors.blue : Colors.grey,
+          icon: Icon(
+            AntIcons.plus_circle,
+          ),
+          onPressed: hasText
+              ? () {
+                  addTask(
+                    context,
+                    isSubmitting: state.status == NewTaskStatus.submitting,
+                  );
+                  controller.clear();
+                  focusNode.requestFocus();
+                }
+              : null,
         ),
-        onPressed: hasText
-            ? () {
-                widget.onSubmitted;
+        onChanged: (value) =>
+            context.read<NewTaskCubit>().nameChanged(name: value),
+        onSubmitted: hasText
+            ? (_) {
+                addTask(
+                  context,
+                  isSubmitting: state.status == NewTaskStatus.submitting,
+                );
                 controller.clear();
                 focusNode.requestFocus();
               }
             : null,
-      ),
-      onSubmitted: hasText
-          ? (_) {
-              widget.onSubmitted;
-              controller.clear();
-              focusNode.requestFocus();
-            }
-          : null,
-      decoration: BoxDecoration(
-          color: Colors.grey[50],
-          borderRadius: BorderRadius.circular(20.0),
-          boxShadow: [
-            BoxShadow(color: Colors.grey[300]!, offset: Offset(0.0, -2.0)),
-            BoxShadow(color: Colors.white, offset: Offset(0.0, 1.0)),
-          ]),
-    );
+      );
+    });
+  }
+
+  void addTask(BuildContext context, {required bool isSubmitting}) {
+    if (!isSubmitting) {
+      context.read<NewTaskCubit>().addTask();
+    }
   }
 }

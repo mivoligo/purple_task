@@ -13,7 +13,7 @@ class TaskCubit extends Cubit<TaskState> {
 
   final TaskRepository _taskRepository;
 
-  Future<void> addTask() async {
+  Future<void> updateTask() async {
     emit(state.copyWith(status: TaskStatus.submitting));
     try {
       final task = state.task!;

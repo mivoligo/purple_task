@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../tasks/bloc/task_cubit.dart';
 import '../../tasks/bloc/task_list_cubit.dart';
-import '../../tasks/data/models/task.dart';
 import '../../tasks/ui/add_task_input.dart';
 import '../../tasks/ui/task_tile.dart';
 import '../../ui/ui.dart';
@@ -52,10 +50,7 @@ class CategoryView extends StatelessWidget {
                 color: category.color,
               ),
             ),
-            AddTaskInput(onSubmitted: () {
-              final task = Task(name: 'bzz', categoryId: category.id);
-              context.read<TaskCubit>().addTask();
-            }),
+            AddTaskInput(categoryId: category.id),
             if (state is TaskListLoaded)
               Expanded(
                 child: ListView.builder(
