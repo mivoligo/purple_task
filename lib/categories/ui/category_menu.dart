@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../globals/globals.dart';
 import '../../ui/widgets/widgets.dart';
 import '../bloc/category_cubit.dart';
-import '../data/model/category.dart';
+import '../data/models/category.dart';
 import 'widgets/color_selector.dart';
 import 'widgets/icon_selector.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../ui/ui.dart';
-import '../data/model/category.dart';
+import '../data/models/category.dart';
 
 class CategoryView extends StatelessWidget {
   const CategoryView({required this.category});

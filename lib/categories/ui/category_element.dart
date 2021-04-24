@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../globals/globals.dart';
 import '../../ui/widgets/animated_progress_bar.dart';
 import '../../ui/widgets/category_header.dart';
-import '../data/model/category.dart';
+import '../data/models/category.dart';
 
 class CategoryElement extends StatelessWidget {
   const CategoryElement({

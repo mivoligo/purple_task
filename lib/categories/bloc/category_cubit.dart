@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import '../data/category_repository.dart';
-import '../data/model/category.dart';
+
+import '../data/models/category.dart';
+import '../data/repositories/category_repository.dart';
 
 part 'category_state.dart';
 

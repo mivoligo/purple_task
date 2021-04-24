@@ -1,8 +1,8 @@
 import 'package:hive/hive.dart';
 
-import '../../db_models/db_models.dart';
-import '../../globals/globals.dart';
-import 'model/task.dart';
+import '../../../db_models/db_models.dart';
+import '../../../globals/globals.dart';
+import '../models/task.dart';
 
 class TaskRepository {
   Box<TaskEntity> box = Hive.box<TaskEntity>(taskBox);

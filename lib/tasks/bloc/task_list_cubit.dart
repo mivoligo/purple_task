@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../data/model/task.dart';
-import '../data/task_repository.dart';
+import '../data/models/task.dart';
+import '../data/repositories/task_repository.dart';
 
 part 'task_list_state.dart';
 

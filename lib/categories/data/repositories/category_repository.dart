@@ -3,9 +3,9 @@ import 'dart:ui';
 
 import 'package:hive/hive.dart';
 
-import '../../db_models/category.dart';
-import '../../globals/globals.dart';
-import 'model/category.dart';
+import '../../../db_models/category.dart';
+import '../../../globals/globals.dart';
+import '../models/category.dart';
 
 class CategoryRepository {
   Box<CategoryEntity> box = Hive.box<CategoryEntity>(categoryBox);

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../globals/globals.dart';
 import '../../ui/ui.dart';
 import '../bloc/category_cubit.dart';
-import '../data/model/category.dart';
+import '../data/models/category.dart';
 import 'category_menu.dart';
 import 'category_view.dart';
 

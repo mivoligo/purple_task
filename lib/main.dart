@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:provider/provider.dart';
 
 import 'categories/bloc/category_cubit.dart';
-import 'categories/data/category_repository.dart';
+import 'categories/data/repositories/category_repository.dart';
 import 'category_observer.dart';
 import 'db_models/db_models.dart';
 import 'globals/globals.dart';
