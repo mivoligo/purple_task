@@ -57,7 +57,7 @@ class CategoryView extends StatelessWidget {
                     itemCount: tasks.length,
                     itemBuilder: (context, index) {
                       final task = tasks[index];
-                      return TaskTile(name: task.name);
+                      return TaskTile(task: task);
                     },
                   ),
                 )
