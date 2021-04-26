@@ -13,11 +13,15 @@ class TaskCubit extends Cubit<TaskState> {
 
   final TaskRepository _taskRepository;
 
+  void loadTask({required Task task}) {
+    emit(state.copyWith(task: task, status: TaskStatus.initial));
+  }
+
   Future<void> updateTask() async {
     emit(state.copyWith(status: TaskStatus.submitting));
     try {
       final task = state.task!;
-      await _taskRepository.addTask(task);
+      await _taskRepository.updateTask(task);
       emit(state.copyWith(status: TaskStatus.success));
     } on Exception catch (_) {
       emit(state.copyWith(
@@ -60,5 +64,10 @@ class TaskCubit extends Cubit<TaskState> {
       task: state.task?.copyWith(categoryId: categoryId),
       status: TaskStatus.initial,
     ));
+  }
+
+  void setIsDone({required bool isDone}) {
+    isDoneChanged(isDone: isDone);
+    updateTask();
   }
 }

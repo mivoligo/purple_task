@@ -11,7 +11,6 @@ import 'category_observer.dart';
 import 'db_models/db_models.dart';
 import 'globals/globals.dart';
 import 'home_view.dart';
-import 'tasks/bloc/task_cubit.dart';
 import 'tasks/bloc/task_list_cubit.dart';
 import 'tasks/data/repositories/task_repository.dart';
 import 'ui/ui.dart';
@@ -75,9 +74,11 @@ class MyApp extends StatelessWidget {
               context.read<TaskRepository>(),
             ),
           ),
-          BlocProvider<TaskCubit>(
-            create: (context) => TaskCubit(context.read<TaskRepository>()),
-          ),
+          // BlocProvider<TaskCubit>(
+          //   create: (context) => TaskCubit(
+          //     context.read<TaskRepository>(),
+          //   ),
+          // ),
         ],
         child: MaterialApp(
           title: appName,

@@ -7,7 +7,7 @@ import '../../../globals/globals.dart';
 import '../../../helpers.dart';
 import '../../ui.dart';
 
-enum TaskState {
+enum TaskLocalState {
   normalTaskState,
   editNameTaskState,
   expandedTaskState,
@@ -26,26 +26,26 @@ class TaskItem extends StatefulWidget {
 }
 
 class _TaskItemState extends State<TaskItem> {
-  TaskState _taskState = TaskState.normalTaskState;
+  TaskLocalState _taskState = TaskLocalState.normalTaskState;
   final _textController = TextEditingController();
   bool _hasText = false;
 
   void setTaskNormal() {
     setState(() {
-      _taskState = TaskState.normalTaskState;
+      _taskState = TaskLocalState.normalTaskState;
     });
   }
 
   void setTaskExpanded() {
     setState(() {
-      _taskState = TaskState.expandedTaskState;
+      _taskState = TaskLocalState.expandedTaskState;
     });
   }
 
   void setTaskEditName() {
     setState(() {
       _textController.text = widget.task.name;
-      _taskState = TaskState.editNameTaskState;
+      _taskState = TaskLocalState.editNameTaskState;
     });
   }
 
@@ -78,7 +78,7 @@ class _TaskItemState extends State<TaskItem> {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: _taskState == TaskState.normalTaskState
+            color: _taskState == TaskLocalState.normalTaskState
                 ? Colors.transparent
                 : Colors.grey[100],
             borderRadius: BorderRadius.circular(20),
@@ -103,7 +103,7 @@ class _TaskItemState extends State<TaskItem> {
                   ),
                   const SizedBox(width: 4.0),
                   Expanded(
-                    child: _taskState == TaskState.editNameTaskState
+                    child: _taskState == TaskLocalState.editNameTaskState
                         ? CupertinoTextField(
                             controller: _textController,
                             autofocus: true,
@@ -118,10 +118,12 @@ class _TaskItemState extends State<TaskItem> {
                                 : null,
                           )
                         : InkWell(
-                            onTap: _taskState == TaskState.normalTaskState ||
-                                    _taskState == TaskState.expandedTaskState
-                                ? setTaskEditName
-                                : null,
+                            onTap:
+                                _taskState == TaskLocalState.normalTaskState ||
+                                        _taskState ==
+                                            TaskLocalState.expandedTaskState
+                                    ? setTaskEditName
+                                    : null,
                             child: Text(
                               widget.task.name,
                               style: widget.task.isDone
@@ -140,8 +142,8 @@ class _TaskItemState extends State<TaskItem> {
                   if (widget.task.dueDate != null)
                     Text(_taskViewModel.displayDueDate(
                         widget.task.dueDate, _dateFormat)),
-                  if (_taskState == TaskState.normalTaskState ||
-                      _taskState == TaskState.editNameTaskState)
+                  if (_taskState == TaskLocalState.normalTaskState ||
+                      _taskState == TaskLocalState.editNameTaskState)
                     CustomIconButton(
                       icon: const Icon(
                         Icons.arrow_drop_down,
@@ -150,7 +152,7 @@ class _TaskItemState extends State<TaskItem> {
                       onPressed: setTaskExpanded,
                       tooltip: showOptions,
                     ),
-                  if (_taskState == TaskState.expandedTaskState)
+                  if (_taskState == TaskLocalState.expandedTaskState)
                     CustomIconButton(
                       icon: const Icon(
                         Icons.arrow_drop_up,
@@ -177,9 +179,10 @@ class _TaskItemState extends State<TaskItem> {
                   ],
                 ),
               AnimatedContainer(
-                height: _taskState == TaskState.expandedTaskState ? 140 : 0,
+                height:
+                    _taskState == TaskLocalState.expandedTaskState ? 140 : 0,
                 duration: Duration(milliseconds: 120),
-                child: _taskState == TaskState.expandedTaskState
+                child: _taskState == TaskLocalState.expandedTaskState
                     ? TaskOptions(
                         task: widget.task,
                         onCategorySelected: setTaskNormal,
@@ -192,9 +195,9 @@ class _TaskItemState extends State<TaskItem> {
                     : null,
               ),
               AnimatedContainer(
-                height: _taskState == TaskState.editNameTaskState ? 56 : 0,
+                height: _taskState == TaskLocalState.editNameTaskState ? 56 : 0,
                 duration: Duration(milliseconds: 90),
-                child: (_taskState == TaskState.editNameTaskState)
+                child: (_taskState == TaskLocalState.editNameTaskState)
                     ? Row(
                         children: [
                           const SizedBox(width: 10),

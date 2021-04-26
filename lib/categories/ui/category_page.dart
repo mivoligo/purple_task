@@ -19,16 +19,12 @@ class CategoryPage extends StatelessWidget {
     return BlocProvider.value(
       value: BlocProvider.of<CategoryCubit>(context)
         ..loadCategory(category: category),
-      child: CategoryDetail(category: category),
+      child: CategoryDetail(),
     );
   }
 }
 
 class CategoryDetail extends StatelessWidget {
-  const CategoryDetail({Key? key, required this.category}) : super(key: key);
-
-  final Category category;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryCubit, CategoryState>(
