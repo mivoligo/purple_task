@@ -27,4 +27,12 @@ class TaskRepository {
 
     return matches.map((e) => Task.fromEntity(e)).toList();
   }
+
+  void deleteAllTasksForCategory(int categoryId) {
+    final matches =
+        box.values.where((task) => task.categoryId == categoryId).toList();
+    for (var task in matches) {
+      task.delete();
+    }
+  }
 }

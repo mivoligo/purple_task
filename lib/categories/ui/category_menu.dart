@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../globals/globals.dart';
+import '../../tasks/bloc/task_list_cubit.dart';
 import '../../ui/widgets/widgets.dart';
 import '../bloc/category_cubit.dart';
 import '../data/models/category.dart';
@@ -79,6 +80,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
 
   void onItemSelected(BuildContext context, int item) {
     final categoryCubit = context.read<CategoryCubit>();
+    final taskListCubit = context.read<TaskListCubit>();
     final oldName = categoryCubit.state.category!.name;
     final oldColor = categoryCubit.state.category!.color;
     final oldIcon = categoryCubit.state.category!.icon;
@@ -135,7 +137,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
             confirmationColor: Colors.red,
             onConfirm: () {
               // delete tasks with category id
-
+              taskListCubit.deleteAllTasksForCategory(widget.category.id);
               // delete category
               categoryCubit.removeCategory();
 
