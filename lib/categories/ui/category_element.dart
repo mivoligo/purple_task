@@ -104,7 +104,7 @@ class ShortView extends StatelessWidget {
             ),
             Text(
               '${category.name}',
-              style: CustomStyles().textStyleBigName,
+              style: CustomStyles.textStyleBigName,
             )
           ],
         ),

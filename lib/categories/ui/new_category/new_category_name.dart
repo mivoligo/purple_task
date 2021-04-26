@@ -47,8 +47,8 @@ class CategoryName extends StatelessWidget {
                 onSubmitted: (_) => textEditingController.text.isNotEmpty
                     ? onSubmitted()
                     : null,
-                style: CustomStyles().textStyleBigName,
-                decoration: CustomStyles().inputDecoration,
+                style: CustomStyles.textStyleBigName,
+                decoration: CustomStyles.inputDecoration,
               ),
             ),
             Text(

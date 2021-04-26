@@ -61,7 +61,7 @@ class NewCategoryBase extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Text(
                           newCategory,
-                          style: CustomStyles().textStyleTitle,
+                          style: CustomStyles.textStyleTitle,
                         ),
                       ),
                       customWidget,

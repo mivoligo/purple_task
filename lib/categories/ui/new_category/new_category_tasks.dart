@@ -53,7 +53,7 @@ class CategoryTasks extends StatelessWidget {
                   ),
                   Text(
                     name,
-                    style: CustomStyles().textStyleBigName,
+                    style: CustomStyles.textStyleBigName,
                   ),
                 ],
               ),

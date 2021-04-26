@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../globals/globals.dart';
 import '../../ui/ui.dart';
 import '../data/models/task.dart';
 
@@ -13,18 +14,29 @@ class TaskTile extends StatelessWidget {
       children: [
         Row(
           children: [
-            Checkbox(
-              value: task.isDone,
-              onChanged: (_) {},
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Checkbox(
+                value: task.isDone,
+                onChanged: (_) {},
+              ),
             ),
-            Expanded(child: Text(task.name)),
-            CustomIconButton(icon: Icon(Icons.arrow_drop_down))
+            Expanded(
+              child: Text(
+                task.name,
+                style: CustomStyles.textStyleTaskName,
+              ),
+            ),
+            CustomIconButton(
+              icon: Icon(Icons.arrow_drop_down),
+              color: Colors.transparent,
+            )
           ],
         ),
         Container(
           height: 1,
-          color: Colors.grey,
-        )
+          color: Colors.grey.shade300,
+        ),
       ],
     );
   }

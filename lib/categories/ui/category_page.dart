@@ -57,6 +57,7 @@ class CategoryDetail extends StatelessWidget {
                       child: SizedBox(
                         width: 600,
                         child: Card(
+                          color: Colors.grey.shade200,
                           margin: const EdgeInsets.all(32),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24),

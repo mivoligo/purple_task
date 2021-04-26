@@ -63,7 +63,7 @@ class _AddTaskInputChildState extends State<AddTaskInputChild> {
           placeholder: addNewTask,
           padding: EdgeInsets.only(left: 16.0),
           style: Theme.of(context).textTheme.subtitle1,
-          decoration: CustomStyles().inputDecoration,
+          decoration: CustomStyles.inputDecoration,
           suffix: IconButton(
             color: hasText ? Colors.blue : Colors.grey,
             icon: Icon(
