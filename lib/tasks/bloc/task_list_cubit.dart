@@ -23,5 +23,6 @@ class TaskListCubit extends Cubit<TaskListState> {
 
   void deleteAllTasksForCategory(int categoryId) {
     _taskRepository.deleteAllTasksForCategory(categoryId);
+    loadTasksForCategory(categoryId);
   }
 }
