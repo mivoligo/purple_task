@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../globals/globals.dart';
 import '../../ui/ui.dart';
 import '../bloc/task_cubit.dart';
+import '../bloc/task_list_cubit.dart';
 import '../data/models/task.dart';
 import '../data/repositories/task_repository.dart';
 
@@ -25,7 +26,14 @@ class TaskTile extends StatelessWidget {
 class TaskTileChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TaskCubit, TaskState>(
+    return BlocConsumer<TaskCubit, TaskState>(
+      listener: (context, state) {
+        if (state.status == TaskStatus.deleted) {
+          context
+              .read<TaskListCubit>()
+              .loadTasksForCategory(state.task!.categoryId);
+        }
+      },
       builder: (context, state) {
         return Column(
           children: [
@@ -49,6 +57,9 @@ class TaskTileChild extends StatelessWidget {
                 CustomIconButton(
                   icon: Icon(Icons.arrow_drop_down),
                   color: Colors.transparent,
+                  onPressed: () {
+                    context.read<TaskCubit>().deleteTask();
+                  },
                 )
               ],
             ),

@@ -31,6 +31,19 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
+  Future<void> deleteTask() async {
+    try {
+      final task = state.task!;
+      await _taskRepository.deleteTask(task);
+      emit(state.copyWith(status: TaskStatus.deleted));
+    } on Exception catch (_) {
+      emit(state.copyWith(
+        status: TaskStatus.error,
+        errorMessage: 'Something went wrong',
+      ));
+    }
+  }
+
   void nameChanged({required String name}) {
     emit(state.copyWith(
       task: state.task?.copyWith(name: name),

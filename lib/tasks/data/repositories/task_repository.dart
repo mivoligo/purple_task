@@ -28,11 +28,18 @@ class TaskRepository {
     return matches.map((e) => Task.fromEntity(e)).toList();
   }
 
-  void deleteAllTasksForCategory(int categoryId) {
-    final matches =
-        box.values.where((task) => task.categoryId == categoryId).toList();
+  Future<void> deleteAllTasksForCategory(int categoryId) async {
+    final matches = box.values.where((task) => task.categoryId == categoryId);
     for (var task in matches) {
-      task.delete();
+      await task.delete();
+    }
+  }
+
+  Future<void> deleteCompletedTasksForCategory(int categoryId) async {
+    final matches = box.values
+        .where((task) => task.categoryId == categoryId && task.isDone == true);
+    for (var task in matches) {
+      await task.delete();
     }
   }
 }

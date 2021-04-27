@@ -1,6 +1,6 @@
 part of 'task_cubit.dart';
 
-enum TaskStatus { initial, submitting, success, error }
+enum TaskStatus { initial, submitting, success, deleted, error }
 
 class TaskState extends Equatable {
   const TaskState({

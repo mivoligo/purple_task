@@ -99,7 +99,10 @@ class _CategoryMenuState extends State<CategoryMenu> {
             ),
             confirmationText: delete,
             confirmationColor: Colors.red,
-            onConfirm: () {},
+            onConfirm: () {
+              taskListCubit.deleteCompletedTasksForCategory(widget.category.id);
+              Navigator.of(context).pop();
+            },
             onCancel: () => Navigator.of(context).pop(),
           ),
         );

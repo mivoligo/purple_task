@@ -15,14 +15,25 @@ class TaskListCubit extends Cubit<TaskListState> {
     emit(TaskListLoading());
     try {
       final tasks = _taskRepository.getAllTasksForCategory(categoryId);
-      emit(TaskListLoaded(tasks: tasks));
+      emit(TaskListLoaded(tasks: List.from(tasks)));
     } on Exception catch (_) {
       emit(TaskListError());
     }
   }
 
-  void deleteAllTasksForCategory(int categoryId) {
-    _taskRepository.deleteAllTasksForCategory(categoryId);
-    loadTasksForCategory(categoryId);
+  void deleteAllTasksForCategory(int categoryId) async {
+    try {
+      await _taskRepository.deleteAllTasksForCategory(categoryId);
+      final tasks = _taskRepository.getAllTasksForCategory(categoryId);
+      emit(TaskListLoaded(tasks: List.from(tasks)));
+    } on Exception catch (_) {
+      emit(TaskListError());
+    }
+  }
+
+  void deleteCompletedTasksForCategory(int categoryId) async {
+    await _taskRepository.deleteCompletedTasksForCategory(categoryId);
+    // final tasks = _taskRepository.getAllTasksForCategory(categoryId);
+    // emit(TaskListLoaded(tasks: tasks));
   }
 }
