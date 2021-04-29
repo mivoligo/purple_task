@@ -14,8 +14,8 @@ void main() async {
   final dir = await path_provider.getApplicationSupportDirectory();
   Hive
     ..init(dir.path)
-    ..registerAdapter(CategoryAdapter())
-    ..registerAdapter(TaskAdapter());
+    ..registerAdapter(CategoryEntityAdapter())
+    ..registerAdapter(TaskEntityAdapter());
   // make sure hive boxes are opened before showing UI
   await Hive.openBox(settingsBox);
   await Hive.openBox<CategoryEntity>(categoryBox);
