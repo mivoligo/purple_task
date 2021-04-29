@@ -3,9 +3,10 @@ import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
-import 'db_models/db_models.dart';
+import 'entities/entities.dart';
 import 'globals/globals.dart';
 import 'ui/ui.dart';
+import 'view_models/view_models.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,8 +18,8 @@ void main() async {
     ..registerAdapter(TaskAdapter());
   // make sure hive boxes are opened before showing UI
   await Hive.openBox(settingsBox);
-  await Hive.openBox<Category>(categoryBox);
-  await Hive.openBox<Task>(taskBox);
+  await Hive.openBox<CategoryEntity>(categoryBox);
+  await Hive.openBox<TaskEntity>(taskBox);
 
   // Set app window size
   AppWindowSize _appWindowSize = AppWindowSizePluginBased();

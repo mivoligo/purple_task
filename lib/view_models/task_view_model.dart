@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
-import '../../db_models/db_models.dart';
 import '../../globals/globals.dart';
+import '../entities/entities.dart';
 
 class TaskViewModel extends ChangeNotifier {
   late String _newTaskName;
@@ -15,23 +15,23 @@ class TaskViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Task> getAllTasksForCategory(int categoryId) {
-    final box = Hive.box<Task>(taskBox);
+  List<TaskEntity> getAllTasksForCategory(int categoryId) {
+    final box = Hive.box<TaskEntity>(taskBox);
     return box.values.where((task) => task.categoryId == categoryId).toList();
   }
 
-  List<Task> getPlannedTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(taskBox);
+  List<TaskEntity> getPlannedTasksForCategory(int? categoryId) {
+    final box = Hive.box<TaskEntity>(taskBox);
     return box.values
         .where((task) => task.categoryId == categoryId && task.isDone == false)
         .toList();
   }
 
-  List<Task> getOverdueTasksForCategory(int? categoryId) {
+  List<TaskEntity> getOverdueTasksForCategory(int? categoryId) {
     final allTasksInCategory = getPlannedTasksForCategory(categoryId);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    var overdueTasks = <Task>[];
+    var overdueTasks = <TaskEntity>[];
     for (var task in allTasksInCategory) {
       if (task.dueDate != null) {
         final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
@@ -47,11 +47,11 @@ class TaskViewModel extends ChangeNotifier {
     return overdueTasks;
   }
 
-  List<Task> getTodaysTasksForCategory(int? categoryId) {
+  List<TaskEntity> getTodaysTasksForCategory(int? categoryId) {
     final allTasksInCategory = getPlannedTasksForCategory(categoryId);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    var todaysTasks = <Task>[];
+    var todaysTasks = <TaskEntity>[];
     for (var task in allTasksInCategory) {
       if (task.dueDate != null) {
         final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
@@ -65,11 +65,11 @@ class TaskViewModel extends ChangeNotifier {
     return todaysTasks;
   }
 
-  List<Task> getTomorrowsTasksForCategory(int? categoryId) {
+  List<TaskEntity> getTomorrowsTasksForCategory(int? categoryId) {
     final allTasksInCategory = getPlannedTasksForCategory(categoryId);
     final now = DateTime.now();
     final tomorrow = DateTime(now.year, now.month, now.day + 1);
-    var tomorrowTasks = <Task>[];
+    var tomorrowTasks = <TaskEntity>[];
     for (var task in allTasksInCategory) {
       if (task.dueDate != null) {
         final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
@@ -83,11 +83,11 @@ class TaskViewModel extends ChangeNotifier {
     return tomorrowTasks;
   }
 
-  List<Task> getFutureTasksForCategory(int? categoryId) {
+  List<TaskEntity> getFutureTasksForCategory(int? categoryId) {
     final allTasksInCategory = getPlannedTasksForCategory(categoryId);
     final now = DateTime.now();
     final tomorrow = DateTime(now.year, now.month, now.day + 1);
-    var futureTasks = <Task>[];
+    var futureTasks = <TaskEntity>[];
     for (var task in allTasksInCategory) {
       if (task.dueDate != null) {
         final dueDateTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
@@ -102,9 +102,9 @@ class TaskViewModel extends ChangeNotifier {
     return futureTasks;
   }
 
-  List<Task> getNoDueDateTasksForCategory(int? categoryId) {
+  List<TaskEntity> getNoDueDateTasksForCategory(int? categoryId) {
     final allTasksInCategory = getPlannedTasksForCategory(categoryId);
-    var noDueDateTasks = <Task>[];
+    var noDueDateTasks = <TaskEntity>[];
     for (var task in allTasksInCategory) {
       if (task.dueDate == null) {
         noDueDateTasks.add(task);
@@ -113,19 +113,19 @@ class TaskViewModel extends ChangeNotifier {
     return noDueDateTasks.reversed.toList();
   }
 
-  List<Task> getCompletedTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(taskBox);
+  List<TaskEntity> getCompletedTasksForCategory(int? categoryId) {
+    final box = Hive.box<TaskEntity>(taskBox);
     return box.values
         .where((task) => task.categoryId == categoryId && task.isDone == true)
         .toList();
   }
 
-  List<Task> getTodayCompletedTasksForCategory(int? categoryId) {
+  List<TaskEntity> getTodayCompletedTasksForCategory(int? categoryId) {
     final allCompletedTasksForCategory =
         getCompletedTasksForCategory(categoryId);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    var todayCompletedTasks = <Task>[];
+    var todayCompletedTasks = <TaskEntity>[];
     for (var task in allCompletedTasksForCategory) {
       if (task.doneTime != null) {
         final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
@@ -139,12 +139,12 @@ class TaskViewModel extends ChangeNotifier {
     return todayCompletedTasks;
   }
 
-  List<Task> getYesterdayCompletedTasksForCategory(int? categoryId) {
+  List<TaskEntity> getYesterdayCompletedTasksForCategory(int? categoryId) {
     final allCompletedTasksForCategory =
         getCompletedTasksForCategory(categoryId);
     final now = DateTime.now();
     final yesterday = DateTime(now.year, now.month, now.day - 1);
-    var yesterdayCompletedTasks = <Task>[];
+    var yesterdayCompletedTasks = <TaskEntity>[];
     for (var task in allCompletedTasksForCategory) {
       if (task.doneTime != null) {
         final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
@@ -158,13 +158,13 @@ class TaskViewModel extends ChangeNotifier {
     return yesterdayCompletedTasks;
   }
 
-  List<Task> getEarlierCompletedTasksForCategory(int? categoryId) {
+  List<TaskEntity> getEarlierCompletedTasksForCategory(int? categoryId) {
     final allCompletedTasksForCategory =
         getCompletedTasksForCategory(categoryId);
     final now = DateTime.now();
     final yesterday = DateTime(now.year, now.month, now.day - 1);
-    var earlierCompletedTasks = <Task>[];
-    var completedTasksWithoutDoneTime = <Task>[];
+    var earlierCompletedTasks = <TaskEntity>[];
+    var completedTasksWithoutDoneTime = <TaskEntity>[];
     for (var task in allCompletedTasksForCategory) {
       if (task.doneTime != null) {
         final doneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
@@ -181,8 +181,8 @@ class TaskViewModel extends ChangeNotifier {
     return earlierCompletedTasks;
   }
 
-  Future<void> addTask(Task task) async {
-    var box = await Hive.openBox<Task>(taskBox);
+  Future<void> addTask(TaskEntity task) async {
+    var box = await Hive.openBox<TaskEntity>(taskBox);
 
     box.add(task);
 
@@ -190,20 +190,20 @@ class TaskViewModel extends ChangeNotifier {
   }
 
   int numberOfAllPlannedTasks() {
-    final box = Hive.box<Task>(taskBox);
+    final box = Hive.box<TaskEntity>(taskBox);
     final result = box.values.where((task) => task.isDone == false).length;
     return result;
   }
 
   int numberOfAllTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(taskBox);
+    final box = Hive.box<TaskEntity>(taskBox);
     final result =
         box.values.where((task) => task.categoryId == categoryId).length;
     return result;
   }
 
   int numberOfCompletedTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(taskBox);
+    final box = Hive.box<TaskEntity>(taskBox);
     final result = box.values
         .where((task) => task.categoryId == categoryId && task.isDone == true)
         .length;
@@ -211,7 +211,7 @@ class TaskViewModel extends ChangeNotifier {
   }
 
   int numberOfPlannedTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(taskBox);
+    final box = Hive.box<TaskEntity>(taskBox);
     final result = box.values
         .where((task) => task.categoryId == categoryId && task.isDone == false)
         .length;
@@ -226,8 +226,8 @@ class TaskViewModel extends ChangeNotifier {
         numberOfAllTasksForCategory(categoryId);
   }
 
-  void updateTask(dynamic key, Task task) {
-    final box = Hive.box<Task>(taskBox);
+  void updateTask(dynamic key, TaskEntity task) {
+    final box = Hive.box<TaskEntity>(taskBox);
 
     box.put(key, task);
 
@@ -235,7 +235,7 @@ class TaskViewModel extends ChangeNotifier {
   }
 
   void deleteTask(dynamic key) {
-    final box = Hive.box<Task>(taskBox);
+    final box = Hive.box<TaskEntity>(taskBox);
 
     box.delete(key);
 
@@ -243,7 +243,7 @@ class TaskViewModel extends ChangeNotifier {
   }
 
   void deleteAllTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(taskBox);
+    final box = Hive.box<TaskEntity>(taskBox);
     List _tasks =
         box.values.where((task) => task.categoryId == categoryId).toList();
     for (var task in _tasks) {
@@ -253,7 +253,7 @@ class TaskViewModel extends ChangeNotifier {
   }
 
   void deleteCompletedTasksForCategory(int? categoryId) {
-    final box = Hive.box<Task>(taskBox);
+    final box = Hive.box<TaskEntity>(taskBox);
     List _tasks = box.values
         .where((task) => task.categoryId == categoryId && task.isDone == true)
         .toList();

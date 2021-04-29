@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../db_models/db_models.dart';
+import '../../entities/entities.dart';
 import '../../globals/globals.dart';
+import '../../view_models/view_models.dart';
 import '../ui.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -14,7 +15,7 @@ class CategoryCard extends StatelessWidget {
     this.onFocusChange,
   }) : super(key: key);
 
-  final Category? category;
+  final CategoryEntity? category;
   final VoidCallback? onTap;
   final Function? onHover;
   final Function? onFocusChange;

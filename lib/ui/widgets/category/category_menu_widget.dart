@@ -3,8 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../db_models/db_models.dart';
+import '../../../entities/entities.dart';
 import '../../../globals/globals.dart';
+import '../../../view_models/view_models.dart';
 import '../../ui.dart';
 
 class CategoryMenuWidget extends StatefulWidget {
@@ -253,7 +254,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   }
 
   void updateCategoryName() {
-    final _category = Category(
+    final _category = CategoryEntity(
       name: textController.text,
       color: categoryModel.currentCategory!.color,
       icon: categoryModel.currentCategory!.icon,
@@ -264,7 +265,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   }
 
   void updateCategoryColor() {
-    final _category = Category(
+    final _category = CategoryEntity(
       name: categoryModel.currentCategory!.name,
       color: categoryModel.color,
       icon: categoryModel.currentCategory!.icon,
@@ -275,7 +276,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   }
 
   void updateCategoryIcon() {
-    final _category = Category(
+    final _category = CategoryEntity(
       name: categoryModel.currentCategory!.name,
       color: categoryModel.currentCategory!.color,
       icon: categoryModel.icon,

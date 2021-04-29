@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../globals/globals.dart';
-import '../ui.dart';
+import '../../view_models/view_models.dart';
 
 class Greetings extends StatelessWidget {
   const Greetings({

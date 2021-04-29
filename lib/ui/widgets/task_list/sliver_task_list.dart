@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../db_models/db_models.dart';
+import '../../../entities/entities.dart';
 import '../../ui.dart';
 
 class SliverTasksList extends StatelessWidget {
@@ -8,7 +8,7 @@ class SliverTasksList extends StatelessWidget {
     required this.list,
   }) : super(key: key);
 
-  final List<Task> list;
+  final List<TaskEntity> list;
 
   @override
   Widget build(BuildContext context) {

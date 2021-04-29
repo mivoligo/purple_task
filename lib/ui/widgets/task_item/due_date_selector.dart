@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../db_models/db_models.dart';
+import '../../../entities/entities.dart';
 import '../../../globals/globals.dart';
-import '../../ui.dart';
+import '../../../view_models/view_models.dart';
 
 class DueDateSelector extends StatelessWidget {
   const DueDateSelector({
@@ -12,7 +12,7 @@ class DueDateSelector extends StatelessWidget {
     required this.onDateSelected,
   }) : super(key: key);
 
-  final Task task;
+  final TaskEntity task;
   final VoidCallback onDateSelected;
 
   @override

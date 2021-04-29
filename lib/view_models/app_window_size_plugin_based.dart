@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:hive/hive.dart';
 import 'package:window_size/window_size.dart' as window_size;
 import '../../globals/globals.dart';
-import '../ui.dart';
+import 'view_models.dart';
 
 class AppWindowSizePluginBased implements AppWindowSize {
   double? _appWidth;

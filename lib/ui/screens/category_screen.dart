@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
-import '../../db_models/db_models.dart';
+import '../../entities/entities.dart';
 import '../../globals/globals.dart';
+import '../../view_models/view_models.dart';
 import '../ui.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -256,7 +257,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                 final name = taskModel.newTaskName;
                                 final categoryId =
                                     categoryModel.currentCategory!.id;
-                                final task = Task(
+                                final task = TaskEntity(
                                     name: name,
                                     categoryId: categoryId,
                                     isDone: false);

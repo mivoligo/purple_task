@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
-import '../../db_models/db_models.dart';
+import '../../entities/entities.dart';
 import '../../globals/globals.dart';
+import '../../view_models/view_models.dart';
 import '../ui.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -31,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   late NewCategoryViewModel _newCategory; // NewCategory provider
 
-  late List<Category> _categoryList;
+  late List<CategoryEntity> _categoryList;
 
   late CategoryViewModel _categoryViewModel;
 
@@ -215,8 +216,8 @@ class _HomeScreenState extends State<HomeScreen>
                               listen: false);
                           final _name = _taskModel.newTaskName;
 
-                          final task =
-                              Task(name: _name, categoryId: -1, isDone: false);
+                          final task = TaskEntity(
+                              name: _name, categoryId: -1, isDone: false);
                           _taskModel.addTask(task);
                         },
                       ),
@@ -419,7 +420,7 @@ class UncategorizedList extends StatelessWidget {
     required bool? isWide,
     required double? appWidth,
     required ScrollController? quickListController,
-  })   : _appHeight = appHeight,
+  })  : _appHeight = appHeight,
         _isWide = isWide,
         _appWidth = appWidth,
         _quickListController = quickListController,

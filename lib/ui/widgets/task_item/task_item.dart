@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../db_models/db_models.dart';
+import '../../../entities/entities.dart';
 import '../../../globals/globals.dart';
 import '../../../helpers.dart';
+import '../../../view_models/view_models.dart';
 import '../../ui.dart';
 
 enum TaskState {
@@ -19,7 +20,7 @@ class TaskItem extends StatefulWidget {
     required this.task,
   }) : super(key: key);
 
-  final Task task;
+  final TaskEntity task;
 
   @override
   _TaskItemState createState() => _TaskItemState();
@@ -238,7 +239,7 @@ class TaskOptions extends StatelessWidget {
     required this.onDateSelected,
   }) : super(key: key);
 
-  final Task task;
+  final TaskEntity task;
   final VoidCallback onDeletePressed;
   final VoidCallback onCategorySelected;
   final VoidCallback onDateSelected;

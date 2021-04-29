@@ -4,9 +4,9 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../db_models/db_models.dart';
 import '../../globals/globals.dart';
-import '../ui.dart';
+import '../entities/entities.dart';
+import 'view_models.dart';
 
 class NewCategoryViewModel extends ChangeNotifier {
   String _name = '';
@@ -45,13 +45,13 @@ class NewCategoryViewModel extends ChangeNotifier {
     _categoryId = timeStamp;
   }
 
-  List<Task> _tasks = [];
+  List<TaskEntity> _tasks = [];
 
-  List<Task> get tasks => _tasks.reversed.toList();
+  List<TaskEntity> get tasks => _tasks.reversed.toList();
 
   void addTaskToTemporaryList(BuildContext context) {
     final taskModel = Provider.of<TaskViewModel>(context, listen: false);
-    final task = Task(
+    final task = TaskEntity(
       name: taskModel.newTaskName,
       isDone: false,
       categoryId: _categoryId,
@@ -79,7 +79,7 @@ class NewCategoryViewModel extends ChangeNotifier {
     final id = _categoryId;
     final categoryModel =
         Provider.of<CategoryViewModel>(context, listen: false);
-    final category = Category(
+    final category = CategoryEntity(
       name: _name,
       color: _color,
       icon: _icon,

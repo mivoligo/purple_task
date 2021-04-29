@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../globals/globals.dart';
 import '../../../helpers.dart';
-import '../../ui.dart';
+import '../../../view_models/view_models.dart';
 
 class DateFormatSelector extends StatelessWidget {
   @override

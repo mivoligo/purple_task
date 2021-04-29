@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category.dart';
+part of 'category_entity.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CategoryAdapter extends TypeAdapter<Category> {
+class CategoryAdapter extends TypeAdapter<CategoryEntity> {
   @override
   final int typeId = 0;
 
   @override
-  Category read(BinaryReader reader) {
+  CategoryEntity read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Category(
+    return CategoryEntity(
       name: fields[0] as String,
       color: fields[1] as int,
       icon: fields[2] as int,
@@ -25,7 +25,7 @@ class CategoryAdapter extends TypeAdapter<Category> {
   }
 
   @override
-  void write(BinaryWriter writer, Category obj) {
+  void write(BinaryWriter writer, CategoryEntity obj) {
     writer
       ..writeByte(4)
       ..writeByte(0)

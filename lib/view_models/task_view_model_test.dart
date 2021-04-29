@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:purple_task/globals/globals.dart';
-import 'package:purple_task/ui/ui.dart';
+import '../globals/globals.dart';
+import 'view_models.dart';
 
 void main() {
   group('Due date', () {
