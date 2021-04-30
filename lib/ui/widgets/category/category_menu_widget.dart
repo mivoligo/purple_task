@@ -9,13 +9,6 @@ import '../../../view_models/view_models.dart';
 import '../../ui.dart';
 
 class CategoryMenuWidget extends StatefulWidget {
-  const CategoryMenuWidget({
-    Key? key,
-    required this.categoryIndex,
-  }) : super(key: key);
-
-  final int? categoryIndex;
-
   @override
   _CategoryMenuWidgetState createState() => _CategoryMenuWidgetState();
 }
@@ -260,7 +253,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
       icon: categoryModel.currentCategory!.icon,
       id: categoryModel.currentCategory!.id,
     );
-    categoryModel.updateCategory(widget.categoryIndex!, _category);
+    categoryModel.updateCategory(_category);
     categoryModel.currentCategory = _category;
   }
 
@@ -271,7 +264,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
       icon: categoryModel.currentCategory!.icon,
       id: categoryModel.currentCategory!.id,
     );
-    categoryModel.updateCategory(widget.categoryIndex!, _category);
+    categoryModel.updateCategory(_category);
     categoryModel.currentCategory = _category;
   }
 
@@ -282,7 +275,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
       icon: categoryModel.icon,
       id: categoryModel.currentCategory!.id,
     );
-    categoryModel.updateCategory(widget.categoryIndex!, _category);
+    categoryModel.updateCategory(_category);
     categoryModel.currentCategory = _category;
   }
 }

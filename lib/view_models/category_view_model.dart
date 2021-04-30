@@ -19,7 +19,7 @@ class CategoryViewModel extends ChangeNotifier {
     return categoryRepository.getCategories();
   }
 
-  void updateCategory(int index, Category category) {
+  void updateCategory(Category category) {
     categoryRepository.updateCategory(category: category);
     notifyListeners();
   }

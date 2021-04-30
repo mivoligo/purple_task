@@ -154,9 +154,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                         ),
                         const Spacer(),
                         // Menu button
-                        CategoryMenuWidget(
-                          categoryIndex: widget.currentIndex,
-                        ),
+                        CategoryMenuWidget(),
                         const SizedBox(width: 8.0),
                       ],
                     ),
@@ -188,8 +186,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                   fontFamily: 'AntIcons',
                                   fontPackage: 'ant_icons',
                                 ),
-                                color:
-                                    categoryModel.currentCategory!.color,
+                                color: categoryModel.currentCategory!.color,
                                 size: 40),
                           ),
                           const SizedBox(height: 24.0),
@@ -235,8 +232,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     description: _descriptionText,
                                     progress: _taskModel
                                         .completionProgress(categoryId),
-                                    color:
-                                        categoryModel.currentCategory!.color,
+                                    color: categoryModel.currentCategory!.color,
                                   );
                                 },
                               ),
