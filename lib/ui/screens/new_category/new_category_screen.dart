@@ -31,7 +31,7 @@ class NewCategoryScreen extends StatelessWidget {
             name: state.name,
             color: state.color,
             selectedColor: state.color,
-            onNext: () {},
+            onNext: controller.progressToIcon,
             onCancel: () {
               Navigator.of(context).pop();
             },
@@ -41,7 +41,7 @@ class NewCategoryScreen extends StatelessWidget {
             focusNode: _focusNode,
             name: state.name,
             color: state.color,
-            onNext: () {},
+            onNext: controller.progressToTasks,
             onCancel: () {
               Navigator.of(context).pop();
             },
