@@ -21,6 +21,7 @@ class NewCategoryScreen extends StatelessWidget {
             onSubmitted: () {
               _focusNode.unfocus();
               FocusScope.of(context).requestFocus(_focusNode);
+              controller.progressToColor();
             },
             onNext: controller.progressToColor,
             onCancel: () {
