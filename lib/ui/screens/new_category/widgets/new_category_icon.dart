@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../../../globals/globals.dart';
 import '../../../../globals/strings/strings.dart' as s;
 import '../../../widgets/widgets.dart';
 import 'new_category_base.dart';
@@ -51,7 +51,7 @@ class CategoryIcon extends StatelessWidget {
                   ),
                   Text(
                     name,
-                    // style: CustomStyles.textStyleBigName,
+                    style: CustomStyle.textStyleBigName,
                   ),
                 ],
               ),

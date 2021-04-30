@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../globals/globals.dart';
 
 import '../../../../globals/strings/strings.dart' as s;
 import '../../../widgets/widgets.dart';
@@ -37,7 +38,7 @@ class CategoryColor extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(48.0, 20.0, 32.0, 4.0),
               child: Text(
                 name,
-                // style: CustomStyles.textStyleBigName,
+                style: CustomStyle.textStyleBigName,
               ),
             ),
             Expanded(

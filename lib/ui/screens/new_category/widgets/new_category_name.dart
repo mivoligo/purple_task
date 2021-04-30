@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../../globals/globals.dart';
 import '../../../../globals/strings/strings.dart' as s;
 
 import 'new_category_base.dart';
@@ -44,8 +45,8 @@ class CategoryName extends StatelessWidget {
                 ),
                 onSubmitted: (_) => onSubmitted(),
                 onChanged: onNameChanged,
-                // style: CustomStyles.textStyleBigName,
-                // decoration: CustomStyles.inputDecoration,
+                style: CustomStyle.textStyleBigName,
+                decoration: CustomStyle.inputDecoration,
               ),
             ),
             Text(

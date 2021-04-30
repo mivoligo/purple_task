@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../globals/globals.dart';
 import '../../../../globals/strings/strings.dart' as s;
 import '../../../ui.dart';
 
@@ -59,7 +60,7 @@ class NewCategoryBase extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Text(
                           s.newCategory,
-                          // style: CustomStyles.textStyleTitle,
+                          style: CustomStyle.textStyleTitle,
                         ),
                       ),
                       customWidget,

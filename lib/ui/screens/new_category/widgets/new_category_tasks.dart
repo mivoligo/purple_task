@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../globals/globals.dart';
 import '../../../../globals/strings/strings.dart' as s;
 
 import '../../../ui.dart';
@@ -52,7 +53,7 @@ class CategoryTasks extends StatelessWidget {
                   ),
                   Text(
                     name,
-                    // style: CustomStyles.textStyleBigName,
+                    style: CustomStyle.textStyleBigName,
                   ),
                 ],
               ),
@@ -65,7 +66,7 @@ class CategoryTasks extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(2.0),
               child: Text(
-                'Task', // TODO use const string
+                s.taskSingular,
                 textAlign: TextAlign.center,
               ),
             ),
