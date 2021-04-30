@@ -1,7 +1,10 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import '../../globals/globals.dart';
+import '../../controllers/controllers.dart';
+
+import '../../globals/globals.dart' as g;
 
 class ColorSelector extends StatelessWidget {
   const ColorSelector({
@@ -17,9 +20,9 @@ class ColorSelector extends StatelessWidget {
     return AnimationLimiter(
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: categoryColors.length,
+        itemCount: g.categoryColors.length,
         itemBuilder: (context, index) {
-          final isSelected = selectedColor == Color(categoryColors[index]);
+          final isSelected = selectedColor == Color(g.categoryColors[index]);
           return AnimationConfiguration.staggeredList(
             position: index,
             duration: const Duration(milliseconds: 300),
@@ -33,21 +36,19 @@ class ColorSelector extends StatelessWidget {
                   child: SizedBox(
                     width: 70,
                     child: Card(
-                      color: Color(categoryColors[index]),
+                      color: Color(g.categoryColors[index]),
                       elevation: isSelected ? 6 : 1,
                       child: InkWell(
-                        // onFocusChange: isInCreator
-                        //     ? (_) => context
-                        //         .read<NewCategoryCubit>()
-                        //         .colorChanged(Color(categoryColors[index]))
-                        //     : (_) => context.read<CategoryCubit>().colorChanged(
-                        //         color: Color(categoryColors[index])),
-                        // onTap: isInCreator
-                        //     ? () => context
-                        //         .read<NewCategoryCubit>()
-                        //         .colorChanged(Color(categoryColors[index]))
-                        //     : () => context.read<CategoryCubit>().colorChanged(
-                        //         color: Color(categoryColors[index])),
+                        onFocusChange: isInCreator
+                            ? (_) => context
+                                .read(newCategoryControllerProvider.notifier)
+                                .colorChanged(Color(g.categoryColors[index]))
+                            : null,
+                        onTap: isInCreator
+                            ? () => context
+                                .read(newCategoryControllerProvider.notifier)
+                                .colorChanged(Color(g.categoryColors[index]))
+                            : () => null,
                         child: isSelected
                             ? Icon(
                                 AntIcons.check_outline,
