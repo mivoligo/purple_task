@@ -139,7 +139,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
               taskModel
                   .deleteAllTasksForCategory(categoryModel.currentCategory!.id);
               // delete category
-              categoryModel.deleteCategory(widget.categoryIndex!);
+              categoryModel.deleteCategory(categoryModel.currentCategory!);
               // pop category screen
               Navigator.of(context).pop();
             },

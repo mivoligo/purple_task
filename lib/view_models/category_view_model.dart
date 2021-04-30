@@ -1,10 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
 
-import '../../globals/globals.dart';
-import '../entities/entities.dart';
 import '../models/models.dart';
 import '../repositories/repositories.dart';
 
@@ -27,10 +24,8 @@ class CategoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteCategory(int index) {
-    final box = Hive.box<CategoryEntity>(categoryBox);
-
-    box.deleteAt(index);
+  void deleteCategory(Category category) {
+    categoryRepository.deleteCategory(category: category);
 
     notifyListeners();
   }
