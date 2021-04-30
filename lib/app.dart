@@ -1,51 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:provider/provider.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'app.dart';
-import 'entities/entities.dart';
-import 'globals/globals.dart';
-import 'ui/ui.dart';
-import 'view_models/view_models.dart';
+import 'globals/strings/strings.dart' as s;
+import 'ui/screens/screens.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final dir = await path_provider.getApplicationSupportDirectory();
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(CategoryEntityAdapter())
-    ..registerAdapter(TaskEntityAdapter());
-  // make sure hive boxes are opened before showing UI
-  await Hive.openBox(settingsBox);
-  await Hive.openBox<CategoryEntity>(categoryBox);
-  await Hive.openBox<TaskEntity>(taskBox);
-
-  // Set app window size
-  AppWindowSize _appWindowSize = AppWindowSizePluginBased();
-  _appWindowSize.setWindowSize();
-
-  runApp(
-    App(),
-  );
-}
-
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<SettingsViewModel>(
-            create: (_) => SettingsViewModel()),
-        ChangeNotifierProvider<NewCategoryViewModel>(
-            create: (_) => NewCategoryViewModel()),
-        ChangeNotifierProvider<CategoryViewModel>(
-            create: (_) => CategoryViewModel()),
-        ChangeNotifierProvider<TaskViewModel>(create: (_) => TaskViewModel()),
-      ],
+    return ProviderScope(
       child: MaterialApp(
-        title: appName,
+        title: s.appName,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Color(0xffe83f6f),
@@ -102,7 +66,7 @@ class MyApp extends StatelessWidget {
           ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: HomeScreen(),
+        home: MainScreen(),
       ),
     );
   }

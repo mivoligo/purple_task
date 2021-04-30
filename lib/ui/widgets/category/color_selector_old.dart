@@ -1,15 +1,16 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../globals/globals.dart';
 import '../../../view_models/view_models.dart';
 
-class IconSelector extends StatefulWidget {
+class ColorSelectorOld extends StatefulWidget {
   @override
-  _IconSelectorState createState() => _IconSelectorState();
+  _ColorSelectorOldState createState() => _ColorSelectorOldState();
 }
 
-class _IconSelectorState extends State<IconSelector>
+class _ColorSelectorOldState extends State<ColorSelectorOld>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<EdgeInsets> _padding;
@@ -41,11 +42,10 @@ class _IconSelectorState extends State<IconSelector>
 
   @override
   Widget build(BuildContext context) {
-    final categoryModel =
-        Provider.of<CategoryViewModel>(context, listen: false);
+    final categoryProvider = Provider.of<CategoryViewModel>(context);
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: categoryIcons.length,
+      itemCount: categoryColors.length,
       itemBuilder: (context, index) {
         return AnimatedBuilder(
           animation: _animationController,
@@ -55,21 +55,23 @@ class _IconSelectorState extends State<IconSelector>
               child: child,
             );
           },
-          child: Container(
-            color: Colors.grey[300],
-            width: 64.0,
-            child: TextButton(
-              onPressed: () {
-                categoryModel.icon = categoryIcons[index];
+          child: Material(
+            child: InkWell(
+              onFocusChange: (v) {
+                categoryProvider.color = Color(categoryColors[index]);
               },
-              child: Icon(
-                IconData(
-                  categoryIcons[index],
-                  fontFamily: 'AntIcons',
-                  fontPackage: 'ant_icons',
-                ),
-                color: Colors.black54,
-                size: 28,
+              onTap: () {
+                categoryProvider.color = Color(categoryColors[index]);
+              },
+              child: Container(
+                width: 64,
+                color: Color(categoryColors[index]),
+                child: (categoryProvider.color == categoryColors[index])
+                    ? Icon(
+                        AntIcons.check_outline,
+                        color: Colors.white,
+                      )
+                    : null,
               ),
             ),
           ),

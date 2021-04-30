@@ -4,6 +4,13 @@ import '../../models/category.dart';
 import '../../repositories/repositories.dart';
 import 'new_category_state.dart';
 
+final newCategoryControllerProvider =
+    StateNotifierProvider<NewCategoryController, NewCategoryState>(
+  (ref) {
+    return NewCategoryController(ref.watch(categoryRepositoryProvider));
+  },
+);
+
 class NewCategoryController extends StateNotifier<NewCategoryState> {
   NewCategoryController(this._categoryRepository)
       : super(NewCategoryState.initial());
@@ -14,24 +21,24 @@ class NewCategoryController extends StateNotifier<NewCategoryState> {
     state = state.copyWith(name: name);
   }
 
-  void setName(String name) {
-    state = state.copyWith(name: name, status: NewCategoryStatus.color);
+  void progressToColor() {
+    state = state.copyWith(status: NewCategoryStatus.color);
   }
 
   void colorChanged(Color color) {
     state = state.copyWith(color: color);
   }
 
-  void setColor(Color color) {
-    state = state.copyWith(color: color, status: NewCategoryStatus.icon);
+  void progressToIcon() {
+    state = state.copyWith(status: NewCategoryStatus.icon);
   }
 
   void iconChanged(int icon) {
     state = state.copyWith(icon: icon);
   }
 
-  void setIcon(int icon) {
-    state = state.copyWith(icon: icon, status: NewCategoryStatus.tasks);
+  void progressToTasks() {
+    state = state.copyWith(status: NewCategoryStatus.tasks);
   }
 
   void addNewCategory() {
