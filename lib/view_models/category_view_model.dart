@@ -11,10 +11,9 @@ import '../repositories/repositories.dart';
 class CategoryViewModel extends ChangeNotifier {
   final categoryRepository =
       ProviderContainer().read(categoryRepositoryProvider);
-  Future<void> addCategory(CategoryEntity category) async {
-    var box = await Hive.openBox<CategoryEntity>(categoryBox);
 
-    box.add(category);
+  void addCategory(Category category) {
+    categoryRepository.addCategory(category: category);
 
     notifyListeners();
   }
@@ -34,11 +33,6 @@ class CategoryViewModel extends ChangeNotifier {
     box.deleteAt(index);
 
     notifyListeners();
-  }
-
-  bool checkIfCategoryExist(int categoryId) {
-    final box = Hive.box<CategoryEntity>(categoryBox);
-    return box.values.where((category) => category.id == categoryId).isNotEmpty;
   }
 
   Category? _currentCategory;

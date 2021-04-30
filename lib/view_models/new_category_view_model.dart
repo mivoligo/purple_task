@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../globals/globals.dart';
 import '../entities/entities.dart';
+import '../models/models.dart';
 import 'view_models.dart';
 
 class NewCategoryViewModel extends ChangeNotifier {
@@ -18,11 +19,11 @@ class NewCategoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  int _color = 0xff9c27b0;
+  Color _color = Color(0xff9c27b0);
 
-  int get color => _color;
+  Color get color => _color;
 
-  set color(int value) {
+  set color(Color value) {
     _color = value;
     notifyListeners();
   }
@@ -79,7 +80,7 @@ class NewCategoryViewModel extends ChangeNotifier {
     final id = _categoryId;
     final categoryModel =
         Provider.of<CategoryViewModel>(context, listen: false);
-    final category = CategoryEntity(
+    final category = Category(
       name: _name,
       color: _color,
       icon: _icon,
@@ -93,7 +94,7 @@ class NewCategoryViewModel extends ChangeNotifier {
     // reset name
     _name = '';
     // get random color from list
-    _color = categoryColors[_random.nextInt(categoryColors.length)];
+    _color = Color(categoryColors[_random.nextInt(categoryColors.length)]);
     // set icon to default
     _icon = AntIcons.folder.codePoint;
     // empty tasks list
