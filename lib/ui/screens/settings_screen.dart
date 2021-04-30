@@ -1,8 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:purple_task/globals/strings/strings.dart';
 
-import '../../globals/globals.dart';
 import '../../view_models/view_models.dart';
 import '../ui.dart';
 

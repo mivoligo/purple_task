@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:purple_task/globals/strings/strings.dart';
 
 import '../../globals/globals.dart';
 import '../entities/entities.dart';

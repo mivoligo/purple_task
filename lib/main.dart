@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'app.dart';
 import 'entities/entities.dart';
 import 'globals/globals.dart';
+import 'globals/strings/strings.dart';
 import 'ui/ui.dart';
 import 'view_models/view_models.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../globals/globals.dart';
+import '../../../globals/strings/strings.dart' as s;
 import '../../ui.dart';
 
 class ConfirmationDialog extends StatefulWidget {
@@ -35,7 +35,7 @@ class _ConfirmationDialogState extends State<ConfirmationDialog> {
       actionsPadding: EdgeInsets.symmetric(horizontal: 8.0),
       actions: [
         SimpleButton(
-          text: cancel,
+          text: s.cancel,
           onPressed: Navigator.of(context).pop,
         ),
         SimpleButton(

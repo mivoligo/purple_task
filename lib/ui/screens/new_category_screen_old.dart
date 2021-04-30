@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:purple_task/globals/strings/strings.dart';
 
-import '../../globals/globals.dart';
 import '../../view_models/view_models.dart';
 import '../ui.dart';
 
