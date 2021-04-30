@@ -359,9 +359,7 @@ class _HomeScreenState extends State<HomeScreen>
     _categoryViewModel.currentCategory = _categoryList[index];
     await Navigator.of(context).push(
       PageRouteBuilder(
-        pageBuilder: (context, anim1, anim2) => CategoryScreen(
-          currentIndex: index,
-        ),
+        pageBuilder: (context, anim1, anim2) => CategoryScreen(),
         transitionDuration: Duration(milliseconds: 400),
         transitionsBuilder: (context, anim1, anim2, child) {
           return FadeTransition(

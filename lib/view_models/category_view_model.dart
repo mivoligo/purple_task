@@ -30,11 +30,11 @@ class CategoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Category? _currentCategory;
+  late Category _currentCategory;
 
-  Category? get currentCategory => _currentCategory;
+  Category get currentCategory => _currentCategory;
 
-  set currentCategory(Category? category) {
+  set currentCategory(Category category) {
     _currentCategory = category;
     notifyListeners();
   }

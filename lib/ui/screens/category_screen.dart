@@ -9,13 +9,6 @@ import '../../view_models/view_models.dart';
 import '../ui.dart';
 
 class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({
-    Key? key,
-    this.currentIndex,
-  }) : super(key: key);
-
-  final int? currentIndex;
-
   @override
   _CategoryScreenState createState() => _CategoryScreenState();
 }
@@ -93,7 +86,7 @@ class _CategoryScreenState extends State<CategoryScreen>
     _isWide = MediaQuery.of(context).size.width > 600;
     final taskModel = Provider.of<TaskViewModel>(context);
     final categoryModel = Provider.of<CategoryViewModel>(context);
-    categoryId = categoryModel.currentCategory!.id;
+    categoryId = categoryModel.currentCategory.id;
 
     // Used to scroll to end of list after adding new task
     SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -113,7 +106,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.grey[850]!,
-                  categoryModel.currentCategory!.color,
+                  categoryModel.currentCategory.color,
                 ],
               ),
             ),
@@ -123,7 +116,7 @@ class _CategoryScreenState extends State<CategoryScreen>
             top: _isWide ? 50 : 0,
             bottom: _isWide ? 50 : 0,
             child: Hero(
-              tag: 'main${categoryModel.currentCategory!.id}',
+              tag: 'main${categoryModel.currentCategory.id}',
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
@@ -179,20 +172,20 @@ class _CategoryScreenState extends State<CategoryScreen>
                         children: [
                           // Category icon
                           Hero(
-                            tag: 'icon${categoryModel.currentCategory!.id}',
+                            tag: 'icon${categoryModel.currentCategory.id}',
                             child: Icon(
                                 IconData(
-                                  categoryModel.currentCategory!.icon,
+                                  categoryModel.currentCategory.icon,
                                   fontFamily: 'AntIcons',
                                   fontPackage: 'ant_icons',
                                 ),
-                                color: categoryModel.currentCategory!.color,
+                                color: categoryModel.currentCategory.color,
                                 size: 40),
                           ),
                           const SizedBox(height: 24.0),
                           // header with number of tasks, name and progress
                           Hero(
-                            tag: 'header${categoryModel.currentCategory!.id}',
+                            tag: 'header${categoryModel.currentCategory.id}',
                             // get rid of overflow error
                             // https://github.com/flutter/flutter/issues/27320
                             flightShuttleBuilder: (
@@ -228,11 +221,11 @@ class _CategoryScreenState extends State<CategoryScreen>
                                           '$numberOfTasks $taskPlural';
                                   }
                                   return CategoryHeader(
-                                    title: categoryModel.currentCategory!.name,
+                                    title: categoryModel.currentCategory.name,
                                     description: _descriptionText,
                                     progress: _taskModel
                                         .completionProgress(categoryId),
-                                    color: categoryModel.currentCategory!.color,
+                                    color: categoryModel.currentCategory.color,
                                   );
                                 },
                               ),
@@ -252,7 +245,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                               addTask: () {
                                 final name = taskModel.newTaskName;
                                 final categoryId =
-                                    categoryModel.currentCategory!.id;
+                                    categoryModel.currentCategory.id;
                                 final task = TaskEntity(
                                     name: name,
                                     categoryId: categoryId,

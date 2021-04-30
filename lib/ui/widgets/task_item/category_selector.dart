@@ -65,16 +65,16 @@ class CategorySelector extends StatelessWidget {
                 children: [
                   Icon(
                     IconData(
-                      value.currentCategory!.icon,
+                      value.currentCategory.icon,
                       fontFamily: 'AntIcons',
                       fontPackage: 'ant_icons',
                     ),
-                    color: value.currentCategory!.color,
+                    color: value.currentCategory.color,
                     size: 18,
                   ),
                   const SizedBox(width: 4.0),
                   Text(
-                    value.currentCategory!.name,
+                    value.currentCategory.name,
                     style: Theme.of(context)
                         .textTheme
                         .subtitle1!
