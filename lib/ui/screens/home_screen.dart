@@ -383,7 +383,7 @@ class _HomeScreenState extends State<HomeScreen>
   void openNewCategory(BuildContext context) async {
     await Navigator.of(context).push(
       PageRouteBuilder(
-        pageBuilder: (context, anim1, anim2) => NewCategoryScreen(),
+        pageBuilder: (context, anim1, anim2) => NewCategoryScreenOld(),
         transitionsBuilder: (context, anim1, anim2, child) {
           return FadeTransition(
             opacity: anim1,

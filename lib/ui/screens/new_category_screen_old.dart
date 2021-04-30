@@ -15,12 +15,12 @@ enum Progress {
   categoryTasks,
 }
 
-class NewCategoryScreen extends StatefulWidget {
+class NewCategoryScreenOld extends StatefulWidget {
   @override
-  _NewCategoryScreenState createState() => _NewCategoryScreenState();
+  _NewCategoryScreenOldState createState() => _NewCategoryScreenOldState();
 }
 
-class _NewCategoryScreenState extends State<NewCategoryScreen> {
+class _NewCategoryScreenOldState extends State<NewCategoryScreenOld> {
   Progress progress = Progress.categoryName;
   late NewCategoryViewModel newCategoryProvider;
   CategoryViewModel? categoryDb;
