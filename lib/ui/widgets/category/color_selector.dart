@@ -58,10 +58,10 @@ class _ColorSelectorState extends State<ColorSelector>
           child: Material(
             child: InkWell(
               onFocusChange: (v) {
-                categoryProvider.color = categoryColors[index];
+                categoryProvider.color = Color(categoryColors[index]);
               },
               onTap: () {
-                categoryProvider.color = categoryColors[index];
+                categoryProvider.color = Color(categoryColors[index]);
               },
               child: Container(
                 width: 64,

@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../entities/entities.dart';
 import '../../../globals/globals.dart';
+import '../../../models/models.dart';
 import '../../../view_models/view_models.dart';
 import '../../ui.dart';
 
@@ -190,7 +190,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
                         Consumer<CategoryViewModel>(
                           builder: (_, categoryModel, __) => Container(
                             height: 20,
-                            color: Color(categoryModel.color),
+                            color: categoryModel.color,
                           ),
                         ),
                         const SizedBox(height: 16.0),
@@ -230,7 +230,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
                               fontFamily: 'AntIcons',
                               fontPackage: 'ant_icons',
                             ),
-                            color: Color(categoryModel.currentCategory!.color),
+                            color: categoryModel.currentCategory!.color,
                             size: 28,
                           ),
                         ),
@@ -254,7 +254,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   }
 
   void updateCategoryName() {
-    final _category = CategoryEntity(
+    final _category = Category(
       name: textController.text,
       color: categoryModel.currentCategory!.color,
       icon: categoryModel.currentCategory!.icon,
@@ -265,7 +265,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   }
 
   void updateCategoryColor() {
-    final _category = CategoryEntity(
+    final _category = Category(
       name: categoryModel.currentCategory!.name,
       color: categoryModel.color,
       icon: categoryModel.currentCategory!.icon,
@@ -276,7 +276,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
   }
 
   void updateCategoryIcon() {
-    final _category = CategoryEntity(
+    final _category = Category(
       name: categoryModel.currentCategory!.name,
       color: categoryModel.currentCategory!.color,
       icon: categoryModel.icon,

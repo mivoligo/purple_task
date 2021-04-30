@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../entities/entities.dart';
 import '../../globals/globals.dart';
+import '../../models/models.dart';
 import '../../view_models/view_models.dart';
 import '../ui.dart';
 
@@ -15,7 +15,7 @@ class CategoryCard extends StatelessWidget {
     this.onFocusChange,
   }) : super(key: key);
 
-  final CategoryEntity? category;
+  final Category? category;
   final VoidCallback? onTap;
   final Function? onHover;
   final Function? onFocusChange;
@@ -68,7 +68,7 @@ class CategoryCard extends StatelessWidget {
                   fontPackage: 'ant_icons',
                 ),
                 size: 40.0,
-                color: Color(category!.color),
+                color: category!.color,
               ),
             ),
           ),
@@ -82,7 +82,7 @@ class CategoryCard extends StatelessWidget {
                 type: MaterialType.transparency,
                 child: CategoryHeader(
                   title: category!.name,
-                  color: Color(category!.color),
+                  color: category!.color,
                   description: _descriptionText,
                   progress: _completionProgress,
                 ),

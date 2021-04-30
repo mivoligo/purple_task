@@ -1,11 +1,16 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
 import '../../globals/globals.dart';
 import '../entities/entities.dart';
+import '../models/models.dart';
+import '../repositories/repositories.dart';
 
 class CategoryViewModel extends ChangeNotifier {
+  final categoryRepository =
+      ProviderContainer().read(categoryRepositoryProvider);
   Future<void> addCategory(CategoryEntity category) async {
     var box = await Hive.openBox<CategoryEntity>(categoryBox);
 
@@ -14,19 +19,12 @@ class CategoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<CategoryEntity> getListOfCategories() {
-    final box = Hive.box<CategoryEntity>(categoryBox);
-
-    final _categoryList = box.values.toList();
-
-    return _categoryList;
+  List<Category> getListOfCategories() {
+    return categoryRepository.getCategories();
   }
 
-  void updateCategory(int index, CategoryEntity category) {
-    final box = Hive.box<CategoryEntity>(categoryBox);
-
-    box.putAt(index, category);
-
+  void updateCategory(int index, Category category) {
+    categoryRepository.updateCategory(category: category);
     notifyListeners();
   }
 
@@ -43,18 +41,20 @@ class CategoryViewModel extends ChangeNotifier {
     return box.values.where((category) => category.id == categoryId).isNotEmpty;
   }
 
-  CategoryEntity? _currentCategory;
-  CategoryEntity? get currentCategory => _currentCategory;
-  set currentCategory(CategoryEntity? category) {
+  Category? _currentCategory;
+
+  Category? get currentCategory => _currentCategory;
+
+  set currentCategory(Category? category) {
     _currentCategory = category;
     notifyListeners();
   }
 
-  late int _color;
+  late Color _color;
 
-  int get color => _color;
+  Color get color => _color;
 
-  set color(int value) {
+  set color(Color value) {
     _color = value;
     notifyListeners();
   }

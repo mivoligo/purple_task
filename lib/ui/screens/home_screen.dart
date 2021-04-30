@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../entities/entities.dart';
 import '../../globals/globals.dart';
+import '../../models/models.dart';
 import '../../view_models/view_models.dart';
 import '../ui.dart';
 
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   late NewCategoryViewModel _newCategory; // NewCategory provider
 
-  late List<CategoryEntity> _categoryList;
+  late List<Category> _categoryList;
 
   late CategoryViewModel _categoryViewModel;
 
@@ -99,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     // set background color to category color
     if (_categoryList.isNotEmpty) {
-      _color = Color(_categoryList[_currentCategory].color);
+      _color = _categoryList[_currentCategory].color;
     }
 
     // use in various places to animate between double values

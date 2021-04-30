@@ -113,7 +113,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.grey[850]!,
-                  Color(categoryModel.currentCategory!.color),
+                  categoryModel.currentCategory!.color,
                 ],
               ),
             ),
@@ -189,7 +189,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                   fontPackage: 'ant_icons',
                                 ),
                                 color:
-                                    Color(categoryModel.currentCategory!.color),
+                                    categoryModel.currentCategory!.color,
                                 size: 40),
                           ),
                           const SizedBox(height: 24.0),
@@ -235,8 +235,8 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     description: _descriptionText,
                                     progress: _taskModel
                                         .completionProgress(categoryId),
-                                    color: Color(
-                                        categoryModel.currentCategory!.color),
+                                    color:
+                                        categoryModel.currentCategory!.color,
                                   );
                                 },
                               ),
