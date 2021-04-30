@@ -50,4 +50,8 @@ class NewCategoryController extends StateNotifier<NewCategoryState> {
     );
     _categoryRepository.addCategory(category: category);
   }
+
+  void resetCategory() {
+    state = NewCategoryState.initial();
+  }
 }

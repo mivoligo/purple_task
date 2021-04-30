@@ -10,7 +10,7 @@ class NewCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, watch, child) {
+      builder: (context, watch, _) {
         final state = watch(newCategoryControllerProvider);
         final controller = watch(newCategoryControllerProvider.notifier);
         if (state.status == NewCategoryStatus.name) {
@@ -23,7 +23,10 @@ class NewCategoryScreen extends StatelessWidget {
               FocusScope.of(context).requestFocus(_focusNode);
             },
             onNext: controller.progressToColor,
-            onCancel: () => Navigator.of(context).pop(),
+            onCancel: () {
+              controller.resetCategory();
+              Navigator.of(context).pop();
+            },
           );
         } else if (state.status == NewCategoryStatus.color) {
           return CategoryColor(
@@ -33,6 +36,7 @@ class NewCategoryScreen extends StatelessWidget {
             selectedColor: state.color,
             onNext: controller.progressToIcon,
             onCancel: () {
+              controller.resetCategory();
               Navigator.of(context).pop();
             },
           );
@@ -43,6 +47,7 @@ class NewCategoryScreen extends StatelessWidget {
             color: state.color,
             onNext: controller.progressToTasks,
             onCancel: () {
+              controller.resetCategory();
               Navigator.of(context).pop();
             },
             selectedIcon: state.icon,
@@ -56,6 +61,7 @@ class NewCategoryScreen extends StatelessWidget {
               Navigator.of(context).pop();
             },
             onCancel: () {
+              controller.resetCategory();
               Navigator.of(context).pop();
             },
             selectedIcon: state.icon,
