@@ -38,7 +38,9 @@ class NewCategoryController extends StateNotifier<NewCategoryState> {
   }
 
   void progressToColor() {
-    state = state.copyWith(status: NewCategoryStatus.color);
+    if (state.name.trim().isNotEmpty) {
+      state = state.copyWith(status: NewCategoryStatus.color);
+    }
   }
 
   void colorChanged(Color color) {
