@@ -17,18 +17,18 @@ final newCategoryControllerProvider =
 class NewCategoryController extends StateNotifier<NewCategoryState> {
   NewCategoryController(this._categoryRepository)
       : super(NewCategoryState.initial()) {
-    startNewCategoryCreator();
+    _startNewCategoryCreator();
   }
 
   final CategoryRepository _categoryRepository;
-  final random = Random();
+  final _random = Random();
 
-  Color setRandomColor() {
-    return Color(categoryColors[random.nextInt(categoryColors.length)]);
+  Color _setRandomColor() {
+    return Color(categoryColors[_random.nextInt(categoryColors.length)]);
   }
 
-  Future<void> startNewCategoryCreator() async {
-    state = state.copyWith(color: setRandomColor());
+  Future<void> _startNewCategoryCreator() async {
+    state = state.copyWith(color: _setRandomColor());
     await Future.delayed(Duration(milliseconds: 200));
     state = state.copyWith(status: NewCategoryStatus.name);
   }
@@ -65,9 +65,5 @@ class NewCategoryController extends StateNotifier<NewCategoryState> {
       icon: state.icon,
     );
     _categoryRepository.addCategory(category: category);
-  }
-
-  void resetCategory() {
-    state = NewCategoryState.initial();
   }
 }
