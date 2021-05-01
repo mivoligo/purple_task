@@ -12,36 +12,36 @@ class App extends StatelessWidget {
         title: s.appName,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Color(0xffe83f6f),
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          primaryColor: const Color(0xffe83f6f),
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
-          buttonBarTheme: ButtonBarThemeData(
+          buttonBarTheme: const ButtonBarThemeData(
             alignment: MainAxisAlignment.spaceBetween,
           ),
           textTheme: TextTheme(
             // category name
-            headline4: TextStyle(
+            headline4: const TextStyle(
               color: Colors.black,
               fontSize: 24.0,
               fontWeight: FontWeight.w400,
             ),
             // hello
-            headline5: TextStyle(
+            headline5: const TextStyle(
               color: Colors.white,
               fontSize: 24.0,
               fontWeight: FontWeight.w300,
             ),
             // greetings info
-            headline6: TextStyle(
+            headline6: const TextStyle(
               color: Colors.white70,
               fontSize: 18.0,
               fontWeight: FontWeight.w300,
             ),
             // task name,
             // info with number of tasks left for category
-            subtitle1: TextStyle(
+            subtitle1: const TextStyle(
               color: Colors.black,
               fontSize: 16.0,
               fontWeight: FontWeight.w400,
@@ -53,11 +53,11 @@ class App extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
             // info text when adding new category
-            bodyText2: TextStyle(
+            bodyText2: const TextStyle(
               color: Colors.grey,
               fontSize: 14.0,
             ),
-            button: TextStyle(
+            button: const TextStyle(
               color: Colors.white,
               fontSize: 14.0,
               fontWeight: FontWeight.w400,
