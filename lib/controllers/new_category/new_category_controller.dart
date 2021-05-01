@@ -61,7 +61,7 @@ class NewCategoryController extends StateNotifier<NewCategoryState> {
 
   void addNewCategory() {
     final category = Category(
-      id: DateTime.now().millisecondsSinceEpoch,
+      id: state.id,
       name: state.name,
       color: state.color,
       icon: state.icon,

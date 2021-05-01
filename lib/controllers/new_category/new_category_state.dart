@@ -7,6 +7,7 @@ enum NewCategoryStatus { initial, name, color, icon, tasks }
 
 class NewCategoryState extends Equatable {
   NewCategoryState({
+    required this.id,
     required this.name,
     required this.color,
     required this.icon,
@@ -16,6 +17,7 @@ class NewCategoryState extends Equatable {
 
   factory NewCategoryState.initial() {
     return NewCategoryState(
+      id: DateTime.now().millisecondsSinceEpoch,
       name: '',
       color: Colors.purple,
       icon: AntIcons.folder.codePoint,
@@ -24,7 +26,15 @@ class NewCategoryState extends Equatable {
     );
   }
 
+  final int id;
+  final String name;
+  final Color color;
+  final int icon;
+  final List<Task> tasks;
+  final NewCategoryStatus status;
+
   NewCategoryState copyWith({
+    int? id,
     String? name,
     Color? color,
     int? icon,
@@ -32,6 +42,7 @@ class NewCategoryState extends Equatable {
     NewCategoryStatus? status,
   }) {
     return NewCategoryState(
+      id: id ?? this.id,
       name: name ?? this.name,
       color: color ?? this.color,
       icon: icon ?? this.icon,
@@ -40,12 +51,6 @@ class NewCategoryState extends Equatable {
     );
   }
 
-  final String name;
-  final Color color;
-  final int icon;
-  final List<Task> tasks;
-  final NewCategoryStatus status;
-
   @override
-  List<Object?> get props => [name, color, icon, tasks, status];
+  List<Object?> get props => [id, name, color, icon, tasks, status];
 }
