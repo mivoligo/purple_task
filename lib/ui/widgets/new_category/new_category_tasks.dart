@@ -58,7 +58,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
         Padding(
           padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 0.0),
           child: AddTaskField(
-            addTask: () {
+            addTask: (_) {
               Provider.of<NewCategoryViewModel>(context, listen: false)
                   .addTaskToTemporaryList(context);
               _needScroll = true;

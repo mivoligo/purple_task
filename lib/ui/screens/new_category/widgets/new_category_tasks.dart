@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:purple_task/models/models.dart';
 import '../../../../globals/globals.dart';
 import '../../../../globals/strings/strings.dart' as s;
 
@@ -8,16 +9,20 @@ import 'new_category_base.dart';
 class CategoryTasks extends StatelessWidget {
   CategoryTasks({
     Key? key,
+    required this.tasks,
     required this.name,
     required this.color,
+    required this.onAddTask,
     required this.onNext,
     required this.onCancel,
     required this.selectedIcon,
     required this.focusNode,
   }) : super(key: key);
 
+  final List<Task> tasks;
   final String name;
   final Color color;
+  final Function(String) onAddTask;
   final VoidCallback onNext;
   final VoidCallback onCancel;
   final int selectedIcon;
@@ -61,7 +66,7 @@ class CategoryTasks extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 4.0),
                 child: AddTaskField(
-                  addTask: () {},
+                  addTask: onAddTask,
                 )),
             const Padding(
               padding: EdgeInsets.all(2.0),
@@ -70,7 +75,26 @@ class CategoryTasks extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            const Spacer(),
+            Expanded(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 36.0, vertical: 8.0),
+                child: Scrollbar(
+                  child: ListView.separated(
+                    // controller: _scrollController,
+                    itemCount: tasks.length,
+                    separatorBuilder: (context, index) =>
+                        const Divider(height: 6.0),
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                        title: Text(tasks[index].name),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

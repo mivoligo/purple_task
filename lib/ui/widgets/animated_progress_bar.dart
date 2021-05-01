@@ -22,7 +22,7 @@ class AnimatedProgressBar extends StatelessWidget {
           return Row(
             children: [
               AnimatedContainer(
-                duration: Duration(milliseconds: 120),
+                duration: const Duration(milliseconds: 120),
                 width: value * _width,
                 height: 4.0,
                 color: color,

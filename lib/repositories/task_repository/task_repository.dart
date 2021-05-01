@@ -6,9 +6,7 @@ import '../../entities/entities.dart';
 import '../../models/models.dart';
 import '../repositories.dart';
 
-final taskRepositoryProvider = Provider<BaseTaskRepository>((ref) {
-  return TaskRepository();
-});
+final taskRepositoryProvider = Provider((ref) => TaskRepository());
 
 class TaskRepository extends BaseTaskRepository {
   final _box = Hive.box<TaskEntity>(g.taskBox);

@@ -242,7 +242,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                               );
                             },
                             child: AddTaskField(
-                              addTask: () {
+                              addTask: (_) {
                                 final name = taskModel.newTaskName;
                                 final categoryId =
                                     categoryModel.currentCategory.id;

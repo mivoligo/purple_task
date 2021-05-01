@@ -1,8 +1,9 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:purple_task/globals/strings/strings.dart';
+// import 'package:provider/provider.dart';
+import '../../globals/custom_styles.dart';
+import '../../globals/strings/strings.dart' as s;
 
 import '../../view_models/view_models.dart';
 
@@ -12,7 +13,7 @@ class AddTaskField extends StatefulWidget {
     required this.addTask,
   }) : super(key: key);
 
-  final Function addTask;
+  final Function(String) addTask;
 
   @override
   _AddTaskFieldState createState() => _AddTaskFieldState();
@@ -40,15 +41,8 @@ class _AddTaskFieldState extends State<AddTaskField> {
 
   _updateField() {
     setState(() {
-      _hasText = _controller.text.isNotEmpty;
+      _hasText = _controller.text.trim().isNotEmpty;
     });
-  }
-
-  void getTaskName(BuildContext context) {
-    if (_controller.text.isNotEmpty) {
-      Provider.of<TaskViewModel>(context, listen: false).newTaskName =
-          _controller.text;
-    }
   }
 
   @override
@@ -56,18 +50,17 @@ class _AddTaskFieldState extends State<AddTaskField> {
     return CupertinoTextField(
       controller: _controller,
       focusNode: _focusNode,
-      placeholder: addNewTask,
-      padding: EdgeInsets.only(left: 16.0),
+      placeholder: s.addNewTask,
+      padding: const EdgeInsets.only(left: 16.0),
       style: Theme.of(context).textTheme.subtitle1,
       suffix: IconButton(
         color: _hasText ? Colors.blue : Colors.grey,
-        icon: Icon(
+        icon: const Icon(
           AntIcons.plus_circle,
         ),
         onPressed: _hasText
             ? () {
-                getTaskName(context);
-                widget.addTask();
+                widget.addTask(_controller.text);
                 _controller.clear();
                 _focusNode.requestFocus();
               }
@@ -75,19 +68,12 @@ class _AddTaskFieldState extends State<AddTaskField> {
       ),
       onSubmitted: _hasText
           ? (v) {
-              getTaskName(context);
-              widget.addTask();
+              widget.addTask(_controller.text);
               _controller.clear();
               _focusNode.requestFocus();
             }
           : null,
-      decoration: BoxDecoration(
-          color: Colors.grey[50],
-          borderRadius: BorderRadius.circular(20.0),
-          boxShadow: [
-            BoxShadow(color: Colors.grey[300]!, offset: Offset(0.0, -2.0)),
-            BoxShadow(color: Colors.white, offset: Offset(0.0, 1.0)),
-          ]),
+      decoration: CustomStyle.inputDecoration,
     );
   }
 }

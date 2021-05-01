@@ -28,7 +28,7 @@ void main() async {
   _appWindowSize.setWindowSize();
 
   runApp(
-    App(),
+    MyApp(),
   );
 }
 

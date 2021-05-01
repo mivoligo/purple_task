@@ -54,10 +54,13 @@ class NewCategoryScreen extends StatelessWidget {
           );
         } else if (state.status == NewCategoryStatus.tasks) {
           return CategoryTasks(
+            tasks: state.tasks,
+            onAddTask: controller.tasksChanged,
             focusNode: _focusNode,
             name: state.name,
             color: state.color,
             onNext: () {
+              controller.addNewCategory();
               Navigator.of(context).pop();
             },
             onCancel: () {

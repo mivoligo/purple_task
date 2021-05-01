@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen>
                       width: _isWide! ? 440 : _appWidth! - 64,
                       height: 40,
                       child: AddTaskField(
-                        addTask: () {
+                        addTask: (_) {
                           final _taskModel = Provider.of<TaskViewModel>(context,
                               listen: false);
                           final _name = _taskModel.newTaskName;

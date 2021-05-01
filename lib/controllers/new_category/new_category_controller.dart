@@ -2,25 +2,35 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../globals/globals.dart';
 import '../../models/category.dart';
+import '../../models/models.dart';
 import '../../repositories/repositories.dart';
 import 'new_category_state.dart';
 
 final newCategoryControllerProvider =
     StateNotifierProvider.autoDispose<NewCategoryController, NewCategoryState>(
   (ref) {
-    return NewCategoryController(ref.watch(categoryRepositoryProvider));
+    return NewCategoryController(
+      categoryRepository: ref.watch(categoryRepositoryProvider),
+      taskRepository: ref.watch(taskRepositoryProvider),
+    );
   },
 );
 
 class NewCategoryController extends StateNotifier<NewCategoryState> {
-  NewCategoryController(this._categoryRepository)
-      : super(NewCategoryState.initial()) {
+  NewCategoryController({
+    required CategoryRepository categoryRepository,
+    required TaskRepository taskRepository,
+  })  : _categoryRepository = categoryRepository,
+        _taskRepository = taskRepository,
+        super(NewCategoryState.initial()) {
     _startNewCategoryCreator();
   }
 
   final CategoryRepository _categoryRepository;
+  final TaskRepository _taskRepository;
   final _random = Random();
 
   Color _setRandomColor() {
@@ -59,6 +69,13 @@ class NewCategoryController extends StateNotifier<NewCategoryState> {
     state = state.copyWith(status: NewCategoryStatus.tasks);
   }
 
+  void tasksChanged(String taskName) {
+    final task = Task(name: taskName, categoryId: state.id);
+    final taskList = state.tasks;
+    taskList.add(task);
+    state = state.copyWith(tasks: state.tasks);
+  }
+
   void addNewCategory() {
     final category = Category(
       id: state.id,
@@ -67,5 +84,14 @@ class NewCategoryController extends StateNotifier<NewCategoryState> {
       icon: state.icon,
     );
     _categoryRepository.addCategory(category: category);
+    _addTasksForCategory();
+  }
+
+  void _addTasksForCategory() {
+    if (state.tasks.isNotEmpty) {
+      for (var task in state.tasks) {
+        _taskRepository.addTask(task);
+      }
+    }
   }
 }
