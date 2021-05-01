@@ -10,6 +10,18 @@ class CustomStyle {
     ],
   );
 
+  static const dialogDecoration = BoxDecoration(
+    color: Color(0xFFEEEEEE),
+    borderRadius: BorderRadius.all(Radius.circular(24.0)),
+    boxShadow: [
+      BoxShadow(
+        color: Color(0xff45000000),
+        offset: Offset(0.0, 4.0),
+        blurRadius: 8.0,
+      ),
+    ],
+  );
+
   static const textStyleTitle = TextStyle(
     color: Color(0xFF616161),
     fontSize: 18.0,

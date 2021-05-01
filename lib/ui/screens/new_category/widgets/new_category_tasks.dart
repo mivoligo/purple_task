@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:purple_task/models/models.dart';
+
 import '../../../../globals/globals.dart';
 import '../../../../globals/strings/strings.dart' as s;
-
+import '../../../../models/models.dart';
 import '../../../ui.dart';
 import 'new_category_base.dart';
 
@@ -87,7 +87,8 @@ class CategoryTasks extends StatelessWidget {
                         const Divider(height: 6.0),
                     itemBuilder: (context, index) {
                       return ListTile(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 0),
                         title: Text(tasks[index].name),
                       );
                     },

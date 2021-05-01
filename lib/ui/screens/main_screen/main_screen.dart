@@ -7,6 +7,7 @@ import 'package:purple_task/globals/strings/strings.dart' as s;
 import 'package:purple_task/models/models.dart';
 import 'package:purple_task/ui/screens/screens.dart';
 import 'package:purple_task/ui/widgets/add_category_button.dart';
+import 'package:purple_task/ui/widgets/widgets.dart';
 import 'package:purple_task/view_models/view_models.dart';
 
 class MainScreen extends StatefulWidget {
@@ -176,19 +177,19 @@ class _MainScreenState extends State<MainScreen>
             //   ),
             // ),
             // About app button
-            // Positioned(
-            //   top: 16.0,
-            //   right: 72.0,
-            //   child: Hero(
-            //     tag: 'about',
-            //     child: CustomIconButton(
-            //       color: Colors.white,
-            //       icon: Icon(AntIcons.info_circle),
-            //       tooltip: about,
-            //       onPressed: () => openAboutScreen(context),
-            //     ),
-            //   ),
-            // ),
+            Positioned(
+              top: 16.0,
+              right: 72.0,
+              child: Hero(
+                tag: 'about',
+                child: CustomIconButton(
+                  color: Colors.white,
+                  icon: const Icon(AntIcons.info_circle),
+                  tooltip: s.about,
+                  onPressed: () => _openAboutScreen(context),
+                ),
+              ),
+            ),
             // Positioned(
             //   top: 128,
             //   child: AnimatedBuilder(
@@ -328,21 +329,21 @@ class _MainScreenState extends State<MainScreen>
   //   );
   // }
 
-  // void openAboutScreen(BuildContext context) {
-  //   Navigator.of(context).push(
-  //     PageRouteBuilder(
-  //       pageBuilder: (context, anim1, anim2) => AboutScreen(
-  //         backgroundColor: _color,
-  //       ),
-  //       transitionsBuilder: (context, anim1, anim2, child) {
-  //         return FadeTransition(
-  //           opacity: anim1,
-  //           child: child,
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
+  void _openAboutScreen(BuildContext context) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, anim1, anim2) => AboutScreen(
+          backgroundColor: _color,
+        ),
+        transitionsBuilder: (context, anim1, anim2, child) {
+          return FadeTransition(
+            opacity: anim1,
+            child: child,
+          );
+        },
+      ),
+    );
+  }
 
   // void openCategoryScreen(BuildContext context, int index) async {
   //   _animationController.forward();
