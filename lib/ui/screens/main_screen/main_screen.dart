@@ -3,10 +3,9 @@ import 'dart:math' as math;
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-// import 'package:provider/provider.dart';
 import 'package:purple_task/globals/strings/strings.dart' as s;
 import 'package:purple_task/models/models.dart';
-import 'package:purple_task/ui/screens/new_category/new_category_screen.dart';
+import 'package:purple_task/ui/screens/screens.dart';
 import 'package:purple_task/ui/widgets/add_category_button.dart';
 import 'package:purple_task/view_models/view_models.dart';
 
@@ -49,7 +48,7 @@ class _MainScreenState extends State<MainScreen>
     WidgetsBinding.instance!.addObserver(this);
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
     _pageController = PageController();
     _scrollController = ScrollController();
@@ -80,7 +79,7 @@ class _MainScreenState extends State<MainScreen>
     if (_needScroll) {
       _needScroll = false;
       _scrollController!.animateTo(_scrollController!.position.maxScrollExtent,
-          duration: Duration(milliseconds: 300), curve: Curves.ease);
+          duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
 
@@ -121,7 +120,7 @@ class _MainScreenState extends State<MainScreen>
           children: [
             // colored background
             AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -234,22 +233,14 @@ class _MainScreenState extends State<MainScreen>
             //   ),
             // ),
             // Add Category button
-            AnimatedBuilder(
-              animation: _animationController,
-              builder: (context, child) {
-                return Positioned(
-                  bottom: animDouble(_animationController, 16.0, 64.0).value,
-                  child: child!,
-                );
-              },
+            Positioned(
+              bottom: 16.0,
               child: Hero(
                 tag: 'new_category',
                 child: AddCategoryButton(
                   text: s.addCategory,
-                  // opacity:
-                  //     animDouble(_animationController, 1.0, 0.0).value,
                   onPressed: () {
-                    openNewCategory(context);
+                    _openNewCategoryCreator(context);
                   },
                 ),
               ),
@@ -379,7 +370,7 @@ class _MainScreenState extends State<MainScreen>
   //   _animationController.reverse();
   // }
 
-  void openNewCategory(BuildContext context) async {
+  void _openNewCategoryCreator(BuildContext context) async {
     await Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, anim1, anim2) => NewCategoryScreen(),

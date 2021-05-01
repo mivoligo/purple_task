@@ -4,4 +4,4 @@ linter:
   rules:
     public_member_api_docs: false
     sort_constructors_first: true
-    prefer_const_constructor: true
+    prefer_const_constructors: true

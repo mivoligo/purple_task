@@ -36,7 +36,7 @@ class NewCategoryBase extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color(0xFF303030),
+                    const Color(0xFF303030),
                     color,
                     color,
                   ]),
@@ -56,8 +56,8 @@ class NewCategoryBase extends StatelessWidget {
                   elevation: 6,
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.0),
                         child: Text(
                           s.newCategory,
                           style: CustomStyle.textStyleTitle,

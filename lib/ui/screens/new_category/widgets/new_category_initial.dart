@@ -19,7 +19,7 @@ class CategoryInitial extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color(0xFF303030),
+                    const Color(0xFF303030),
                     color,
                     color,
                   ]),

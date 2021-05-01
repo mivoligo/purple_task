@@ -46,8 +46,8 @@ class CategoryColor extends StatelessWidget {
                 selectedColor: selectedColor,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(2.0),
+            const Padding(
+              padding: EdgeInsets.all(2.0),
               child: Text(
                 s.color,
                 textAlign: TextAlign.center,

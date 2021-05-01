@@ -39,7 +39,7 @@ class CategoryName extends StatelessWidget {
               child: CupertinoTextField(
                 autofocus: true,
                 textInputAction: TextInputAction.done,
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
                   vertical: 4.0,
                 ),
@@ -53,7 +53,7 @@ class CategoryName extends StatelessWidget {
               s.categoryName,
               style: Theme.of(context).textTheme.bodyText2,
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       ),

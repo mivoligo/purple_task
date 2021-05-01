@@ -29,7 +29,7 @@ class NewCategoryController extends StateNotifier<NewCategoryState> {
 
   Future<void> _startNewCategoryCreator() async {
     state = state.copyWith(color: _setRandomColor());
-    await Future.delayed(Duration(milliseconds: 200));
+    await Future.delayed(const Duration(milliseconds: 200));
     state = state.copyWith(status: NewCategoryStatus.name);
   }
 
