@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import '../../models/models.dart';
 
-enum NewCategoryStatus { name, color, icon, tasks }
+enum NewCategoryStatus { initial, name, color, icon, tasks }
 
 class NewCategoryState extends Equatable {
   NewCategoryState({
@@ -20,7 +20,7 @@ class NewCategoryState extends Equatable {
       color: Colors.purple,
       icon: AntIcons.folder.codePoint,
       tasks: [],
-      status: NewCategoryStatus.name,
+      status: NewCategoryStatus.initial,
     );
   }
 

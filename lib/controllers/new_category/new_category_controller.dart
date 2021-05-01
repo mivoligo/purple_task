@@ -1,11 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../globals/globals.dart';
 import '../../models/category.dart';
 import '../../repositories/repositories.dart';
 import 'new_category_state.dart';
 
 final newCategoryControllerProvider =
-    StateNotifierProvider<NewCategoryController, NewCategoryState>(
+    StateNotifierProvider.autoDispose<NewCategoryController, NewCategoryState>(
   (ref) {
     return NewCategoryController(ref.watch(categoryRepositoryProvider));
   },
@@ -13,9 +16,22 @@ final newCategoryControllerProvider =
 
 class NewCategoryController extends StateNotifier<NewCategoryState> {
   NewCategoryController(this._categoryRepository)
-      : super(NewCategoryState.initial());
+      : super(NewCategoryState.initial()) {
+    startNewCategoryCreator();
+  }
 
   final CategoryRepository _categoryRepository;
+  final random = Random();
+
+  Color setRandomColor() {
+    return Color(categoryColors[random.nextInt(categoryColors.length)]);
+  }
+
+  Future<void> startNewCategoryCreator() async {
+    state = state.copyWith(color: setRandomColor());
+    await Future.delayed(Duration(milliseconds: 200));
+    state = state.copyWith(status: NewCategoryStatus.name);
+  }
 
   void nameChanged(String name) {
     state = state.copyWith(name: name);

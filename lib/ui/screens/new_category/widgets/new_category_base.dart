@@ -44,7 +44,7 @@ class NewCategoryBase extends StatelessWidget {
           ),
           Center(
             child: Hero(
-              tag: 'addCategoryHero',
+              tag: 'new_category',
               child: SizedBox(
                 width: 600,
                 height: 500,

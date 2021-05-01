@@ -13,7 +13,9 @@ class NewCategoryScreen extends StatelessWidget {
       builder: (context, watch, _) {
         final state = watch(newCategoryControllerProvider);
         final controller = watch(newCategoryControllerProvider.notifier);
-        if (state.status == NewCategoryStatus.name) {
+        if (state.status == NewCategoryStatus.initial) {
+          return CategoryInitial(color: state.color);
+        } else if (state.status == NewCategoryStatus.name) {
           return CategoryName(
             onNameChanged: controller.nameChanged,
             color: state.color,
@@ -25,7 +27,6 @@ class NewCategoryScreen extends StatelessWidget {
             },
             onNext: controller.progressToColor,
             onCancel: () {
-              controller.resetCategory();
               Navigator.of(context).pop();
             },
           );
@@ -37,7 +38,6 @@ class NewCategoryScreen extends StatelessWidget {
             selectedColor: state.color,
             onNext: controller.progressToIcon,
             onCancel: () {
-              controller.resetCategory();
               Navigator.of(context).pop();
             },
           );
@@ -48,7 +48,6 @@ class NewCategoryScreen extends StatelessWidget {
             color: state.color,
             onNext: controller.progressToTasks,
             onCancel: () {
-              controller.resetCategory();
               Navigator.of(context).pop();
             },
             selectedIcon: state.icon,
@@ -62,7 +61,6 @@ class NewCategoryScreen extends StatelessWidget {
               Navigator.of(context).pop();
             },
             onCancel: () {
-              controller.resetCategory();
               Navigator.of(context).pop();
             },
             selectedIcon: state.icon,

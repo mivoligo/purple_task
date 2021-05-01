@@ -66,7 +66,7 @@ class CategoryTasks extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(2.0),
               child: Text(
-                s.taskSingular,
+                s.taskSingularCapital,
                 textAlign: TextAlign.center,
               ),
             ),
