@@ -21,16 +21,16 @@ final newCategoryControllerProvider =
 
 class NewCategoryController extends StateNotifier<NewCategoryState> {
   NewCategoryController({
-    required CategoryRepository categoryRepository,
-    required TaskRepository taskRepository,
+    required BaseCategoryRepository categoryRepository,
+    required BaseTaskRepository taskRepository,
   })  : _categoryRepository = categoryRepository,
         _taskRepository = taskRepository,
         super(NewCategoryState.initial()) {
     _startNewCategoryCreator();
   }
 
-  final CategoryRepository _categoryRepository;
-  final TaskRepository _taskRepository;
+  final BaseCategoryRepository _categoryRepository;
+  final BaseTaskRepository _taskRepository;
   final _random = Random();
 
   Color _setRandomColor() {
