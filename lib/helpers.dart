@@ -4,8 +4,8 @@ import 'package:url_launcher/url_launcher.dart';
 class TimeConversion {
   String millisToDateAndTime(
     int input, {
-    required String? dateFormat,
-    required String? timeFormat,
+    required String dateFormat,
+    required String timeFormat,
   }) {
     final dateTime = DateTime.fromMillisecondsSinceEpoch(input);
     final localDateTime = dateTime.toLocal();
@@ -14,7 +14,7 @@ class TimeConversion {
     return '$date, $time';
   }
 
-  String formatDateNow(String? pattern) {
+  String formatDateNow(String pattern) {
     final dateTime = DateTime.now();
     return DateFormat(pattern).format(dateTime.toLocal());
   }
