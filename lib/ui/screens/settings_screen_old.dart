@@ -1,13 +1,13 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:purple_task/globals/strings/strings.dart';
+import '../../globals/strings/strings.dart' as s;
 
 import '../../view_models/view_models.dart';
 import '../ui.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({
+class SettingsScreenOld extends StatefulWidget {
+  const SettingsScreenOld({
     Key? key,
     required this.backgroundColor,
   }) : super(key: key);
@@ -15,10 +15,10 @@ class SettingsScreen extends StatefulWidget {
   final Color backgroundColor;
 
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
+  _SettingsScreenOldState createState() => _SettingsScreenOldState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen>
+class _SettingsScreenOldState extends State<SettingsScreenOld>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation _fadeAnimation;
@@ -27,7 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen>
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
     _fadeAnimation = CurvedAnimation(
       parent: _animationController,
@@ -107,20 +107,20 @@ class _SettingsScreenState extends State<SettingsScreen>
                       children: [
                         const SizedBox(width: 8.0),
                         CustomIconButton(
-                          icon: Icon(AntIcons.arrow_left),
+                          icon: const Icon(AntIcons.arrow_left),
                           color: Colors.white,
-                          tooltip: close,
+                          tooltip: s.close,
                           onPressed: () {
                             _animationController.reverse();
                             Navigator.of(context).pop();
                           },
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
-                          settings,
+                          s.settings,
                           style: Theme.of(context).textTheme.headline4,
                         ),
-                        Spacer(),
+                        const Spacer(),
                         const SizedBox(width: 48.0),
                       ],
                     ),
@@ -130,17 +130,17 @@ class _SettingsScreenState extends State<SettingsScreen>
                           padding: const EdgeInsets.symmetric(horizontal: 28.0),
                           children: [
                             ListTile(
-                              title: Text(timeFormat),
-                              trailing: TimeFormatSelector(),
+                              title: const Text(s.timeFormat),
+                              trailing: TimeFormatSelectorOld(),
                             ),
                             const Divider(indent: 8, endIndent: 8),
                             ListTile(
-                              title: Text(dateFormat),
-                              trailing: DateFormatSelector(),
+                              title: const Text(s.dateFormat),
+                              trailing: DateFormatSelectorOld(),
                             ),
                             const Divider(indent: 8, endIndent: 8),
                             ListTile(
-                              title: Text(displayTimeCompleted),
+                              title: const Text(s.displayTimeCompleted),
                               trailing: Switch(
                                 activeColor: Theme.of(context).primaryColor,
                                 value: Provider.of<SettingsViewModel>(context)

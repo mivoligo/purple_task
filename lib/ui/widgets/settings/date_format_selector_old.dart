@@ -6,13 +6,14 @@ import 'package:purple_task/globals/strings/strings.dart';
 import '../../../helpers.dart';
 import '../../../view_models/view_models.dart';
 
-class DateFormatSelector extends StatelessWidget {
+class DateFormatSelectorOld extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _settings = Provider.of<SettingsViewModel>(context);
     final _formatList =
         Provider.of<SettingsViewModel>(context, listen: false).dateFormats;
     final timeConversion = TimeConversion();
+
     return Card(
       elevation: 1,
       child: PopupMenuButton(

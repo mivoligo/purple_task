@@ -325,7 +325,7 @@ class _HomeScreenState extends State<HomeScreen>
   void openSettingsScreen(BuildContext context) {
     Navigator.of(context).push(
       PageRouteBuilder(
-        pageBuilder: (context, anim1, anim2) => SettingsScreen(
+        pageBuilder: (context, anim1, anim2) => SettingsScreenOld(
           backgroundColor: _color,
         ),
         transitionsBuilder: (context, anim1, anim2, child) {

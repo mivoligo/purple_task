@@ -1,5 +1,5 @@
 // List of colors used for category color.
-List<int> categoryColors = [
+const List<int> categoryColors = [
   // based on Material colors palette
   0xfff44336,
   0xffe91e63,

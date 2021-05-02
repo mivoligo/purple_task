@@ -163,19 +163,19 @@ class _MainScreenState extends State<MainScreen>
                   }),
             ),
             // Settings button
-            // Positioned(
-            //   top: 16.0,
-            //   right: 16.0,
-            //   child: Hero(
-            //     tag: 'settings',
-            //     child: CustomIconButton(
-            //       color: Colors.white,
-            //       icon: Icon(AntIcons.setting),
-            //       tooltip: settings,
-            //       onPressed: () => openSettingsScreen(context),
-            //     ),
-            //   ),
-            // ),
+            Positioned(
+              top: 16.0,
+              right: 16.0,
+              child: Hero(
+                tag: 'settings',
+                child: CustomIconButton(
+                  color: Colors.white,
+                  icon: const Icon(AntIcons.setting),
+                  tooltip: s.settings,
+                  onPressed: () => _openSettingsScreen(context),
+                ),
+              ),
+            ),
             // About app button
             Positioned(
               top: 16.0,
@@ -313,21 +313,21 @@ class _MainScreenState extends State<MainScreen>
     );
   }
 
-  // void openSettingsScreen(BuildContext context) {
-  //   Navigator.of(context).push(
-  //     PageRouteBuilder(
-  //       pageBuilder: (context, anim1, anim2) => SettingsScreen(
-  //         backgroundColor: _color,
-  //       ),
-  //       transitionsBuilder: (context, anim1, anim2, child) {
-  //         return FadeTransition(
-  //           opacity: anim1,
-  //           child: child,
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
+  void _openSettingsScreen(BuildContext context) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, anim1, anim2) => Settings(
+          backgroundColor: _color,
+        ),
+        transitionsBuilder: (context, anim1, anim2, child) {
+          return FadeTransition(
+            opacity: anim1,
+            child: child,
+          );
+        },
+      ),
+    );
+  }
 
   void _openAboutScreen(BuildContext context) {
     Navigator.of(context).push(

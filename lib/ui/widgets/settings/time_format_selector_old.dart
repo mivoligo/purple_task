@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:purple_task/globals/strings/strings.dart';
+import '../../../globals/strings/strings.dart' as s;
 
 import '../../../helpers.dart';
 import '../../../view_models/view_models.dart';
 
-class TimeFormatSelector extends StatelessWidget {
+class TimeFormatSelectorOld extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _settings = Provider.of<SettingsViewModel>(context);
@@ -26,7 +26,7 @@ class TimeFormatSelector extends StatelessWidget {
                 .copyWith(color: Theme.of(context).primaryColor),
           ),
         ),
-        tooltip: changeFormat,
+        tooltip: s.changeFormat,
         onSelected: (dynamic item) =>
             _settings.setTimeFormat(_timeFormatList[item]),
         itemBuilder: (context) {
