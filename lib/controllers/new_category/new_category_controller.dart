@@ -7,6 +7,7 @@ import '../../globals/globals.dart';
 import '../../models/category.dart';
 import '../../models/models.dart';
 import '../../repositories/repositories.dart';
+import '../controllers.dart';
 import 'new_category_state.dart';
 
 final newCategoryControllerProvider =
@@ -15,6 +16,7 @@ final newCategoryControllerProvider =
     return NewCategoryController(
       categoryRepository: ref.watch(categoryRepositoryProvider),
       taskRepository: ref.watch(taskRepositoryProvider),
+      categoriesController: ref.watch(categoriesControllerProvider.notifier),
     );
   },
 );
@@ -23,14 +25,18 @@ class NewCategoryController extends StateNotifier<NewCategoryState> {
   NewCategoryController({
     required BaseCategoryRepository categoryRepository,
     required BaseTaskRepository taskRepository,
+    required CategoriesController categoriesController,
   })  : _categoryRepository = categoryRepository,
         _taskRepository = taskRepository,
+        _categoriesController = categoriesController,
         super(NewCategoryState.initial()) {
     _startNewCategoryCreator();
   }
 
   final BaseCategoryRepository _categoryRepository;
   final BaseTaskRepository _taskRepository;
+  final CategoriesController _categoriesController;
+
   final _random = Random();
 
   Color _setRandomColor() {
@@ -85,6 +91,11 @@ class NewCategoryController extends StateNotifier<NewCategoryState> {
     );
     _categoryRepository.addCategory(category: category);
     _addTasksForCategory();
+    _categoriesController.state =
+        _categoriesController.state.copyWith(categories: [
+      ..._categoriesController.state.categories,
+      category,
+    ]);
   }
 
   void _addTasksForCategory() {

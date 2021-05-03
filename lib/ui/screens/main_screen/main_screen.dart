@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:purple_task/globals/strings/strings.dart' as s;
 import 'package:purple_task/models/models.dart';
+import 'package:purple_task/ui/screens/main_screen/widgets/widgets.dart';
 import 'package:purple_task/ui/screens/screens.dart';
 import 'package:purple_task/ui/widgets/add_category_button.dart';
 import 'package:purple_task/ui/widgets/widgets.dart';
@@ -247,66 +248,62 @@ class _MainScreenState extends State<MainScreen>
               ),
             ),
             // Category cards
-            // Positioned(
-            //   left: 0,
-            //   right: 0,
-            //   bottom: 64.0,
-            //   child: _categoryList.isNotEmpty
-            //       ? Container(
-            //     height: _appHeight! * 0.4,
-            //     child: _isWide!
-            //         ? ListView.builder(
-            //       scrollDirection: Axis.horizontal,
-            //       itemCount: _categoryList.length,
-            //       controller: _scrollController,
-            //       itemBuilder: (context, index) {
-            //         final category = _categoryList[index];
-            //         return Container(
-            //           width: 450,
-            //           child: CategoryCard(
-            //             category: category,
-            //             onTap: () {
-            //               openCategoryScreen(context, index);
-            //             },
-            //             // change background color on mouse hover
-            //             onHover: (v) => {
-            //               setState(() {
-            //                 _currentCategory = index;
-            //               })
-            //             },
-            //             // change bground color when using keyboard
-            //             onFocusChange: (v) => {
-            //               setState(() {
-            //                 _currentCategory = index;
-            //               })
-            //             },
-            //           ),
-            //         );
-            //       },
-            //     )
-            //         : PageView.builder(
-            //       controller: _pageController,
-            //       itemCount: _categoryList.length,
-            //       itemBuilder: (context, index) {
-            //         final category = _categoryList[index];
-            //         return CategoryCard(
-            //           category: category,
-            //           onTap: () {
-            //             openCategoryScreen(context, index);
-            //           },
-            //         );
-            //       },
-            //       onPageChanged: (index) => setState(
-            //             () {
-            //           // for setting background color
-            //           // same as current category
-            //           _currentCategory = index;
-            //         },
-            //       ),
-            //     ),
-            //   )
-            //       : SizedBox(),
-            // ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 64.0,
+              child: Container(height: _appHeight! * 0.4, child: CategoryList()
+                  // ListView.builder(
+                  //   scrollDirection: Axis.horizontal,
+                  //   itemCount: _categoryList.length,
+                  //   controller: _scrollController,
+                  //   itemBuilder: (context, index) {
+                  //     final category = _categoryList[index];
+                  //     return Container(
+                  //       width: 450,
+                  //       child: CategoryCard(
+                  //         category: category,
+                  //         onTap: () {
+                  //           openCategoryScreen(context, index);
+                  //         },
+                  //         // change background color on mouse hover
+                  //         onHover: (v) => {
+                  //           setState(() {
+                  //             _currentCategory = index;
+                  //           })
+                  //         },
+                  //         // change bground color when using keyboard
+                  //         onFocusChange: (v) => {
+                  //           setState(() {
+                  //             _currentCategory = index;
+                  //           })
+                  //         },
+                  //       ),
+                  //     );
+                  //   },
+                  // )
+                  //     : PageView.builder(
+                  //   controller: _pageController,
+                  //   itemCount: _categoryList.length,
+                  //   itemBuilder: (context, index) {
+                  //     final category = _categoryList[index];
+                  //     return CategoryCard(
+                  //       category: category,
+                  //       onTap: () {
+                  //         openCategoryScreen(context, index);
+                  //       },
+                  //     );
+                  //   },
+                  //   onPageChanged: (index) => setState(
+                  //         () {
+                  //       // for setting background color
+                  //       // same as current category
+                  //       _currentCategory = index;
+                  //     },
+                  //   ),
+                  // ),
+                  ),
+            ),
           ],
         ),
       ),
