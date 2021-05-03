@@ -272,7 +272,7 @@ class _HomeScreenState extends State<HomeScreen>
                                 final category = _categoryList[index];
                                 return Container(
                                   width: 450,
-                                  child: CategoryCard(
+                                  child: CategoryCardOld(
                                     category: category,
                                     onTap: () {
                                       openCategoryScreen(context, index);
@@ -298,7 +298,7 @@ class _HomeScreenState extends State<HomeScreen>
                               itemCount: _categoryList.length,
                               itemBuilder: (context, index) {
                                 final category = _categoryList[index];
-                                return CategoryCard(
+                                return CategoryCardOld(
                                   category: category,
                                   onTap: () {
                                     openCategoryScreen(context, index);

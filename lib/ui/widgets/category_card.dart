@@ -6,8 +6,8 @@ import '../../models/models.dart';
 import '../../view_models/view_models.dart';
 import '../ui.dart';
 
-class CategoryCard extends StatelessWidget {
-  const CategoryCard({
+class CategoryCardOld extends StatelessWidget {
+  const CategoryCardOld({
     Key? key,
     this.category,
     this.onTap,
