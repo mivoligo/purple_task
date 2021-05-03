@@ -3,11 +3,11 @@ import 'dart:ui';
 import 'package:hive/hive.dart';
 import 'package:window_size/window_size.dart' as window_size;
 import '../../globals/globals.dart';
-import 'view_models.dart';
+import '../view_models/view_models.dart';
 
 class AppWindowSizePluginBased implements AppWindowSize {
-  double? _appWidth;
-  double? _appHeight;
+  double _appWidth = 500.0;
+  double _appHeight = 700.0;
 
   @override
   void saveWindowSize(double width, double height) {
@@ -21,9 +21,9 @@ class AppWindowSizePluginBased implements AppWindowSize {
       final screen = window.screen;
       if (screen != null) {
         final screenFrame = screen.visibleFrame;
-        final left = ((screenFrame.width - _appWidth!) / 2).roundToDouble();
-        final top = ((screenFrame.height - _appHeight!) / 3).roundToDouble();
-        final frame = Rect.fromLTWH(left, top, _appWidth!, _appHeight!);
+        final left = ((screenFrame.width - _appWidth) / 2).roundToDouble();
+        final top = ((screenFrame.height - _appHeight) / 3).roundToDouble();
+        final frame = Rect.fromLTWH(left, top, _appWidth, _appHeight);
         window_size.setWindowFrame(frame);
       }
     });
