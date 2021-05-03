@@ -7,5 +7,5 @@ abstract class BaseTaskRepository {
 
   Future<Task> deleteTask(Task task);
 
-  List<Task> getAllTasksForCategory(int categoryId);
+  List<Task> getTasks();
 }

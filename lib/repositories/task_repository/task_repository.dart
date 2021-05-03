@@ -30,10 +30,8 @@ class TaskRepository extends BaseTaskRepository {
   }
 
   @override
-  List<Task> getAllTasksForCategory(int categoryId) {
-    final matches = _box.values.where((task) => task.categoryId == categoryId);
-
-    return matches.map((e) => Task.fromEntity(e)).toList();
+  List<Task> getTasks() {
+    return _box.values.map((e) => Task.fromEntity(e)).toList();
   }
 
   Future<void> deleteAllTasksForCategory(int categoryId) async {
