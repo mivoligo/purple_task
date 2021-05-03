@@ -341,9 +341,7 @@ class _HomeScreenState extends State<HomeScreen>
   void openAboutScreen(BuildContext context) {
     Navigator.of(context).push(
       PageRouteBuilder(
-        pageBuilder: (context, anim1, anim2) => AboutScreen(
-          backgroundColor: _color,
-        ),
+        pageBuilder: (context, anim1, anim2) => AboutScreen(),
         transitionsBuilder: (context, anim1, anim2, child) {
           return FadeTransition(
             opacity: anim1,

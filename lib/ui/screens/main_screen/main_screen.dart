@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../../../globals/strings/strings.dart' as s;
 import '../../widgets/add_category_button.dart';
-
+import '../../widgets/widgets.dart';
 import 'widgets/widgets.dart';
 
 class MainScreen extends StatelessWidget {
@@ -21,7 +22,7 @@ class MainScreen extends StatelessWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth < 1000) {
-            return const _NarrowLayout();
+            return const NarrowLayout();
           } else {
             return const _WideLayout();
           }
@@ -47,11 +48,14 @@ class _WideLayout extends StatelessWidget {
               Expanded(child: CategoryList()),
               Hero(
                 tag: 'new_category',
-                child: AddCategoryButton(
-                  text: s.addCategory,
-                  onPressed: () {
-                    // _openNewCategoryCreator(context);
-                  },
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: AddCategoryButton(
+                    text: s.addCategory,
+                    onPressed: () {
+                      // _openNewCategoryCreator(context);
+                    },
+                  ),
                 ),
               ),
             ],
@@ -61,38 +65,6 @@ class _WideLayout extends StatelessWidget {
           child: Container(
               // color: Colors.blueGrey,
               ),
-        ),
-      ],
-    );
-  }
-}
-
-class _NarrowLayout extends StatelessWidget {
-  const _NarrowLayout({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: Container(
-              // color: Colors.green,
-              ),
-        ),
-        SizedBox(
-          height: 260,
-          child: CategoryList(),
-        ),
-        Hero(
-          tag: 'new_category',
-          child: AddCategoryButton(
-            text: s.addCategory,
-            onPressed: () {
-              // _openNewCategoryCreator(context);
-            },
-          ),
         ),
       ],
     );

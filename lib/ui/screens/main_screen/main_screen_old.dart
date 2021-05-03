@@ -313,9 +313,7 @@ class _MainScreenOldState extends State<MainScreenOld>
   void _openSettingsScreen(BuildContext context) {
     Navigator.of(context).push(
       PageRouteBuilder(
-        pageBuilder: (context, anim1, anim2) => Settings(
-          backgroundColor: _color,
-        ),
+        pageBuilder: (context, anim1, anim2) => Settings(),
         transitionsBuilder: (context, anim1, anim2, child) {
           return FadeTransition(
             opacity: anim1,
@@ -329,9 +327,7 @@ class _MainScreenOldState extends State<MainScreenOld>
   void _openAboutScreen(BuildContext context) {
     Navigator.of(context).push(
       PageRouteBuilder(
-        pageBuilder: (context, anim1, anim2) => AboutScreen(
-          backgroundColor: _color,
-        ),
+        pageBuilder: (context, anim1, anim2) => AboutScreen(),
         transitionsBuilder: (context, anim1, anim2, child) {
           return FadeTransition(
             opacity: anim1,
