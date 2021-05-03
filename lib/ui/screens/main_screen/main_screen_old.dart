@@ -7,7 +7,7 @@ import 'package:purple_task/globals/strings/strings.dart' as s;
 import 'package:purple_task/models/models.dart';
 import 'package:purple_task/ui/screens/main_screen/widgets/widgets.dart';
 import 'package:purple_task/ui/screens/screens.dart';
-import 'package:purple_task/ui/widgets/add_category_button.dart';
+import 'package:purple_task/ui/screens/main_screen/widgets/category/add_category_button.dart';
 import 'package:purple_task/ui/widgets/widgets.dart';
 import 'package:purple_task/view_models/view_models.dart';
 

@@ -10,6 +10,7 @@ import '../../entities/entities.dart';
 import '../../models/models.dart';
 import '../../view_models/view_models.dart';
 import '../ui.dart';
+import 'main_screen/widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
