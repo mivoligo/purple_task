@@ -3,6 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../repositories/repositories.dart';
 import '../controllers.dart';
 
+final tasksProvider = StateNotifierProvider<TasksController, TasksState>((ref) {
+  return TasksController(
+    baseTaskRepository: ref.watch(taskRepositoryProvider),
+  );
+});
+
 class TasksController extends StateNotifier<TasksState> {
   TasksController({
     required BaseTaskRepository baseTaskRepository,

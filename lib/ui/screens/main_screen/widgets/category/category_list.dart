@@ -10,7 +10,7 @@ class CategoryList extends StatelessWidget {
     final _appWidth = MediaQuery.of(context).size.width;
     return Consumer(
       builder: (context, watch, child) {
-        final state = watch(categoriesControllerProvider);
+        final state = watch(categoriesProvider);
         if (state.status == CategoriesStateStatus.initial) {
           return const Center(child: CircularProgressIndicator());
         } else if (state.status == CategoriesStateStatus.data) {

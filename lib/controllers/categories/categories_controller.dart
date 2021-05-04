@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../repositories/repositories.dart';
 import '../controllers.dart';
 
-final categoriesControllerProvider =
+final categoriesProvider =
     StateNotifierProvider.autoDispose<CategoriesController, CategoriesState>(
         (ref) {
   return CategoriesController(
-      baseCategoryRepository: ref.watch(categoryRepositoryProvider));
+    baseCategoryRepository: ref.watch(categoryRepositoryProvider),
+  );
 });
 
 class CategoriesController extends StateNotifier<CategoriesState> {

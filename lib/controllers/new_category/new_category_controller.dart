@@ -16,7 +16,7 @@ final newCategoryControllerProvider =
     return NewCategoryController(
       categoryRepository: ref.watch(categoryRepositoryProvider),
       taskRepository: ref.watch(taskRepositoryProvider),
-      categoriesController: ref.watch(categoriesControllerProvider.notifier),
+      categoriesController: ref.watch(categoriesProvider.notifier),
     );
   },
 );
