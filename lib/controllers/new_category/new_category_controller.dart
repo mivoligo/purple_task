@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../globals/globals.dart';
 import '../../models/category.dart';
 import '../../models/models.dart';
-import '../../repositories/repositories.dart';
 import '../controllers.dart';
 import 'new_category_state.dart';
 
@@ -14,7 +13,6 @@ final newCategoryControllerProvider =
     StateNotifierProvider.autoDispose<NewCategoryController, NewCategoryState>(
   (ref) {
     return NewCategoryController(
-      categoryRepository: ref.watch(categoryRepositoryProvider),
       categoriesController: ref.watch(categoriesProvider.notifier),
       tasksController: ref.watch(tasksProvider.notifier),
     );
@@ -23,17 +21,14 @@ final newCategoryControllerProvider =
 
 class NewCategoryController extends StateNotifier<NewCategoryState> {
   NewCategoryController({
-    required BaseCategoryRepository categoryRepository,
     required CategoriesController categoriesController,
     required TasksController tasksController,
-  })  : _categoryRepository = categoryRepository,
-        _categoriesController = categoriesController,
+  })  : _categoriesController = categoriesController,
         _tasksController = tasksController,
         super(NewCategoryState.initial()) {
     _startNewCategoryCreator();
   }
 
-  final BaseCategoryRepository _categoryRepository;
   final CategoriesController _categoriesController;
   final TasksController _tasksController;
 
@@ -89,13 +84,8 @@ class NewCategoryController extends StateNotifier<NewCategoryState> {
       color: state.color,
       icon: state.icon,
     );
-    _categoryRepository.add(category: category);
     _addTasksForCategory();
-    _categoriesController.state =
-        _categoriesController.state.copyWith(categories: [
-      ..._categoriesController.state.categories,
-      category,
-    ]);
+    _categoriesController.add(category: category);
   }
 
   void _addTasksForCategory() {
