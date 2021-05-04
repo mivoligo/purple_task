@@ -15,11 +15,11 @@ class CategoryList extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         } else if (state.status == CategoriesStateStatus.data) {
           if (_appWidth < 600) {
-            return HorizontalPages(state: state);
+            return _HorizontalPages(state: state);
           } else if (_appWidth < 1000) {
-            return HorizontalList(state: state);
+            return _HorizontalList(state: state);
           } else {
-            return VerticalList(state: state);
+            return _VerticalList(state: state);
           }
         }
         return const SizedBox();
@@ -28,8 +28,8 @@ class CategoryList extends StatelessWidget {
   }
 }
 
-class HorizontalPages extends StatelessWidget {
-  const HorizontalPages({
+class _HorizontalPages extends StatelessWidget {
+  const _HorizontalPages({
     Key? key,
     required this.state,
   }) : super(key: key);
@@ -48,8 +48,8 @@ class HorizontalPages extends StatelessWidget {
   }
 }
 
-class HorizontalList extends StatelessWidget {
-  const HorizontalList({
+class _HorizontalList extends StatelessWidget {
+  const _HorizontalList({
     Key? key,
     required this.state,
   }) : super(key: key);
@@ -70,8 +70,8 @@ class HorizontalList extends StatelessWidget {
   }
 }
 
-class VerticalList extends StatelessWidget {
-  const VerticalList({
+class _VerticalList extends StatelessWidget {
+  const _VerticalList({
     Key? key,
     required this.state,
   }) : super(key: key);
