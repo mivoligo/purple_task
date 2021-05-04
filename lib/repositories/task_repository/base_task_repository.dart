@@ -1,11 +1,11 @@
 import '../../models/models.dart';
 
 abstract class BaseTaskRepository {
-  Future<Task> addTask(Task task);
+  Future<Task> add({required Task task});
 
-  Future<Task> updateTask(Task task);
+  Future<Task> update({required Task task});
 
-  Future<Task> deleteTask(Task task);
+  Future<Task> remove({required Task task});
 
   List<Task> getTasks();
 }

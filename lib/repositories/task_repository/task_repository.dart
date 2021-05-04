@@ -12,19 +12,19 @@ class TaskRepository extends BaseTaskRepository {
   final _box = Hive.box<TaskEntity>(g.taskBox);
 
   @override
-  Future<Task> addTask(Task task) async {
+  Future<Task> add({required Task task}) async {
     await _box.add(task.toEntity());
     return task;
   }
 
   @override
-  Future<Task> updateTask(Task task) async {
+  Future<Task> update({required Task task}) async {
     await _box.put(task.key, task.toEntity());
     return task;
   }
 
   @override
-  Future<Task> deleteTask(Task task) async {
+  Future<Task> remove({required Task task}) async {
     await _box.values.firstWhere((element) => element.key == task.key).delete();
     return task;
   }

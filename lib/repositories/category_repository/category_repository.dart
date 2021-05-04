@@ -12,13 +12,13 @@ class CategoryRepository extends BaseCategoryRepository {
   final _box = Hive.box<CategoryEntity>(g.categoryBox);
 
   @override
-  Future<Category> addCategory({required Category category}) async {
+  Future<Category> add({required Category category}) async {
     await _box.add(category.toEntity());
     return category;
   }
 
   @override
-  Future<Category> updateCategory({required Category category}) async {
+  Future<Category> update({required Category category}) async {
     final key =
         _box.values.firstWhere((element) => element.id == category.id).key;
     await _box.put(key, category.toEntity());
@@ -26,7 +26,7 @@ class CategoryRepository extends BaseCategoryRepository {
   }
 
   @override
-  Future<Category> deleteCategory({required Category category}) async {
+  Future<Category> remove({required Category category}) async {
     await _box.values
         .firstWhere((element) => element.id == category.id)
         .delete();

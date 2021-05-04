@@ -248,7 +248,7 @@ class TaskViewModel extends ChangeNotifier {
     List _tasks =
         box.values.where((task) => task.categoryId == categoryId).toList();
     for (var task in _tasks) {
-      task.delete();
+      task.remove();
     }
     notifyListeners();
   }
@@ -259,7 +259,7 @@ class TaskViewModel extends ChangeNotifier {
         .where((task) => task.categoryId == categoryId && task.isDone == true)
         .toList();
     for (var task in _tasks) {
-      task.delete();
+      task.remove();
     }
     notifyListeners();
   }

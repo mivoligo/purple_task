@@ -15,8 +15,8 @@ final newCategoryControllerProvider =
   (ref) {
     return NewCategoryController(
       categoryRepository: ref.watch(categoryRepositoryProvider),
-      taskRepository: ref.watch(taskRepositoryProvider),
       categoriesController: ref.watch(categoriesProvider.notifier),
+      tasksController: ref.watch(tasksProvider.notifier),
     );
   },
 );
@@ -24,18 +24,18 @@ final newCategoryControllerProvider =
 class NewCategoryController extends StateNotifier<NewCategoryState> {
   NewCategoryController({
     required BaseCategoryRepository categoryRepository,
-    required BaseTaskRepository taskRepository,
     required CategoriesController categoriesController,
+    required TasksController tasksController,
   })  : _categoryRepository = categoryRepository,
-        _taskRepository = taskRepository,
         _categoriesController = categoriesController,
+        _tasksController = tasksController,
         super(NewCategoryState.initial()) {
     _startNewCategoryCreator();
   }
 
   final BaseCategoryRepository _categoryRepository;
-  final BaseTaskRepository _taskRepository;
   final CategoriesController _categoriesController;
+  final TasksController _tasksController;
 
   final _random = Random();
 
@@ -89,7 +89,7 @@ class NewCategoryController extends StateNotifier<NewCategoryState> {
       color: state.color,
       icon: state.icon,
     );
-    _categoryRepository.addCategory(category: category);
+    _categoryRepository.add(category: category);
     _addTasksForCategory();
     _categoriesController.state =
         _categoriesController.state.copyWith(categories: [
@@ -100,8 +100,8 @@ class NewCategoryController extends StateNotifier<NewCategoryState> {
 
   void _addTasksForCategory() {
     if (state.tasks.isNotEmpty) {
-      for (var task in state.tasks) {
-        _taskRepository.addTask(task);
+      for (final task in state.tasks) {
+        _tasksController.add(task: task);
       }
     }
   }

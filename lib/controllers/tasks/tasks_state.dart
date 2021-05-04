@@ -30,5 +30,5 @@ class TasksState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [tasks];
+  List<Object?> get props => [tasks, status];
 }

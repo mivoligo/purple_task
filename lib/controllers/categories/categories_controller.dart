@@ -16,12 +16,12 @@ class CategoriesController extends StateNotifier<CategoriesState> {
     required BaseCategoryRepository baseCategoryRepository,
   })  : _categoryRepository = baseCategoryRepository,
         super(CategoriesState.initial()) {
-    _loadCategories();
+    _fetchCategories();
   }
 
   final BaseCategoryRepository _categoryRepository;
 
-  void _loadCategories() {
+  void _fetchCategories() {
     state = state.copyWith(status: CategoriesStateStatus.loading);
     final categories = _categoryRepository.getCategories();
     state = state.copyWith(

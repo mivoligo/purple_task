@@ -10,7 +10,7 @@ class CategoryViewModel extends ChangeNotifier {
       ProviderContainer().read(categoryRepositoryProvider);
 
   void addCategory(Category category) {
-    categoryRepository.addCategory(category: category);
+    categoryRepository.add(category: category);
 
     notifyListeners();
   }
@@ -20,12 +20,12 @@ class CategoryViewModel extends ChangeNotifier {
   }
 
   void updateCategory(Category category) {
-    categoryRepository.updateCategory(category: category);
+    categoryRepository.update(category: category);
     notifyListeners();
   }
 
   void deleteCategory(Category category) {
-    categoryRepository.deleteCategory(category: category);
+    categoryRepository.remove(category: category);
 
     notifyListeners();
   }
