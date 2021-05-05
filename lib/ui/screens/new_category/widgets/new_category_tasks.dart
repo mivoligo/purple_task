@@ -6,7 +6,7 @@ import '../../../../models/models.dart';
 import '../../../ui.dart';
 import 'new_category_base.dart';
 
-class CategoryTasks extends StatelessWidget {
+class CategoryTasks extends StatefulWidget {
   CategoryTasks({
     Key? key,
     required this.tasks,
@@ -29,12 +29,31 @@ class CategoryTasks extends StatelessWidget {
   final FocusNode focusNode;
 
   @override
+  _CategoryTasksState createState() => _CategoryTasksState();
+}
+
+class _CategoryTasksState extends State<CategoryTasks> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return NewCategoryBase(
-      focusNode: focusNode,
-      color: color,
-      onNext: onNext,
-      onCancel: onCancel,
+      focusNode: widget.focusNode,
+      color: widget.color,
+      onNext: widget.onNext,
+      onCancel: widget.onCancel,
       okButtonText: s.finish,
       customWidget: Expanded(
         child: Column(
@@ -48,26 +67,35 @@ class CategoryTasks extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 2),
                     child: Icon(
                       IconData(
-                        selectedIcon,
+                        widget.selectedIcon,
                         fontFamily: 'AntIcons',
                         fontPackage: 'ant_icons',
                       ),
-                      color: color,
+                      color: widget.color,
                       size: 38,
                     ),
                   ),
                   Text(
-                    name,
+                    widget.name,
                     style: CustomStyle.textStyleBigName,
                   ),
                 ],
               ),
             ),
             Padding(
-                padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 4.0),
-                child: AddTaskField(
-                  addTask: onAddTask,
-                )),
+              padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 4.0),
+              child: AddTaskField(
+                addTask: (value) {
+                  widget.onAddTask(value);
+                  setState(() {
+                    _scrollController.animateTo(
+                        _scrollController.position.maxScrollExtent + 100,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease);
+                  });
+                },
+              ),
+            ),
             const Padding(
               padding: EdgeInsets.all(2.0),
               child: Text(
@@ -81,15 +109,15 @@ class CategoryTasks extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 36.0, vertical: 8.0),
                 child: Scrollbar(
                   child: ListView.separated(
-                    // controller: _scrollController,
-                    itemCount: tasks.length,
+                    controller: _scrollController,
+                    itemCount: widget.tasks.length,
                     separatorBuilder: (context, index) =>
                         const Divider(height: 6.0),
                     itemBuilder: (context, index) {
                       return ListTile(
                         contentPadding:
                             const EdgeInsets.symmetric(horizontal: 0),
-                        title: Text(tasks[index].name),
+                        title: Text(widget.tasks[index].name),
                       );
                     },
                   ),
