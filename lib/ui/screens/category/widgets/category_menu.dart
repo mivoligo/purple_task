@@ -97,13 +97,10 @@ class _CategoryMenuState extends State<CategoryMenu> {
             ),
             confirmationText: s.delete,
             confirmationColor: Colors.red,
-            onConfirm: () {
-              context
-                  .read(tasksProvider.notifier)
-                  .removeCompletedTasksForCategory(
-                      categoryId: widget.category.id);
-              Navigator.of(context).pop();
-            },
+            onConfirm: () => context
+                .read(tasksProvider.notifier)
+                .removeCompletedTasksForCategory(
+                    categoryId: widget.category.id),
             onCancel: () => Navigator.of(context).pop(),
           ),
         );
@@ -121,12 +118,9 @@ class _CategoryMenuState extends State<CategoryMenu> {
             ),
             confirmationText: s.delete,
             confirmationColor: Colors.red,
-            onConfirm: () {
-              context
-                  .read(tasksProvider.notifier)
-                  .removeAllTasksForCategory(categoryId: widget.category.id);
-              Navigator.of(context).pop();
-            },
+            onConfirm: () => context
+                .read(tasksProvider.notifier)
+                .removeAllTasksForCategory(categoryId: widget.category.id),
             onCancel: () => Navigator.of(context).pop(),
           ),
         );
@@ -149,11 +143,11 @@ class _CategoryMenuState extends State<CategoryMenu> {
               context
                   .read(tasksProvider.notifier)
                   .removeAllTasksForCategory(categoryId: widget.category.id);
+              // remove category
               context
                   .read(categoriesProvider.notifier)
                   .remove(category: widget.category);
               // pop category screen
-              Navigator.of(context).pop();
               Navigator.of(context).pop();
             },
             onCancel: () => Navigator.of(context).pop(),
@@ -174,26 +168,33 @@ class _CategoryMenuState extends State<CategoryMenu> {
                 child: CupertinoTextField(
                   controller: textController,
                   autofocus: true,
-                  style: Theme.of(context).textTheme.subtitle1,
-                  onChanged: (value) {
-                    // return categoryCubit.nameChanged(name: value);
-                  },
-                  onSubmitted: (v) {
-                    // _updateCategory(context,
-                    //     categoryCubit.state.status == CategoryStatus.editing);
-                    // Navigator.of(context).pop();
+                  // onChanged: (value) {
+                  //   context
+                  //       .read(categoryProvider(widget.category).notifier)
+                  //       .nameChanged(name: value);
+                  //   // return categoryCubit.nameChanged(name: value);
+                  // },
+                  onSubmitted: (value) {
+                    final category = widget.category.copyWith(name: value);
+                    context
+                        .read(categoriesProvider.notifier)
+                        .update(category: category);
+                    Navigator.of(context).pop();
                   },
                 ),
               ),
               confirmationText: s.save,
-              onConfirm: () {
-                // _updateCategory(context,
-                //     categoryCubit.state.status == CategoryStatus.editing);
-                // Navigator.of(context).pop();
-              },
+              onConfirm: textController.text.isNotEmpty
+                  ? () {
+                      final category =
+                          widget.category.copyWith(name: textController.text);
+                      context
+                          .read(categoriesProvider.notifier)
+                          .update(category: category);
+                    }
+                  : () => null,
               onCancel: () {
-                // categoryCubit.nameChanged(name: oldName);
-                // Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
             );
           },
@@ -219,7 +220,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
                       const SizedBox(height: 16.0),
                       Expanded(
                         child: ColorSelector(
-                          selectedColor: Colors.grey,
+                          selectedColor: widget.category.color,
                           isInCreator: false,
                         ),
                       ),

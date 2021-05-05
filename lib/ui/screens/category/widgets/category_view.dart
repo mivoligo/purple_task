@@ -20,6 +20,9 @@ class CategoryView extends StatelessWidget {
       ),
       child: Consumer(
         builder: (context, watch, child) {
+          final categoryName = watch(categoryNameProvider(category.id));
+          final categoryColor = watch(categoryColorProvider(category.id));
+          final categoryIcon = watch(categoryIconProvider(category.id));
           final tasksController = watch(tasksProvider.notifier);
           final filteredTasks = watch(filteredTasksProvider(category.id));
           var description = '';
@@ -43,32 +46,37 @@ class CategoryView extends StatelessWidget {
                 children: [
                   Icon(
                     IconData(
-                      category.icon,
+                      categoryIcon,
                       fontFamily: 'AntIcons',
                       fontPackage: 'ant_icons',
                     ),
                     size: 42.0,
-                    color: category.color,
+                    color: categoryColor,
                   ),
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 20.0,
-                  horizontal: 4.0,
+                padding: const EdgeInsets.only(
+                  left: 4.0,
+                  top: 20.0,
+                  right: 4.0,
+                  bottom: 12.0,
                 ),
                 child: CategoryHeader(
-                  title: category.name,
+                  title: categoryName,
                   description: description,
                   progress: progress,
-                  color: category.color,
+                  color: categoryColor,
                 ),
               ),
-              AddTaskField(
-                addTask: (value) {
-                  final task = Task(name: value, categoryId: category.id);
-                  tasksController.add(task: task);
-                },
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: AddTaskField(
+                  addTask: (value) {
+                    final task = Task(name: value, categoryId: category.id);
+                    tasksController.add(task: task);
+                  },
+                ),
               ),
               Expanded(
                 child: ListView.builder(

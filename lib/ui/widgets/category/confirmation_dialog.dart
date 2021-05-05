@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../globals/globals.dart';
 import '../../../globals/strings/strings.dart' as s;
 import '../../ui.dart';
 
@@ -29,7 +30,7 @@ class ConfirmationDialog extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: Theme.of(context).textTheme.headline4,
+        style: CustomStyle.textStyleBigName,
       ),
       content: content,
       buttonPadding: const EdgeInsets.all(16.0),
@@ -40,7 +41,10 @@ class ConfirmationDialog extends StatelessWidget {
         ),
         SimpleButton(
           text: confirmationText,
-          onPressed: onConfirm,
+          onPressed: () {
+            onConfirm();
+            Navigator.of(context).pop();
+          },
           color: confirmationColor,
         )
       ],
