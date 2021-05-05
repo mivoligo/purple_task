@@ -110,25 +110,21 @@ class _CategoryMenuState extends State<CategoryMenu> {
         showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) => Consumer(
-            builder: (context, watch, _) {
-              final tasksController = watch(tasksProvider.notifier);
-              return ConfirmationDialog(
-                title: s.questionDeleteAll,
-                content: const Padding(
-                  padding: EdgeInsets.all(24.0),
-                  child: Text(s.infoDeleteAll),
-                ),
-                confirmationText: s.delete,
-                confirmationColor: Colors.red,
-                onConfirm: () {
-                  tasksController.removeAllTasksForCategory(
-                      categoryId: widget.category.id);
-                  Navigator.of(context).pop();
-                },
-                onCancel: () => Navigator.of(context).pop(),
-              );
+          builder: (_) => ConfirmationDialog(
+            title: s.questionDeleteAll,
+            content: const Padding(
+              padding: EdgeInsets.all(24.0),
+              child: Text(s.infoDeleteAll),
+            ),
+            confirmationText: s.delete,
+            confirmationColor: Colors.red,
+            onConfirm: () {
+              context
+                  .read(tasksProvider.notifier)
+                  .removeAllTasksForCategory(categoryId: widget.category.id);
+              Navigator.of(context).pop();
             },
+            onCancel: () => Navigator.of(context).pop(),
           ),
         );
         break;
@@ -139,18 +135,20 @@ class _CategoryMenuState extends State<CategoryMenu> {
           barrierDismissible: false,
           builder: (_) => ConfirmationDialog(
             title: s.questionDeleteCategory,
-            content: Padding(
-              padding: const EdgeInsets.all(24.0),
+            content: const Padding(
+              padding: EdgeInsets.all(24.0),
               child: Text(s.infoDeleteCategory),
             ),
             confirmationText: s.delete,
             confirmationColor: Colors.red,
             onConfirm: () {
               // delete tasks with category id
-              // taskListCubit.deleteAllTasksForCategory(widget.category.id);
-              // delete category
-              // categoryCubit.removeCategory();
-
+              context
+                  .read(tasksProvider.notifier)
+                  .removeAllTasksForCategory(categoryId: widget.category.id);
+              context
+                  .read(categoriesProvider.notifier)
+                  .remove(category: widget.category);
               // pop category screen
               Navigator.of(context).pop();
               Navigator.of(context).pop();
@@ -287,9 +285,9 @@ class _CategoryMenuState extends State<CategoryMenu> {
     }
   }
 
-  // void _updateCategory(BuildContext context, bool isSubmitting) {
-  //   if (!isSubmitting) {
-  //     context.read<CategoryCubit>().updateCategory();
-  //   }
-  // }
+// void _updateCategory(BuildContext context, bool isSubmitting) {
+//   if (!isSubmitting) {
+//     context.read<CategoryCubit>().updateCategory();
+//   }
+// }
 }
