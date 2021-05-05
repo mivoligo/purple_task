@@ -9,6 +9,25 @@ final tasksProvider = StateNotifierProvider<TasksController, TasksState>((ref) {
   );
 });
 
+final filteredTasksProvider =
+    Provider.family<List<Task>, int>((ref, categoryId) {
+  final filter = ref.watch(tasksProvider).filter;
+  final tasks = ref.watch(tasksProvider).tasks;
+
+  switch (filter) {
+    case Filter.all:
+      return tasks.where((task) => task.categoryId == categoryId).toList();
+    case Filter.active:
+      return tasks
+          .where((task) => task.categoryId == categoryId && !task.isDone)
+          .toList();
+    case Filter.completed:
+      return tasks
+          .where((task) => task.categoryId == categoryId && task.isDone)
+          .toList();
+  }
+});
+
 class TasksController extends StateNotifier<TasksState> {
   TasksController({
     required BaseTaskRepository baseTaskRepository,
