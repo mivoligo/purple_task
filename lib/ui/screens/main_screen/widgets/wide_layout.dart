@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../globals/strings/strings.dart' as s;
 
+import '../../screens.dart';
 import 'widgets.dart';
 
 class WideLayout extends StatelessWidget {
@@ -23,9 +24,10 @@ class WideLayout extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: AddCategoryButton(
                     text: s.addCategory,
-                    onPressed: () {
+                    onPressed: () => Navigator.of(context).push(
+                      _createRoute(NewCategoryScreen()),
                       // _openNewCategoryCreator(context);
-                    },
+                    ),
                   ),
                 ),
               ),
@@ -38,6 +40,18 @@ class WideLayout extends StatelessWidget {
               ),
         ),
       ],
+    );
+  }
+
+  Route _createRoute(Widget target) {
+    return PageRouteBuilder(
+      pageBuilder: (context, anim1, anim2) => target,
+      transitionsBuilder: (context, anim1, anim2, child) {
+        return FadeTransition(
+          opacity: anim1,
+          child: child,
+        );
+      },
     );
   }
 }
