@@ -103,4 +103,16 @@ class TasksController extends StateNotifier<TasksState> {
       status: TasksStateStatus.data,
     );
   }
+
+  Future<void> removeCompletedTasksForCategory(
+      {required int categoryId}) async {
+    await _taskRepository.removeCompletedTasksForCategory(categoryId);
+    state = state.copyWith(
+      tasks: state.tasks
+          .where((element) =>
+              !(element.categoryId == categoryId && element.isDone))
+          .toList(),
+      status: TasksStateStatus.data,
+    );
+  }
 }

@@ -91,14 +91,17 @@ class _CategoryMenuState extends State<CategoryMenu> {
           barrierDismissible: false,
           builder: (_) => ConfirmationDialog(
             title: s.questionDeleteCompleted,
-            content: Padding(
-              padding: const EdgeInsets.all(24.0),
+            content: const Padding(
+              padding: EdgeInsets.all(24.0),
               child: Text(s.infoDeleteCompleted),
             ),
             confirmationText: s.delete,
             confirmationColor: Colors.red,
             onConfirm: () {
-              // taskListCubit.deleteCompletedTasksForCategory(widget.category.id);
+              context
+                  .read(tasksProvider.notifier)
+                  .removeCompletedTasksForCategory(
+                      categoryId: widget.category.id);
               Navigator.of(context).pop();
             },
             onCancel: () => Navigator.of(context).pop(),

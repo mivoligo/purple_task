@@ -43,7 +43,8 @@ class TaskRepository extends BaseTaskRepository {
     }
   }
 
-  Future<void> deleteCompletedTasksForCategory(int categoryId) async {
+  @override
+  Future<void> removeCompletedTasksForCategory(int categoryId) async {
     final matches = _box.values
         .where((task) => task.categoryId == categoryId && task.isDone == true);
     for (var task in matches) {
