@@ -35,7 +35,8 @@ class TaskRepository extends BaseTaskRepository {
     return _box.values.map((e) => Task.fromEntity(e)).toList();
   }
 
-  Future<void> deleteAllTasksForCategory(int categoryId) async {
+  @override
+  Future<void> removeAllTasksForCategory(int categoryId) async {
     final matches = _box.values.where((task) => task.categoryId == categoryId);
     for (var task in matches) {
       await task.delete();

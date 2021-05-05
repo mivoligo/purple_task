@@ -1,6 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../controllers/controllers.dart';
 import '../../../../globals/strings/strings.dart' as s;
 import '../../../../models/models.dart';
 import '../../../widgets/category/confirmation_dialog.dart';
@@ -41,29 +43,29 @@ class _CategoryMenuState extends State<CategoryMenu> {
         onSelected: (dynamic item) => onItemSelected(context, item),
         itemBuilder: (context) {
           var menuList = <PopupMenuEntry<Object>>[];
-          menuList.add(PopupMenuItem(
+          menuList.add(const PopupMenuItem(
             child: Text(s.deleteCompleted),
             value: 1,
           ));
-          menuList.add(PopupMenuItem(
+          menuList.add(const PopupMenuItem(
             child: Text(s.deleteAllTasks),
             value: 2,
           ));
-          menuList.add(PopupMenuDivider());
-          menuList.add(PopupMenuItem(
+          menuList.add(const PopupMenuDivider());
+          menuList.add(const PopupMenuItem(
             child: Text(s.deleteCategory),
             value: 3,
           ));
-          menuList.add(PopupMenuDivider());
-          menuList.add(PopupMenuItem(
+          menuList.add(const PopupMenuDivider());
+          menuList.add(const PopupMenuItem(
             child: Text(s.changeName),
             value: 4,
           ));
-          menuList.add(PopupMenuItem(
+          menuList.add(const PopupMenuItem(
             child: Text(s.changeColor),
             value: 5,
           ));
-          menuList.add(PopupMenuItem(
+          menuList.add(const PopupMenuItem(
             child: Text(s.changeIcon),
             value: 6,
           ));
@@ -108,19 +110,25 @@ class _CategoryMenuState extends State<CategoryMenu> {
         showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) => ConfirmationDialog(
-            title: s.questionDeleteAll,
-            content: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Text(s.infoDeleteAll),
-            ),
-            confirmationText: s.delete,
-            confirmationColor: Colors.red,
-            onConfirm: () {
-              // taskListCubit.deleteAllTasksForCategory(widget.category.id);
-              // Navigator.of(context).pop();
+          builder: (_) => Consumer(
+            builder: (context, watch, _) {
+              final tasksController = watch(tasksProvider.notifier);
+              return ConfirmationDialog(
+                title: s.questionDeleteAll,
+                content: const Padding(
+                  padding: EdgeInsets.all(24.0),
+                  child: Text(s.infoDeleteAll),
+                ),
+                confirmationText: s.delete,
+                confirmationColor: Colors.red,
+                onConfirm: () {
+                  tasksController.removeAllTasksForCategory(
+                      categoryId: widget.category.id);
+                  Navigator.of(context).pop();
+                },
+                onCancel: () => Navigator.of(context).pop(),
+              );
             },
-            onCancel: () => Navigator.of(context).pop(),
           ),
         );
         break;

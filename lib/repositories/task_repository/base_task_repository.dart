@@ -8,4 +8,6 @@ abstract class BaseTaskRepository {
   Future<Task> remove({required Task task});
 
   List<Task> getTasks();
+
+  Future<void> removeAllTasksForCategory(int categoryId);
 }
