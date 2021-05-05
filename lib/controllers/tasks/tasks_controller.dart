@@ -28,6 +28,26 @@ final filteredTasksProvider =
   }
 });
 
+final activeTasksNumberProvider = Provider.family<int, int>((ref, categoryId) {
+  final tasks = ref.watch(tasksProvider).tasks;
+  return tasks
+      .where((task) => task.categoryId == categoryId && !task.isDone)
+      .length;
+});
+
+final progressProvider = Provider.family<double, int>((ref, categoryId) {
+  final tasks = ref.watch(tasksProvider).tasks;
+  final allTasks = tasks.where((task) => task.categoryId == categoryId).length;
+  final completedTasks = tasks
+      .where((task) => task.categoryId == categoryId && task.isDone)
+      .length;
+  if (allTasks > 0) {
+    return completedTasks / allTasks;
+  } else {
+    return 0;
+  }
+});
+
 class TasksController extends StateNotifier<TasksState> {
   TasksController({
     required BaseTaskRepository baseTaskRepository,

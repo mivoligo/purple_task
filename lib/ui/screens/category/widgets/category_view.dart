@@ -18,65 +18,67 @@ class CategoryView extends StatelessWidget {
         vertical: 12.0,
         horizontal: 32.0,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
+      child: Consumer(
+        builder: (context, watch, child) {
+          final tasksController = watch(tasksProvider.notifier);
+          final filteredTasks = watch(filteredTasksProvider(category.id));
+          var description = '';
+          final activeTasksNumber =
+              watch(activeTasksNumberProvider(category.id));
+          final progress = watch(progressProvider(category.id));
+          switch (activeTasksNumber) {
+            case 0:
+              description = '$activeTasksNumber ${s.taskPlural}';
+              break;
+            case 1:
+              description = '$activeTasksNumber ${s.taskSingular}';
+              break;
+            default:
+              description = '$activeTasksNumber ${s.taskPlural}';
+          }
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Icon(
-                IconData(
-                  category.icon,
-                  fontFamily: 'AntIcons',
-                  fontPackage: 'ant_icons',
-                ),
-                size: 42.0,
-                color: category.color,
+              Row(
+                children: [
+                  Icon(
+                    IconData(
+                      category.icon,
+                      fontFamily: 'AntIcons',
+                      fontPackage: 'ant_icons',
+                    ),
+                    size: 42.0,
+                    color: category.color,
+                  ),
+                ],
               ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 20.0,
-              horizontal: 4.0,
-            ),
-            child: Consumer(
-              builder: (context, watch, child) {
-                final state = watch(categoryCardProvider(category.id));
-                var description = '';
-                final activeTasksNumber = state.activeTasksNumber;
-                switch (activeTasksNumber) {
-                  case 0:
-                    description = '$activeTasksNumber ${s.taskPlural}';
-                    break;
-                  case 1:
-                    description = '$activeTasksNumber ${s.taskSingular}';
-                    break;
-                  default:
-                    description = '$activeTasksNumber ${s.taskPlural}';
-                }
-                return CategoryHeader(
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20.0,
+                  horizontal: 4.0,
+                ),
+                child: CategoryHeader(
                   title: category.name,
                   description: description,
-                  progress: state.progress,
+                  progress: progress,
                   color: category.color,
-                );
-              },
-            ),
-          ),
-          AddTaskField(addTask: (_) {}),
-          Expanded(child: Consumer(
-            builder: (context, watch, child) {
-              final taskProvider = watch(filteredTasksProvider(category.id));
-              return ListView.builder(
-                itemCount: taskProvider.length,
+                ),
+              ),
+              AddTaskField(addTask: (value) {
+                final task = Task(name: value, categoryId: category.id);
+                tasksController.add(task: task);
+              }),
+              Expanded(
+                  child: ListView.builder(
+                itemCount: filteredTasks.length,
                 itemBuilder: (context, index) {
-                  final task = taskProvider[index];
+                  final task = filteredTasks[index];
                   return Text('${task.name}');
                 },
-              );
-            },
-          ))
-        ],
+              ))
+            ],
+          );
+        },
       ),
     );
   }
