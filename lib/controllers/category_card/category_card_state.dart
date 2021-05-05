@@ -19,6 +19,14 @@ class CategoryState extends Equatable {
   final int activeTasksNumber;
   final int completedTasksNumber;
 
+  double get progress {
+    if (allTasksNumber > 0) {
+      return completedTasksNumber / allTasksNumber;
+    } else {
+      return 0.0;
+    }
+  }
+
   CategoryState copyWith({
     int? allTasksNumber,
     int? activeTasksNumber,

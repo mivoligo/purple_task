@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../controllers/controllers.dart';
 import '../../../../../globals/globals.dart';
 import '../../../../../globals/strings/strings.dart' as s;
 import '../../../../../models/models.dart';
@@ -25,11 +27,6 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String _descriptionText;
     final _numberOfTasks = 3;
-    final _completionProgress = 0.4;
-    // final _numberOfTasks = Provider.of<TaskViewModel>(context, listen: false)
-    //     .numberOfPlannedTasksForCategory(category!.id);
-    // final _completionProgress =
-    // Provider.of<TaskViewModel>(context).completionProgress(category!.id);
     switch (_numberOfTasks) {
       case 0:
         _descriptionText = '$_numberOfTasks ${s.taskPlural}';
@@ -47,23 +44,29 @@ class CategoryCard extends StatelessWidget {
       ),
       elevation: 2,
       clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        onHover: (_) => onHover,
-        onFocusChange: (_) => onFocusChange,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: isInVerticalList
-              ? ShortView(
-                  category: category,
-                  descriptionText: _descriptionText,
-                  completionProgress: _completionProgress)
-              : TallView(
-                  category: category,
-                  descriptionText: _descriptionText,
-                  completionProgress: _completionProgress,
-                ),
-        ),
+      child: Consumer(
+        builder: (context, watch, child) {
+          final state = watch(categoryCardProvider(category.id));
+
+          return InkWell(
+            onTap: onTap,
+            onHover: (_) => onHover,
+            onFocusChange: (_) => onFocusChange,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: isInVerticalList
+                  ? ShortView(
+                      category: category,
+                      descriptionText: '${state.activeTasksNumber}',
+                      completionProgress: state.progress)
+                  : TallView(
+                      category: category,
+                      descriptionText: '${state.activeTasksNumber}',
+                      completionProgress: state.progress,
+                    ),
+            ),
+          );
+        },
       ),
     );
   }

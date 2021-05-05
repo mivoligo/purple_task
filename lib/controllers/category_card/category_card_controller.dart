@@ -2,6 +2,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../controllers.dart';
 import 'category_card_state.dart';
 
+final categoryCardProvider =
+    StateNotifierProviderFamily<CategoryCardController, CategoryState, int>(
+        (ref, id) => CategoryCardController(
+            categoryId: id,
+            tasksController: ref.watch(tasksProvider.notifier)));
+
 class CategoryCardController extends StateNotifier<CategoryState> {
   CategoryCardController({
     required int categoryId,
