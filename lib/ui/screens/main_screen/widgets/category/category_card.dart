@@ -34,9 +34,11 @@ class CategoryCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Consumer(
         builder: (context, watch, _) {
-          final state = watch(categoryCardProvider(category.id));
+          final progress = watch(progressProvider(category.id));
           var description = '';
-          final activeTasksNumber = state.activeTasksNumber;
+          final activeTasksNumber = watch(
+            activeTasksNumberProvider(category.id),
+          );
           switch (activeTasksNumber) {
             case 0:
               description = '$activeTasksNumber ${s.taskPlural}';
@@ -57,12 +59,12 @@ class CategoryCard extends StatelessWidget {
                   ? _ShortView(
                       category: category,
                       descriptionText: description,
-                      completionProgress: state.progress,
+                      completionProgress: progress,
                     )
                   : _TallView(
                       category: category,
                       descriptionText: description,
-                      completionProgress: state.progress,
+                      completionProgress: progress,
                     ),
             ),
           );
@@ -76,15 +78,13 @@ class _ShortView extends StatelessWidget {
   const _ShortView({
     Key? key,
     required this.category,
-    required String descriptionText,
-    required double completionProgress,
-  })  : _descriptionText = descriptionText,
-        _completionProgress = completionProgress,
-        super(key: key);
+    required this.descriptionText,
+    required this.completionProgress,
+  }) : super(key: key);
 
   final Category category;
-  final String _descriptionText;
-  final double _completionProgress;
+  final String descriptionText;
+  final double completionProgress;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,7 @@ class _ShortView extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 4, top: 12, right: 8),
-          child: Text(_descriptionText),
+          child: Text(descriptionText),
         ),
         Padding(
           padding: const EdgeInsets.all(4.0),
@@ -121,12 +121,12 @@ class _ShortView extends StatelessWidget {
             children: [
               Expanded(
                 child: AnimatedProgressBar(
-                  value: _completionProgress,
+                  value: completionProgress,
                   color: category.color,
                 ),
               ),
               const SizedBox(width: 8),
-              Text('${(_completionProgress * 100).toInt()}%'),
+              Text('${(completionProgress * 100).toInt()}%'),
             ],
           ),
         ),
@@ -139,15 +139,13 @@ class _TallView extends StatelessWidget {
   const _TallView({
     Key? key,
     required this.category,
-    required String descriptionText,
-    required double completionProgress,
-  })  : _descriptionText = descriptionText,
-        _completionProgress = completionProgress,
-        super(key: key);
+    required this.descriptionText,
+    required this.completionProgress,
+  }) : super(key: key);
 
   final Category category;
-  final String _descriptionText;
-  final double _completionProgress;
+  final String descriptionText;
+  final double completionProgress;
 
   @override
   Widget build(BuildContext context) {
@@ -175,8 +173,8 @@ class _TallView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: CategoryHeader(
             title: category.name,
-            description: _descriptionText,
-            progress: _completionProgress,
+            description: descriptionText,
+            progress: completionProgress,
             color: category.color,
           ),
         ),
