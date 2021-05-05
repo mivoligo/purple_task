@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../controllers/controllers.dart';
+import '../../../screens.dart';
 import '../widgets.dart';
 
 class CategoryList extends StatelessWidget {
@@ -64,7 +65,16 @@ class _HorizontalList extends StatelessWidget {
       itemBuilder: (context, index) {
         final category = state.categories[index];
         return SizedBox(
-            width: 400, child: CategoryCard(category: category, onTap: () {}));
+          width: 400,
+          child: CategoryCard(
+            category: category,
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => CategoryScreen(category: category),
+              ));
+            },
+          ),
+        );
       },
     );
   }

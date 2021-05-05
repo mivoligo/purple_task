@@ -8,12 +8,12 @@ import '../../entities/entities.dart';
 import '../../view_models/view_models.dart';
 import '../ui.dart';
 
-class CategoryScreen extends StatefulWidget {
+class CategoryScreenOld extends StatefulWidget {
   @override
-  _CategoryScreenState createState() => _CategoryScreenState();
+  _CategoryScreenOldState createState() => _CategoryScreenOldState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen>
+class _CategoryScreenOldState extends State<CategoryScreenOld>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation _fadeAnimation;

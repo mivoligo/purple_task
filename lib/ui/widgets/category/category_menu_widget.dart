@@ -95,6 +95,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
             confirmationColor: Colors.red,
             onConfirm: () => taskModel.deleteCompletedTasksForCategory(
                 categoryModel.currentCategory.id),
+            onCancel: () {},
           ),
         );
         break;
@@ -112,6 +113,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
             confirmationColor: Colors.red,
             onConfirm: () => taskModel
                 .deleteAllTasksForCategory(categoryModel.currentCategory.id),
+            onCancel: () {},
           ),
         );
         break;
@@ -136,6 +138,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
               // pop category screen
               Navigator.of(context).pop();
             },
+            onCancel: () {},
           ),
         );
         break;
@@ -162,6 +165,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
               confirmationText: save,
               confirmationColor: Colors.green,
               onConfirm: updateCategoryName,
+              onCancel: () {},
             );
           },
         );
@@ -198,6 +202,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
               confirmationText: save,
               confirmationColor: Colors.green,
               onConfirm: updateCategoryColor,
+              onCancel: () {},
             );
           },
         );
@@ -239,6 +244,7 @@ class _CategoryMenuWidgetState extends State<CategoryMenuWidget> {
               confirmationText: save,
               confirmationColor: Colors.green,
               onConfirm: updateCategoryIcon,
+              onCancel: () {},
             );
           },
         );

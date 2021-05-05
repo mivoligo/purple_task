@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import '../../../globals/strings/strings.dart' as s;
 import '../../ui.dart';
 
-class ConfirmationDialog extends StatefulWidget {
+class ConfirmationDialog extends StatelessWidget {
   const ConfirmationDialog({
     Key? key,
     required this.title,
     this.content,
     required this.confirmationText,
-    required this.confirmationColor,
+    this.confirmationColor = Colors.green,
     required this.onConfirm,
+    required this.onCancel,
   }) : super(key: key);
 
   final String title;
@@ -17,34 +18,30 @@ class ConfirmationDialog extends StatefulWidget {
   final String confirmationText;
   final Color confirmationColor;
   final VoidCallback onConfirm;
+  final VoidCallback onCancel;
 
-  @override
-  _ConfirmationDialogState createState() => _ConfirmationDialogState();
-}
-
-class _ConfirmationDialogState extends State<ConfirmationDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      contentPadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 8.0),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 0.0,
+        vertical: 8.0,
+      ),
       title: Text(
-        widget.title,
+        title,
         style: Theme.of(context).textTheme.headline4,
       ),
-      content: widget.content,
-      actionsPadding: EdgeInsets.symmetric(horizontal: 8.0),
+      content: content,
+      buttonPadding: const EdgeInsets.all(16.0),
       actions: [
         SimpleButton(
           text: s.cancel,
-          onPressed: Navigator.of(context).pop,
+          onPressed: onCancel,
         ),
         SimpleButton(
-          text: widget.confirmationText,
-          onPressed: () {
-            widget.onConfirm();
-            Navigator.of(context).pop();
-          },
-          color: widget.confirmationColor,
+          text: confirmationText,
+          onPressed: onConfirm,
+          color: confirmationColor,
         )
       ],
     );
