@@ -25,18 +25,6 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _descriptionText;
-    final _numberOfTasks = 3;
-    switch (_numberOfTasks) {
-      case 0:
-        _descriptionText = '$_numberOfTasks ${s.taskPlural}';
-        break;
-      case 1:
-        _descriptionText = '$_numberOfTasks ${s.taskSingular}';
-        break;
-      default:
-        _descriptionText = '$_numberOfTasks ${s.taskPlural}';
-    }
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
       shape: RoundedRectangleBorder(
@@ -45,9 +33,20 @@ class CategoryCard extends StatelessWidget {
       elevation: 2,
       clipBehavior: Clip.antiAlias,
       child: Consumer(
-        builder: (context, watch, child) {
+        builder: (context, watch, _) {
           final state = watch(categoryCardProvider(category.id));
-
+          var description = '';
+          final activeTasksNumber = state.activeTasksNumber;
+          switch (activeTasksNumber) {
+            case 0:
+              description = '$activeTasksNumber ${s.taskPlural}';
+              break;
+            case 1:
+              description = '$activeTasksNumber ${s.taskSingular}';
+              break;
+            default:
+              description = '$activeTasksNumber ${s.taskPlural}';
+          }
           return InkWell(
             onTap: onTap,
             onHover: (_) => onHover,
@@ -55,13 +54,14 @@ class CategoryCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: isInVerticalList
-                  ? ShortView(
+                  ? _ShortView(
                       category: category,
-                      descriptionText: '${state.activeTasksNumber}',
-                      completionProgress: state.progress)
-                  : TallView(
+                      descriptionText: description,
+                      completionProgress: state.progress,
+                    )
+                  : _TallView(
                       category: category,
-                      descriptionText: '${state.activeTasksNumber}',
+                      descriptionText: description,
                       completionProgress: state.progress,
                     ),
             ),
@@ -72,8 +72,8 @@ class CategoryCard extends StatelessWidget {
   }
 }
 
-class ShortView extends StatelessWidget {
-  const ShortView({
+class _ShortView extends StatelessWidget {
+  const _ShortView({
     Key? key,
     required this.category,
     required String descriptionText,
@@ -135,8 +135,8 @@ class ShortView extends StatelessWidget {
   }
 }
 
-class TallView extends StatelessWidget {
-  const TallView({
+class _TallView extends StatelessWidget {
+  const _TallView({
     Key? key,
     required this.category,
     required String descriptionText,
