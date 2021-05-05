@@ -16,7 +16,7 @@ class SliverTasksList extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         (context, index) {
           final task = list[index];
-          return TaskItem(
+          return TaskItemOld(
             task: task,
           );
         },

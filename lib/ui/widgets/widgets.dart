@@ -14,4 +14,5 @@ export 'simple_button.dart';
 export 'task_item/category_selector.dart';
 export 'task_item/due_date_selector.dart';
 export 'task_item/task_item.dart';
+export 'task_item/task_item_old.dart';
 export 'task_list/task_list.dart';

@@ -64,18 +64,21 @@ class CategoryView extends StatelessWidget {
                   color: category.color,
                 ),
               ),
-              AddTaskField(addTask: (value) {
-                final task = Task(name: value, categoryId: category.id);
-                tasksController.add(task: task);
-              }),
-              Expanded(
-                  child: ListView.builder(
-                itemCount: filteredTasks.length,
-                itemBuilder: (context, index) {
-                  final task = filteredTasks[index];
-                  return Text('${task.name}');
+              AddTaskField(
+                addTask: (value) {
+                  final task = Task(name: value, categoryId: category.id);
+                  tasksController.add(task: task);
                 },
-              ))
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: filteredTasks.length,
+                  itemBuilder: (context, index) {
+                    final task = filteredTasks[index];
+                    return TaskItem(task: task);
+                  },
+                ),
+              ),
             ],
           );
         },

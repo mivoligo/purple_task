@@ -13,7 +13,8 @@ class TaskRepository extends BaseTaskRepository {
 
   @override
   Future<Task> add({required Task task}) async {
-    await _box.add(task.toEntity());
+    final key = await _box.add(task.toEntity());
+    task = task.copyWith(key: key);
     return task;
   }
 

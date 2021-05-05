@@ -68,9 +68,9 @@ class TasksController extends StateNotifier<TasksState> {
   }
 
   Future<void> add({required Task task}) async {
-    await _taskRepository.add(task: task);
+    final newTask = await _taskRepository.add(task: task);
     state = state.copyWith(
-      tasks: [...state.tasks, task],
+      tasks: [...state.tasks, newTask],
       status: TasksStateStatus.data,
     );
   }
