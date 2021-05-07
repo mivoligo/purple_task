@@ -16,7 +16,7 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, watch, child) {
+      builder: (context, watch, _) {
         final categoryColor = watch(categoryColorProvider(category.id));
         final currentCategory = watch(categoryProvider(category)).category;
 
@@ -98,10 +98,7 @@ class _CategoryCardWithControls extends StatelessWidget {
                 },
               ),
               // Menu button
-              CategoryMenu(
-                // category: category,
-                categoryId: category.id,
-              ),
+              CategoryMenu(categoryId: category.id),
             ],
           ),
         ),

@@ -2,8 +2,10 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../controllers/controllers.dart';
 import '../../../../globals/strings/strings.dart' as s;
+import '../../../../models/models.dart';
 import '../../../widgets/category/confirmation_dialog.dart';
 import '../../../widgets/color_selector.dart';
 import '../../../widgets/icon_selector.dart';
@@ -170,10 +172,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   onSubmitted: (value) {
                     final updatedCategory =
                         category.copyWith(name: textController.text);
-
-                    context
-                        .read(categoriesProvider.notifier)
-                        .update(category: updatedCategory);
+                    _updateCategory(context, updatedCategory);
                     Navigator.of(context).pop();
                   },
                 ),
@@ -183,10 +182,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   ? () {
                       final updatedCategory =
                           category.copyWith(name: textController.text);
-
-                      context
-                          .read(categoriesProvider.notifier)
-                          .update(category: updatedCategory);
+                      _updateCategory(context, updatedCategory);
                     }
                   : () => null,
             );
@@ -231,10 +227,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   confirmationText: s.save,
                   onConfirm: () {
                     final updatedCategory = category.copyWith(color: color);
-
-                    context
-                        .read(categoriesProvider.notifier)
-                        .update(category: updatedCategory);
+                    _updateCategory(context, updatedCategory);
                   },
                 );
               },
@@ -287,10 +280,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   confirmationText: s.save,
                   onConfirm: () {
                     final updatedCategory = category.copyWith(icon: icon);
-
-                    context
-                        .read(categoriesProvider.notifier)
-                        .update(category: updatedCategory);
+                    _updateCategory(context, updatedCategory);
                   },
                 );
               },
@@ -301,9 +291,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
     }
   }
 
-// void _updateCategory(BuildContext context, bool isSubmitting) {
-//   if (!isSubmitting) {
-//     context.read<CategoryCubit>().updateCategory();
-//   }
-// }
+  void _updateCategory(BuildContext context, Category category) {
+    context.read(categoriesProvider.notifier).update(category: category);
+  }
 }

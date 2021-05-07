@@ -19,7 +19,7 @@ class CategoryView extends StatelessWidget {
         horizontal: 32.0,
       ),
       child: Consumer(
-        builder: (context, watch, child) {
+        builder: (context, watch, _) {
           final categoryName = watch(categoryNameProvider(categoryId));
           final categoryColor = watch(categoryColorProvider(categoryId));
           final categoryIcon = watch(categoryIconProvider(categoryId));
