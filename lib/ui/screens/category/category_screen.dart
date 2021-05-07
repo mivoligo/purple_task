@@ -18,12 +18,13 @@ class CategoryScreen extends StatelessWidget {
     return Consumer(
       builder: (context, watch, child) {
         final categoryColor = watch(categoryColorProvider(category.id));
+        final currentCategory = watch(categoryProvider(category)).category;
 
         return Scaffold(
           body: LayoutBuilder(
             builder: (context, constrains) {
               if (constrains.maxWidth < 600) {
-                return _CategoryCardWithControls(category: category);
+                return _CategoryCardWithControls(category: currentCategory);
               } else {
                 return Stack(
                   children: [
@@ -50,7 +51,7 @@ class CategoryScreen extends StatelessWidget {
                           ),
                           elevation: 6,
                           child: _CategoryCardWithControls(
-                            category: category,
+                            category: currentCategory,
                           ),
                         ),
                       ),
@@ -97,13 +98,16 @@ class _CategoryCardWithControls extends StatelessWidget {
                 },
               ),
               // Menu button
-              CategoryMenu(category: category),
+              CategoryMenu(
+                // category: category,
+                categoryId: category.id,
+              ),
             ],
           ),
         ),
         Expanded(
           child: CategoryView(
-            category: category,
+            categoryId: category.id,
           ),
         ),
       ],

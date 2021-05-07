@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../controllers/controllers.dart';
 import '../../../../globals/strings/strings.dart' as s;
-import '../../../../models/models.dart';
 import '../../../widgets/category/confirmation_dialog.dart';
 import '../../../widgets/color_selector.dart';
 import '../../../widgets/icon_selector.dart';
 
 class CategoryMenu extends StatefulWidget {
-  const CategoryMenu({required this.category});
+  const CategoryMenu({
+    required this.categoryId,
+  });
 
-  final Category category;
+  final int categoryId;
 
   @override
   _CategoryMenuState createState() => _CategoryMenuState();
@@ -34,9 +35,9 @@ class _CategoryMenuState extends State<CategoryMenu> {
       clipBehavior: Clip.antiAlias,
       child: PopupMenuButton(
         tooltip: s.showOptions,
-        icon: Icon(
+        icon: const Icon(
           AntIcons.menu,
-          color: Colors.grey[700],
+          color: Color(0xFF616161),
         ),
         offset: const Offset(0, 48),
         elevation: 4.0,
@@ -77,12 +78,6 @@ class _CategoryMenuState extends State<CategoryMenu> {
   }
 
   void onItemSelected(BuildContext context, int item) {
-    // final categoryCubit = context.read<CategoryCubit>();
-    // final taskListCubit = context.read<TaskListCubit>();
-    // final oldName = categoryCubit.state.category!.name;
-    // final oldColor = categoryCubit.state.category!.color;
-    // final oldIcon = categoryCubit.state.category!.icon;
-
     switch (item) {
       // delete completed tasks from category
       case 1:
@@ -99,9 +94,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
             confirmationColor: Colors.red,
             onConfirm: () => context
                 .read(tasksProvider.notifier)
-                .removeCompletedTasksForCategory(
-                    categoryId: widget.category.id),
-            onCancel: () => Navigator.of(context).pop(),
+                .removeCompletedTasksForCategory(categoryId: widget.categoryId),
           ),
         );
         break;
@@ -120,8 +113,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
             confirmationColor: Colors.red,
             onConfirm: () => context
                 .read(tasksProvider.notifier)
-                .removeAllTasksForCategory(categoryId: widget.category.id),
-            onCancel: () => Navigator.of(context).pop(),
+                .removeAllTasksForCategory(categoryId: widget.categoryId),
           ),
         );
         break;
@@ -139,18 +131,21 @@ class _CategoryMenuState extends State<CategoryMenu> {
             confirmationText: s.delete,
             confirmationColor: Colors.red,
             onConfirm: () {
+              final category = context
+                  .read(categoriesProvider)
+                  .categories
+                  .firstWhere((element) => element.id == widget.categoryId);
               // delete tasks with category id
               context
                   .read(tasksProvider.notifier)
-                  .removeAllTasksForCategory(categoryId: widget.category.id);
+                  .removeAllTasksForCategory(categoryId: widget.categoryId);
               // remove category
               context
                   .read(categoriesProvider.notifier)
-                  .remove(category: widget.category);
+                  .remove(category: category);
               // pop category screen
               Navigator.of(context).pop();
             },
-            onCancel: () => Navigator.of(context).pop(),
           ),
         );
         break;
@@ -160,7 +155,11 @@ class _CategoryMenuState extends State<CategoryMenu> {
           context: context,
           barrierDismissible: false,
           builder: (_) {
-            textController.text = widget.category.name;
+            final category = context
+                .read(categoriesProvider)
+                .categories
+                .firstWhere((element) => element.id == widget.categoryId);
+            textController.text = category.name;
             return ConfirmationDialog(
               title: s.questionChangeName,
               content: Padding(
@@ -169,10 +168,12 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   controller: textController,
                   autofocus: true,
                   onSubmitted: (value) {
-                    final category = widget.category.copyWith(name: value);
+                    final updatedCategory =
+                        category.copyWith(name: textController.text);
+
                     context
                         .read(categoriesProvider.notifier)
-                        .update(category: category);
+                        .update(category: updatedCategory);
                     Navigator.of(context).pop();
                   },
                 ),
@@ -180,16 +181,14 @@ class _CategoryMenuState extends State<CategoryMenu> {
               confirmationText: s.save,
               onConfirm: textController.text.isNotEmpty
                   ? () {
-                      final category =
-                          widget.category.copyWith(name: textController.text);
+                      final updatedCategory =
+                          category.copyWith(name: textController.text);
+
                       context
                           .read(categoriesProvider.notifier)
-                          .update(category: category);
+                          .update(category: updatedCategory);
                     }
                   : () => null,
-              onCancel: () {
-                Navigator.of(context).pop();
-              },
             );
           },
         );
@@ -202,8 +201,11 @@ class _CategoryMenuState extends State<CategoryMenu> {
           builder: (_) {
             return Consumer(
               builder: (context, watch, _) {
-                final color =
-                    watch(editCategoryProvider(widget.category)).color;
+                final category = context
+                    .read(categoriesProvider)
+                    .categories
+                    .firstWhere((element) => element.id == widget.categoryId);
+                final color = watch(categoryProvider(category)).category.color;
                 return ConfirmationDialog(
                   title: s.questionChangeColor,
                   content: SizedBox(
@@ -220,7 +222,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
                           child: ColorSelector(
                             selectedColor: color,
                             isInCreator: false,
-                            category: widget.category,
+                            category: category,
                           ),
                         ),
                       ],
@@ -228,13 +230,11 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   ),
                   confirmationText: s.save,
                   onConfirm: () {
-                    final category = widget.category.copyWith(color: color);
+                    final updatedCategory = category.copyWith(color: color);
+
                     context
                         .read(categoriesProvider.notifier)
-                        .update(category: category);
-                  },
-                  onCancel: () {
-                    Navigator.of(context).pop();
+                        .update(category: updatedCategory);
                   },
                 );
               },
@@ -248,9 +248,13 @@ class _CategoryMenuState extends State<CategoryMenu> {
           context: context,
           barrierDismissible: false,
           builder: (context) {
+            final category = context
+                .read(categoriesProvider)
+                .categories
+                .firstWhere((element) => element.id == widget.categoryId);
             return Consumer(
               builder: (context, watch, _) {
-                final icon = watch(editCategoryProvider(widget.category)).icon;
+                final icon = watch(categoryProvider(category)).category.icon;
                 return ConfirmationDialog(
                   title: s.questionChangeIcon,
                   content: SizedBox(
@@ -273,7 +277,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
                             child: IconSelector(
                               selectedIcon: icon,
                               isInCreator: false,
-                              category: widget.category,
+                              category: category,
                             ),
                           ),
                         ),
@@ -282,13 +286,11 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   ),
                   confirmationText: s.save,
                   onConfirm: () {
-                    final category = widget.category.copyWith(icon: icon);
+                    final updatedCategory = category.copyWith(icon: icon);
+
                     context
                         .read(categoriesProvider.notifier)
-                        .update(category: category);
-                  },
-                  onCancel: () {
-                    Navigator.of(context).pop();
+                        .update(category: updatedCategory);
                   },
                 );
               },

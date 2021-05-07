@@ -19,6 +19,10 @@ class Category extends Equatable {
     );
   }
 
+  factory Category.empty() {
+    return Category(id: 0, name: '', color: Colors.black, icon: 0);
+  }
+
   final int id;
   final String name;
   final Color color;

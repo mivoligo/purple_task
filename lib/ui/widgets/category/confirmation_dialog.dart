@@ -11,7 +11,7 @@ class ConfirmationDialog extends StatelessWidget {
     required this.confirmationText,
     this.confirmationColor = Colors.green,
     required this.onConfirm,
-    required this.onCancel,
+    this.onCancel,
   }) : super(key: key);
 
   final String title;
@@ -19,7 +19,7 @@ class ConfirmationDialog extends StatelessWidget {
   final String confirmationText;
   final Color confirmationColor;
   final VoidCallback onConfirm;
-  final VoidCallback onCancel;
+  final VoidCallback? onCancel;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,10 @@ class ConfirmationDialog extends StatelessWidget {
       actions: [
         SimpleButton(
           text: s.cancel,
-          onPressed: onCancel,
+          onPressed: () {
+            if (onCancel != null) onCancel!();
+            Navigator.of(context).pop();
+          },
         ),
         SimpleButton(
           text: confirmationText,

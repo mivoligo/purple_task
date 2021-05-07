@@ -47,7 +47,7 @@ class ColorSelector extends StatelessWidget {
                                 .read(newCategoryControllerProvider.notifier)
                                 .colorChanged(Color(g.categoryColors[index]))
                             : (_) => context
-                                .read(editCategoryProvider(category!).notifier)
+                                .read(categoryProvider(category!).notifier)
                                 .colorChanged(
                                     color: Color(g.categoryColors[index])),
                         onTap: isInCreator
@@ -55,7 +55,7 @@ class ColorSelector extends StatelessWidget {
                                 .read(newCategoryControllerProvider.notifier)
                                 .colorChanged(Color(g.categoryColors[index]))
                             : () => context
-                                .read(editCategoryProvider(category!).notifier)
+                                .read(categoryProvider(category!).notifier)
                                 .colorChanged(
                                     color: Color(g.categoryColors[index])),
                         child: isSelected

@@ -7,9 +7,9 @@ import '../../../../models/models.dart';
 import '../../../ui.dart';
 
 class CategoryView extends StatelessWidget {
-  const CategoryView({required this.category});
+  const CategoryView({required this.categoryId});
 
-  final Category category;
+  final int categoryId;
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +20,15 @@ class CategoryView extends StatelessWidget {
       ),
       child: Consumer(
         builder: (context, watch, child) {
-          final categoryName = watch(categoryNameProvider(category.id));
-          final categoryColor = watch(categoryColorProvider(category.id));
-          final categoryIcon = watch(categoryIconProvider(category.id));
+          final categoryName = watch(categoryNameProvider(categoryId));
+          final categoryColor = watch(categoryColorProvider(categoryId));
+          final categoryIcon = watch(categoryIconProvider(categoryId));
           final tasksController = watch(tasksProvider.notifier);
-          final filteredTasks = watch(filteredTasksProvider(category.id));
+          final filteredTasks = watch(filteredTasksProvider(categoryId));
           var description = '';
           final activeTasksNumber =
-              watch(activeTasksNumberProvider(category.id));
-          final progress = watch(progressProvider(category.id));
+              watch(activeTasksNumberProvider(categoryId));
+          final progress = watch(progressProvider(categoryId));
           switch (activeTasksNumber) {
             case 0:
               description = '$activeTasksNumber ${s.taskPlural}';
@@ -73,7 +73,7 @@ class CategoryView extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: AddTaskField(
                   addTask: (value) {
-                    final task = Task(name: value, categoryId: category.id);
+                    final task = Task(name: value, categoryId: categoryId);
                     tasksController.add(task: task);
                   },
                 ),

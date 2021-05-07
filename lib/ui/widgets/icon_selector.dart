@@ -46,14 +46,14 @@ class IconSelector extends StatelessWidget {
                                 .read(newCategoryControllerProvider.notifier)
                                 .iconChanged(g.categoryIcons[index])
                             : (_) => context
-                                .read(editCategoryProvider(category!).notifier)
+                                .read(categoryProvider(category!).notifier)
                                 .iconChanged(icon: g.categoryIcons[index]),
                         onTap: isInCreator
                             ? () => context
                                 .read(newCategoryControllerProvider.notifier)
                                 .iconChanged(g.categoryIcons[index])
                             : () => context
-                                .read(editCategoryProvider(category!).notifier)
+                                .read(categoryProvider(category!).notifier)
                                 .iconChanged(icon: g.categoryIcons[index]),
                         child: Icon(
                           IconData(
