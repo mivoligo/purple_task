@@ -4,11 +4,33 @@ import '../../../../../controllers/controllers.dart';
 import '../../../screens.dart';
 import '../widgets.dart';
 
-class CategoryList extends StatelessWidget {
+class CategoryList extends StatefulWidget {
+  @override
+  _CategoryListState createState() => _CategoryListState();
+}
+
+class _CategoryListState extends State<CategoryList> {
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    print('====REBUILDING====');
     final _appWidth = MediaQuery.of(context).size.width;
+    _pageController = PageController(
+      viewportFraction: (_appWidth - 48) / _appWidth,
+      initialPage: 0,
+    );
     return Consumer(
       builder: (context, watch, child) {
         final state = watch(categoriesProvider);
@@ -16,7 +38,10 @@ class CategoryList extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         } else if (state.status == CategoriesStateStatus.data) {
           if (_appWidth < 600) {
-            return _HorizontalPages(state: state);
+            return _HorizontalPages(
+              state: state,
+              pageController: _pageController,
+            );
           } else if (_appWidth < 1000) {
             return _HorizontalList(state: state);
           } else {
@@ -33,20 +58,24 @@ class _HorizontalPages extends StatelessWidget {
   const _HorizontalPages({
     Key? key,
     required this.state,
+    required this.pageController,
   }) : super(key: key);
 
   final CategoriesState state;
+  final PageController pageController;
 
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
+      controller: pageController,
       itemCount: state.categories.length,
       itemBuilder: (context, index) {
         final category = state.categories[index];
         return CategoryCard(
-            category: category,
-            onTap: () {
-              Navigator.of(context).push(PageRouteBuilder(
+          category: category,
+          onTap: () {
+            Navigator.of(context).push(
+              PageRouteBuilder(
                 pageBuilder: (context, anim1, anim2) =>
                     CategoryScreen(category: category),
                 transitionsBuilder: (context, anim1, anim2, child) {
@@ -55,8 +84,10 @@ class _HorizontalPages extends StatelessWidget {
                     child: child,
                   );
                 },
-              ));
-            });
+              ),
+            );
+          },
+        );
       },
     );
   }
