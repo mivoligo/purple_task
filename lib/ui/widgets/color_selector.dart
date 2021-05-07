@@ -2,18 +2,21 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import '../../controllers/controllers.dart';
 
+import '../../controllers/controllers.dart';
 import '../../globals/globals.dart' as g;
+import '../../models/models.dart';
 
 class ColorSelector extends StatelessWidget {
   const ColorSelector({
     required this.selectedColor,
     this.isInCreator = true,
+    this.category,
   });
 
   final Color selectedColor;
   final bool isInCreator;
+  final Category? category;
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +46,18 @@ class ColorSelector extends StatelessWidget {
                             ? (_) => context
                                 .read(newCategoryControllerProvider.notifier)
                                 .colorChanged(Color(g.categoryColors[index]))
-                            : null,
+                            : (_) => context
+                                .read(editCategoryProvider(category!).notifier)
+                                .colorChanged(
+                                    color: Color(g.categoryColors[index])),
                         onTap: isInCreator
                             ? () => context
                                 .read(newCategoryControllerProvider.notifier)
                                 .colorChanged(Color(g.categoryColors[index]))
-                            : () => null,
+                            : () => context
+                                .read(editCategoryProvider(category!).notifier)
+                                .colorChanged(
+                                    color: Color(g.categoryColors[index])),
                         child: isSelected
                             ? const Icon(
                                 AntIcons.check_outline,

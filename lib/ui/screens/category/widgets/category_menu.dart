@@ -168,12 +168,6 @@ class _CategoryMenuState extends State<CategoryMenu> {
                 child: CupertinoTextField(
                   controller: textController,
                   autofocus: true,
-                  // onChanged: (value) {
-                  //   context
-                  //       .read(categoryProvider(widget.category).notifier)
-                  //       .nameChanged(name: value);
-                  //   // return categoryCubit.nameChanged(name: value);
-                  // },
                   onSubmitted: (value) {
                     final category = widget.category.copyWith(name: value);
                     context
@@ -206,36 +200,45 @@ class _CategoryMenuState extends State<CategoryMenu> {
           context: context,
           barrierDismissible: false,
           builder: (_) {
-            return ConfirmationDialog(
-                title: s.questionChangeColor,
-                content: SizedBox(
-                  width: 500,
-                  height: 200,
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 20,
-                        color: Colors.grey,
-                      ),
-                      const SizedBox(height: 16.0),
-                      Expanded(
-                        child: ColorSelector(
-                          selectedColor: widget.category.color,
-                          isInCreator: false,
+            return Consumer(
+              builder: (context, watch, child) {
+                final color =
+                    watch(editCategoryProvider(widget.category)).color;
+                return ConfirmationDialog(
+                  title: s.questionChangeColor,
+                  content: SizedBox(
+                    width: 500,
+                    height: 200,
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 20,
+                          color: color,
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 16.0),
+                        Expanded(
+                          child: ColorSelector(
+                            selectedColor: color,
+                            isInCreator: false,
+                            category: widget.category,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                confirmationText: s.save,
-                onConfirm: () {
-                  // return _updateCategory(context,
-                  //   categoryCubit.state.status == CategoryStatus.editing);
-                },
-                onCancel: () {
-                  // categoryCubit.colorChanged(color: oldColor);
-                  // Navigator.of(context).pop();
-                });
+                  confirmationText: s.save,
+                  onConfirm: () {
+                    final category = widget.category.copyWith(color: color);
+                    context
+                        .read(categoriesProvider.notifier)
+                        .update(category: category);
+                  },
+                  onCancel: () {
+                    Navigator.of(context).pop();
+                  },
+                );
+              },
+            );
           },
         );
         break;

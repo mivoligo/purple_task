@@ -1,6 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../controllers/controllers.dart';
 import '../../../globals/strings/strings.dart' as s;
 import '../../../models/models.dart';
 import '../../widgets/icon_button.dart';
@@ -16,6 +17,8 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, watch, child) {
+        final categoryColor = watch(categoryColorProvider(category.id));
+
         return Scaffold(
           body: LayoutBuilder(
             builder: (context, constrains) {
@@ -31,8 +34,8 @@ class CategoryScreen extends StatelessWidget {
                             end: Alignment.bottomCenter,
                             colors: [
                               const Color(0xFF303030),
-                              category.color,
-                              category.color,
+                              categoryColor,
+                              categoryColor,
                             ]),
                       ),
                     ),
