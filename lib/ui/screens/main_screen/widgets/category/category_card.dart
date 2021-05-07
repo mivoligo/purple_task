@@ -67,6 +67,19 @@ class CategoryCard extends ConsumerWidget {
             bottom: 16.0,
             child: Hero(
               tag: 'header${category.id}',
+              // get rid of overflow error
+              // https://github.com/flutter/flutter/issues/27320
+              flightShuttleBuilder: (
+                flightContext,
+                animation,
+                flightDirection,
+                fromHeroContext,
+                toHeroContext,
+              ) {
+                return SingleChildScrollView(
+                  child: toHeroContext.widget,
+                );
+              },
               child: Material(
                 type: MaterialType.transparency,
                 child: CategoryHeader(

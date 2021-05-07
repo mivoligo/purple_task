@@ -6,10 +6,39 @@ import '../../../../globals/strings/strings.dart' as s;
 import '../../../../models/models.dart';
 import '../../../ui.dart';
 
-class CategoryView extends StatelessWidget {
+class CategoryView extends StatefulWidget {
   const CategoryView({required this.categoryId});
 
   final int categoryId;
+
+  @override
+  _CategoryViewState createState() => _CategoryViewState();
+}
+
+class _CategoryViewState extends State<CategoryView>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _fadeAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInExpo,
+    );
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +49,15 @@ class CategoryView extends StatelessWidget {
       ),
       child: Consumer(
         builder: (context, watch, _) {
-          final categoryName = watch(categoryNameProvider(categoryId));
-          final categoryColor = watch(categoryColorProvider(categoryId));
-          final categoryIcon = watch(categoryIconProvider(categoryId));
+          final categoryName = watch(categoryNameProvider(widget.categoryId));
+          final categoryColor = watch(categoryColorProvider(widget.categoryId));
+          final categoryIcon = watch(categoryIconProvider(widget.categoryId));
           final tasksController = watch(tasksProvider.notifier);
-          final filteredTasks = watch(filteredTasksProvider(categoryId));
+          final filteredTasks = watch(filteredTasksProvider(widget.categoryId));
           var description = '';
           final activeTasksNumber =
-              watch(activeTasksNumberProvider(categoryId));
-          final progress = watch(progressProvider(categoryId));
+              watch(activeTasksNumberProvider(widget.categoryId));
+          final progress = watch(progressProvider(widget.categoryId));
           switch (activeTasksNumber) {
             case 0:
               description = '$activeTasksNumber ${s.taskPlural}';
@@ -44,14 +73,17 @@ class CategoryView extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(
-                    IconData(
-                      categoryIcon,
-                      fontFamily: 'AntIcons',
-                      fontPackage: 'ant_icons',
+                  Hero(
+                    tag: 'icon${widget.categoryId}',
+                    child: Icon(
+                      IconData(
+                        categoryIcon,
+                        fontFamily: 'AntIcons',
+                        fontPackage: 'ant_icons',
+                      ),
+                      size: 42.0,
+                      color: categoryColor,
                     ),
-                    size: 42.0,
-                    color: categoryColor,
                   ),
                 ],
               ),
@@ -62,29 +94,64 @@ class CategoryView extends StatelessWidget {
                   right: 4.0,
                   bottom: 12.0,
                 ),
-                child: CategoryHeader(
-                  title: categoryName,
-                  description: description,
-                  progress: progress,
-                  color: categoryColor,
+                child: Hero(
+                  tag: 'header${widget.categoryId}',
+                  // get rid of overflow error
+                  // https://github.com/flutter/flutter/issues/27320
+                  flightShuttleBuilder: (
+                    flightContext,
+                    animation,
+                    flightDirection,
+                    fromHeroContext,
+                    toHeroContext,
+                  ) {
+                    return const SizedBox();
+                  },
+                  child: CategoryHeader(
+                    title: categoryName,
+                    description: description,
+                    progress: progress,
+                    color: categoryColor,
+                  ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
-                child: AddTaskField(
-                  addTask: (value) {
-                    final task = Task(name: value, categoryId: categoryId);
-                    tasksController.add(task: task);
+                child: AnimatedBuilder(
+                  animation: _fadeAnimation,
+                  builder: (context, child) {
+                    return Opacity(
+                      opacity: _fadeAnimation.value,
+                      child: child,
+                    );
                   },
+                  child: AddTaskField(
+                    addTask: (value) {
+                      final task = Task(
+                        name: value,
+                        categoryId: widget.categoryId,
+                      );
+                      tasksController.add(task: task);
+                    },
+                  ),
                 ),
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: filteredTasks.length,
-                  itemBuilder: (context, index) {
-                    final task = filteredTasks[index];
-                    return TaskItem(task: task);
+                child: AnimatedBuilder(
+                  animation: _fadeAnimation,
+                  builder: (context, child) {
+                    return Opacity(
+                      opacity: _fadeAnimation.value,
+                      child: child,
+                    );
                   },
+                  child: ListView.builder(
+                    itemCount: filteredTasks.length,
+                    itemBuilder: (context, index) {
+                      final task = filteredTasks[index];
+                      return TaskItem(task: task);
+                    },
+                  ),
                 ),
               ),
             ],

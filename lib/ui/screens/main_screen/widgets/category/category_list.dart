@@ -43,7 +43,20 @@ class _HorizontalPages extends StatelessWidget {
       itemCount: state.categories.length,
       itemBuilder: (context, index) {
         final category = state.categories[index];
-        return CategoryCard(category: category, onTap: () {});
+        return CategoryCard(
+            category: category,
+            onTap: () {
+              Navigator.of(context).push(PageRouteBuilder(
+                pageBuilder: (context, anim1, anim2) =>
+                    CategoryScreen(category: category),
+                transitionsBuilder: (context, anim1, anim2, child) {
+                  return FadeTransition(
+                    opacity: anim1,
+                    child: child,
+                  );
+                },
+              ));
+            });
       },
     );
   }
@@ -69,8 +82,15 @@ class _HorizontalList extends StatelessWidget {
           child: CategoryCard(
             category: category,
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => CategoryScreen(category: category),
+              Navigator.of(context).push(PageRouteBuilder(
+                pageBuilder: (context, anim1, anim2) =>
+                    CategoryScreen(category: category),
+                transitionsBuilder: (context, anim1, anim2, child) {
+                  return FadeTransition(
+                    opacity: anim1,
+                    child: child,
+                  );
+                },
               ));
             },
           ),
