@@ -94,7 +94,7 @@ class _VerticalList extends StatelessWidget {
       itemCount: state.categories.length,
       itemBuilder: (context, index) {
         final category = state.categories[index];
-        return CategoryCard(
+        return CategoryCardTemp(
           category: category,
           isInVerticalList: true,
           onTap: () {},

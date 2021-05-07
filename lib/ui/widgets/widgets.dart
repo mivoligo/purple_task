@@ -1,7 +1,7 @@
 export 'add_task_field.dart';
 export 'animated_progress_bar.dart';
 export 'category/category.dart';
-export 'category_card.dart';
+export 'category_card_old.dart';
 export 'category_header.dart';
 export 'color_selector.dart';
 export 'dialog_base.dart';

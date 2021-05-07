@@ -11,6 +11,18 @@ class CustomStyle {
         ]),
   );
 
+  static const categoryCardDecoration = BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+    boxShadow: [
+      BoxShadow(
+        color: Color(0xff45000000),
+        offset: Offset(0.0, 4.0),
+        blurRadius: 8.0,
+      ),
+    ],
+  );
+
   static const inputDecoration = BoxDecoration(
     color: Color(0xFFFAFAFA),
     borderRadius: BorderRadius.all(Radius.circular(20.0)),
