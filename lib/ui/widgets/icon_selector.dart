@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:purple_task/models/models.dart';
 import '../../controllers/controllers.dart';
 
 import '../../globals/globals.dart' as g;
@@ -9,10 +10,12 @@ class IconSelector extends StatelessWidget {
   const IconSelector({
     required this.selectedIcon,
     this.isInCreator = true,
+    this.category,
   });
 
   final int selectedIcon;
   final bool isInCreator;
+  final Category? category;
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +45,16 @@ class IconSelector extends StatelessWidget {
                             ? (_) => context
                                 .read(newCategoryControllerProvider.notifier)
                                 .iconChanged(g.categoryIcons[index])
-                            : (_) => null,
+                            : (_) => context
+                                .read(editCategoryProvider(category!).notifier)
+                                .iconChanged(icon: g.categoryIcons[index]),
                         onTap: isInCreator
                             ? () => context
                                 .read(newCategoryControllerProvider.notifier)
                                 .iconChanged(g.categoryIcons[index])
-                            : () => null,
+                            : () => context
+                                .read(editCategoryProvider(category!).notifier)
+                                .iconChanged(icon: g.categoryIcons[index]),
                         child: Icon(
                           IconData(
                             g.categoryIcons[index],

@@ -201,7 +201,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
           barrierDismissible: false,
           builder: (_) {
             return Consumer(
-              builder: (context, watch, child) {
+              builder: (context, watch, _) {
                 final color =
                     watch(editCategoryProvider(widget.category)).color;
                 return ConfirmationDialog(
@@ -248,42 +248,49 @@ class _CategoryMenuState extends State<CategoryMenu> {
           context: context,
           barrierDismissible: false,
           builder: (context) {
-            return ConfirmationDialog(
-              title: s.questionChangeIcon,
-              content: SizedBox(
-                width: 500,
-                height: 200,
-                child: Column(
-                  children: [
-                    Icon(
-                      IconData(
-                        3,
-                        fontFamily: 'AntIcons',
-                        fontPackage: 'ant_icons',
-                      ),
-                      color: Colors.blueGrey,
-                      size: 28,
-                    ),
-                    const SizedBox(height: 16.0),
-                    Expanded(
-                      child: Container(
-                        child: IconSelector(
-                          selectedIcon: 3,
-                          isInCreator: false,
+            return Consumer(
+              builder: (context, watch, _) {
+                final icon = watch(editCategoryProvider(widget.category)).icon;
+                return ConfirmationDialog(
+                  title: s.questionChangeIcon,
+                  content: SizedBox(
+                    width: 500,
+                    height: 200,
+                    child: Column(
+                      children: [
+                        Icon(
+                          IconData(
+                            icon,
+                            fontFamily: 'AntIcons',
+                            fontPackage: 'ant_icons',
+                          ),
+                          color: Colors.blueGrey,
+                          size: 28,
                         ),
-                      ),
+                        const SizedBox(height: 16.0),
+                        Expanded(
+                          child: Container(
+                            child: IconSelector(
+                              selectedIcon: icon,
+                              isInCreator: false,
+                              category: widget.category,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              confirmationText: s.save,
-              onConfirm: () {
-                // return _updateCategory(context,
-                //   categoryCubit.state.status == CategoryStatus.editing);
-              },
-              onCancel: () {
-                // categoryCubit.iconChanged(icon: oldIcon);
-                // Navigator.of(context).pop();
+                  ),
+                  confirmationText: s.save,
+                  onConfirm: () {
+                    final category = widget.category.copyWith(icon: icon);
+                    context
+                        .read(categoriesProvider.notifier)
+                        .update(category: category);
+                  },
+                  onCancel: () {
+                    Navigator.of(context).pop();
+                  },
+                );
               },
             );
           },
