@@ -4,14 +4,17 @@ import 'package:purple_task/ui/ui.dart';
 
 void main() {
   testWidgets('finds a FlatButton widget', (tester) async {
-    await tester
-        .pumpWidget(MaterialApp(home: SimpleButton(text: '', onPressed: null)));
+    await tester.pumpWidget(const MaterialApp(
+        home: SimpleButton(
+      text: '',
+      onPressed: null,
+    )));
     final button = find.byType(TextButton);
     expect(button, findsOneWidget);
   });
 
   testWidgets('finds text', (tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
         home: SimpleButton(
       text: 'text',
       onPressed: null,

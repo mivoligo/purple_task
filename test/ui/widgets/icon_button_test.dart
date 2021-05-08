@@ -4,7 +4,7 @@ import 'package:purple_task/ui/ui.dart';
 
 void main() {
   testWidgets('finds IconButton widget', (tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: CustomIconButton(
         icon: Icon(Icons.add),
       ),
@@ -14,7 +14,7 @@ void main() {
   });
 
   testWidgets('finds tooltip', (tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: CustomIconButton(
         icon: Icon(Icons.add),
         tooltip: 'tooltip',
@@ -28,7 +28,7 @@ void main() {
     var pressed = false;
     await tester.pumpWidget(MaterialApp(
       home: CustomIconButton(
-        icon: Icon(Icons.add),
+        icon: const Icon(Icons.add),
         onPressed: () => pressed = true,
       ),
     ));

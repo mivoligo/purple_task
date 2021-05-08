@@ -4,7 +4,7 @@ import 'package:purple_task/ui/ui.dart';
 
 void main() {
   testWidgets('finds Column widget', (tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: CategoryHeader(
         title: '',
         description: '',
@@ -17,7 +17,7 @@ void main() {
   });
 
   testWidgets('finds AnimatedProgressBar widget', (tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: CategoryHeader(
         title: '',
         description: '',
@@ -30,7 +30,7 @@ void main() {
   });
 
   testWidgets('should have title and description', (tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: CategoryHeader(
         title: 'title',
         description: 'description',
@@ -44,8 +44,7 @@ void main() {
     expect(description, findsOneWidget);
   });
 
-  testWidgets('should have text % same as progress',
-      (tester) async {
+  testWidgets('should have text % same as progress', (tester) async {
     final progressValue = 0.4843;
     await tester.pumpWidget(MaterialApp(
       home: CategoryHeader(
