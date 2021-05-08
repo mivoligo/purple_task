@@ -97,7 +97,9 @@ class _CategoryScreenState extends State<CategoryScreen>
                   child: Hero(
                     tag: 'main${widget.category.id}',
                     child: Container(
-                      decoration: CustomStyle.dialogDecoration,
+                      decoration: _isWide
+                          ? CustomStyle.dialogDecoration
+                          : const BoxDecoration(color: Color(0xFFEEEEEE)),
                     ),
                   ),
                 ),
