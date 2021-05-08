@@ -32,7 +32,7 @@ class _CategoryListState extends State<CategoryList> {
       initialPage: 0,
     );
     return Consumer(
-      builder: (context, watch, child) {
+      builder: (context, watch, _) {
         final state = watch(categoriesProvider);
         if (state.status == CategoriesStateStatus.initial) {
           return const Center(child: CircularProgressIndicator());
@@ -69,8 +69,11 @@ class _HorizontalPages extends StatelessWidget {
     return PageView.builder(
       controller: pageController,
       itemCount: state.categories.length,
+      onPageChanged: (index) => context.read(backgroundColorProvider).state =
+          state.categories[index].color,
       itemBuilder: (context, index) {
         final category = state.categories[index];
+
         return CategoryCard(
           category: category,
           onTap: () {

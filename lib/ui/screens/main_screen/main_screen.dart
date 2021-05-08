@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../controllers/controllers.dart';
 import '../../../models/models.dart';
 import 'widgets/widgets.dart';
 
-final backgroundColorProvider = StateProvider<Color>((ref) => Colors.purple);
+final backgroundColorProvider = StateProvider<Color>((ref) {
+  final categoriesList = ref.watch(categoriesProvider).categories;
+  return categoriesList.isNotEmpty ? categoriesList[0].color : Colors.purple;
+});
 
 class MainScreen extends StatefulWidget {
   @override
@@ -45,7 +49,9 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
         Consumer(
           builder: (context, watch, _) {
             final backgroundColor = watch(backgroundColorProvider).state;
-            return Container(
+
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
