@@ -1,6 +1,10 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../controllers/controllers.dart';
 import '../../../../globals/strings/strings.dart' as s;
+import '../../../../models/models.dart';
 import '../../../widgets/widgets.dart';
 import '../../screens.dart';
 import 'widgets.dart';
@@ -59,24 +63,19 @@ class NarrowLayout extends StatelessWidget {
                       SizedBox(
                         width: 440,
                         child: AddTaskField(
-                          addTask: (_) {
-                            // final _taskModel = Provider.of<TaskViewModel>(context,
-                            //     listen: false);
-                            // final _name = _taskModel.newTaskName;
-                            //
-                            // final task = TaskEntity(
-                            //     name: _name, categoryId: -1, isDone: false);
-                            // _taskModel.addTask(task);
+                          addTask: (value) {
+                            final task = Task(
+                              name: value,
+                              categoryId: -1,
+                            );
+                            context
+                                .read(tasksProvider.notifier)
+                                .add(task: task);
                           },
                         ),
                       ),
                       const SizedBox(height: 1.0),
-                      // UncategorizedList(
-                      //   appHeight: _appHeight,
-                      //   isWide: _isWide,
-                      //   appWidth: _appWidth,
-                      //   quickListController: _quickListController,
-                      // ),
+                      UncategorizedTasks(),
                     ],
                   ),
                 ),

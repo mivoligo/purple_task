@@ -225,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                     ),
                     const SizedBox(height: 1.0),
-                    UncategorizedList(
+                    UncategorizedListOld(
                       appHeight: _appHeight,
                       isWide: _isWide,
                       appWidth: _appWidth,
@@ -411,8 +411,8 @@ class _HomeScreenState extends State<HomeScreen>
   }
 }
 
-class UncategorizedList extends StatelessWidget {
-  const UncategorizedList({
+class UncategorizedListOld extends StatelessWidget {
+  const UncategorizedListOld({
     Key? key,
     required double? appHeight,
     required bool? isWide,

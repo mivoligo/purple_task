@@ -33,6 +33,11 @@ final allActiveTasksProvider = Provider<int>((ref) {
   return tasks.where((element) => !element.isDone).length;
 });
 
+final uncategorizedTasksProvider = Provider<List<Task>>((ref) {
+  final tasks = ref.watch(tasksProvider).tasks;
+  return tasks.where((element) => element.categoryId == -1).toList();
+});
+
 final activeTasksNumberProvider = Provider.family<int, int>((ref, categoryId) {
   final tasks = ref.watch(tasksProvider).tasks;
   return tasks

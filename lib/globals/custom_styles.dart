@@ -44,6 +44,14 @@ class CustomStyle {
     ],
   );
 
+  static const uncategorizedTasksDecoration = BoxDecoration(
+    color: Colors.white70,
+    borderRadius: BorderRadius.only(
+      bottomLeft: Radius.circular(24),
+      bottomRight: Radius.circular(24),
+    ),
+  );
+
   static const textStyleTitle = TextStyle(
     color: Color(0xFF616161),
     fontSize: 18.0,
