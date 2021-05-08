@@ -25,7 +25,10 @@ class TaskItem extends StatelessWidget {
                   child: Checkbox(
                     value: task.isDone,
                     onChanged: (value) {
-                      final updatedTask = task.copyWith(isDone: value);
+                      final updatedTask = task.copyWith(
+                        isDone: value,
+                        doneTime: DateTime.now().millisecondsSinceEpoch,
+                      );
                       tasksController.update(task: updatedTask);
                     },
                   ),
