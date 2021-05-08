@@ -26,7 +26,13 @@ class UncategorizedTasks extends ConsumerWidget {
                 Expanded(
                   child: Column(
                     children: [
-                      const Text(s.noCategory),
+                      const Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: Text(
+                          s.noCategory,
+                          style: CustomStyle.textStyleTaskFilter,
+                        ),
+                      ),
                       LimitedBox(
                         maxHeight: listHeight,
                         child: ListView.builder(

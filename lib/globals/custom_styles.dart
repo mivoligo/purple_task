@@ -47,8 +47,8 @@ class CustomStyle {
   static const uncategorizedTasksDecoration = BoxDecoration(
     color: Colors.white70,
     borderRadius: BorderRadius.only(
-      bottomLeft: Radius.circular(24),
-      bottomRight: Radius.circular(24),
+      bottomLeft: Radius.circular(12),
+      bottomRight: Radius.circular(12),
     ),
   );
 
@@ -67,5 +67,10 @@ class CustomStyle {
   static const textStyleTaskName = TextStyle(
     color: Colors.black,
     fontSize: 16.0,
+  );
+
+  static const textStyleTaskFilter = TextStyle(
+    color: Colors.black,
+    fontSize: 14.0,
   );
 }
