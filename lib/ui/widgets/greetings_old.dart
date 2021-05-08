@@ -4,8 +4,8 @@ import 'package:purple_task/globals/strings/strings.dart';
 
 import '../../view_models/view_models.dart';
 
-class Greetings extends StatelessWidget {
-  const Greetings({
+class GreetingsOld extends StatelessWidget {
+  const GreetingsOld({
     Key? key,
     required this.greetings,
   }) : super(key: key);

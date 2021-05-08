@@ -28,6 +28,11 @@ final filteredTasksProvider =
   }
 });
 
+final allActiveTasksProvider = Provider<int>((ref) {
+  final tasks = ref.watch(tasksProvider).tasks;
+  return tasks.where((element) => !element.isDone).length;
+});
+
 final activeTasksNumberProvider = Provider.family<int, int>((ref, categoryId) {
   final tasks = ref.watch(tasksProvider).tasks;
   return tasks

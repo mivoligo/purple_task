@@ -46,9 +46,43 @@ class NarrowLayout extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: Container(
-              // color: Colors.green,
-              ),
+          child: Material(
+            type: MaterialType.transparency,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                const Positioned(top: 0, left: 30, child: Greetings()),
+                Positioned(
+                  top: 80,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 440,
+                        child: AddTaskField(
+                          addTask: (_) {
+                            // final _taskModel = Provider.of<TaskViewModel>(context,
+                            //     listen: false);
+                            // final _name = _taskModel.newTaskName;
+                            //
+                            // final task = TaskEntity(
+                            //     name: _name, categoryId: -1, isDone: false);
+                            // _taskModel.addTask(task);
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 1.0),
+                      // UncategorizedList(
+                      //   appHeight: _appHeight,
+                      //   isWide: _isWide,
+                      //   appWidth: _appWidth,
+                      //   quickListController: _quickListController,
+                      // ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
         SizedBox(
           height: 260,

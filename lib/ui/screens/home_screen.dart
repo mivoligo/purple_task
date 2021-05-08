@@ -152,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen>
                                           _animationController, 16.0, 200.0)
                                       .value,
                                 ),
-                                Greetings(greetings: greetings),
+                                GreetingsOld(greetings: greetings),
                                 SizedBox(
                                   height: animDouble(
                                           _animationController, 24.0, 400.0)

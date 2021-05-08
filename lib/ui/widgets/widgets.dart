@@ -5,7 +5,7 @@ export 'category_card_old.dart';
 export 'category_header.dart';
 export 'color_selector.dart';
 export 'dialog_base.dart';
-export 'greetings.dart';
+export 'greetings_old.dart';
 export 'icon_button.dart';
 export 'icon_selector.dart';
 export 'new_category/new_category.dart';
