@@ -112,6 +112,10 @@ class _HorizontalList extends StatelessWidget {
           width: 400,
           child: CategoryCard(
             category: category,
+            onFocusChange: (_) =>
+                context.read(backgroundColorProvider).state = category.color,
+            onHover: (_) =>
+                context.read(backgroundColorProvider).state = category.color,
             onTap: () {
               Navigator.of(context).push(PageRouteBuilder(
                 pageBuilder: (context, anim1, anim2) =>

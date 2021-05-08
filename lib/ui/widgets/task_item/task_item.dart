@@ -47,7 +47,7 @@ class TaskItem extends StatelessWidget {
             ),
             Container(
               height: 1,
-              color: Colors.grey.shade300,
+              color: const Color(0xFFE0E0E0),
             ),
           ],
         );
