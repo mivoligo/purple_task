@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:purple_task/controllers/controllers.dart';
+import '../../../controllers/controllers.dart';
 import '../../../globals/globals.dart';
 import '../../../models/models.dart';
 
@@ -15,7 +15,6 @@ class TaskItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, watch, child) {
-        final state = watch(tasksProvider);
         final tasksController = watch(tasksProvider.notifier);
         return Column(
           children: [

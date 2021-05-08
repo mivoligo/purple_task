@@ -115,4 +115,8 @@ class TasksController extends StateNotifier<TasksState> {
       status: TasksStateStatus.data,
     );
   }
+
+  void filterTasks({required Filter filter}) {
+    state = state.copyWith(filter: filter);
+  }
 }

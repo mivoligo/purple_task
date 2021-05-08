@@ -24,6 +24,9 @@ class _CategoryScreenState extends State<CategoryScreen>
   late AnimationController _animationController;
   late Animation _fadeAnimation;
 
+  // Index for bottom navigation
+  late int _navigationIndex;
+
   @override
   void initState() {
     super.initState();
@@ -54,12 +57,26 @@ class _CategoryScreenState extends State<CategoryScreen>
         final categoryName = watch(categoryNameProvider(currentCategory.id));
         final categoryColor = watch(categoryColorProvider(currentCategory.id));
         final categoryIcon = watch(categoryIconProvider(currentCategory.id));
+        final filterState = watch(tasksProvider).filter;
         final tasksController = watch(tasksProvider.notifier);
         final filteredTasks = watch(filteredTasksProvider(currentCategory.id));
         var description = '';
         final activeTasksNumber =
             watch(activeTasksNumberProvider(currentCategory.id));
         final progress = watch(progressProvider(currentCategory.id));
+
+        switch (filterState) {
+          case Filter.active:
+            _navigationIndex = 0;
+            break;
+          case Filter.all:
+            _navigationIndex = 1;
+            break;
+          case Filter.completed:
+            _navigationIndex = 2;
+            break;
+        }
+
         switch (activeTasksNumber) {
           case 0:
             description = '$activeTasksNumber ${s.taskPlural}';
@@ -234,6 +251,51 @@ class _CategoryScreenState extends State<CategoryScreen>
                                       return TaskItem(task: task);
                                     },
                                   ),
+                                ),
+                              ),
+                              AnimatedBuilder(
+                                animation: _fadeAnimation,
+                                builder: (context, child) {
+                                  return Opacity(
+                                    opacity: _animationController.value,
+                                    child: child,
+                                  );
+                                },
+                                child: BottomNavigationBar(
+                                  type: BottomNavigationBarType.fixed,
+                                  unselectedFontSize: 14.0,
+                                  currentIndex: _navigationIndex,
+                                  onTap: (index) {
+                                    _navigationIndex = index;
+                                    switch (_navigationIndex) {
+                                      case 0:
+                                        tasksController.filterTasks(
+                                            filter: Filter.active);
+                                        break;
+                                      case 1:
+                                        tasksController.filterTasks(
+                                            filter: Filter.all);
+                                        break;
+                                      case 2:
+                                        tasksController.filterTasks(
+                                            filter: Filter.completed);
+                                        break;
+                                    }
+                                  },
+                                  items: [
+                                    const BottomNavigationBarItem(
+                                      label: s.toDo,
+                                      icon: Icon(AntIcons.edit),
+                                    ),
+                                    const BottomNavigationBarItem(
+                                      label: s.all,
+                                      icon: Icon(AntIcons.profile),
+                                    ),
+                                    const BottomNavigationBarItem(
+                                      label: s.completed,
+                                      icon: Icon(AntIcons.check_circle),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
