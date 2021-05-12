@@ -4,74 +4,73 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../controllers/controllers.dart';
 import 'widgets/widgets.dart';
 
-class NewCategoryScreen extends StatelessWidget {
+class NewCategoryScreen extends ConsumerWidget {
   final _focusNode = FocusNode();
 
   @override
-  Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, watch, _) {
-        final state = watch(newCategoryControllerProvider);
-        final controller = watch(newCategoryControllerProvider.notifier);
-        if (state.status == NewCategoryStatus.initial) {
-          return CategoryInitial(color: state.color);
-        } else if (state.status == NewCategoryStatus.name) {
-          return CategoryName(
-            onNameChanged: controller.nameChanged,
-            color: state.color,
-            focusNode: _focusNode,
-            onSubmitted: () {
-              _focusNode.unfocus();
-              FocusScope.of(context).requestFocus(_focusNode);
-              controller.progressToColor();
-            },
-            onNext: controller.progressToColor,
-            onCancel: () {
-              Navigator.of(context).pop();
-            },
-          );
-        } else if (state.status == NewCategoryStatus.color) {
-          return CategoryColor(
-            focusNode: _focusNode,
-            name: state.name,
-            color: state.color,
-            selectedColor: state.color,
-            onNext: controller.progressToIcon,
-            onCancel: () {
-              Navigator.of(context).pop();
-            },
-          );
-        } else if (state.status == NewCategoryStatus.icon) {
-          return CategoryIcon(
-            focusNode: _focusNode,
-            name: state.name,
-            color: state.color,
-            onNext: controller.progressToTasks,
-            onCancel: () {
-              Navigator.of(context).pop();
-            },
-            selectedIcon: state.icon,
-          );
-        } else if (state.status == NewCategoryStatus.tasks) {
-          return CategoryTasks(
-            tasks: state.tasks,
-            onAddTask: controller.tasksChanged,
-            focusNode: _focusNode,
-            name: state.name,
-            color: state.color,
-            onNext: () {
-              controller.addNewCategory();
-              Navigator.of(context).pop();
-            },
-            onCancel: () {
-              Navigator.of(context).pop();
-            },
-            selectedIcon: state.icon,
-          );
-        } else {
-          return const SizedBox();
-        }
-      },
-    );
+  Widget build(BuildContext context, ScopedReader watch) {
+    final newCategoryState = watch(newCategoryControllerProvider);
+    final newCategoryController = watch(newCategoryControllerProvider.notifier);
+    switch (newCategoryState.status) {
+      case NewCategoryStatus.initial:
+        return CategoryInitial(color: newCategoryState.color);
+
+      case NewCategoryStatus.name:
+        return CategoryName(
+          onNameChanged: newCategoryController.nameChanged,
+          color: newCategoryState.color,
+          focusNode: _focusNode,
+          onSubmitted: () {
+            _focusNode.unfocus();
+            FocusScope.of(context).requestFocus(_focusNode);
+            newCategoryController.progressToColor();
+          },
+          onNext: newCategoryController.progressToColor,
+          onCancel: () {
+            Navigator.of(context).pop();
+          },
+        );
+
+      case NewCategoryStatus.color:
+        return CategoryColor(
+          focusNode: _focusNode,
+          name: newCategoryState.name,
+          color: newCategoryState.color,
+          selectedColor: newCategoryState.color,
+          onNext: newCategoryController.progressToIcon,
+          onCancel: () {
+            Navigator.of(context).pop();
+          },
+        );
+
+      case NewCategoryStatus.icon:
+        return CategoryIcon(
+          focusNode: _focusNode,
+          name: newCategoryState.name,
+          color: newCategoryState.color,
+          onNext: newCategoryController.progressToTasks,
+          onCancel: () {
+            Navigator.of(context).pop();
+          },
+          selectedIcon: newCategoryState.icon,
+        );
+
+      case NewCategoryStatus.tasks:
+        return CategoryTasks(
+          tasks: newCategoryState.tasks,
+          onAddTask: newCategoryController.tasksChanged,
+          focusNode: _focusNode,
+          name: newCategoryState.name,
+          color: newCategoryState.color,
+          onNext: () {
+            newCategoryController.addNewCategory();
+            Navigator.of(context).pop();
+          },
+          onCancel: () {
+            Navigator.of(context).pop();
+          },
+          selectedIcon: newCategoryState.icon,
+        );
+    }
   }
 }
