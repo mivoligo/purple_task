@@ -261,7 +261,7 @@ class TaskOptionsOld extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: Text(category),
                     ),
-                    CategorySelector(
+                    CategorySelectorOld(
                       task: task,
                       onCategorySelected: onCategorySelected,
                     ),

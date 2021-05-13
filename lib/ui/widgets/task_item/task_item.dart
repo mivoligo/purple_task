@@ -8,6 +8,7 @@ import '../../../globals/globals.dart';
 import '../../../globals/strings/strings.dart' as s;
 import '../../../models/models.dart';
 import '../widgets.dart';
+import 'category_selector.dart';
 
 class TaskItem extends StatefulWidget {
   const TaskItem({required this.task});
@@ -121,7 +122,12 @@ class _TaskItemState extends State<TaskItem> {
               height: tileStatus == TaskTileStateStatus.expanded ? 140 : 0,
               duration: const Duration(milliseconds: 120),
               child: tileStatus == TaskTileStateStatus.expanded
-                  ? Container()
+                  ? _TaskOptions(
+                      task: widget.task,
+                      onDeletePressed: () {},
+                      onCategorySelected: () {},
+                      onDateSelected: () {},
+                    )
                   : null,
             ),
             AnimatedContainer(
@@ -164,69 +170,70 @@ class _TaskItemState extends State<TaskItem> {
     );
   }
 }
-// class _TaskOptions extends StatelessWidget {
-//   const _TaskOptions({
-//     Key? key,
-//     required this.task,
-//     required this.onDeletePressed,
-//     required this.onCategorySelected,
-//     required this.onDateSelected,
-//   }) : super(key: key);
-//
-//   final Task task;
-//   final VoidCallback onDeletePressed;
-//   final VoidCallback onCategorySelected;
-//   final VoidCallback onDateSelected;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: SingleChildScrollView(
-//         child: Column(
-//           children: [
-//             const SizedBox(height: 16),
-//             Row(
-//               children: [
-//                 const SizedBox(width: 6),
-//                 Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Padding(
-//                       padding: const EdgeInsets.all(4.0),
-//                       child: Text(s.category),
-//                     ),
-//                     CategorySelector(
-//                       task: task,
-//                       onCategorySelected: onCategorySelected,
-//                     ),
-//                   ],
-//                 ),
-//                 Spacer(),
-//                 Column(
-//                   crossAxisAlignment: CrossAxisAlignment.end,
-//                   children: [
-//                     Padding(
-//                       padding: const EdgeInsets.all(4.0),
-//                       child: Text(dueDate),
-//                     ),
-//                     DueDateSelector(
-//                       task: task,
-//                       onDateSelected: onDateSelected,
-//                     ),
-//                   ],
-//                 ),
-//                 const SizedBox(width: 6),
-//               ],
-//             ),
-//             const SizedBox(height: 16.0),
-//             SimpleButton(
-//               text: delete,
-//               color: Colors.red,
-//               onPressed: onDeletePressed,
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+
+class _TaskOptions extends StatelessWidget {
+  const _TaskOptions({
+    Key? key,
+    required this.task,
+    required this.onDeletePressed,
+    required this.onCategorySelected,
+    required this.onDateSelected,
+  }) : super(key: key);
+
+  final Task task;
+  final VoidCallback onDeletePressed;
+  final VoidCallback onCategorySelected;
+  final VoidCallback onDateSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                const SizedBox(width: 6),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Text(s.category),
+                    ),
+                    CategorySelector(
+                      task: task,
+                      onCategorySelected: onCategorySelected,
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.end,
+                //   children: [
+                //     Padding(
+                //       padding: const EdgeInsets.all(4.0),
+                //       child: Text(dueDate),
+                //     ),
+                //     DueDateSelector(
+                //       task: task,
+                //       onDateSelected: onDateSelected,
+                //     ),
+                //   ],
+                // ),
+                const SizedBox(width: 6),
+              ],
+            ),
+            const SizedBox(height: 16.0),
+            SimpleButton(
+              text: s.delete,
+              color: Colors.red,
+              onPressed: onDeletePressed,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:purple_task/globals/strings/strings.dart';
-
-import '../../../entities/entities.dart';
-import '../../../view_models/view_models.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../controllers/controllers.dart';
+import '../../../globals/globals.dart' as g;
+import '../../../globals/strings/strings.dart' as s;
+import '../../../models/models.dart';
 
 class CategorySelector extends StatelessWidget {
   const CategorySelector({
@@ -12,87 +12,85 @@ class CategorySelector extends StatelessWidget {
     required this.onCategorySelected,
   }) : super(key: key);
 
-  final TaskEntity task;
+  final Task task;
   final VoidCallback onCategorySelected;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 1,
-      child: PopupMenuButton(
-        tooltip: changeCategory,
-        onSelected: (dynamic item) => onItemSelected(context, item),
-        itemBuilder: (context) {
-          var menuList = <PopupMenuEntry<Object>>[];
-          final categoryList =
-              Provider.of<CategoryViewModel>(context, listen: false)
-                  .getListOfCategories();
-          for (var category in categoryList) {
-            menuList.add(PopupMenuItem(
-              child: Row(
-                children: [
-                  Icon(
-                    IconData(
-                      category.icon,
-                      fontFamily: 'AntIcons',
-                      fontPackage: 'ant_icons',
-                    ),
-                    color: category.color,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(category.name),
-                ],
-              ),
-              value: category.id,
-            ));
-          }
-          return menuList;
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Consumer<CategoryViewModel>(
-            builder: (context, value, child) {
-              if (task.categoryId == -1) {
-                return Text(
-                  noCategory,
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1!
-                      .copyWith(color: Theme.of(context).primaryColor),
-                );
-              }
-              return Row(
-                children: [
-                  Icon(
-                    IconData(
-                      value.currentCategory.icon,
-                      fontFamily: 'AntIcons',
-                      fontPackage: 'ant_icons',
-                    ),
-                    color: value.currentCategory.color,
-                    size: 18,
-                  ),
-                  const SizedBox(width: 4.0),
-                  Text(
-                    value.currentCategory.name,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: Theme.of(context).primaryColor),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
+    return Consumer(
+      builder: (context, watch, _) {
+        final categories = watch(categoriesProvider).categories;
 
-  void onItemSelected(BuildContext context, int item) {
-    task.categoryId = item;
-    Provider.of<TaskViewModel>(context, listen: false)
-        .updateTask(task.key, task);
-    onCategorySelected();
+        return Card(
+          elevation: 1,
+          child: PopupMenuButton(
+            tooltip: s.changeCategory,
+            onSelected: (item) {
+              final updatedTask = task.copyWith(categoryId: item as int);
+              context.read(tasksProvider.notifier).update(task: updatedTask);
+            },
+            itemBuilder: (context) {
+              var menuList = <PopupMenuEntry<Object>>[];
+              for (var category in categories) {
+                menuList.add(PopupMenuItem(
+                  child: Row(
+                    children: [
+                      Icon(
+                        IconData(
+                          category.icon,
+                          fontFamily: 'AntIcons',
+                          fontPackage: 'ant_icons',
+                        ),
+                        color: category.color,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(category.name),
+                    ],
+                  ),
+                  value: category.id,
+                ));
+              }
+              return menuList;
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Builder(
+                builder: (context) {
+                  if (task.categoryId == -1) {
+                    return Text(
+                      s.noCategory,
+                      style: g.CustomStyle.textStyleTaskName
+                          .copyWith(color: Theme.of(context).primaryColor),
+                    );
+                  } else {
+                    final currentCategory = categories.firstWhere(
+                        (category) => category.id == task.categoryId);
+                    return Row(
+                      children: [
+                        Icon(
+                          IconData(
+                            currentCategory.icon,
+                            fontFamily: 'AntIcons',
+                            fontPackage: 'ant_icons',
+                          ),
+                          color: currentCategory.color,
+                          size: 18,
+                        ),
+                        const SizedBox(width: 4.0),
+                        Text(
+                          currentCategory.name,
+                          style: g.CustomStyle.textStyleTaskName
+                              .copyWith(color: Theme.of(context).primaryColor),
+                        ),
+                      ],
+                    );
+                  }
+                },
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
