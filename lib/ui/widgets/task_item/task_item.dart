@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:purple_task/helpers.dart';
 
 import '../../../controllers/controllers.dart';
 import '../../../globals/globals.dart';
@@ -47,6 +48,7 @@ class _TaskItemState extends State<TaskItem> {
         final tileStatus = taskTileState.status;
         final tileController = watch(taskTileProvider(widget.task).notifier);
         final tasksController = watch(tasksProvider.notifier);
+        final settings = watch(settingsControllerProvider);
         return Column(
           children: [
             Row(
@@ -102,6 +104,19 @@ class _TaskItemState extends State<TaskItem> {
                 )
               ],
             ),
+            if (settings.showDoneTime &&
+                widget.task.isDone &&
+                widget.task.doneTime != null)
+              Row(
+                children: [
+                  const SizedBox(width: 10.0),
+                  Text('${s.completed}: ${TimeConversion.millisToDateAndTime(
+                    widget.task.doneTime!,
+                    dateFormat: settings.dateFormat,
+                    timeFormat: settings.timeFormat,
+                  )}'),
+                ],
+              ),
             AnimatedContainer(
               height: tileStatus == TaskTileStateStatus.expanded ? 140 : 0,
               duration: const Duration(milliseconds: 120),

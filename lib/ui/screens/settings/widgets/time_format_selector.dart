@@ -8,8 +8,6 @@ import '../../../../helpers.dart';
 class TimeFormatSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final timeConversion = TimeConversion();
-
     return Consumer(
       builder: (context, watch, child) {
         final state = watch(settingsControllerProvider);
@@ -20,7 +18,7 @@ class TimeFormatSelector extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                timeConversion.formatDateNow(state.timeFormat),
+                TimeConversion.formatDateNow(state.timeFormat),
                 style: Theme.of(context)
                     .textTheme
                     .subtitle1!
@@ -35,13 +33,13 @@ class TimeFormatSelector extends StatelessWidget {
               var menuList = <PopupMenuEntry<Object>>[];
               menuList.add(
                 PopupMenuItem(
-                  child: Text(timeConversion.formatDateNow(g.timeFormats[0])),
+                  child: Text(TimeConversion.formatDateNow(g.timeFormats[0])),
                   value: 0,
                 ),
               );
               menuList.add(
                 PopupMenuItem(
-                  child: Text(timeConversion.formatDateNow(g.timeFormats[1])),
+                  child: Text(TimeConversion.formatDateNow(g.timeFormats[1])),
                   value: 1,
                 ),
               );

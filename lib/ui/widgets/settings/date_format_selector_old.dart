@@ -12,7 +12,6 @@ class DateFormatSelectorOld extends StatelessWidget {
     final _settings = Provider.of<SettingsViewModel>(context);
     final _formatList =
         Provider.of<SettingsViewModel>(context, listen: false).dateFormats;
-    final timeConversion = TimeConversion();
 
     return Card(
       elevation: 1,
@@ -24,37 +23,37 @@ class DateFormatSelectorOld extends StatelessWidget {
           var menuList = <PopupMenuEntry<Object>>[];
           menuList.add(
             PopupMenuItem(
-              child: Text(timeConversion.formatDateNow(_formatList[0])),
+              child: Text(TimeConversion.formatDateNow(_formatList[0])),
               value: 0,
             ),
           );
           menuList.add(
             PopupMenuItem(
-              child: Text(timeConversion.formatDateNow(_formatList[1])),
+              child: Text(TimeConversion.formatDateNow(_formatList[1])),
               value: 1,
             ),
           );
           menuList.add(
             PopupMenuItem(
-              child: Text(timeConversion.formatDateNow(_formatList[2])),
+              child: Text(TimeConversion.formatDateNow(_formatList[2])),
               value: 2,
             ),
           );
           menuList.add(
             PopupMenuItem(
-              child: Text(timeConversion.formatDateNow(_formatList[3])),
+              child: Text(TimeConversion.formatDateNow(_formatList[3])),
               value: 3,
             ),
           );
           menuList.add(
             PopupMenuItem(
-              child: Text(timeConversion.formatDateNow(_formatList[4])),
+              child: Text(TimeConversion.formatDateNow(_formatList[4])),
               value: 4,
             ),
           );
           menuList.add(
             PopupMenuItem(
-              child: Text(timeConversion.formatDateNow(_formatList[5])),
+              child: Text(TimeConversion.formatDateNow(_formatList[5])),
               value: 5,
             ),
           );
@@ -63,7 +62,7 @@ class DateFormatSelectorOld extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            timeConversion.formatDateNow(_settings.getDateFormat()),
+            TimeConversion.formatDateNow(_settings.getDateFormat()),
             style: Theme.of(context)
                 .textTheme
                 .subtitle1!

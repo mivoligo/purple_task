@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TimeConversion {
-  String millisToDateAndTime(
+  static String millisToDateAndTime(
     int input, {
     required String dateFormat,
     required String timeFormat,
@@ -14,7 +14,7 @@ class TimeConversion {
     return '$date, $time';
   }
 
-  String formatDateNow(String pattern) {
+  static String formatDateNow(String pattern) {
     final dateTime = DateTime.now();
     return DateFormat(pattern).format(dateTime.toLocal());
   }

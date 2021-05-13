@@ -11,7 +11,6 @@ class TimeFormatSelectorOld extends StatelessWidget {
     final _settings = Provider.of<SettingsViewModel>(context);
     final _timeFormatList =
         Provider.of<SettingsViewModel>(context, listen: false).timeFormats;
-    final timeConversion = TimeConversion();
 
     return Card(
       elevation: 1,
@@ -19,7 +18,7 @@ class TimeFormatSelectorOld extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            timeConversion.formatDateNow(_settings.getTimeFormat()),
+            TimeConversion.formatDateNow(_settings.getTimeFormat()),
             style: Theme.of(context)
                 .textTheme
                 .subtitle1!
@@ -33,13 +32,13 @@ class TimeFormatSelectorOld extends StatelessWidget {
           var menuList = <PopupMenuEntry<Object>>[];
           menuList.add(
             PopupMenuItem(
-              child: Text(timeConversion.formatDateNow(_timeFormatList[0])),
+              child: Text(TimeConversion.formatDateNow(_timeFormatList[0])),
               value: 0,
             ),
           );
           menuList.add(
             PopupMenuItem(
-              child: Text(timeConversion.formatDateNow(_timeFormatList[1])),
+              child: Text(TimeConversion.formatDateNow(_timeFormatList[1])),
               value: 1,
             ),
           );

@@ -169,7 +169,7 @@ class _TaskItemOldState extends State<TaskItemOld> {
                   children: [
                     SizedBox(width: 10.0),
                     Text(
-                      '$completed: ${TimeConversion().millisToDateAndTime(
+                      '$completed: ${TimeConversion.millisToDateAndTime(
                         widget.task.doneTime!,
                         dateFormat: _dateFormat,
                         timeFormat: _timeFormat,
