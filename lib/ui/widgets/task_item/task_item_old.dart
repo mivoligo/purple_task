@@ -181,7 +181,7 @@ class _TaskItemOldState extends State<TaskItemOld> {
                 height: _taskState == TaskState.expandedTaskState ? 140 : 0,
                 duration: Duration(milliseconds: 120),
                 child: _taskState == TaskState.expandedTaskState
-                    ? TaskOptions(
+                    ? TaskOptionsOld(
                         task: widget.task,
                         onCategorySelected: setTaskNormal,
                         onDateSelected: setTaskNormal,
@@ -230,8 +230,8 @@ class _TaskItemOldState extends State<TaskItemOld> {
   }
 }
 
-class TaskOptions extends StatelessWidget {
-  const TaskOptions({
+class TaskOptionsOld extends StatelessWidget {
+  const TaskOptionsOld({
     Key? key,
     required this.task,
     required this.onDeletePressed,

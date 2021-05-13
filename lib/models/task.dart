@@ -11,6 +11,10 @@ class Task extends Equatable {
     this.key,
   });
 
+  factory Task.empty() {
+    return Task(name: '', categoryId: 0);
+  }
+
   factory Task.fromEntity(TaskEntity entity) {
     return Task(
       name: entity.name,

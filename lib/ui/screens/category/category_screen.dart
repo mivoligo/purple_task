@@ -53,7 +53,6 @@ class _CategoryScreenState extends State<CategoryScreen>
       builder: (context, watch, _) {
         final currentCategory =
             watch(categoryProvider(widget.category)).category;
-        // final categoryColor = watch(categoryColorProvider(category.id));
         final categoryName = watch(categoryNameProvider(currentCategory.id));
         final categoryColor = watch(categoryColorProvider(currentCategory.id));
         final categoryIcon = watch(categoryIconProvider(currentCategory.id));
