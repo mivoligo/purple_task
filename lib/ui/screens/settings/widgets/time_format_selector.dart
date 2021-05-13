@@ -9,7 +9,7 @@ class TimeFormatSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, watch, child) {
+      builder: (context, watch, _) {
         final state = watch(settingsControllerProvider);
         final controller = watch(settingsControllerProvider.notifier);
         return Card(
@@ -19,30 +19,32 @@ class TimeFormatSelector extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 TimeConversion.formatDateNow(state.timeFormat),
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1!
+                style: g.CustomStyle.textStyleTaskName
                     .copyWith(color: Theme.of(context).primaryColor),
               ),
             ),
             tooltip: s.changeFormat,
             onSelected: (item) => controller.setTimeFormat(
-              timeFormat: g.timeFormats[item as int],
+              timeFormat: item as String,
             ),
             itemBuilder: (context) {
-              var menuList = <PopupMenuEntry<Object>>[];
-              menuList.add(
-                PopupMenuItem(
-                  child: Text(TimeConversion.formatDateNow(g.timeFormats[0])),
-                  value: 0,
-                ),
-              );
-              menuList.add(
-                PopupMenuItem(
-                  child: Text(TimeConversion.formatDateNow(g.timeFormats[1])),
-                  value: 1,
-                ),
-              );
+              var menuList = <PopupMenuEntry<String>>[];
+
+              for (var format in g.timeFormats) {
+                menuList.add(
+                  PopupMenuItem(
+                    child: Text(
+                      TimeConversion.formatDateNow(format),
+                      style: state.timeFormat == format
+                          ? g.CustomStyle.textStyleTaskName
+                              .copyWith(color: Theme.of(context).primaryColor)
+                          : g.CustomStyle.textStyleTaskName,
+                    ),
+                    value: format,
+                  ),
+                );
+              }
+
               return menuList;
             },
           ),

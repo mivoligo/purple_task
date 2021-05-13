@@ -17,16 +17,24 @@ class DateFormatSelector extends StatelessWidget {
           child: PopupMenuButton(
             tooltip: s.changeFormat,
             onSelected: (item) => controller.setDateFormat(
-              dateFormat: g.dateFormats[item as int],
+              dateFormat: item as String,
             ),
             itemBuilder: (context) {
-              var menuList = <PopupMenuEntry<Object>>[];
+              var menuList = <PopupMenuEntry<String>>[];
 
-              for (var i in g.dateFormats) {
-                menuList.add(PopupMenuItem(
-                  child: Text(TimeConversion.formatDateNow(i)),
-                  value: g.dateFormats.indexOf(i),
-                ));
+              for (var format in g.dateFormats) {
+                menuList.add(
+                  PopupMenuItem(
+                    child: Text(
+                      TimeConversion.formatDateNow(format),
+                      style: state.dateFormat == format
+                          ? g.CustomStyle.textStyleTaskName
+                              .copyWith(color: Theme.of(context).primaryColor)
+                          : g.CustomStyle.textStyleTaskName,
+                    ),
+                    value: format,
+                  ),
+                );
               }
 
               return menuList;
