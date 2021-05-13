@@ -1,6 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'globals/strings/strings.dart' as s;
+
 class TimeConversion {
   static String millisToDateAndTime(
     int input, {
@@ -17,6 +19,25 @@ class TimeConversion {
   static String formatDateNow(String pattern) {
     final dateTime = DateTime.now();
     return DateFormat(pattern).format(dateTime.toLocal());
+  }
+
+  static String formatDueDate(int? dateInMillis, String? dateFormat) {
+    if (dateInMillis != null) {
+      final now = DateTime.now();
+      final todayDate = DateTime(now.year, now.month, now.day);
+      final tomorrowDate = DateTime(now.year, now.month, now.day + 1);
+      final dueDateTime = DateTime.fromMillisecondsSinceEpoch(dateInMillis);
+      final dueDate =
+          DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+      if (dueDate == todayDate) {
+        return s.today;
+      } else if (dueDate == tomorrowDate) {
+        return s.tomorrow;
+      } else {
+        return DateFormat(dateFormat).format(dueDate);
+      }
+    }
+    return s.noDate;
   }
 }
 

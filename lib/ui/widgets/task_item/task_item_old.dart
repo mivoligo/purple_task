@@ -275,7 +275,7 @@ class TaskOptionsOld extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: Text(dueDate),
                     ),
-                    DueDateSelector(
+                    DueDateSelectorOld(
                       task: task,
                       onDateSelected: onDateSelected,
                     ),

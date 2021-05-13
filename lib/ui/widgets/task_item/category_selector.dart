@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../controllers/controllers.dart';
-import '../../../globals/globals.dart' as g;
+import '../../../globals/globals.dart';
 import '../../../globals/strings/strings.dart' as s;
 import '../../../models/models.dart';
 
@@ -9,11 +9,9 @@ class CategorySelector extends StatelessWidget {
   const CategorySelector({
     Key? key,
     required this.task,
-    required this.onCategorySelected,
   }) : super(key: key);
 
   final Task task;
-  final VoidCallback onCategorySelected;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +57,7 @@ class CategorySelector extends StatelessWidget {
                   if (task.categoryId == -1) {
                     return Text(
                       s.noCategory,
-                      style: g.CustomStyle.textStyleTaskName
+                      style: CustomStyle.textStyleTaskName
                           .copyWith(color: Theme.of(context).primaryColor),
                     );
                   } else {
@@ -79,7 +77,7 @@ class CategorySelector extends StatelessWidget {
                         const SizedBox(width: 4.0),
                         Text(
                           currentCategory.name,
-                          style: g.CustomStyle.textStyleTaskName
+                          style: CustomStyle.textStyleTaskName
                               .copyWith(color: Theme.of(context).primaryColor),
                         ),
                       ],

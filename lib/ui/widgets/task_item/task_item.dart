@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:purple_task/helpers.dart';
 
 import '../../../controllers/controllers.dart';
 import '../../../globals/globals.dart';
 import '../../../globals/strings/strings.dart' as s;
+import '../../../helpers.dart';
 import '../../../models/models.dart';
 import '../widgets.dart';
 import 'category_selector.dart';
+import 'due_date_selector.dart';
 
 class TaskItem extends StatefulWidget {
   const TaskItem({required this.task});
@@ -94,6 +95,9 @@ class _TaskItemState extends State<TaskItem> {
                           ),
                         ),
                 ),
+                if (widget.task.dueDate != null)
+                  Text(TimeConversion.formatDueDate(
+                      widget.task.dueDate, settings.dateFormat)),
                 CustomIconButton(
                   icon: tileStatus == TaskTileStateStatus.expanded
                       ? const Icon(Icons.arrow_drop_up)
@@ -125,7 +129,6 @@ class _TaskItemState extends State<TaskItem> {
                   ? _TaskOptions(
                       task: widget.task,
                       onDeletePressed: () {},
-                      onCategorySelected: () {},
                       onDateSelected: () {},
                     )
                   : null,
@@ -176,13 +179,11 @@ class _TaskOptions extends StatelessWidget {
     Key? key,
     required this.task,
     required this.onDeletePressed,
-    required this.onCategorySelected,
     required this.onDateSelected,
   }) : super(key: key);
 
   final Task task;
   final VoidCallback onDeletePressed;
-  final VoidCallback onCategorySelected;
   final VoidCallback onDateSelected;
 
   @override
@@ -204,24 +205,22 @@ class _TaskOptions extends StatelessWidget {
                     ),
                     CategorySelector(
                       task: task,
-                      onCategorySelected: onCategorySelected,
                     ),
                   ],
                 ),
                 const Spacer(),
-                // Column(
-                //   crossAxisAlignment: CrossAxisAlignment.end,
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.all(4.0),
-                //       child: Text(dueDate),
-                //     ),
-                //     DueDateSelector(
-                //       task: task,
-                //       onDateSelected: onDateSelected,
-                //     ),
-                //   ],
-                // ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Text(s.dueDate),
+                    ),
+                    DueDateSelector(
+                      task: task,
+                    ),
+                  ],
+                ),
                 const SizedBox(width: 6),
               ],
             ),

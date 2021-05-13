@@ -55,7 +55,7 @@ class Task extends Equatable {
       name: name ?? this.name,
       isDone: isDone ?? this.isDone,
       categoryId: categoryId ?? this.categoryId,
-      dueDate: dueDate ?? this.dueDate,
+      dueDate: dueDate,
       doneTime: doneTime ?? this.doneTime,
       key: key ?? this.key,
     );

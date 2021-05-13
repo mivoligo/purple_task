@@ -1,73 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:purple_task/globals/strings/strings.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../entities/entities.dart';
-import '../../../view_models/view_models.dart';
+import '../../../controllers/controllers.dart';
+import '../../../globals/globals.dart';
+import '../../../globals/strings/strings.dart' as s;
+import '../../../helpers.dart';
+import '../../../models/models.dart';
 
 class DueDateSelector extends StatelessWidget {
   const DueDateSelector({
     Key? key,
     required this.task,
-    required this.onDateSelected,
   }) : super(key: key);
 
-  final TaskEntity task;
-  final VoidCallback onDateSelected;
+  final Task task;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 1,
-      child: PopupMenuButton(
-        tooltip: setDueDate,
-        onSelected: (dynamic item) => onItemSelected(context, item),
-        itemBuilder: (context) {
-          var menuList = <PopupMenuEntry<Object>>[];
-          menuList.add(
-            PopupMenuItem(
-              child: Text(today),
-              value: 0,
-            ),
-          );
-          menuList.add(
-            PopupMenuItem(
-              child: Text(tomorrow),
-              value: 1,
-            ),
-          );
-          menuList.add(
-            PopupMenuItem(
-              child: Text(customDate),
-              value: 2,
-            ),
-          );
-          menuList.add(
-            PopupMenuItem(
-              child: Text(noDate),
-              value: 3,
-            ),
-          );
-          return menuList;
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Consumer<TaskViewModel>(
-            builder: (context, value, child) {
-              final dateFormat =
-                  Provider.of<SettingsViewModel>(context, listen: false)
-                      .getDateFormat();
-              return Text(
-                value.displayDueDate(task.dueDate, dateFormat),
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1!
-                    .copyWith(color: Theme.of(context).primaryColor),
+    return Consumer(
+      builder: (context, watch, _) {
+        final dateFormatSetting = watch(settingsControllerProvider).dateFormat;
+        return Card(
+          elevation: 1,
+          child: PopupMenuButton(
+            tooltip: s.setDueDate,
+            onSelected: (dynamic item) => onItemSelected(context, item),
+            itemBuilder: (context) {
+              var menuList = <PopupMenuEntry<Object>>[];
+              menuList.add(
+                const PopupMenuItem(
+                  child: Text(s.today),
+                  value: 0,
+                ),
               );
+              menuList.add(
+                const PopupMenuItem(
+                  child: Text(s.tomorrow),
+                  value: 1,
+                ),
+              );
+              menuList.add(
+                const PopupMenuItem(
+                  child: Text(s.customDate),
+                  value: 2,
+                ),
+              );
+              menuList.add(
+                const PopupMenuItem(
+                  child: Text(s.noDate),
+                  value: 3,
+                ),
+              );
+              return menuList;
             },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                TimeConversion.formatDueDate(task.dueDate, dateFormatSetting),
+                style: CustomStyle.textStyleTaskName
+                    .copyWith(color: Theme.of(context).primaryColor),
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -75,14 +71,15 @@ class DueDateSelector extends StatelessWidget {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final tomorrow = DateTime(now.year, now.month, now.day + 1);
+    var dueDate;
     switch (item) {
       case 0:
         // set due date to today
-        task.dueDate = today.millisecondsSinceEpoch;
+        dueDate = today.millisecondsSinceEpoch;
         break;
       case 1:
         // set due date to tomorrow
-        task.dueDate = tomorrow.millisecondsSinceEpoch;
+        dueDate = tomorrow.millisecondsSinceEpoch;
         break;
       case 2:
         // set custom date
@@ -90,12 +87,12 @@ class DueDateSelector extends StatelessWidget {
         return;
       case 3:
         // set date to null
-        task.dueDate = null;
+        dueDate = null;
+        print('$dueDate');
         break;
     }
-    Provider.of<TaskViewModel>(context, listen: false)
-        .updateTask(task.key, task);
-    onDateSelected();
+    final updatedTask = task.copyWith(dueDate: dueDate);
+    context.read(tasksProvider.notifier).update(task: updatedTask);
   }
 
   void useSelectedDate(BuildContext context) async {
@@ -107,15 +104,14 @@ class DueDateSelector extends StatelessWidget {
       initialDate: dueDateDate,
       firstDate: DateTime(2020),
       lastDate: DateTime(2100),
-      helpText: dueDate,
-      cancelText: cancel,
-      confirmText: save,
+      helpText: s.dueDate,
+      cancelText: s.cancel,
+      confirmText: s.save,
     );
     if (selectedDate != null) {
-      task.dueDate = selectedDate.millisecondsSinceEpoch;
-      Provider.of<TaskViewModel>(context, listen: false)
-          .updateTask(task.key, task);
+      final updatedTask =
+          task.copyWith(dueDate: selectedDate.millisecondsSinceEpoch);
+      context.read(tasksProvider.notifier).update(task: updatedTask);
     }
-    onDateSelected();
   }
 }
