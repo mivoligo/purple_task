@@ -73,4 +73,14 @@ class CustomStyle {
     color: Colors.black,
     fontSize: 14.0,
   );
+
+  static const textStyleWarning = TextStyle(
+    color: Colors.red,
+    fontSize: 16.0,
+  );
+
+  static const textStyleLabelSmall = TextStyle(
+    color: Color(0xFF333333),
+    fontSize: 12.0,
+  );
 }

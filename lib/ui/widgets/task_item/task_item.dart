@@ -8,8 +8,8 @@ import '../../../globals/strings/strings.dart' as s;
 import '../../../helpers.dart';
 import '../../../models/models.dart';
 import '../widgets.dart';
-import 'category_selector.dart';
 import 'due_date_selector.dart';
+import 'task_options.dart';
 
 class TaskItem extends StatefulWidget {
   const TaskItem({required this.task});
@@ -62,6 +62,7 @@ class _TaskItemState extends State<TaskItem> {
                     onChanged: (value) {
                       final updatedTask = widget.task.copyWith(
                         isDone: value,
+                        dueDate: widget.task.dueDate,
                         doneTime: DateTime.now().millisecondsSinceEpoch,
                       );
                       tasksController.update(task: updatedTask);
@@ -78,6 +79,7 @@ class _TaskItemState extends State<TaskItem> {
                               ? (value) {
                                   final updatedTask = widget.task.copyWith(
                                     name: value.trim(),
+                                    dueDate: widget.task.dueDate,
                                   );
                                   tasksController.update(task: updatedTask);
                                   tileController.collapseTile();
@@ -96,18 +98,7 @@ class _TaskItemState extends State<TaskItem> {
                         ),
                 ),
                 DueDateSelector(task: widget.task),
-                // if (widget.task.dueDate != null)
-                //   Text(TimeConversion.formatDueDate(
-                //       widget.task.dueDate, settings.dateFormat)),
-                CustomIconButton(
-                  icon: tileStatus == TaskTileStateStatus.expanded
-                      ? const Icon(Icons.arrow_drop_up)
-                      : const Icon(Icons.arrow_drop_down),
-                  color: Colors.transparent,
-                  onPressed: tileStatus == TaskTileStateStatus.expanded
-                      ? tileController.collapseTile
-                      : tileController.expandTile,
-                )
+                TaskOptions(task: widget.task),
               ],
             ),
             if (settings.showDoneTime &&
@@ -123,17 +114,6 @@ class _TaskItemState extends State<TaskItem> {
                   )}'),
                 ],
               ),
-            AnimatedContainer(
-              height: tileStatus == TaskTileStateStatus.expanded ? 140 : 0,
-              duration: const Duration(milliseconds: 120),
-              child: tileStatus == TaskTileStateStatus.expanded
-                  ? _TaskOptions(
-                      task: widget.task,
-                      onDeletePressed: () {},
-                      onDateSelected: () {},
-                    )
-                  : null,
-            ),
             AnimatedContainer(
               height: tileStatus == TaskTileStateStatus.editName ? 56 : 0,
               duration: const Duration(milliseconds: 90),
@@ -153,6 +133,7 @@ class _TaskItemState extends State<TaskItem> {
                               ? () {
                                   final updatedTask = widget.task.copyWith(
                                     name: _textController.text.trim(),
+                                    dueDate: widget.task.dueDate,
                                   );
                                   tasksController.update(task: updatedTask);
                                   tileController.collapseTile();
@@ -171,57 +152,6 @@ class _TaskItemState extends State<TaskItem> {
           ],
         );
       },
-    );
-  }
-}
-
-class _TaskOptions extends StatelessWidget {
-  const _TaskOptions({
-    Key? key,
-    required this.task,
-    required this.onDeletePressed,
-    required this.onDateSelected,
-  }) : super(key: key);
-
-  final Task task;
-  final VoidCallback onDeletePressed;
-  final VoidCallback onDateSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                const SizedBox(width: 6),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: Text(s.category),
-                    ),
-                    CategorySelector(
-                      task: task,
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                const SizedBox(width: 6),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-            SimpleButton(
-              text: s.delete,
-              color: Colors.red,
-              onPressed: onDeletePressed,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import '../../models/models.dart';
 
-enum TaskTileStateStatus { initial, data, editName, expanded }
+enum TaskTileStateStatus { initial, data, editName }
 
 class TaskTileState extends Equatable {
   TaskTileState({required this.task, required this.status});

@@ -24,8 +24,12 @@ class CategorySelector extends StatelessWidget {
           child: PopupMenuButton(
             tooltip: s.changeCategory,
             onSelected: (item) {
-              final updatedTask = task.copyWith(categoryId: item as int);
+              final updatedTask = task.copyWith(
+                dueDate: task.dueDate,
+                categoryId: item as int,
+              );
               context.read(tasksProvider.notifier).update(task: updatedTask);
+              Navigator.of(context).pop();
             },
             itemBuilder: (context) {
               var menuList = <PopupMenuEntry<Object>>[];
@@ -42,7 +46,7 @@ class CategorySelector extends StatelessWidget {
                         color: category.color,
                       ),
                       const SizedBox(width: 8),
-                      Text(category.name),
+                      Flexible(child: Text(category.name)),
                     ],
                   ),
                   value: category.id,
@@ -57,7 +61,8 @@ class CategorySelector extends StatelessWidget {
                   if (task.categoryId == -1) {
                     return Text(
                       s.noCategory,
-                      style: CustomStyle.textStyleTaskName
+                      textAlign: TextAlign.center,
+                      style: CustomStyle.textStyleTaskFilter
                           .copyWith(color: Theme.of(context).primaryColor),
                     );
                   } else {
@@ -75,10 +80,12 @@ class CategorySelector extends StatelessWidget {
                           size: 18,
                         ),
                         const SizedBox(width: 4.0),
-                        Text(
-                          currentCategory.name,
-                          style: CustomStyle.textStyleTaskName
-                              .copyWith(color: Theme.of(context).primaryColor),
+                        Flexible(
+                          child: Text(
+                            currentCategory.name,
+                            style: CustomStyle.textStyleTaskFilter.copyWith(
+                                color: Theme.of(context).primaryColor),
+                          ),
                         ),
                       ],
                     );

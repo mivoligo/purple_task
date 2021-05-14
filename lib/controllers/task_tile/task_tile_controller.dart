@@ -19,10 +19,6 @@ class TaskTileController extends StateNotifier<TaskTileState> {
     state = state.copyWith(task: task, status: TaskTileStateStatus.data);
   }
 
-  void expandTile() {
-    state = state.copyWith(status: TaskTileStateStatus.expanded);
-  }
-
   void collapseTile() {
     state = state.copyWith(status: TaskTileStateStatus.data);
   }
