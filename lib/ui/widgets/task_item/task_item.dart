@@ -95,9 +95,10 @@ class _TaskItemState extends State<TaskItem> {
                           ),
                         ),
                 ),
-                if (widget.task.dueDate != null)
-                  Text(TimeConversion.formatDueDate(
-                      widget.task.dueDate, settings.dateFormat)),
+                DueDateSelector(task: widget.task),
+                // if (widget.task.dueDate != null)
+                //   Text(TimeConversion.formatDueDate(
+                //       widget.task.dueDate, settings.dateFormat)),
                 CustomIconButton(
                   icon: tileStatus == TaskTileStateStatus.expanded
                       ? const Icon(Icons.arrow_drop_up)
@@ -209,18 +210,6 @@ class _TaskOptions extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: Text(s.dueDate),
-                    ),
-                    DueDateSelector(
-                      task: task,
-                    ),
-                  ],
-                ),
                 const SizedBox(width: 6),
               ],
             ),

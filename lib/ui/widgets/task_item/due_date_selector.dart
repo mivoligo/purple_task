@@ -1,3 +1,4 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,7 +22,7 @@ class DueDateSelector extends StatelessWidget {
       builder: (context, watch, _) {
         final dateFormatSetting = watch(settingsControllerProvider).dateFormat;
         return Card(
-          elevation: 1,
+          elevation: 0,
           child: PopupMenuButton(
             tooltip: s.setDueDate,
             onSelected: (dynamic item) => onItemSelected(context, item),
@@ -55,11 +56,16 @@ class DueDateSelector extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                TimeConversion.formatDueDate(task.dueDate, dateFormatSetting),
-                style: CustomStyle.textStyleTaskName
-                    .copyWith(color: Theme.of(context).primaryColor),
-              ),
+              child: task.dueDate != null
+                  ? Text(
+                      TimeConversion.formatDueDate(
+                          task.dueDate, dateFormatSetting),
+                      style: CustomStyle.textStyleTaskFilter,
+                    )
+                  : const Icon(
+                      AntIcons.calendar_outline,
+                      size: 10,
+                    ),
             ),
           ),
         );
@@ -88,7 +94,6 @@ class DueDateSelector extends StatelessWidget {
       case 3:
         // set date to null
         dueDate = null;
-        print('$dueDate');
         break;
     }
     final updatedTask = task.copyWith(dueDate: dueDate);
