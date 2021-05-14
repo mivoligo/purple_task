@@ -65,7 +65,7 @@ class TaskOptions extends StatelessWidget {
             return menuList;
           },
           child: const Padding(
-            padding: EdgeInsets.all(4.0),
+            padding: EdgeInsets.all(8.0),
             child: Icon(
               Icons.arrow_drop_down,
               size: 18,

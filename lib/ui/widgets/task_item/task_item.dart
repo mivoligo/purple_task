@@ -59,6 +59,7 @@ class _TaskItemState extends State<TaskItem> {
                   padding: const EdgeInsets.all(4.0),
                   child: Checkbox(
                     value: widget.task.isDone,
+                    activeColor: Colors.grey,
                     onChanged: (value) {
                       final updatedTask = widget.task.copyWith(
                         isDone: value,
@@ -74,7 +75,6 @@ class _TaskItemState extends State<TaskItem> {
                       ? CupertinoTextField(
                           controller: _textController,
                           autofocus: true,
-                          // style: Theme.of(context).textTheme.subtitle1,
                           onSubmitted: _hasText
                               ? (value) {
                                   final updatedTask = widget.task.copyWith(
@@ -86,17 +86,30 @@ class _TaskItemState extends State<TaskItem> {
                                 }
                               : null,
                         )
-                      : InkWell(
-                          onTap: () {
-                            _textController.text = widget.task.name;
-                            tileController.showNameEditing();
-                          },
-                          child: Text(
-                            widget.task.name,
-                            style: CustomStyle.textStyleTaskName,
+                      : Material(
+                          type: MaterialType.transparency,
+                          child: InkWell(
+                            hoverColor: Colors.grey[300],
+                            onTap: () {
+                              _textController.text = widget.task.name;
+                              tileController.showNameEditing();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                widget.task.name,
+                                style: widget.task.isDone
+                                    ? CustomStyle.textStyleTaskName.copyWith(
+                                        color: Colors.grey,
+                                        decoration: TextDecoration.lineThrough,
+                                      )
+                                    : CustomStyle.textStyleTaskName,
+                              ),
+                            ),
                           ),
                         ),
                 ),
+                const SizedBox(width: 8),
                 DueDateSelector(task: widget.task),
                 TaskOptions(task: widget.task),
               ],
@@ -106,12 +119,17 @@ class _TaskItemState extends State<TaskItem> {
                 widget.task.doneTime != null)
               Row(
                 children: [
-                  const SizedBox(width: 10.0),
-                  Text('${s.completed}: ${TimeConversion.millisToDateAndTime(
-                    widget.task.doneTime!,
-                    dateFormat: settings.dateFormat,
-                    timeFormat: settings.timeFormat,
-                  )}'),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0, bottom: 4.0),
+                    child: Text(
+                      '${s.completed}: ${TimeConversion.millisToDateAndTime(
+                        widget.task.doneTime!,
+                        dateFormat: settings.dateFormat,
+                        timeFormat: settings.timeFormat,
+                      )}',
+                      style: CustomStyle.textStyleLabelSmall,
+                    ),
+                  ),
                 ],
               ),
             AnimatedContainer(
