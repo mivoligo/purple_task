@@ -9,6 +9,7 @@ import '../../../globals/strings/strings.dart' as s;
 import '../../../models/models.dart';
 import '../../widgets/icon_button.dart';
 import '../../widgets/widgets.dart';
+import 'widgets/all_tasks.dart';
 import 'widgets/completed_tasks.dart';
 import 'widgets/widgets.dart';
 
@@ -245,7 +246,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                       child: child,
                                     );
                                   },
-                                  child: CompletedTasks(
+                                  child: AllTasks(
                                     categoryId: currentCategory.id,
                                     controller: ScrollController(),
                                   ),

@@ -5,8 +5,8 @@ import '../../../../globals/strings/strings.dart' as s;
 import '../../../widgets/task_list/sliver_tasks_list.dart';
 import '../../../widgets/task_list/task_list.dart';
 
-class CompletedTasks extends ConsumerWidget {
-  const CompletedTasks({
+class AllTasks extends ConsumerWidget {
+  const AllTasks({
     Key? key,
     required this.categoryId,
     required this.controller,
@@ -21,12 +21,28 @@ class CompletedTasks extends ConsumerWidget {
     final yesterdayCompletedTasks =
         watch(yesterdayCompletedTasksProvider(categoryId));
     final pastCompletedTasks = watch(pastCompletedTasksProvider(categoryId));
-
+    final noDueDateTasks = watch(noDueDateTasksProvider(categoryId));
+    final overdueTasks = watch(overdueTasksProvider(categoryId));
+    final todayTasks = watch(todayTasksProvider(categoryId));
+    final tomorrowTasks = watch(tomorrowTasksProvider(categoryId));
+    final futureTasks = watch(futureTasksProvider(categoryId));
     return Scrollbar(
       child: CustomScrollView(
-        key: const PageStorageKey('completed tasks'),
+        key: const PageStorageKey('all tasks'),
         controller: controller,
         slivers: [
+          SliverTasksList(list: noDueDateTasks),
+          if (overdueTasks.isNotEmpty)
+            const SliverTaskListHeader(title: s.overdue),
+          SliverTasksList(list: overdueTasks),
+          if (todayTasks.isNotEmpty) const SliverTaskListHeader(title: s.today),
+          SliverTasksList(list: todayTasks),
+          if (tomorrowTasks.isNotEmpty)
+            const SliverTaskListHeader(title: s.tomorrow),
+          SliverTasksList(list: tomorrowTasks),
+          if (futureTasks.isNotEmpty)
+            const SliverTaskListHeader(title: s.later),
+          SliverTasksList(list: futureTasks),
           if (todayCompletedTasks.isNotEmpty)
             const SliverTaskListHeader(title: s.completedToday),
           SliverTasksList(list: todayCompletedTasks),
