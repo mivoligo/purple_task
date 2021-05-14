@@ -95,6 +95,70 @@ final futureTasksProvider = Provider.family<List<Task>, int>((ref, categoryId) {
   return futureTasks;
 });
 
+final todayCompletedTasksProvider =
+    Provider.family<List<Task>, int>((ref, categoryId) {
+  final tasks = ref.watch(tasksProvider).tasks.where((task) => task.isDone);
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  var todayCompletedTasks = <Task>[];
+  for (var task in tasks) {
+    if (task.doneTime != null) {
+      final taskDoneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
+      final taskDoneDate =
+          DateTime(taskDoneTime.year, taskDoneTime.month, taskDoneTime.day);
+      if (taskDoneDate == today) {
+        todayCompletedTasks.add(task);
+      }
+    }
+  }
+  todayCompletedTasks.sort((b, a) => a.doneTime!.compareTo(b.doneTime!));
+  return todayCompletedTasks;
+});
+
+final yesterdayCompletedTasksProvider =
+    Provider.family<List<Task>, int>((ref, categoryId) {
+  final tasks = ref.watch(tasksProvider).tasks.where((task) => task.isDone);
+  final now = DateTime.now();
+  final yesterday = DateTime(now.year, now.month, now.day - 1);
+  var yesterdayCompletedTasks = <Task>[];
+  for (var task in tasks) {
+    if (task.doneTime != null) {
+      final taskDoneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
+      final taskDoneDate =
+          DateTime(taskDoneTime.year, taskDoneTime.month, taskDoneTime.day);
+      if (taskDoneDate == yesterday) {
+        yesterdayCompletedTasks.add(task);
+      }
+    }
+  }
+  yesterdayCompletedTasks.sort((b, a) => a.doneTime!.compareTo(b.doneTime!));
+  return yesterdayCompletedTasks;
+});
+
+final pastCompletedTasksProvider =
+    Provider.family<List<Task>, int>((ref, categoryId) {
+  final tasks = ref.watch(tasksProvider).tasks.where((task) => task.isDone);
+  final now = DateTime.now();
+  final yesterday = DateTime(now.year, now.month, now.day - 1);
+  var pastCompletedTasks = <Task>[];
+  var completedTasksWithoutDoneTime = <Task>[];
+  for (var task in tasks) {
+    if (task.doneTime != null) {
+      final taskDoneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
+      final taskDoneDate =
+          DateTime(taskDoneTime.year, taskDoneTime.month, taskDoneTime.day);
+      if (taskDoneDate.isBefore(yesterday)) {
+        pastCompletedTasks.add(task);
+      }
+    } else {
+      completedTasksWithoutDoneTime.add(task);
+    }
+  }
+  pastCompletedTasks.sort((b, a) => a.doneTime!.compareTo(b.doneTime!));
+  pastCompletedTasks.addAll(completedTasksWithoutDoneTime);
+  return pastCompletedTasks;
+});
+
 final filteredTasksProvider =
     Provider.family<List<Task>, int>((ref, categoryId) {
   final filter = ref.watch(tasksProvider).filter;

@@ -9,6 +9,7 @@ import '../../../globals/strings/strings.dart' as s;
 import '../../../models/models.dart';
 import '../../widgets/icon_button.dart';
 import '../../widgets/widgets.dart';
+import 'widgets/completed_tasks.dart';
 import 'widgets/widgets.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -244,7 +245,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                       child: child,
                                     );
                                   },
-                                  child: PlannedTasks(
+                                  child: CompletedTasks(
                                     categoryId: currentCategory.id,
                                     controller: ScrollController(),
                                   ),
