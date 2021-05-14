@@ -30,21 +30,21 @@ class CompletedTasksList extends StatelessWidget {
               .getTodayCompletedTasksForCategory(categoryId)
               .isNotEmpty)
             SliverTaskListHeader(title: completedToday),
-          SliverTasksList(
+          SliverTasksListOld(
               list:
                   taskViewModel.getTodayCompletedTasksForCategory(categoryId)),
           if (taskViewModel
               .getYesterdayCompletedTasksForCategory(categoryId)
               .isNotEmpty)
             SliverTaskListHeader(title: completedYesterday),
-          SliverTasksList(
+          SliverTasksListOld(
               list: taskViewModel
                   .getYesterdayCompletedTasksForCategory(categoryId)),
           if (taskViewModel
               .getEarlierCompletedTasksForCategory(categoryId)
               .isNotEmpty)
             SliverTaskListHeader(title: completedEarlier),
-          SliverTasksList(
+          SliverTasksListOld(
               list: taskViewModel
                   .getEarlierCompletedTasksForCategory(categoryId)),
         ],

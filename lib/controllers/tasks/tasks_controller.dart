@@ -9,6 +9,92 @@ final tasksProvider = StateNotifierProvider<TasksController, TasksState>((ref) {
   );
 });
 
+final noDueDateTasksProvider =
+    Provider.family<List<Task>, int>((ref, categoryId) {
+  final tasks = ref.watch(tasksProvider).tasks;
+  return tasks
+      .where(
+        (task) => task.categoryId == categoryId && task.dueDate == null,
+      )
+      .toList();
+});
+
+final overdueTasksProvider =
+    Provider.family<List<Task>, int>((ref, categoryId) {
+  final tasks = ref.watch(tasksProvider).tasks;
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  var overdueTasks = <Task>[];
+  for (var task in tasks) {
+    if (task.dueDate != null) {
+      final taskDueTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
+      final taskDueDate =
+          DateTime(taskDueTime.year, taskDueTime.month, taskDueTime.day);
+      if (taskDueDate.isBefore(today)) {
+        overdueTasks.add(task);
+      }
+    }
+  }
+  overdueTasks.sort((a, b) => a.dueDate!.compareTo(b.dueDate!));
+  return overdueTasks;
+});
+
+final todayTasksProvider = Provider.family<List<Task>, int>((ref, categoryId) {
+  final tasks = ref.watch(tasksProvider).tasks;
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  var todayTasks = <Task>[];
+  for (var task in tasks) {
+    if (task.dueDate != null) {
+      final taskDueTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
+      final taskDueDate =
+          DateTime(taskDueTime.year, taskDueTime.month, taskDueTime.day);
+      if (taskDueDate == today) {
+        todayTasks.add(task);
+      }
+    }
+  }
+  return todayTasks;
+});
+
+final tomorrowTasksProvider =
+    Provider.family<List<Task>, int>((ref, categoryId) {
+  final tasks = ref.watch(tasksProvider).tasks;
+  final now = DateTime.now();
+  final tomorrow = DateTime(now.year, now.month, now.day + 1);
+  var tomorrowTasks = <Task>[];
+  for (var task in tasks) {
+    if (task.dueDate != null) {
+      final taskDueTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
+      final taskDueDate =
+          DateTime(taskDueTime.year, taskDueTime.month, taskDueTime.day);
+      if (taskDueDate == tomorrow) {
+        tomorrowTasks.add(task);
+      }
+    }
+  }
+  return tomorrowTasks;
+});
+
+final futureTasksProvider = Provider.family<List<Task>, int>((ref, categoryId) {
+  final tasks = ref.watch(tasksProvider).tasks;
+  final now = DateTime.now();
+  final tomorrow = DateTime(now.year, now.month, now.day + 1);
+  var futureTasks = <Task>[];
+  for (var task in tasks) {
+    if (task.dueDate != null) {
+      final taskDueTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
+      final taskDueDate =
+          DateTime(taskDueTime.year, taskDueTime.month, taskDueTime.day);
+      if (taskDueDate.isAfter(tomorrow)) {
+        futureTasks.add(task);
+      }
+    }
+  }
+  futureTasks.sort((a, b) => a.dueDate!.compareTo(b.dueDate!));
+  return futureTasks;
+});
+
 final filteredTasksProvider =
     Provider.family<List<Task>, int>((ref, categoryId) {
   final filter = ref.watch(tasksProvider).filter;

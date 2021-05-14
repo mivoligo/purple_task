@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../entities/entities.dart';
 import '../../ui.dart';
 
-class SliverTasksList extends StatelessWidget {
-  const SliverTasksList({
+class SliverTasksListOld extends StatelessWidget {
+  const SliverTasksListOld({
     Key? key,
     required this.list,
   }) : super(key: key);

@@ -1,6 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:purple_task/ui/screens/category/widgets/planned_tasks.dart';
 
 import '../../../controllers/controllers.dart';
 import '../../../globals/globals.dart';
@@ -243,13 +244,17 @@ class _CategoryScreenState extends State<CategoryScreen>
                                       child: child,
                                     );
                                   },
-                                  child: ListView.builder(
-                                    itemCount: filteredTasks.length,
-                                    itemBuilder: (context, index) {
-                                      final task = filteredTasks[index];
-                                      return TaskItem(task: task);
-                                    },
+                                  child: PlannedTasks(
+                                    categoryId: currentCategory.id,
+                                    controller: ScrollController(),
                                   ),
+                                  // child: ListView.builder(
+                                  //   itemCount: filteredTasks.length,
+                                  //   itemBuilder: (context, index) {
+                                  //     final task = filteredTasks[index];
+                                  //     return TaskItem(task: task);
+                                  //   },
+                                  // ),
                                 ),
                               ),
                               AnimatedBuilder(

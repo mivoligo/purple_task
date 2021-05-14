@@ -23,23 +23,23 @@ class PlannedTasksList extends StatelessWidget {
         key: PageStorageKey('planned tasks'),
         controller: controller,
         slivers: [
-          SliverTasksList(
+          SliverTasksListOld(
               list: taskViewModel.getNoDueDateTasksForCategory(categoryId)),
           if (taskViewModel.getOverdueTasksForCategory(categoryId).isNotEmpty)
             SliverTaskListHeader(title: overdue),
-          SliverTasksList(
+          SliverTasksListOld(
               list: taskViewModel.getOverdueTasksForCategory(categoryId)),
           if (taskViewModel.getTodaysTasksForCategory(categoryId).isNotEmpty)
             SliverTaskListHeader(title: today),
-          SliverTasksList(
+          SliverTasksListOld(
               list: taskViewModel.getTodaysTasksForCategory(categoryId)),
           if (taskViewModel.getTomorrowsTasksForCategory(categoryId).isNotEmpty)
             SliverTaskListHeader(title: tomorrow),
-          SliverTasksList(
+          SliverTasksListOld(
               list: taskViewModel.getTomorrowsTasksForCategory(categoryId)),
           if (taskViewModel.getFutureTasksForCategory(categoryId).isNotEmpty)
             SliverTaskListHeader(title: later),
-          SliverTasksList(
+          SliverTasksListOld(
               list: taskViewModel.getFutureTasksForCategory(categoryId)),
         ],
       ),

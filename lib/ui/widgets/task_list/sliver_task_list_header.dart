@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../globals/custom_styles.dart';
 
 class SliverTaskListHeader extends StatelessWidget {
   const SliverTaskListHeader({
@@ -15,7 +16,7 @@ class SliverTaskListHeader extends StatelessWidget {
         padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
         child: Text(
           title,
-          style: Theme.of(context).textTheme.subtitle2,
+          style: CustomStyle.textStyleTaskFilter,
         ),
       ),
     );
