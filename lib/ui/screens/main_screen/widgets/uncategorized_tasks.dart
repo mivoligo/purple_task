@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../controllers/controllers.dart';
 import '../../../../globals/globals.dart';
 import '../../../../globals/strings/strings.dart' as s;
-import '../../../widgets/widgets.dart';
+import '../../category/widgets/widgets.dart';
 
 class UncategorizedTasks extends ConsumerWidget {
   const UncategorizedTasks({
@@ -14,7 +14,7 @@ class UncategorizedTasks extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final appHeight = MediaQuery.of(context).size.height;
-    final listHeight = appHeight - 540;
+    final listHeight = appHeight - 542;
     final uncategorizedTasks = watch(uncategorizedTasksProvider);
     return uncategorizedTasks.isNotEmpty
         ? Container(
@@ -35,13 +35,9 @@ class UncategorizedTasks extends ConsumerWidget {
                       ),
                       LimitedBox(
                         maxHeight: listHeight,
-                        child: ListView.builder(
+                        child: const AllTasks(
+                          categoryId: -1,
                           shrinkWrap: true,
-                          itemCount: uncategorizedTasks.length,
-                          itemBuilder: (context, index) {
-                            final task = uncategorizedTasks[index];
-                            return TaskItem(task: task);
-                          },
                         ),
                       ),
                       const SizedBox(height: 10.0),

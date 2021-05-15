@@ -11,14 +11,13 @@ final tasksProvider = StateNotifierProvider<TasksController, TasksState>((ref) {
 
 final noDueDateTasksProvider =
     Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref.watch(tasksProvider).tasks;
-  return tasks.where(
-    (task) {
-      return !task.isDone &&
-          task.categoryId == categoryId &&
-          task.dueDate == null;
-    },
-  ).toList();
+  final tasks = ref
+      .watch(tasksProvider)
+      .tasks
+      .where((task) =>
+          !task.isDone && task.categoryId == categoryId && task.dueDate == null)
+      .toList();
+  return tasks.reversed.toList();
 });
 
 final overdueTasksProvider =

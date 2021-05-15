@@ -8,9 +8,11 @@ import '../../../../widgets/task_list/task_list.dart';
 class AllTasks extends StatefulWidget {
   const AllTasks({
     required this.categoryId,
+    this.shrinkWrap = false,
   });
 
   final int categoryId;
+  final bool shrinkWrap;
 
   @override
   _AllTasksState createState() => _AllTasksState();
@@ -45,6 +47,7 @@ class _AllTasksState extends State<AllTasks> {
           return CustomScrollView(
             key: const PageStorageKey('all tasks'),
             controller: _scrollController,
+            shrinkWrap: widget.shrinkWrap,
             slivers: [
               SliverTasksList(list: noDueDateTasks),
               if (overdueTasks.isNotEmpty)

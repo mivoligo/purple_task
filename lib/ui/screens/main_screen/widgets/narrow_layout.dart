@@ -75,7 +75,7 @@ class NarrowLayout extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 1.0),
-                      UncategorizedTasks(),
+                      const UncategorizedTasks(),
                     ],
                   ),
                 ),
