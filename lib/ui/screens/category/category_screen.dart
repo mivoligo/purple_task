@@ -1,16 +1,12 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:purple_task/ui/screens/category/widgets/planned_tasks.dart';
 
 import '../../../controllers/controllers.dart';
 import '../../../globals/globals.dart';
 import '../../../globals/strings/strings.dart' as s;
 import '../../../models/models.dart';
-import '../../widgets/icon_button.dart';
 import '../../widgets/widgets.dart';
-import 'widgets/all_tasks.dart';
-import 'widgets/completed_tasks.dart';
 import 'widgets/widgets.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -28,7 +24,7 @@ class _CategoryScreenState extends State<CategoryScreen>
   late Animation _fadeAnimation;
 
   // Index for bottom navigation
-  late int _navigationIndex;
+  late int _navigationIndex = 0;
 
   @override
   void initState() {
@@ -59,25 +55,11 @@ class _CategoryScreenState extends State<CategoryScreen>
         final categoryName = watch(categoryNameProvider(currentCategory.id));
         final categoryColor = watch(categoryColorProvider(currentCategory.id));
         final categoryIcon = watch(categoryIconProvider(currentCategory.id));
-        final filterState = watch(tasksProvider).filter;
         final tasksController = watch(tasksProvider.notifier);
-        final filteredTasks = watch(filteredTasksProvider(currentCategory.id));
         var description = '';
         final activeTasksNumber =
             watch(activeTasksNumberProvider(currentCategory.id));
         final progress = watch(progressProvider(currentCategory.id));
-
-        switch (filterState) {
-          case Filter.active:
-            _navigationIndex = 0;
-            break;
-          case Filter.all:
-            _navigationIndex = 1;
-            break;
-          case Filter.completed:
-            _navigationIndex = 2;
-            break;
-        }
 
         switch (activeTasksNumber) {
           case 0:
@@ -246,17 +228,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                       child: child,
                                     );
                                   },
-                                  child: AllTasks(
-                                    categoryId: currentCategory.id,
-                                    controller: ScrollController(),
-                                  ),
-                                  // child: ListView.builder(
-                                  //   itemCount: filteredTasks.length,
-                                  //   itemBuilder: (context, index) {
-                                  //     final task = filteredTasks[index];
-                                  //     return TaskItem(task: task);
-                                  //   },
-                                  // ),
+                                  child: _buildTasksList(currentCategory),
                                 ),
                               ),
                               AnimatedBuilder(
@@ -272,21 +244,9 @@ class _CategoryScreenState extends State<CategoryScreen>
                                   unselectedFontSize: 14.0,
                                   currentIndex: _navigationIndex,
                                   onTap: (index) {
-                                    _navigationIndex = index;
-                                    switch (_navigationIndex) {
-                                      case 0:
-                                        tasksController.filterTasks(
-                                            filter: Filter.active);
-                                        break;
-                                      case 1:
-                                        tasksController.filterTasks(
-                                            filter: Filter.all);
-                                        break;
-                                      case 2:
-                                        tasksController.filterTasks(
-                                            filter: Filter.completed);
-                                        break;
-                                    }
+                                    setState(() {
+                                      _navigationIndex = index;
+                                    });
                                   },
                                   items: [
                                     const BottomNavigationBarItem(
@@ -317,5 +277,18 @@ class _CategoryScreenState extends State<CategoryScreen>
         );
       },
     );
+  }
+
+  Widget _buildTasksList(Category category) {
+    switch (_navigationIndex) {
+      case 0:
+        return PlannedTasks(categoryId: category.id);
+      case 1:
+        return AllTasks(categoryId: category.id);
+      case 2:
+        return CompletedTasks(categoryId: category.id);
+      default:
+        return PlannedTasks(categoryId: category.id);
+    }
   }
 }

@@ -16,7 +16,7 @@ class TasksState extends Equatable {
     return TasksState(
       tasks: [],
       status: TasksStateStatus.initial,
-      filter: Filter.all,
+      filter: Filter.active,
     );
   }
 

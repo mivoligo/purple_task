@@ -12,16 +12,21 @@ final tasksProvider = StateNotifierProvider<TasksController, TasksState>((ref) {
 final noDueDateTasksProvider =
     Provider.family<List<Task>, int>((ref, categoryId) {
   final tasks = ref.watch(tasksProvider).tasks;
-  return tasks
-      .where(
-        (task) => task.categoryId == categoryId && task.dueDate == null,
-      )
-      .toList();
+  return tasks.where(
+    (task) {
+      return !task.isDone &&
+          task.categoryId == categoryId &&
+          task.dueDate == null;
+    },
+  ).toList();
 });
 
 final overdueTasksProvider =
     Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref.watch(tasksProvider).tasks;
+  final tasks = ref
+      .watch(tasksProvider)
+      .tasks
+      .where((task) => !task.isDone && task.categoryId == categoryId);
   final now = DateTime.now();
   final today = DateTime(now.year, now.month, now.day);
   var overdueTasks = <Task>[];
@@ -40,7 +45,10 @@ final overdueTasksProvider =
 });
 
 final todayTasksProvider = Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref.watch(tasksProvider).tasks;
+  final tasks = ref
+      .watch(tasksProvider)
+      .tasks
+      .where((task) => !task.isDone && task.categoryId == categoryId);
   final now = DateTime.now();
   final today = DateTime(now.year, now.month, now.day);
   var todayTasks = <Task>[];
@@ -59,7 +67,10 @@ final todayTasksProvider = Provider.family<List<Task>, int>((ref, categoryId) {
 
 final tomorrowTasksProvider =
     Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref.watch(tasksProvider).tasks;
+  final tasks = ref
+      .watch(tasksProvider)
+      .tasks
+      .where((task) => !task.isDone && task.categoryId == categoryId);
   final now = DateTime.now();
   final tomorrow = DateTime(now.year, now.month, now.day + 1);
   var tomorrowTasks = <Task>[];
@@ -77,7 +88,10 @@ final tomorrowTasksProvider =
 });
 
 final futureTasksProvider = Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref.watch(tasksProvider).tasks;
+  final tasks = ref
+      .watch(tasksProvider)
+      .tasks
+      .where((task) => !task.isDone && task.categoryId == categoryId);
   final now = DateTime.now();
   final tomorrow = DateTime(now.year, now.month, now.day + 1);
   var futureTasks = <Task>[];
@@ -97,7 +111,10 @@ final futureTasksProvider = Provider.family<List<Task>, int>((ref, categoryId) {
 
 final todayCompletedTasksProvider =
     Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref.watch(tasksProvider).tasks.where((task) => task.isDone);
+  final tasks = ref
+      .watch(tasksProvider)
+      .tasks
+      .where((task) => task.isDone && task.categoryId == categoryId);
   final now = DateTime.now();
   final today = DateTime(now.year, now.month, now.day);
   var todayCompletedTasks = <Task>[];
@@ -117,7 +134,10 @@ final todayCompletedTasksProvider =
 
 final yesterdayCompletedTasksProvider =
     Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref.watch(tasksProvider).tasks.where((task) => task.isDone);
+  final tasks = ref
+      .watch(tasksProvider)
+      .tasks
+      .where((task) => task.isDone && task.categoryId == categoryId);
   final now = DateTime.now();
   final yesterday = DateTime(now.year, now.month, now.day - 1);
   var yesterdayCompletedTasks = <Task>[];
@@ -137,7 +157,10 @@ final yesterdayCompletedTasksProvider =
 
 final pastCompletedTasksProvider =
     Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref.watch(tasksProvider).tasks.where((task) => task.isDone);
+  final tasks = ref
+      .watch(tasksProvider)
+      .tasks
+      .where((task) => task.isDone && task.categoryId == categoryId);
   final now = DateTime.now();
   final yesterday = DateTime(now.year, now.month, now.day - 1);
   var pastCompletedTasks = <Task>[];
