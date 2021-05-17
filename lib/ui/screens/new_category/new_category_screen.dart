@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:purple_task/ui/screens/main_screen/widgets/category/category_list.dart';
 
 import '../../../controllers/controllers.dart';
 import 'widgets/widgets.dart';
+
+enum CategoryCreatorStatus { normal, success }
+
+final categoryCreatorStatusProvider =
+    StateProvider((_) => CategoryCreatorStatus.normal);
 
 class NewCategoryScreen extends ConsumerWidget {
   final _focusNode = FocusNode();

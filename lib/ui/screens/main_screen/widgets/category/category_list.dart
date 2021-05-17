@@ -4,38 +4,16 @@ import '../../../../../controllers/controllers.dart';
 import '../../../screens.dart';
 import '../widgets.dart';
 
-enum CategoryCreatorStatus { normal, success }
-
-final categoryCreatorStatusProvider =
-    StateProvider((_) => CategoryCreatorStatus.normal);
-
 class CategoryList extends StatefulWidget {
   @override
   _CategoryListState createState() => _CategoryListState();
 }
 
 class _CategoryListState extends State<CategoryList> {
-  late PageController _pageController;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final _appWidth = MediaQuery.of(context).size.width;
-    _pageController = PageController(
-      viewportFraction: (_appWidth - 48) / _appWidth,
-      initialPage: 0,
-    );
+
     return Consumer(
       builder: (context, watch, _) {
         final state = watch(categoriesProvider);
@@ -45,7 +23,7 @@ class _CategoryListState extends State<CategoryList> {
           if (_appWidth < 600) {
             return _HorizontalPages(
               state: state,
-              pageController: _pageController,
+              appWidth: _appWidth,
             );
           } else if (_appWidth < 1000) {
             return _HorizontalList(state: state);
@@ -59,15 +37,29 @@ class _CategoryListState extends State<CategoryList> {
   }
 }
 
-class _HorizontalPages extends StatelessWidget {
+class _HorizontalPages extends StatefulWidget {
   const _HorizontalPages({
     Key? key,
     required this.state,
-    required this.pageController,
+    required this.appWidth,
   }) : super(key: key);
 
   final CategoriesState state;
-  final PageController pageController;
+  final double appWidth;
+
+  @override
+  __HorizontalPagesState createState() => __HorizontalPagesState();
+}
+
+class __HorizontalPagesState extends State<_HorizontalPages> {
+  late final _pageController = PageController(
+      viewportFraction: (widget.appWidth - 48) / widget.appWidth);
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,20 +68,20 @@ class _HorizontalPages extends StatelessWidget {
       // move to the end of the list of categories
       onChange: (context, value) {
         if (value.state == CategoryCreatorStatus.success) {
-          pageController.animateToPage(
-            state.categories.length,
+          _pageController.animateToPage(
+            widget.state.categories.length,
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeIn,
           );
         }
       },
       child: PageView.builder(
-        controller: pageController,
-        itemCount: state.categories.length,
+        controller: _pageController,
+        itemCount: widget.state.categories.length,
         onPageChanged: (index) => context.read(backgroundColorProvider).state =
-            state.categories[index].color,
+            widget.state.categories[index].color,
         itemBuilder: (context, index) {
-          final category = state.categories[index];
+          final category = widget.state.categories[index];
 
           return CategoryCard(
             category: category,
