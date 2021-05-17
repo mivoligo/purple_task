@@ -73,6 +73,7 @@ class _HorizontalPages extends StatelessWidget {
   Widget build(BuildContext context) {
     return ProviderListener<StateController<CategoryCreatorStatus>>(
       provider: categoryCreatorStatusProvider,
+      // move to the end of the list of categories
       onChange: (context, value) {
         if (value.state == CategoryCreatorStatus.success) {
           pageController.animateToPage(
@@ -113,7 +114,7 @@ class _HorizontalPages extends StatelessWidget {
   }
 }
 
-class _HorizontalList extends StatelessWidget {
+class _HorizontalList extends StatefulWidget {
   const _HorizontalList({
     Key? key,
     required this.state,
@@ -122,35 +123,62 @@ class _HorizontalList extends StatelessWidget {
   final CategoriesState state;
 
   @override
+  __HorizontalListState createState() => __HorizontalListState();
+}
+
+class __HorizontalListState extends State<_HorizontalList> {
+  late final _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: state.categories.length,
-      itemBuilder: (context, index) {
-        final category = state.categories[index];
-        return SizedBox(
-          width: 400,
-          child: CategoryCard(
-            category: category,
-            onFocusChange: (_) =>
-                context.read(backgroundColorProvider).state = category.color,
-            onHover: (_) =>
-                context.read(backgroundColorProvider).state = category.color,
-            onTap: () {
-              Navigator.of(context).push(PageRouteBuilder(
-                pageBuilder: (context, anim1, anim2) =>
-                    CategoryScreen(category: category),
-                transitionsBuilder: (context, anim1, anim2, child) {
-                  return FadeTransition(
-                    opacity: anim1,
-                    child: child,
-                  );
-                },
-              ));
-            },
-          ),
-        );
+    return ProviderListener<StateController<CategoryCreatorStatus>>(
+      provider: categoryCreatorStatusProvider,
+      onChange: (context, value) {
+        // move to the end of the list of categories
+        if (value.state == CategoryCreatorStatus.success) {
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent + 400,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeIn,
+          );
+        }
       },
+      child: ListView.builder(
+        controller: _scrollController,
+        scrollDirection: Axis.horizontal,
+        itemCount: widget.state.categories.length,
+        itemBuilder: (context, index) {
+          final category = widget.state.categories[index];
+          return SizedBox(
+            width: 400,
+            child: CategoryCard(
+              category: category,
+              onFocusChange: (_) =>
+                  context.read(backgroundColorProvider).state = category.color,
+              onHover: (_) =>
+                  context.read(backgroundColorProvider).state = category.color,
+              onTap: () {
+                Navigator.of(context).push(PageRouteBuilder(
+                  pageBuilder: (context, anim1, anim2) =>
+                      CategoryScreen(category: category),
+                  transitionsBuilder: (context, anim1, anim2, child) {
+                    return FadeTransition(
+                      opacity: anim1,
+                      child: child,
+                    );
+                  },
+                ));
+              },
+            ),
+          );
+        },
+      ),
     );
   }
 }
