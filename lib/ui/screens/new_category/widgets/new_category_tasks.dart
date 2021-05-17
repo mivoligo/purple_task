@@ -33,13 +33,7 @@ class CategoryTasks extends StatefulWidget {
 }
 
 class _CategoryTasksState extends State<CategoryTasks> {
-  late ScrollController _scrollController;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-  }
+  late final _scrollController = ScrollController();
 
   @override
   void dispose() {
@@ -89,7 +83,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
                   widget.onAddTask(value);
                   setState(() {
                     _scrollController.animateTo(
-                        _scrollController.position.maxScrollExtent + 100,
+                        _scrollController.position.minScrollExtent,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.ease);
                   });
@@ -114,10 +108,11 @@ class _CategoryTasksState extends State<CategoryTasks> {
                     separatorBuilder: (context, index) =>
                         const Divider(height: 6.0),
                     itemBuilder: (context, index) {
+                      final reversedList = widget.tasks.reversed.toList();
                       return ListTile(
                         contentPadding:
                             const EdgeInsets.symmetric(horizontal: 0),
-                        title: Text(widget.tasks[index].name),
+                        title: Text(reversedList[index].name),
                       );
                     },
                   ),
