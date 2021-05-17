@@ -4,6 +4,11 @@ import '../../../../../controllers/controllers.dart';
 import '../../../screens.dart';
 import '../widgets.dart';
 
+enum CategoryCreatorStatus { normal, success }
+
+final categoryCreatorStatusProvider =
+    StateProvider((_) => CategoryCreatorStatus.normal);
+
 class CategoryList extends StatefulWidget {
   @override
   _CategoryListState createState() => _CategoryListState();
@@ -66,32 +71,44 @@ class _HorizontalPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageView.builder(
-      controller: pageController,
-      itemCount: state.categories.length,
-      onPageChanged: (index) => context.read(backgroundColorProvider).state =
-          state.categories[index].color,
-      itemBuilder: (context, index) {
-        final category = state.categories[index];
-
-        return CategoryCard(
-          category: category,
-          onTap: () {
-            Navigator.of(context).push(
-              PageRouteBuilder(
-                pageBuilder: (context, anim1, anim2) =>
-                    CategoryScreen(category: category),
-                transitionsBuilder: (context, anim1, anim2, child) {
-                  return FadeTransition(
-                    opacity: anim1,
-                    child: child,
-                  );
-                },
-              ),
-            );
-          },
-        );
+    return ProviderListener<StateController<CategoryCreatorStatus>>(
+      provider: categoryCreatorStatusProvider,
+      onChange: (context, value) {
+        if (value.state == CategoryCreatorStatus.success) {
+          pageController.animateToPage(
+            state.categories.length,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeIn,
+          );
+        }
       },
+      child: PageView.builder(
+        controller: pageController,
+        itemCount: state.categories.length,
+        onPageChanged: (index) => context.read(backgroundColorProvider).state =
+            state.categories[index].color,
+        itemBuilder: (context, index) {
+          final category = state.categories[index];
+
+          return CategoryCard(
+            category: category,
+            onTap: () {
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, anim1, anim2) =>
+                      CategoryScreen(category: category),
+                  transitionsBuilder: (context, anim1, anim2, child) {
+                    return FadeTransition(
+                      opacity: anim1,
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

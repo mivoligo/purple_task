@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:purple_task/ui/screens/main_screen/widgets/category/category_list.dart';
 
 import '../../../controllers/controllers.dart';
 import 'widgets/widgets.dart';
@@ -64,6 +65,8 @@ class NewCategoryScreen extends ConsumerWidget {
           color: newCategoryState.color,
           onNext: () {
             newCategoryController.addNewCategory();
+            watch(categoryCreatorStatusProvider).state =
+                CategoryCreatorStatus.success;
             Navigator.of(context).pop();
           },
           onCancel: () {
