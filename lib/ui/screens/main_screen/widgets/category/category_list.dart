@@ -152,9 +152,9 @@ class __HorizontalListState extends State<_HorizontalList> {
             child: CategoryCard(
               category: category,
               onFocusChange: (_) =>
-                  context.read(backgroundColorProvider).state = category.color,
+                  context.read(currentCategoryProvider).state = category,
               onHover: (_) =>
-                  context.read(backgroundColorProvider).state = category.color,
+                  context.read(currentCategoryProvider).state = category,
               onTap: () {
                 Navigator.of(context).push(PageRouteBuilder(
                   pageBuilder: (context, anim1, anim2) =>

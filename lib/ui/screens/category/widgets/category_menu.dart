@@ -9,6 +9,7 @@ import '../../../../models/models.dart';
 import '../../../widgets/category/confirmation_dialog.dart';
 import '../../../widgets/color_selector.dart';
 import '../../../widgets/icon_selector.dart';
+import '../../screens.dart';
 
 class CategoryMenu extends StatefulWidget {
   const CategoryMenu({
@@ -228,6 +229,8 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   onConfirm: () {
                     final updatedCategory = category.copyWith(color: color);
                     _updateCategory(context, updatedCategory);
+                    context.read(currentCategoryProvider).state =
+                        updatedCategory;
                   },
                 );
               },

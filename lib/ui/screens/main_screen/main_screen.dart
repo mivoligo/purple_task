@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../controllers/controllers.dart';
 import '../../../models/models.dart';
 import 'widgets/widgets.dart';
 
+final currentCategoryProvider = StateProvider<Category?>((_) => null);
+
 final backgroundColorProvider = StateProvider<Color>((ref) {
-  final categoriesList = ref.watch(categoriesProvider).categories;
-  return categoriesList.isNotEmpty ? categoriesList[0].color : Colors.purple;
+  final currentCategory = ref.watch(currentCategoryProvider).state;
+  return currentCategory?.color ?? Colors.purple;
 });
 
 class MainScreen extends StatefulWidget {
