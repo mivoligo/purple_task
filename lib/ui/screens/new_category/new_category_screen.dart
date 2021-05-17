@@ -69,8 +69,6 @@ class NewCategoryScreen extends ConsumerWidget {
           color: newCategoryState.color,
           onNext: () {
             newCategoryController.addNewCategory();
-            watch(categoryCreatorStatusProvider).state =
-                CategoryCreatorStatus.success;
             Navigator.of(context).pop();
           },
           onCancel: () {
