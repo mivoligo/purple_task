@@ -3,8 +3,8 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 import 'app.dart';
+import 'constants/constants.dart';
 import 'entities/entities.dart';
-import 'globals/globals.dart';
 import 'models/models.dart';
 
 void main() async {

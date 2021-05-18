@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../globals/globals.dart';
-import '../../../../globals/strings/strings.dart' as s;
+import '../../../../constants/constants.dart';
+import '../../../../constants/strings/strings.dart' as s;
 import '../../../widgets/widgets.dart';
 
 class NewCategoryBase extends StatelessWidget {

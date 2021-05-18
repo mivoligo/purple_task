@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../globals/strings/strings.dart' as s;
+import '../../../../constants/strings/strings.dart' as s;
 
 import '../../screens.dart';
 import 'widgets.dart';

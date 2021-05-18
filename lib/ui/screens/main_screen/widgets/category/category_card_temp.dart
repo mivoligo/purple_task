@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../../constants/constants.dart';
+import '../../../../../constants/strings/strings.dart' as s;
 import '../../../../../controllers/controllers.dart';
-import '../../../../../globals/globals.dart';
-import '../../../../../globals/strings/strings.dart' as s;
 import '../../../../../models/models.dart';
-import '../../../../widgets/animated_progress_bar.dart';
-import '../../../../widgets/category_header.dart';
+import '../../../../widgets/widgets.dart';
 
 class CategoryCardTemp extends StatelessWidget {
   const CategoryCardTemp({

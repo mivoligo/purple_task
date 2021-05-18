@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../constants/constants.dart';
+import '../../../../constants/strings/strings.dart' as s;
 import '../../../../controllers/controllers.dart';
-import '../../../../globals/globals.dart' as g;
-import '../../../../globals/strings/strings.dart' as s;
 import '../../../../helpers.dart';
 
 class TimeFormatSelector extends StatelessWidget {
@@ -19,7 +20,7 @@ class TimeFormatSelector extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 TimeConversion.formatDateNow(state.timeFormat),
-                style: g.CustomStyle.textStyleTaskName
+                style: CustomStyle.textStyleTaskName
                     .copyWith(color: Theme.of(context).primaryColor),
               ),
             ),
@@ -30,15 +31,15 @@ class TimeFormatSelector extends StatelessWidget {
             itemBuilder: (context) {
               var menuList = <PopupMenuEntry<String>>[];
 
-              for (var format in g.timeFormats) {
+              for (var format in timeFormats) {
                 menuList.add(
                   PopupMenuItem(
                     child: Text(
                       TimeConversion.formatDateNow(format),
                       style: state.timeFormat == format
-                          ? g.CustomStyle.textStyleTaskName
+                          ? CustomStyle.textStyleTaskName
                               .copyWith(color: Theme.of(context).primaryColor)
-                          : g.CustomStyle.textStyleTaskName,
+                          : CustomStyle.textStyleTaskName,
                     ),
                     value: format,
                   ),

@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-
-import '../../../../globals/globals.dart' as g;
+import '../../constants/constants.dart';
 import '../../entities/entities.dart';
 import '../../models/models.dart';
 import '../repositories.dart';
@@ -9,7 +8,7 @@ import '../repositories.dart';
 final taskRepositoryProvider = Provider((ref) => TaskRepository());
 
 class TaskRepository extends BaseTaskRepository {
-  final _box = Hive.box<TaskEntity>(g.taskBox);
+  final _box = Hive.box<TaskEntity>(taskBox);
 
   @override
   Future<Task> add({required Task task}) async {

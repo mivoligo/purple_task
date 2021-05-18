@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../globals/custom_styles.dart';
+import '../../../constants/constants.dart';
 
 class SliverTaskListHeader extends StatelessWidget {
   const SliverTaskListHeader({

@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'globals/strings/strings.dart' as s;
+import 'constants/strings/strings.dart' as s;
 
 class TimeConversion {
   static String millisToDateAndTime(

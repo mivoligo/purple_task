@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../constants/strings/strings.dart' as s;
 import '../../../../controllers/controllers.dart';
-import '../../../../globals/strings/strings.dart' as s;
 
 class Greetings extends StatelessWidget {
   const Greetings({Key? key}) : super(key: key);
@@ -26,11 +27,10 @@ class Greetings extends StatelessWidget {
                 break;
               case 1:
                 text =
-                    '${s.greetingsStart} $tasksNumber ${s.greetingsEndSingular}';
+                    '${s.greetingsStart}$tasksNumber${s.greetingsEndSingular}';
                 break;
               default:
-                text =
-                    '${s.greetingsStart} $tasksNumber ${s.greetingsEndPlural}';
+                text = '${s.greetingsStart}$tasksNumber${s.greetingsEndPlural}';
             }
             return Text(
               text,

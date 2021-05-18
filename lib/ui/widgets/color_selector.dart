@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
+import '../../constants/constants.dart';
 import '../../controllers/controllers.dart';
-import '../../globals/globals.dart' as g;
 import '../../models/models.dart';
 
 class ColorSelector extends StatelessWidget {
@@ -23,9 +23,9 @@ class ColorSelector extends StatelessWidget {
     return AnimationLimiter(
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: g.categoryColors.length,
+        itemCount: categoryColors.length,
         itemBuilder: (context, index) {
-          final isSelected = selectedColor == Color(g.categoryColors[index]);
+          final isSelected = selectedColor == Color(categoryColors[index]);
           return AnimationConfiguration.staggeredList(
             position: index,
             duration: const Duration(milliseconds: 300),
@@ -39,25 +39,25 @@ class ColorSelector extends StatelessWidget {
                   child: SizedBox(
                     width: 70,
                     child: Card(
-                      color: Color(g.categoryColors[index]),
+                      color: Color(categoryColors[index]),
                       elevation: isSelected ? 6 : 1,
                       child: InkWell(
                         onFocusChange: isInCreator
                             ? (_) => context
                                 .read(newCategoryControllerProvider.notifier)
-                                .colorChanged(Color(g.categoryColors[index]))
+                                .colorChanged(Color(categoryColors[index]))
                             : (_) => context
                                 .read(categoryProvider(category!).notifier)
                                 .colorChanged(
-                                    color: Color(g.categoryColors[index])),
+                                    color: Color(categoryColors[index])),
                         onTap: isInCreator
                             ? () => context
                                 .read(newCategoryControllerProvider.notifier)
-                                .colorChanged(Color(g.categoryColors[index]))
+                                .colorChanged(Color(categoryColors[index]))
                             : () => context
                                 .read(categoryProvider(category!).notifier)
                                 .colorChanged(
-                                    color: Color(g.categoryColors[index])),
+                                    color: Color(categoryColors[index])),
                         child: isSelected
                             ? const Icon(
                                 AntIcons.check_outline,

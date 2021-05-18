@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../constants/constants.dart';
+import '../../../constants/strings/strings.dart' as s;
 import '../../../controllers/controllers.dart';
-import '../../../globals/globals.dart';
-import '../../../globals/strings/strings.dart' as s;
 import '../../../models/models.dart';
 import 'category_selector.dart';
 

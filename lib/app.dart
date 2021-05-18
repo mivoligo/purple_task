@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'globals/strings/strings.dart' as s;
+import 'constants/strings/strings.dart' as s;
 import 'ui/screens/screens.dart';
 
 class App extends StatelessWidget {

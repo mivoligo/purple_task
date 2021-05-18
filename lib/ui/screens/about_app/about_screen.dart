@@ -1,8 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 
-import '../../../globals/globals.dart';
-import '../../../globals/strings/strings.dart' as s;
+import '../../../constants/constants.dart';
+import '../../../constants/strings/strings.dart' as s;
 import '../../../helpers.dart';
 import '../../widgets/widgets.dart';
 

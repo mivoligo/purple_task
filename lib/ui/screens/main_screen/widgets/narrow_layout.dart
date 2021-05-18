@@ -2,8 +2,8 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../constants/strings/strings.dart' as s;
 import '../../../../controllers/controllers.dart';
-import '../../../../globals/strings/strings.dart' as s;
 import '../../../../models/models.dart';
 import '../../../widgets/widgets.dart';
 import '../../screens.dart';
