@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:purple_task/models/models.dart';
-import '../../controllers/controllers.dart';
 
+import '../../controllers/controllers.dart';
 import '../../globals/globals.dart' as g;
+import '../../models/models.dart';
 
 class IconSelector extends StatelessWidget {
   const IconSelector({
