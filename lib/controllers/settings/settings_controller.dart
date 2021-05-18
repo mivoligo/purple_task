@@ -2,12 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../repositories/repositories.dart';
 import 'settings_state.dart';
 
-final settingsControllerProvider =
-    StateNotifierProvider<SettingsController, SettingsState>((ref) {
-  return SettingsController(
-      baseSettingsRepository: ref.watch(settingsRepositoryProvider));
-});
-
 class SettingsController extends StateNotifier<SettingsState> {
   SettingsController({
     required BaseSettingsRepository baseSettingsRepository,

@@ -9,16 +9,6 @@ import '../../models/models.dart';
 import '../controllers.dart';
 import 'new_category_state.dart';
 
-final newCategoryControllerProvider =
-    StateNotifierProvider.autoDispose<NewCategoryController, NewCategoryState>(
-  (ref) {
-    return NewCategoryController(
-      categoriesController: ref.watch(categoriesProvider.notifier),
-      tasksController: ref.watch(tasksProvider.notifier),
-    );
-  },
-);
-
 class NewCategoryController extends StateNotifier<NewCategoryState> {
   NewCategoryController({
     required CategoriesController categoriesController,

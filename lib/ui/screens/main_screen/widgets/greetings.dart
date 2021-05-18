@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/strings/strings.dart' as s;
-import '../../../../controllers/controllers.dart';
+import '../../../../providers/providers.dart';
 
 class Greetings extends StatelessWidget {
   const Greetings({Key? key}) : super(key: key);

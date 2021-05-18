@@ -3,11 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/models.dart';
 import '../controllers.dart';
 
-final taskTileProvider = StateNotifierProvider.family
-    .autoDispose<TaskTileController, TaskTileState, Task>(
-  (ref, task) => TaskTileController(task: task),
-);
-
 class TaskTileController extends StateNotifier<TaskTileState> {
   TaskTileController({required this.task}) : super(TaskTileState.initial()) {
     _load(task: task);

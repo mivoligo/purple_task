@@ -1,10 +1,7 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import '../../constants/constants.dart';
 
 import 'base_settings_repository.dart';
-
-final settingsRepositoryProvider = Provider((ref) => SettingsRepository());
 
 class SettingsRepository extends BaseSettingsRepository {
   final _box = Hive.box(settingsBox);

@@ -1,31 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/models.dart';
 
 import '../../repositories/repositories.dart';
 import '../controllers.dart';
-
-final categoriesProvider =
-    StateNotifierProvider<CategoriesController, CategoriesState>((ref) {
-  return CategoriesController(
-    baseCategoryRepository: ref.watch(categoryRepositoryProvider),
-  );
-});
-
-final categoryNameProvider = Provider.family<String, int>((ref, categoryId) {
-  final categories = ref.watch(categoriesProvider).categories;
-  return categories.firstWhere((element) => element.id == categoryId).name;
-});
-
-final categoryColorProvider = Provider.family<Color, int>((ref, categoryId) {
-  final categories = ref.watch(categoriesProvider).categories;
-  return categories.firstWhere((element) => element.id == categoryId).color;
-});
-
-final categoryIconProvider = Provider.family<int, int>((ref, categoryId) {
-  final categories = ref.watch(categoriesProvider).categories;
-  return categories.firstWhere((element) => element.id == categoryId).icon;
-});
 
 class CategoriesController extends StateNotifier<CategoriesState> {
   CategoriesController({

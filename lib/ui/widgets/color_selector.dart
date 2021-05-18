@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../constants/constants.dart';
-import '../../controllers/controllers.dart';
 import '../../models/models.dart';
+import '../../providers/providers.dart';
 
 class ColorSelector extends StatelessWidget {
   const ColorSelector({

@@ -1,11 +1,8 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import '../../constants/constants.dart';
 import '../../entities/entities.dart';
 import '../../models/models.dart';
 import '../repositories.dart';
-
-final taskRepositoryProvider = Provider((ref) => TaskRepository());
 
 class TaskRepository extends BaseTaskRepository {
   final _box = Hive.box<TaskEntity>(taskBox);

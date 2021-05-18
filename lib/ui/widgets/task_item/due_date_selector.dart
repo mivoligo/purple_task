@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/constants.dart';
 import '../../../constants/strings/strings.dart' as s;
-import '../../../controllers/controllers.dart';
 import '../../../helpers.dart';
 import '../../../models/models.dart';
+import '../../../providers/providers.dart';
 
 class DueDateSelector extends StatelessWidget {
   const DueDateSelector({

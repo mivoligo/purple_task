@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/constants.dart';
 import '../../../../../constants/strings/strings.dart' as s;
-import '../../../../../controllers/controllers.dart';
 import '../../../../../models/models.dart';
+import '../../../../../providers/providers.dart';
 import '../../../../widgets/widgets.dart';
 
 class CategoryCardTemp extends StatelessWidget {

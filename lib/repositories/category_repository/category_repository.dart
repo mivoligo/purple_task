@@ -1,12 +1,9 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
 import '../../constants/constants.dart';
 import '../../entities/entities.dart';
 import '../../models/models.dart';
 import '../repositories.dart';
-
-final categoryRepositoryProvider = Provider((ref) => CategoryRepository());
 
 class CategoryRepository extends BaseCategoryRepository {
   final _box = Hive.box<CategoryEntity>(categoryBox);

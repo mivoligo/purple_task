@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/constants.dart';
 import '../../../../constants/strings/strings.dart' as s;
-import '../../../../controllers/controllers.dart';
+import '../../../../providers/providers.dart';
 import '../../category/widgets/widgets.dart';
 
 class UncategorizedTasks extends ConsumerWidget {

@@ -7,6 +7,7 @@ import '../../../constants/strings/strings.dart' as s;
 import '../../../controllers/controllers.dart';
 import '../../../helpers.dart';
 import '../../../models/models.dart';
+import '../../../providers/providers.dart';
 import '../widgets.dart';
 import 'due_date_selector.dart';
 import 'task_options.dart';
