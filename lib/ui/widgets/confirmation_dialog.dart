@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../globals/globals.dart';
-import '../../../globals/strings/strings.dart' as s;
-import '../../ui.dart';
+
+import '../../globals/globals.dart';
+import '../../globals/strings/strings.dart' as s;
+import 'widgets.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   const ConfirmationDialog({

@@ -1,11 +1,13 @@
 export 'add_task_field.dart';
 export 'animated_progress_bar.dart';
-export 'category/category.dart';
 export 'category_header.dart';
 export 'color_selector.dart';
+export 'confirmation_dialog.dart';
 export 'dialog_base.dart';
 export 'icon_button.dart';
 export 'icon_selector.dart';
 export 'simple_button.dart';
 export 'task_item/task_item.dart';
-export 'task_list/task_list.dart';
+export 'tasks_list/sliver_task_list_header.dart';
+export 'tasks_list/sliver_tasks_list.dart';
+export 'tasks_list/task_list.dart';

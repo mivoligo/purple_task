@@ -12,9 +12,9 @@ class DialogBase extends StatefulWidget {
     required this.heroTag,
     required this.content,
   }) : super(key: key);
+
   final String title;
   final String heroTag;
-
   final Widget content;
 
   @override

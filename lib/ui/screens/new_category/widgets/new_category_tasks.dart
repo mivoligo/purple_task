@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../globals/globals.dart';
 import '../../../../globals/strings/strings.dart' as s;
 import '../../../../models/models.dart';
-import '../../../ui.dart';
-import 'new_category_base.dart';
+import '../../../widgets/widgets.dart';
+import 'widgets.dart';
 
 class CategoryTasks extends StatefulWidget {
   CategoryTasks({

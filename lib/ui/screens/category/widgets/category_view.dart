@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../controllers/controllers.dart';
 import '../../../../globals/strings/strings.dart' as s;
-
 import '../../../../models/models.dart';
-import '../../../ui.dart';
+import '../../../widgets/widgets.dart';
 
 class CategoryView extends StatefulWidget {
   const CategoryView({required this.categoryId});

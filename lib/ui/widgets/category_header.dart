@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../ui.dart';
+import 'widgets.dart';
 
 class CategoryHeader extends StatelessWidget {
   const CategoryHeader({

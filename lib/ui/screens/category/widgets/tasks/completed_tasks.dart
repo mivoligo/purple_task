@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../../controllers/controllers.dart';
 import '../../../../../globals/strings/strings.dart' as s;
-import '../../../../widgets/task_list/sliver_tasks_list.dart';
-import '../../../../widgets/task_list/task_list.dart';
+import '../../../../widgets/widgets.dart';
 
 class CompletedTasks extends StatefulWidget {
   const CompletedTasks({
