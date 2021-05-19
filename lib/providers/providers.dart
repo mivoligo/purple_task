@@ -284,3 +284,19 @@ final settingsControllerProvider =
   return SettingsController(
       baseSettingsRepository: ref.watch(settingsRepositoryProvider));
 });
+
+final currentCategoryProvider = StateProvider<Category?>((_) => null);
+
+final backgroundColorProvider = Provider<Color>((ref) {
+  final currentCategory = ref.watch(currentCategoryProvider).state;
+  final categories = ref.watch(categoriesProvider).categories;
+  if (categories.isEmpty) {
+    return Colors.purple;
+  } else {
+    if (currentCategory == null) {
+      return categories[0].color;
+    } else {
+      return currentCategory.color;
+    }
+  }
+});

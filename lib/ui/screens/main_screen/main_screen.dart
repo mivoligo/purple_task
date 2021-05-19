@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../models/models.dart';
+import '../../../providers/providers.dart';
 import 'widgets/widgets.dart';
-
-final currentCategoryProvider = StateProvider<Category?>((_) => null);
-
-final backgroundColorProvider = StateProvider<Color>((ref) {
-  final currentCategory = ref.watch(currentCategoryProvider).state;
-  return currentCategory?.color ?? Colors.purple;
-});
 
 class MainScreen extends StatefulWidget {
   @override
@@ -49,7 +44,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
       children: [
         Consumer(
           builder: (context, watch, _) {
-            final backgroundColor = watch(backgroundColorProvider).state;
+            final backgroundColor = watch(backgroundColorProvider);
 
             return AnimatedContainer(
               duration: const Duration(milliseconds: 300),

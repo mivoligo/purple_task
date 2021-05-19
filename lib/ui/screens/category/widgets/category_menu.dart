@@ -7,7 +7,6 @@ import '../../../../constants/strings/strings.dart' as s;
 import '../../../../models/models.dart';
 import '../../../../providers/providers.dart';
 import '../../../widgets/widgets.dart';
-import '../../screens.dart';
 
 class CategoryMenu extends StatefulWidget {
   const CategoryMenu({

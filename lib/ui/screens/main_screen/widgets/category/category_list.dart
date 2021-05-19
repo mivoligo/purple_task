@@ -80,8 +80,8 @@ class __HorizontalPagesState extends State<_HorizontalPages> {
       child: PageView.builder(
         controller: _pageController,
         itemCount: widget.state.categories.length,
-        onPageChanged: (index) => context.read(backgroundColorProvider).state =
-            widget.state.categories[index].color,
+        onPageChanged: (index) => context.read(currentCategoryProvider).state =
+            widget.state.categories[index],
         itemBuilder: (context, index) {
           final category = widget.state.categories[index];
 
