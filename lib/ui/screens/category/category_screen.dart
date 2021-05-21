@@ -209,7 +209,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     );
                                   },
                                   child: AddTaskField(
-                                    addTask: (value) {
+                                    onAddTask: (value) {
                                       final task = Task(
                                         name: value,
                                         categoryId: currentCategory.id,

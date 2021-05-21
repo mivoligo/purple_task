@@ -126,7 +126,7 @@ class _CategoryViewState extends State<CategoryView>
                     );
                   },
                   child: AddTaskField(
-                    addTask: (value) {
+                    onAddTask: (value) {
                       final task = Task(
                         name: value,
                         categoryId: widget.categoryId,

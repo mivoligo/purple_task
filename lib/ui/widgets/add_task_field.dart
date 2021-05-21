@@ -7,10 +7,10 @@ import '../../constants/strings/strings.dart' as s;
 class AddTaskField extends StatefulWidget {
   const AddTaskField({
     Key? key,
-    required this.addTask,
+    required this.onAddTask,
   }) : super(key: key);
 
-  final Function(String) addTask;
+  final Function(String) onAddTask;
 
   @override
   _AddTaskFieldState createState() => _AddTaskFieldState();
@@ -57,7 +57,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
         ),
         onPressed: _hasText
             ? () {
-                widget.addTask(_controller.text);
+                widget.onAddTask(_controller.text);
                 _controller.clear();
                 _focusNode.requestFocus();
               }
@@ -65,7 +65,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
       ),
       onSubmitted: _hasText
           ? (v) {
-              widget.addTask(_controller.text);
+              widget.onAddTask(_controller.text);
               _controller.clear();
               _focusNode.requestFocus();
             }

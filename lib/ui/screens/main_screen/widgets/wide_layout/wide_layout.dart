@@ -2,13 +2,14 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:purple_task/ui/screens/main_screen/widgets/wide_layout/selected_category_tasks.dart';
 
-import '../../../../constants/strings/strings.dart' as s;
-import '../../../../models/models.dart';
-import '../../../../providers/providers.dart';
-import '../../../widgets/widgets.dart';
-import '../../screens.dart';
-import 'widgets.dart';
+import '../../../../../constants/strings/strings.dart' as s;
+import '../../../../../models/models.dart';
+import '../../../../../providers/providers.dart';
+import '../../../../widgets/widgets.dart';
+import '../../../screens.dart';
+import '../widgets.dart';
 
 class WideLayout extends StatelessWidget {
   const WideLayout({
@@ -94,7 +95,7 @@ class WideLayout extends StatelessWidget {
                       SizedBox(
                         width: 500,
                         child: AddTaskField(
-                          addTask: (value) {
+                          onAddTask: (value) {
                             final task = Task(
                               name: value,
                               categoryId: -1,
@@ -105,10 +106,16 @@ class WideLayout extends StatelessWidget {
                           },
                         ),
                       ),
-                      UncategorizedTasks(
+                      // UncategorizedTasks(
+                      //   width: 460,
+                      //   height: appHeight - 186,
+                      // ),
+                      SelectedCategoryTasks(
+                        category:
+                            context.read(categoriesProvider).categories[0],
                         width: 460,
-                        height: appHeight - 186,
-                      ),
+                        height: appHeight - 152,
+                      )
                     ],
                   ),
                 ),

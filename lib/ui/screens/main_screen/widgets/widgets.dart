@@ -5,4 +5,4 @@ export 'category/category_tile.dart';
 export 'greetings.dart';
 export 'narrow_layout.dart';
 export 'uncategorized_tasks.dart';
-export 'wide_layout.dart';
+export 'wide_layout/wide_layout.dart';

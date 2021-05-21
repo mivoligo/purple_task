@@ -79,7 +79,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
             Padding(
               padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 4.0),
               child: AddTaskField(
-                addTask: (value) {
+                onAddTask: (value) {
                   widget.onAddTask(value);
                   setState(() {
                     _scrollController.animateTo(

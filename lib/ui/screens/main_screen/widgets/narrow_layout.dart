@@ -63,7 +63,7 @@ class NarrowLayout extends StatelessWidget {
                     SizedBox(
                       width: 440,
                       child: AddTaskField(
-                        addTask: (value) {
+                        onAddTask: (value) {
                           final task = Task(
                             name: value,
                             categoryId: -1,
