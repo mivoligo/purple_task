@@ -62,13 +62,19 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
               );
             },
           ),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              if (constraints.maxWidth < 1000) {
-                return const NarrowLayout();
-              } else {
-                return const WideLayout();
-              }
+          Consumer(
+            builder: (context, watch, _) {
+              final isCategoryListEmpty =
+                  watch(categoriesProvider).categories.isEmpty;
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  if (constraints.maxWidth < 1000 || isCategoryListEmpty) {
+                    return const NarrowLayout();
+                  } else {
+                    return const WideLayout();
+                  }
+                },
+              );
             },
           ),
         ],

@@ -66,7 +66,7 @@ class WideLayout extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(
-                width: 500,
+                width: 450,
                 child: Column(
                   children: [
                     Expanded(child: CategoryList()),
