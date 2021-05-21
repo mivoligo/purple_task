@@ -7,18 +7,21 @@ import '../../../../providers/providers.dart';
 import '../../category/widgets/widgets.dart';
 
 class UncategorizedTasks extends ConsumerWidget {
-  const UncategorizedTasks({
+  UncategorizedTasks({
+    required this.height,
+    required this.width,
     Key? key,
   }) : super(key: key);
 
+  final double width;
+  final double height;
+
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final appHeight = MediaQuery.of(context).size.height;
-    final listHeight = appHeight - 542;
     final uncategorizedTasks = watch(uncategorizedTasksProvider);
     return uncategorizedTasks.isNotEmpty
         ? Container(
-            width: 400,
+            width: width,
             decoration: CustomStyle.uncategorizedTasksDecoration,
             child: Row(
               children: [
@@ -34,7 +37,7 @@ class UncategorizedTasks extends ConsumerWidget {
                         ),
                       ),
                       LimitedBox(
-                        maxHeight: listHeight,
+                        maxHeight: height,
                         child: const AllTasks(
                           categoryId: -1,
                           shrinkWrap: true,

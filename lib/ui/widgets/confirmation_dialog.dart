@@ -31,7 +31,7 @@ class ConfirmationDialog extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: CustomStyle.textStyleBigName,
+        style: CustomStyle.textStyle24,
       ),
       content: content,
       buttonPadding: const EdgeInsets.all(16.0),

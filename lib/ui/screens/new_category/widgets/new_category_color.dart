@@ -37,7 +37,7 @@ class CategoryColor extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(48.0, 20.0, 32.0, 4.0),
               child: Text(
                 name,
-                style: CustomStyle.textStyleBigName,
+                style: CustomStyle.textStyle24,
               ),
             ),
             Expanded(

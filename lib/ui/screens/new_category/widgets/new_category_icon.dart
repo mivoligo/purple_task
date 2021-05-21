@@ -51,7 +51,7 @@ class CategoryIcon extends StatelessWidget {
                   ),
                   Text(
                     name,
-                    style: CustomStyle.textStyleBigName,
+                    style: CustomStyle.textStyle24,
                   ),
                 ],
               ),

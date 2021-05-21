@@ -71,7 +71,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
                   ),
                   Text(
                     widget.name,
-                    style: CustomStyle.textStyleBigName,
+                    style: CustomStyle.textStyle24,
                   ),
                 ],
               ),

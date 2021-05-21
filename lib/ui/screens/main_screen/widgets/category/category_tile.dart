@@ -7,21 +7,19 @@ import '../../../../../models/models.dart';
 import '../../../../../providers/providers.dart';
 import '../../../../widgets/widgets.dart';
 
-class CategoryCardTemp extends StatelessWidget {
-  const CategoryCardTemp({
+class CategoryTile extends StatelessWidget {
+  const CategoryTile({
     Key? key,
     required this.category,
     required this.onTap,
     this.onHover,
     this.onFocusChange,
-    this.isInVerticalList = false,
   }) : super(key: key);
 
   final Category category;
   final VoidCallback onTap;
   final Function? onHover;
   final Function? onFocusChange;
-  final bool isInVerticalList;
 
   @override
   Widget build(BuildContext context) {
@@ -54,19 +52,12 @@ class CategoryCardTemp extends StatelessWidget {
             onHover: (_) => onHover,
             onFocusChange: (_) => onFocusChange,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: isInVerticalList
-                  ? _ShortView(
-                      category: category,
-                      descriptionText: description,
-                      completionProgress: progress,
-                    )
-                  : _TallView(
-                      category: category,
-                      descriptionText: description,
-                      completionProgress: progress,
-                    ),
-            ),
+                padding: const EdgeInsets.all(8.0),
+                child: _ShortView(
+                  category: category,
+                  descriptionText: description,
+                  completionProgress: progress,
+                )),
           );
         },
       ),
@@ -107,7 +98,7 @@ class _ShortView extends StatelessWidget {
             ),
             Text(
               '${category.name}',
-              style: CustomStyle.textStyleBigName,
+              style: CustomStyle.textStyle20,
             )
           ],
         ),
@@ -128,54 +119,6 @@ class _ShortView extends StatelessWidget {
               const SizedBox(width: 8),
               Text('${(completionProgress * 100).toInt()}%'),
             ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _TallView extends StatelessWidget {
-  const _TallView({
-    Key? key,
-    required this.category,
-    required this.descriptionText,
-    required this.completionProgress,
-  }) : super(key: key);
-
-  final Category category;
-  final String descriptionText;
-  final double completionProgress;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Row(
-            children: [
-              Icon(
-                IconData(
-                  category.icon,
-                  fontFamily: 'AntIcons',
-                  fontPackage: 'ant_icons',
-                ),
-                size: 42.0,
-                color: category.color,
-              ),
-            ],
-          ),
-        ),
-        const Spacer(),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: CategoryHeader(
-            title: category.name,
-            description: descriptionText,
-            progress: completionProgress,
-            color: category.color,
           ),
         ),
       ],

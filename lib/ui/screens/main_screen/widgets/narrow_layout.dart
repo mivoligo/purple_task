@@ -16,6 +16,8 @@ class NarrowLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appHeight = MediaQuery.of(context).size.height;
+
     return Column(
       children: [
         Row(
@@ -50,37 +52,32 @@ class NarrowLayout extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: Material(
-            type: MaterialType.transparency,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                const Positioned(top: 0, left: 30, child: Greetings()),
-                Positioned(
-                  top: 80,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: 440,
-                        child: AddTaskField(
-                          addTask: (value) {
-                            final task = Task(
-                              name: value,
-                              categoryId: -1,
-                            );
-                            context
-                                .read(tasksProvider.notifier)
-                                .add(task: task);
-                          },
-                        ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              const Positioned(top: 0, left: 30, child: Greetings()),
+              Positioned(
+                top: 80,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 440,
+                      child: AddTaskField(
+                        addTask: (value) {
+                          final task = Task(
+                            name: value,
+                            categoryId: -1,
+                          );
+                          context.read(tasksProvider.notifier).add(task: task);
+                        },
                       ),
-                      const SizedBox(height: 1.0),
-                      const UncategorizedTasks(),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 1.0),
+                    UncategorizedTasks(width: 400, height: appHeight - 542),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         SizedBox(

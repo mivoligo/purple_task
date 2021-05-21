@@ -40,37 +40,39 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Consumer(
-          builder: (context, watch, _) {
-            final backgroundColor = watch(backgroundColorProvider);
+    return Scaffold(
+      body: Stack(
+        children: [
+          Consumer(
+            builder: (context, watch, _) {
+              final backgroundColor = watch(backgroundColorProvider);
 
-            return AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      const Color(0xFF303030),
-                      backgroundColor,
-                      backgroundColor,
-                    ]),
-              ),
-            );
-          },
-        ),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            if (constraints.maxWidth < 1000) {
-              return const NarrowLayout();
-            } else {
-              return const WideLayout();
-            }
-          },
-        ),
-      ],
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        const Color(0xFF303030),
+                        backgroundColor,
+                        backgroundColor,
+                      ]),
+                ),
+              );
+            },
+          ),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              if (constraints.maxWidth < 1000) {
+                return const NarrowLayout();
+              } else {
+                return const WideLayout();
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }

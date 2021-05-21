@@ -93,7 +93,7 @@ class _DialogBaseState extends State<DialogBase>
                           const SizedBox(width: 40.0),
                           Text(
                             widget.title,
-                            style: CustomStyle.textStyleBigName,
+                            style: CustomStyle.textStyle24,
                           ),
                           CustomIconButton(
                             icon: const Icon(AntIcons.close),

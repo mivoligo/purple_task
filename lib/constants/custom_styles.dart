@@ -58,10 +58,15 @@ class CustomStyle {
     fontWeight: FontWeight.w400,
   );
 
-  static const textStyleBigName = TextStyle(
+  static const textStyle24 = TextStyle(
     color: Colors.black,
     fontSize: 24.0,
     fontWeight: FontWeight.w400,
+  );
+
+  static const textStyle20 = TextStyle(
+    color: Colors.black,
+    fontSize: 20,
   );
 
   static const textStyleTaskName = TextStyle(
