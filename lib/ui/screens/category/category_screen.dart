@@ -10,9 +10,7 @@ import '../../widgets/widgets.dart';
 import 'widgets/widgets.dart';
 
 class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({required this.category});
-
-  final Category category;
+  const CategoryScreen();
 
   @override
   _CategoryScreenState createState() => _CategoryScreenState();
@@ -50,9 +48,8 @@ class _CategoryScreenState extends State<CategoryScreen>
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, watch, _) {
-        final currentCategory =
-            watch(categoryProvider(widget.category)).category;
-        final categoryName = watch(categoryNameProvider(currentCategory.id));
+        final currentCategory = watch(currentCategoryProvider).state;
+        final categoryName = watch(categoryNameProvider(currentCategory!.id));
         final categoryColor = watch(categoryColorProvider(currentCategory.id));
         final categoryIcon = watch(categoryIconProvider(currentCategory.id));
         final tasksController = watch(tasksProvider.notifier);
@@ -96,7 +93,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                   top: _isWide ? 40 : 0,
                   bottom: _isWide ? 40 : 0,
                   child: Hero(
-                    tag: 'main${widget.category.id}',
+                    tag: 'main${currentCategory.id}',
                     child: Container(
                       decoration: _isWide
                           ? CustomStyle.dialogDecoration

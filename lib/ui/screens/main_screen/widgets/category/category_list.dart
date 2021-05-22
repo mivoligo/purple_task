@@ -85,22 +85,25 @@ class __HorizontalPagesState extends State<_HorizontalPages> {
         itemBuilder: (context, index) {
           final category = widget.state.categories[index];
 
-          return CategoryCard(
-            category: category,
-            onTap: () {
-              Navigator.of(context).push(
-                PageRouteBuilder(
-                  pageBuilder: (context, anim1, anim2) =>
-                      CategoryScreen(category: category),
-                  transitionsBuilder: (context, anim1, anim2, child) {
-                    return FadeTransition(
-                      opacity: anim1,
-                      child: child,
-                    );
-                  },
-                ),
-              );
-            },
+          return Consumer(
+            builder: (context, watch, _) => CategoryCard(
+              category: category,
+              onTap: () {
+                watch(currentCategoryProvider).state = category;
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    pageBuilder: (context, anim1, anim2) =>
+                        const CategoryScreen(),
+                    transitionsBuilder: (context, anim1, anim2, child) {
+                      return FadeTransition(
+                        opacity: anim1,
+                        child: child,
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
           );
         },
       ),
@@ -160,7 +163,7 @@ class __HorizontalListState extends State<_HorizontalList> {
               onTap: () {
                 Navigator.of(context).push(PageRouteBuilder(
                   pageBuilder: (context, anim1, anim2) =>
-                      CategoryScreen(category: category),
+                      const CategoryScreen(),
                   transitionsBuilder: (context, anim1, anim2, child) {
                     return FadeTransition(
                       opacity: anim1,
@@ -191,9 +194,13 @@ class _VerticalList extends StatelessWidget {
       itemCount: state.categories.length,
       itemBuilder: (context, index) {
         final category = state.categories[index];
-        return CategoryTile(
-          category: category,
-          onTap: () {},
+        return Consumer(
+          builder: (context, watch, _) => CategoryTile(
+            category: category,
+            onTap: () {
+              watch(currentCategoryProvider).state = category;
+            },
+          ),
         );
       },
     );
