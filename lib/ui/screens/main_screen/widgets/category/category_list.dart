@@ -194,14 +194,7 @@ class _VerticalList extends StatelessWidget {
       itemCount: state.categories.length,
       itemBuilder: (context, index) {
         final category = state.categories[index];
-        return Consumer(
-          builder: (context, watch, _) => CategoryTile(
-            category: category,
-            onTap: () {
-              watch(currentCategoryProvider).state = category;
-            },
-          ),
-        );
+        return CategoryTile(category: category);
       },
     );
   }

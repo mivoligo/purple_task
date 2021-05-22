@@ -27,7 +27,7 @@ class WideLayout extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
               child: Greetings(),
             ),
             Row(
@@ -94,16 +94,20 @@ class WideLayout extends StatelessWidget {
                     children: [
                       SizedBox(
                         width: 500,
-                        child: AddTaskField(
-                          onAddTask: (value) {
-                            final task = Task(
-                              name: value,
-                              categoryId: -1,
-                            );
-                            context
-                                .read(tasksProvider.notifier)
-                                .add(task: task);
-                          },
+                        child: Consumer(
+                          builder: (context, watch, _) => AddTaskField(
+                            onAddTask: (value) {
+                              final task = Task(
+                                name: value,
+                                categoryId:
+                                    watch(currentCategoryProvider).state?.id ??
+                                        -1,
+                              );
+                              context
+                                  .read(tasksProvider.notifier)
+                                  .add(task: task);
+                            },
+                          ),
                         ),
                       ),
                       Consumer(
