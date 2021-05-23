@@ -47,7 +47,7 @@ class CategoryTile extends ConsumerWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(12)),
       ),
-      elevation: isCurrentCategory ? 8 : 0,
+      elevation: 0,
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {

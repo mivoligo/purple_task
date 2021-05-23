@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import '../../models/models.dart';
 
-enum CategoryStatus { initial, data, error }
+enum CategoryStatus { initial, data, error, remove }
 
 class CategoryState extends Equatable {
   CategoryState({

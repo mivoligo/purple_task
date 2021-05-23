@@ -25,4 +25,8 @@ class CategoryController extends StateNotifier<CategoryState> {
   void iconChanged({required int icon}) {
     state = state.copyWith(category: category.copyWith(icon: icon));
   }
+
+  void remove() {
+    state = state.copyWith(status: CategoryStatus.remove);
+  }
 }
