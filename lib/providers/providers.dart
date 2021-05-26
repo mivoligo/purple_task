@@ -305,3 +305,8 @@ final backgroundColorWideLayoutProvider = Provider<Color>((ref) {
   final currentCategory = ref.watch(currentCategoryProvider).state;
   return currentCategory?.color ?? Colors.deepPurple;
 });
+
+enum CategoryCreatorStatus { normal, success }
+
+final categoryCreatorStatusProvider =
+    StateProvider((_) => CategoryCreatorStatus.normal);

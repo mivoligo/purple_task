@@ -5,11 +5,6 @@ import '../../../controllers/controllers.dart';
 import '../../../providers/providers.dart';
 import 'widgets/widgets.dart';
 
-enum CategoryCreatorStatus { normal, success }
-
-final categoryCreatorStatusProvider =
-    StateProvider((_) => CategoryCreatorStatus.normal);
-
 class NewCategoryScreen extends ConsumerWidget {
   final _focusNode = FocusNode();
 
