@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -103,7 +105,9 @@ class _CategoryScreenState extends State<CategoryScreen>
                       ),
                     ),
                   Positioned(
-                    width: _isWide ? 600 : constrains.maxWidth,
+                    width: _isWide
+                        ? math.min((constrains.maxWidth - 80), 600)
+                        : constrains.maxWidth,
                     top: _isWide ? 40 : 0,
                     bottom: _isWide ? 40 : 0,
                     child: Hero(
@@ -116,7 +120,9 @@ class _CategoryScreenState extends State<CategoryScreen>
                     ),
                   ),
                   Positioned(
-                    width: _isWide ? 600 : constrains.maxWidth,
+                    width: _isWide
+                        ? math.min((constrains.maxWidth - 80), 600)
+                        : constrains.maxWidth,
                     top: _isWide ? 40 : 0,
                     bottom: _isWide ? 40 : 0,
                     child: Column(
