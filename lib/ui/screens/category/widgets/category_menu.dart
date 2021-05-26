@@ -7,21 +7,24 @@ import '../../../../constants/strings/strings.dart' as s;
 import '../../../../models/models.dart';
 import '../../../../providers/providers.dart';
 import '../../../widgets/widgets.dart';
-import '../../screens.dart';
 
 class CategoryMenu extends StatefulWidget {
   const CategoryMenu({
     required this.categoryId,
+    required this.onDeleteCategory,
+    required this.onRemoveAllTasks,
   });
 
   final int categoryId;
+  final VoidCallback onDeleteCategory;
+  final VoidCallback onRemoveAllTasks;
 
   @override
   _CategoryMenuState createState() => _CategoryMenuState();
 }
 
 class _CategoryMenuState extends State<CategoryMenu> {
-  final textController = TextEditingController();
+  late final textController = TextEditingController();
 
   @override
   void dispose() {
@@ -44,7 +47,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
         elevation: 4.0,
         onSelected: (dynamic item) => onItemSelected(context, item),
         itemBuilder: (context) {
-          var menuList = <PopupMenuEntry<Object>>[];
+          final menuList = <PopupMenuEntry<Object>>[];
           menuList.add(const PopupMenuItem(
             child: Text(s.deleteCompleted),
             value: 1,
@@ -112,9 +115,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
             ),
             confirmationText: s.delete,
             confirmationColor: Colors.red,
-            onConfirm: () => context
-                .read(tasksProvider.notifier)
-                .removeAllTasksForCategory(categoryId: widget.categoryId),
+            onConfirm: widget.onRemoveAllTasks,
           ),
         );
         break;
@@ -131,23 +132,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
             ),
             confirmationText: s.delete,
             confirmationColor: Colors.red,
-            onConfirm: () {
-              final category = context
-                  .read(categoriesProvider)
-                  .categories
-                  .firstWhere((element) => element.id == widget.categoryId);
-              // delete tasks with category id
-              context
-                  .read(tasksProvider.notifier)
-                  .removeAllTasksForCategory(categoryId: widget.categoryId);
-              // remove category
-              context.read(categoryScreenStatusProvider).state =
-                  CategoryScreenStatus.remove;
-
-              context
-                  .read(categoriesProvider.notifier)
-                  .remove(category: category);
-            },
+            onConfirm: widget.onDeleteCategory,
           ),
         );
         break;

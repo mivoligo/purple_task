@@ -149,7 +149,16 @@ class _CategoryScreenState extends State<CategoryScreen>
                                   },
                                 ),
                                 // Menu button
-                                CategoryMenu(categoryId: currentCategory.id),
+                                CategoryMenu(
+                                  categoryId: currentCategory.id,
+                                  onRemoveAllTasks: () => _removeAllTasks(
+                                    context,
+                                    currentCategory,
+                                  ),
+                                  onDeleteCategory: () =>
+                                      _removeCategoryAndTasks(
+                                          context, currentCategory),
+                                ),
                               ],
                             ),
                           ),
@@ -289,6 +298,21 @@ class _CategoryScreenState extends State<CategoryScreen>
         },
       ),
     );
+  }
+
+  void _removeAllTasks(BuildContext context, Category currentCategory) {
+    context
+        .read(tasksProvider.notifier)
+        .removeAllTasksForCategory(categoryId: currentCategory.id);
+  }
+
+  void _removeCategoryAndTasks(BuildContext context, Category currentCategory) {
+    // delete tasks with category id
+    _removeAllTasks(context, currentCategory);
+    // delete category
+    context.read(categoryScreenStatusProvider).state =
+        CategoryScreenStatus.remove;
+    context.read(categoriesProvider.notifier).remove(category: currentCategory);
   }
 
   Widget _buildTasksList(Category category) {

@@ -80,7 +80,12 @@ class CategoryTile extends ConsumerWidget {
                       style: CustomStyle.textStyle20,
                     ),
                   ),
-                  if (isCurrentCategory) CategoryMenu(categoryId: category.id),
+                  if (isCurrentCategory)
+                    CategoryMenu(
+                      categoryId: category.id,
+                      onRemoveAllTasks: () => _removeAllTasks(context),
+                      onDeleteCategory: () => _removeCategoryAndTasks(context),
+                    ),
                 ],
               ),
               Padding(
@@ -107,5 +112,20 @@ class CategoryTile extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  void _removeCategoryAndTasks(BuildContext context) {
+    // delete tasks with category id
+    _removeAllTasks(context);
+    // delete category
+    context.read(categoriesProvider.notifier).remove(category: category);
+    // remove category from current category state
+    context.read(currentCategoryProvider).state = null;
+  }
+
+  void _removeAllTasks(BuildContext context) {
+    context
+        .read(tasksProvider.notifier)
+        .removeAllTasksForCategory(categoryId: category.id);
   }
 }
