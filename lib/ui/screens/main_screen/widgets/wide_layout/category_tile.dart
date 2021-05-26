@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -37,18 +35,16 @@ class CategoryTile extends ConsumerWidget {
       default:
         description = '$activeTasksNumber ${s.taskPlural}';
     }
-    return Card(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 150),
+      curve: Curves.decelerate,
       margin: EdgeInsets.only(
         left: isCurrentCategory ? 12 : 24,
         top: 4,
         right: isCurrentCategory ? 12 : 24,
         bottom: 8,
       ),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(12)),
-      ),
-      elevation: 0,
-      clipBehavior: Clip.antiAlias,
+      decoration: CustomStyle.categoryCardDecoration,
       child: InkWell(
         onTap: () {
           isCurrentCategory
