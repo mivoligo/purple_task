@@ -155,6 +155,11 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     context,
                                     currentCategory,
                                   ),
+                                  onRemoveCompletedTasks: () =>
+                                      _removeCompletedTasks(
+                                    context,
+                                    currentCategory,
+                                  ),
                                   onDeleteCategory: () =>
                                       _removeCategoryAndTasks(
                                           context, currentCategory),
@@ -304,6 +309,12 @@ class _CategoryScreenState extends State<CategoryScreen>
     context
         .read(tasksProvider.notifier)
         .removeAllTasksForCategory(categoryId: currentCategory.id);
+  }
+
+  void _removeCompletedTasks(BuildContext context, Category currentCategory) {
+    context
+        .read(tasksProvider.notifier)
+        .removeCompletedTasksForCategory(categoryId: currentCategory.id);
   }
 
   void _removeCategoryAndTasks(BuildContext context, Category currentCategory) {

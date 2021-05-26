@@ -85,6 +85,8 @@ class CategoryTile extends ConsumerWidget {
                       categoryId: category.id,
                       onRemoveAllTasks: () => _removeAllTasks(context),
                       onDeleteCategory: () => _removeCategoryAndTasks(context),
+                      onRemoveCompletedTasks: () =>
+                          _removeCompletedTasks(context),
                     ),
                 ],
               ),
@@ -114,6 +116,18 @@ class CategoryTile extends ConsumerWidget {
     );
   }
 
+  void _removeAllTasks(BuildContext context) {
+    context
+        .read(tasksProvider.notifier)
+        .removeAllTasksForCategory(categoryId: category.id);
+  }
+
+  void _removeCompletedTasks(BuildContext context) {
+    context
+        .read(tasksProvider.notifier)
+        .removeCompletedTasksForCategory(categoryId: category.id);
+  }
+
   void _removeCategoryAndTasks(BuildContext context) {
     // delete tasks with category id
     _removeAllTasks(context);
@@ -121,11 +135,5 @@ class CategoryTile extends ConsumerWidget {
     context.read(categoriesProvider.notifier).remove(category: category);
     // remove category from current category state
     context.read(currentCategoryProvider).state = null;
-  }
-
-  void _removeAllTasks(BuildContext context) {
-    context
-        .read(tasksProvider.notifier)
-        .removeAllTasksForCategory(categoryId: category.id);
   }
 }

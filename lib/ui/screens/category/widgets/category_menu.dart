@@ -13,11 +13,13 @@ class CategoryMenu extends StatefulWidget {
     required this.categoryId,
     required this.onDeleteCategory,
     required this.onRemoveAllTasks,
+    required this.onRemoveCompletedTasks,
   });
 
   final int categoryId;
   final VoidCallback onDeleteCategory;
   final VoidCallback onRemoveAllTasks;
+  final VoidCallback onRemoveCompletedTasks;
 
   @override
   _CategoryMenuState createState() => _CategoryMenuState();
@@ -96,9 +98,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
             ),
             confirmationText: s.delete,
             confirmationColor: Colors.red,
-            onConfirm: () => context
-                .read(tasksProvider.notifier)
-                .removeCompletedTasksForCategory(categoryId: widget.categoryId),
+            onConfirm: widget.onRemoveCompletedTasks,
           ),
         );
         break;
