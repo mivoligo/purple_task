@@ -41,43 +41,20 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Consumer(
-            builder: (context, watch, _) {
-              final backgroundColor = watch(backgroundColorProvider);
-
-              return AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        const Color(0xFF303030),
-                        backgroundColor,
-                        backgroundColor,
-                      ]),
-                ),
-              );
+      body: Consumer(
+        builder: (context, watch, _) {
+          final isCategoryListEmpty =
+              watch(categoriesProvider).categories.isEmpty;
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              if (constraints.maxWidth < 1000 || isCategoryListEmpty) {
+                return const NarrowLayout();
+              } else {
+                return const WideLayout();
+              }
             },
-          ),
-          Consumer(
-            builder: (context, watch, _) {
-              final isCategoryListEmpty =
-                  watch(categoriesProvider).categories.isEmpty;
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  if (constraints.maxWidth < 1000 || isCategoryListEmpty) {
-                    return const NarrowLayout();
-                  } else {
-                    return const WideLayout();
-                  }
-                },
-              );
-            },
-          ),
-        ],
+          );
+        },
       ),
     );
   }

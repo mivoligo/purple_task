@@ -29,8 +29,6 @@ class _CategoryListState extends State<CategoryList> {
             );
           } else if (_appWidth < 1000) {
             return _HorizontalList(state: state);
-          } else {
-            return _VerticalList(state: state);
           }
         }
         return const SizedBox();
@@ -176,26 +174,6 @@ class __HorizontalListState extends State<_HorizontalList> {
           );
         },
       ),
-    );
-  }
-}
-
-class _VerticalList extends StatelessWidget {
-  const _VerticalList({
-    Key? key,
-    required this.state,
-  }) : super(key: key);
-
-  final CategoriesState state;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: state.categories.length,
-      itemBuilder: (context, index) {
-        final category = state.categories[index];
-        return CategoryTile(category: category);
-      },
     );
   }
 }

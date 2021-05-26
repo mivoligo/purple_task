@@ -300,3 +300,8 @@ final backgroundColorProvider = Provider<Color>((ref) {
     }
   }
 });
+
+final backgroundColorWideLayoutProvider = Provider<Color>((ref) {
+  final currentCategory = ref.watch(currentCategoryProvider).state;
+  return currentCategory?.color ?? Colors.deepPurple;
+});
