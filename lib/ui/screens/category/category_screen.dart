@@ -326,10 +326,13 @@ class _CategoryScreenState extends State<CategoryScreen>
   void _removeCategoryAndTasks(BuildContext context, Category currentCategory) {
     // delete tasks with category id
     _removeAllTasks(context, currentCategory);
-    // delete category
+    // change state so the page will pop
     context.read(categoryScreenStatusProvider).state =
         CategoryScreenStatus.remove;
+    // delete category
     context.read(categoriesProvider.notifier).remove(category: currentCategory);
+    // remove category from current category state
+    context.read(currentCategoryProvider).state = null;
   }
 
   Widget _buildTasksList(Category category) {

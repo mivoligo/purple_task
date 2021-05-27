@@ -23,7 +23,7 @@ class NarrowLayout extends StatelessWidget {
       children: [
         Consumer(
           builder: (context, watch, _) {
-            final backgroundColor = watch(backgroundColorProvider);
+            final backgroundColor = watch(backgroundColorNarrowLayoutProvider);
 
             return AnimatedContainer(
               duration: const Duration(milliseconds: 300),

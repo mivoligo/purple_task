@@ -287,17 +287,15 @@ final settingsControllerProvider =
 
 final currentCategoryProvider = StateProvider<Category?>((_) => null);
 
-final backgroundColorProvider = Provider<Color>((ref) {
-  final currentCategory = ref.watch(currentCategoryProvider).state;
+final currentCategoryIndexProvider = StateProvider<int>((_) => 0);
+
+final backgroundColorNarrowLayoutProvider = Provider<Color>((ref) {
   final categories = ref.watch(categoriesProvider).categories;
+  final currentIndex = ref.watch(currentCategoryIndexProvider).state;
   if (categories.isEmpty) {
-    return Colors.purple;
+    return Colors.deepPurple;
   } else {
-    if (currentCategory == null) {
-      return categories[0].color;
-    } else {
-      return currentCategory.color;
-    }
+    return categories[currentIndex].color;
   }
 });
 

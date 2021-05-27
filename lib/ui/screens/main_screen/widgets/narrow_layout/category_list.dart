@@ -78,8 +78,8 @@ class __HorizontalPagesState extends State<_HorizontalPages> {
       child: PageView.builder(
         controller: _pageController,
         itemCount: widget.state.categories.length,
-        onPageChanged: (index) => context.read(currentCategoryProvider).state =
-            widget.state.categories[index],
+        onPageChanged: (index) =>
+            context.read(currentCategoryIndexProvider).state = index,
         itemBuilder: (context, index) {
           final category = widget.state.categories[index];
 
@@ -155,10 +155,11 @@ class __HorizontalListState extends State<_HorizontalList> {
             child: CategoryCard(
               category: category,
               onFocusChange: (_) =>
-                  context.read(currentCategoryProvider).state = category,
+                  context.read(currentCategoryIndexProvider).state = index,
               onHover: (_) =>
-                  context.read(currentCategoryProvider).state = category,
+                  context.read(currentCategoryIndexProvider).state = index,
               onTap: () {
+                context.read(currentCategoryProvider).state = category;
                 Navigator.of(context).push(PageRouteBuilder(
                   pageBuilder: (context, anim1, anim2) =>
                       const CategoryScreen(),
