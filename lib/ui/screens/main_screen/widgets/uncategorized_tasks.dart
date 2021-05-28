@@ -8,10 +8,11 @@ import '../../category/widgets/widgets.dart';
 
 class UncategorizedTasks extends ConsumerWidget {
   UncategorizedTasks({
+    required this.width,
     required this.height,
-    Key? key,
-  }) : super(key: key);
+  });
 
+  final double width;
   final double height;
 
   @override
@@ -19,7 +20,7 @@ class UncategorizedTasks extends ConsumerWidget {
     final uncategorizedTasks = watch(uncategorizedTasksProvider);
     return uncategorizedTasks.isNotEmpty
         ? Container(
-            width: 400,
+            width: width,
             decoration: CustomStyle.uncategorizedTasksDecoration,
             child: Row(
               children: [

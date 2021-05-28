@@ -153,6 +153,7 @@ class WideLayout extends StatelessWidget {
                                 return watch(currentCategoryProvider).state ==
                                         null
                                     ? UncategorizedTasks(
+                                        width: 460,
                                         height: appHeight - 186,
                                       )
                                     : SelectedCategoryTasks(

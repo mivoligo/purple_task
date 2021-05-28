@@ -308,3 +308,8 @@ enum CategoryCreatorStatus { normal, success }
 
 final categoryCreatorStatusProvider =
     StateProvider((_) => CategoryCreatorStatus.normal);
+
+enum CategoryScreenStatus { data, remove }
+
+final categoryScreenStatusProvider =
+    StateProvider((_) => CategoryScreenStatus.data);
