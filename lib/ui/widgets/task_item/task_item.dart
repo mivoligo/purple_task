@@ -102,7 +102,6 @@ class _TaskItemState extends State<TaskItem> {
                                 style: widget.task.isDone
                                     ? CustomStyle.textStyleTaskName.copyWith(
                                         color: Colors.grey,
-                                        decoration: TextDecoration.lineThrough,
                                       )
                                     : CustomStyle.textStyleTaskName,
                               ),

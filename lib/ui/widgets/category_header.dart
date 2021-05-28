@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../constants/constants.dart';
 import 'widgets.dart';
 
 class CategoryHeader extends StatelessWidget {
@@ -23,14 +24,14 @@ class CategoryHeader extends StatelessWidget {
         // number of tasks to do
         Text(
           description,
-          style: Theme.of(context).textTheme.subtitle1,
+          style: CustomStyle.textStyleTaskName,
         ),
         const SizedBox(height: 8.0),
         // category name
         Text(
           title!,
           overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.headline4,
+          style: CustomStyle.textStyle24,
         ),
         const SizedBox(height: 8.0),
         Row(

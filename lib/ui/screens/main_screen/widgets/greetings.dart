@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/constants.dart';
@@ -15,7 +16,10 @@ class Greetings extends StatelessWidget {
       children: [
         Text(
           s.greetings,
-          style: Theme.of(context).textTheme.headline5,
+          style: CustomStyle.textStyle24.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.w300,
+          ),
         ),
         const SizedBox(height: 8.0),
         Consumer(
@@ -35,7 +39,10 @@ class Greetings extends StatelessWidget {
             }
             return Text(
               text,
-              style: CustomStyle.textStyleTitle.copyWith(color: Colors.white),
+              style: CustomStyle.textStyleTitle.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w300,
+              ),
             );
           },
         ),
