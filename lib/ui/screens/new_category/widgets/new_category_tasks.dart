@@ -14,7 +14,6 @@ class CategoryTasks extends StatefulWidget {
     required this.color,
     required this.onAddTask,
     required this.onNext,
-    required this.onCancel,
     required this.selectedIcon,
     required this.focusNode,
   }) : super(key: key);
@@ -24,7 +23,6 @@ class CategoryTasks extends StatefulWidget {
   final Color color;
   final Function(String) onAddTask;
   final VoidCallback onNext;
-  final VoidCallback onCancel;
   final int selectedIcon;
   final FocusNode focusNode;
 
@@ -47,7 +45,6 @@ class _CategoryTasksState extends State<CategoryTasks> {
       focusNode: widget.focusNode,
       color: widget.color,
       onNext: widget.onNext,
-      onCancel: widget.onCancel,
       okButtonText: s.finish,
       customWidget: Expanded(
         child: Column(

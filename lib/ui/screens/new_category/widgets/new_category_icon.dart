@@ -10,7 +10,6 @@ class CategoryIcon extends StatelessWidget {
     required this.name,
     required this.color,
     required this.onNext,
-    required this.onCancel,
     required this.selectedIcon,
     required this.focusNode,
   }) : super(key: key);
@@ -18,7 +17,6 @@ class CategoryIcon extends StatelessWidget {
   final String name;
   final Color color;
   final VoidCallback onNext;
-  final VoidCallback onCancel;
   final int selectedIcon;
   final FocusNode focusNode;
 
@@ -28,7 +26,6 @@ class CategoryIcon extends StatelessWidget {
       focusNode: focusNode,
       color: color,
       onNext: onNext,
-      onCancel: onCancel,
       customWidget: Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

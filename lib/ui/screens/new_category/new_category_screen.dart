@@ -27,9 +27,6 @@ class NewCategoryScreen extends ConsumerWidget {
             newCategoryController.progressToColor();
           },
           onNext: newCategoryController.progressToColor,
-          onCancel: () {
-            Navigator.of(context).pop();
-          },
         );
 
       case NewCategoryStatus.color:
@@ -39,9 +36,6 @@ class NewCategoryScreen extends ConsumerWidget {
           color: newCategoryState.color,
           selectedColor: newCategoryState.color,
           onNext: newCategoryController.progressToIcon,
-          onCancel: () {
-            Navigator.of(context).pop();
-          },
         );
 
       case NewCategoryStatus.icon:
@@ -50,9 +44,6 @@ class NewCategoryScreen extends ConsumerWidget {
           name: newCategoryState.name,
           color: newCategoryState.color,
           onNext: newCategoryController.progressToTasks,
-          onCancel: () {
-            Navigator.of(context).pop();
-          },
           selectedIcon: newCategoryState.icon,
         );
 
@@ -67,9 +58,6 @@ class NewCategoryScreen extends ConsumerWidget {
             newCategoryController.addNewCategory();
             watch(categoryCreatorStatusProvider).state =
                 CategoryCreatorStatus.success;
-            Navigator.of(context).pop();
-          },
-          onCancel: () {
             Navigator.of(context).pop();
           },
           selectedIcon: newCategoryState.icon,

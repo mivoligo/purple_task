@@ -24,9 +24,9 @@ class _AddTaskFieldState extends State<AddTaskField> {
 
   @override
   void initState() {
+    super.initState();
     // for real time updates of text entry UI
     _controller.addListener(_updateField);
-    super.initState();
   }
 
   @override
@@ -64,7 +64,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
             : null,
       ),
       onSubmitted: _hasText
-          ? (v) {
+          ? (_) {
               widget.onAddTask(_controller.text);
               _controller.clear();
               _focusNode.requestFocus();

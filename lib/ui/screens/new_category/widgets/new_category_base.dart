@@ -11,7 +11,7 @@ class NewCategoryBase extends StatelessWidget {
     required this.color,
     this.onSubmitted,
     required this.onNext,
-    required this.onCancel,
+    // required this.onCancel,
     this.textEditingController,
     this.okButtonText = s.next,
     required this.focusNode,
@@ -21,7 +21,7 @@ class NewCategoryBase extends StatelessWidget {
   final Color color;
   final Function? onSubmitted;
   final VoidCallback onNext;
-  final VoidCallback onCancel;
+  // final VoidCallback onCancel;
   final TextEditingController? textEditingController;
   final String okButtonText;
   final FocusNode focusNode;
@@ -72,7 +72,7 @@ class NewCategoryBase extends StatelessWidget {
                           children: [
                             SimpleButton(
                               text: s.cancel,
-                              onPressed: onCancel,
+                              onPressed: () => Navigator.of(context).pop(),
                             ),
                             SimpleButton(
                               text: okButtonText,

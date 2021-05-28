@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../constants/constants.dart';
 import '../../../../constants/strings/strings.dart' as s;
 import '../../../../providers/providers.dart';
 
@@ -34,7 +35,7 @@ class Greetings extends StatelessWidget {
             }
             return Text(
               text,
-              style: Theme.of(context).textTheme.headline6,
+              style: CustomStyle.textStyleTitle.copyWith(color: Colors.white),
             );
           },
         ),

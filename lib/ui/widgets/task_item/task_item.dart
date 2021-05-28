@@ -164,10 +164,7 @@ class _TaskItemState extends State<TaskItem> {
                     )
                   : null,
             ),
-            Container(
-              height: 1,
-              color: const Color(0xFFE0E0E0),
-            ),
+            const Divider(height: 1),
           ],
         );
       },

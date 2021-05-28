@@ -4,9 +4,10 @@ import 'package:purple_task/ui/widgets/widgets.dart';
 
 void main() {
   testWidgets('finds IconButton widget', (tester) async {
-    await tester.pumpWidget(const MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: CustomIconButton(
-        icon: Icon(Icons.add),
+        icon: const Icon(Icons.add),
+        onPressed: () {},
       ),
     ));
     final button = find.byType(IconButton);
@@ -14,9 +15,10 @@ void main() {
   });
 
   testWidgets('finds tooltip', (tester) async {
-    await tester.pumpWidget(const MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: CustomIconButton(
-        icon: Icon(Icons.add),
+        icon: const Icon(Icons.add),
+        onPressed: () {},
         tooltip: 'tooltip',
       ),
     ));

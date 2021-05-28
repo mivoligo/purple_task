@@ -12,7 +12,6 @@ class CategoryName extends StatelessWidget {
     required this.color,
     required this.onSubmitted,
     required this.onNext,
-    required this.onCancel,
     required this.focusNode,
   }) : super(key: key);
 
@@ -20,7 +19,6 @@ class CategoryName extends StatelessWidget {
   final Color color;
   final Function onSubmitted;
   final VoidCallback onNext;
-  final VoidCallback onCancel;
   final FocusNode focusNode;
 
   @override
@@ -30,7 +28,6 @@ class CategoryName extends StatelessWidget {
       color: color,
       onSubmitted: onSubmitted,
       onNext: onNext,
-      onCancel: onCancel,
       customWidget: Expanded(
         child: Column(
           children: [
