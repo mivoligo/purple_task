@@ -22,14 +22,10 @@ class _CategoryListState extends State<CategoryList> {
         if (state.status == CategoriesStateStatus.initial) {
           return const Center(child: CircularProgressIndicator());
         } else if (state.status == CategoriesStateStatus.data) {
-          if (_appWidth < 600) {
-            return _HorizontalPages(
-              state: state,
-              appWidth: _appWidth,
-            );
-          } else if (_appWidth < 1000) {
-            return _HorizontalList(state: state);
-          }
+          return _HorizontalPages(
+            state: state,
+            appWidth: _appWidth,
+          );
         }
         return const SizedBox();
       },
@@ -100,76 +96,6 @@ class __HorizontalPagesState extends State<_HorizontalPages> {
                     },
                   ),
                 );
-              },
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class _HorizontalList extends StatefulWidget {
-  const _HorizontalList({
-    Key? key,
-    required this.state,
-  }) : super(key: key);
-
-  final CategoriesState state;
-
-  @override
-  __HorizontalListState createState() => __HorizontalListState();
-}
-
-class __HorizontalListState extends State<_HorizontalList> {
-  late final _scrollController = ScrollController();
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ProviderListener<StateController<CategoryCreatorStatus>>(
-      provider: categoryCreatorStatusProvider,
-      onChange: (context, value) {
-        // move to the end of the list of categories
-        if (value.state == CategoryCreatorStatus.success) {
-          _scrollController.animateTo(
-            _scrollController.position.maxScrollExtent + 400,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeIn,
-          );
-        }
-      },
-      child: ListView.builder(
-        controller: _scrollController,
-        scrollDirection: Axis.horizontal,
-        itemCount: widget.state.categories.length,
-        itemBuilder: (context, index) {
-          final category = widget.state.categories[index];
-          return SizedBox(
-            width: 400,
-            child: CategoryCard(
-              category: category,
-              onFocusChange: (_) =>
-                  context.read(currentCategoryIndexProvider).state = index,
-              onHover: (_) =>
-                  context.read(currentCategoryIndexProvider).state = index,
-              onTap: () {
-                context.read(currentCategoryProvider).state = category;
-                Navigator.of(context).push(PageRouteBuilder(
-                  pageBuilder: (context, anim1, anim2) =>
-                      const CategoryScreen(),
-                  transitionsBuilder: (context, anim1, anim2, child) {
-                    return FadeTransition(
-                      opacity: anim1,
-                      child: child,
-                    );
-                  },
-                ));
               },
             ),
           );

@@ -47,7 +47,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
               watch(categoriesProvider).categories.isEmpty;
           return LayoutBuilder(
             builder: (context, constraints) {
-              if (constraints.maxWidth < 1000 || isCategoryListEmpty) {
+              if (constraints.maxWidth < 700 || isCategoryListEmpty) {
                 return const NarrowLayout();
               } else {
                 return const WideLayout();

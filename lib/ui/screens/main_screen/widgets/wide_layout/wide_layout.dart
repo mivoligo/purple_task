@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -20,6 +22,7 @@ class WideLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appHeight = MediaQuery.of(context).size.height;
+    final appWidth = MediaQuery.of(context).size.width;
 
     return Stack(
       children: [
@@ -90,7 +93,7 @@ class WideLayout extends StatelessWidget {
               child: Row(
                 children: [
                   SizedBox(
-                    width: 450,
+                    width: min(appWidth * 0.4, 450.0),
                     child: Column(
                       children: [
                         Expanded(
@@ -142,21 +145,24 @@ class WideLayout extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Consumer(
-                            builder: (context, watch, _) {
-                              return watch(currentCategoryProvider).state ==
-                                      null
-                                  ? UncategorizedTasks(
-                                      width: 460,
-                                      height: appHeight - 186,
-                                    )
-                                  : SelectedCategoryTasks(
-                                      category:
-                                          watch(currentCategoryProvider).state!,
-                                      width: 460,
-                                      height: appHeight - 152,
-                                    );
-                            },
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Consumer(
+                              builder: (context, watch, _) {
+                                return watch(currentCategoryProvider).state ==
+                                        null
+                                    ? UncategorizedTasks(
+                                        height: appHeight - 186,
+                                      )
+                                    : SelectedCategoryTasks(
+                                        category: watch(currentCategoryProvider)
+                                            .state!,
+                                        width: 460,
+                                        height: appHeight - 152,
+                                      );
+                              },
+                            ),
                           )
                         ],
                       ),
