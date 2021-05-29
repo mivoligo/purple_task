@@ -48,8 +48,8 @@ class _AddTaskFieldState extends State<AddTaskField> {
       controller: _controller,
       focusNode: _focusNode,
       placeholder: s.addNewTask,
-      padding: const EdgeInsets.only(left: 16.0),
-      style: Theme.of(context).textTheme.subtitle1,
+      padding: const EdgeInsets.only(left: 20.0),
+      style: CustomStyle.textStyleTaskName,
       suffix: IconButton(
         color: _hasText ? Colors.blue : Colors.grey,
         icon: const Icon(
