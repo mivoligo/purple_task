@@ -6,14 +6,12 @@ import '../../../widgets/widgets.dart';
 class TopBar extends StatelessWidget {
   const TopBar({
     Key? key,
-    required this.categoryId,
     required this.onRemoveAllTasks,
     required this.onRemoveCompletedTasks,
     required this.onRemoveCategory,
     required this.onClose,
   }) : super(key: key);
 
-  final int categoryId;
   final VoidCallback onRemoveAllTasks;
   final VoidCallback onRemoveCompletedTasks;
   final VoidCallback onRemoveCategory;
@@ -36,7 +34,6 @@ class TopBar extends StatelessWidget {
         ),
         // Menu button
         CategoryMenu(
-          categoryId: categoryId,
           onRemoveAllTasks: onRemoveAllTasks,
           onRemoveCompletedTasks: onRemoveCompletedTasks,
           onRemoveCategory: onRemoveCategory,

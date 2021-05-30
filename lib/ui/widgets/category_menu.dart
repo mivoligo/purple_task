@@ -10,13 +10,11 @@ import 'widgets.dart';
 
 class CategoryMenu extends StatefulWidget {
   const CategoryMenu({
-    required this.categoryId,
     required this.onRemoveCategory,
     required this.onRemoveAllTasks,
     required this.onRemoveCompletedTasks,
   });
 
-  final int categoryId;
   final VoidCallback onRemoveCategory;
   final VoidCallback onRemoveAllTasks;
   final VoidCallback onRemoveCompletedTasks;
@@ -142,10 +140,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
           context: context,
           barrierDismissible: false,
           builder: (_) {
-            final category = context
-                .read(categoriesProvider)
-                .categories
-                .firstWhere((element) => element.id == widget.categoryId);
+            final category = context.read(currentCategoryProvider).state!;
             textController.text = category.name;
             return ConfirmationDialog(
               title: s.questionChangeName,
@@ -158,6 +153,8 @@ class _CategoryMenuState extends State<CategoryMenu> {
                     final updatedCategory =
                         category.copyWith(name: textController.text);
                     _updateCategory(context, updatedCategory);
+                    context.read(currentCategoryProvider).state =
+                        updatedCategory;
                     Navigator.of(context).pop();
                   },
                 ),
@@ -168,6 +165,8 @@ class _CategoryMenuState extends State<CategoryMenu> {
                       final updatedCategory =
                           category.copyWith(name: textController.text);
                       _updateCategory(context, updatedCategory);
+                      context.read(currentCategoryProvider).state =
+                          updatedCategory;
                     }
                   : () => null,
             );
@@ -182,10 +181,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
           builder: (_) {
             return Consumer(
               builder: (context, watch, _) {
-                final category = context
-                    .read(categoriesProvider)
-                    .categories
-                    .firstWhere((element) => element.id == widget.categoryId);
+                final category = watch(currentCategoryProvider).state!;
                 final color = watch(categoryProvider(category)).category.color;
                 return ConfirmationDialog(
                   title: s.questionChangeColor,
@@ -228,12 +224,9 @@ class _CategoryMenuState extends State<CategoryMenu> {
           context: context,
           barrierDismissible: false,
           builder: (context) {
-            final category = context
-                .read(categoriesProvider)
-                .categories
-                .firstWhere((element) => element.id == widget.categoryId);
             return Consumer(
               builder: (context, watch, _) {
+                final category = watch(currentCategoryProvider).state!;
                 final icon = watch(categoryProvider(category)).category.icon;
                 return ConfirmationDialog(
                   title: s.questionChangeIcon,
@@ -268,6 +261,8 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   onConfirm: () {
                     final updatedCategory = category.copyWith(icon: icon);
                     _updateCategory(context, updatedCategory);
+                    context.read(currentCategoryProvider).state =
+                        updatedCategory;
                   },
                 );
               },

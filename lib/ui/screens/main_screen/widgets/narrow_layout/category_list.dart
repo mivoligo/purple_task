@@ -79,25 +79,25 @@ class __HorizontalPagesState extends State<_HorizontalPages> {
         itemBuilder: (context, index) {
           final category = widget.state.categories[index];
 
-          return Consumer(
-            builder: (context, watch, _) => CategoryCard(
-              category: category,
-              onTap: () {
-                watch(currentCategoryProvider).state = category;
-                Navigator.of(context).push(
-                  PageRouteBuilder(
-                    pageBuilder: (context, anim1, anim2) =>
-                        const CategoryScreen(),
-                    transitionsBuilder: (context, anim1, anim2, child) {
-                      return FadeTransition(
-                        opacity: anim1,
-                        child: child,
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
+          return CategoryCard(
+            category: category,
+            onTap: () async {
+              context.read(currentCategoryProvider).state = category;
+              await Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, anim1, anim2) =>
+                      CategoryScreen(heroId: category.id),
+                  transitionsBuilder: (context, anim1, anim2, child) {
+                    return FadeTransition(
+                      opacity: anim1,
+                      child: child,
+                    );
+                  },
+                ),
+              );
+              context.read(currentCategoryProvider).state = null;
+              print(index);
+            },
           );
         },
       ),

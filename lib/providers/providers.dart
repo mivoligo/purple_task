@@ -13,21 +13,6 @@ final categoriesProvider =
   );
 });
 
-final categoryNameProvider = Provider.family<String, int>((ref, categoryId) {
-  final categories = ref.watch(categoriesProvider).categories;
-  return categories.firstWhere((element) => element.id == categoryId).name;
-});
-
-final categoryColorProvider = Provider.family<Color, int>((ref, categoryId) {
-  final categories = ref.watch(categoriesProvider).categories;
-  return categories.firstWhere((element) => element.id == categoryId).color;
-});
-
-final categoryIconProvider = Provider.family<int, int>((ref, categoryId) {
-  final categories = ref.watch(categoriesProvider).categories;
-  return categories.firstWhere((element) => element.id == categoryId).icon;
-});
-
 final newCategoryControllerProvider =
     StateNotifierProvider.autoDispose<NewCategoryController, NewCategoryState>(
   (ref) {
@@ -253,14 +238,20 @@ final uncategorizedTasksProvider = Provider<List<Task>>((ref) {
   return tasks.where((element) => element.categoryId == -1).toList();
 });
 
-final activeTasksNumberProvider = Provider.family<int, int>((ref, categoryId) {
+final activeTasksNumberProvider = Provider.family<int, int?>((ref, categoryId) {
+  if (categoryId == null) {
+    return 0;
+  }
   final tasks = ref.watch(tasksProvider).tasks;
   return tasks
       .where((task) => task.categoryId == categoryId && !task.isDone)
       .length;
 });
 
-final progressProvider = Provider.family<double, int>((ref, categoryId) {
+final progressProvider = Provider.family<double, int?>((ref, categoryId) {
+  if (categoryId == null) {
+    return 0;
+  }
   final tasks = ref.watch(tasksProvider).tasks;
   final allTasks = tasks.where((task) => task.categoryId == categoryId).length;
   final completedTasks = tasks

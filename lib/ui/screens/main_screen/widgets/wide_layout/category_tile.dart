@@ -77,7 +77,6 @@ class CategoryTile extends ConsumerWidget {
                   ),
                   if (isCurrentCategory)
                     CategoryMenu(
-                      categoryId: category.id,
                       onRemoveAllTasks: () => _removeAllTasks(context),
                       onRemoveCategory: () => _removeCategoryAndTasks(context),
                       onRemoveCompletedTasks: () =>
