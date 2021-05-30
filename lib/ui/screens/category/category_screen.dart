@@ -63,7 +63,7 @@ class _CategoryScreenState extends State<CategoryScreen>
           final currentCategory = watch(currentCategoryProvider).state;
 
           final categoryName = currentCategory?.name ?? '';
-          final categoryColor = currentCategory?.color ?? Colors.white;
+          final categoryColor = currentCategory?.color ?? Colors.transparent;
           final categoryIcon = currentCategory?.icon ?? 1;
           final tasksController = watch(tasksProvider.notifier);
           var description = '';
@@ -293,12 +293,12 @@ class _CategoryScreenState extends State<CategoryScreen>
       // change state so the page will pop
       context.read(categoryScreenStatusProvider).state =
           CategoryScreenStatus.remove;
-      // // delete category
+      // delete category
       context
           .read(categoriesProvider.notifier)
           .remove(category: currentCategory);
       // remove category from current category state
-      // context.read(currentCategoryProvider).state = null;
+      context.read(currentCategoryProvider).state = null;
     }
   }
 

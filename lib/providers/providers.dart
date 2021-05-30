@@ -209,25 +209,6 @@ final pastCompletedTasksProvider =
   return pastCompletedTasks;
 });
 
-final filteredTasksProvider =
-    Provider.family<List<Task>, int>((ref, categoryId) {
-  final filter = ref.watch(tasksProvider).filter;
-  final tasks = ref.watch(tasksProvider).tasks;
-
-  switch (filter) {
-    case Filter.all:
-      return tasks.where((task) => task.categoryId == categoryId).toList();
-    case Filter.active:
-      return tasks
-          .where((task) => task.categoryId == categoryId && !task.isDone)
-          .toList();
-    case Filter.completed:
-      return tasks
-          .where((task) => task.categoryId == categoryId && task.isDone)
-          .toList();
-  }
-});
-
 final allActiveTasksProvider = Provider<int>((ref) {
   final tasks = ref.watch(tasksProvider).tasks;
   return tasks.where((element) => !element.isDone).length;
@@ -268,6 +249,7 @@ final taskTileProvider = StateNotifierProvider.family
     .autoDispose<TaskTileController, TaskTileState, Task>(
   (ref, task) => TaskTileController(task: task),
 );
+
 final settingsRepositoryProvider = Provider((ref) => SettingsRepository());
 
 final settingsControllerProvider =

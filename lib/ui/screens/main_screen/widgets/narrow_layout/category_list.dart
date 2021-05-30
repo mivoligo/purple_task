@@ -81,9 +81,9 @@ class __HorizontalPagesState extends State<_HorizontalPages> {
 
           return CategoryCard(
             category: category,
-            onTap: () async {
+            onTap: () {
               context.read(currentCategoryProvider).state = category;
-              await Navigator.of(context).push(
+              Navigator.of(context).push(
                 PageRouteBuilder(
                   pageBuilder: (context, anim1, anim2) =>
                       CategoryScreen(heroId: category.id),
@@ -95,8 +95,6 @@ class __HorizontalPagesState extends State<_HorizontalPages> {
                   },
                 ),
               );
-              context.read(currentCategoryProvider).state = null;
-              print(index);
             },
           );
         },
