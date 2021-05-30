@@ -93,13 +93,14 @@ class _CategoryScreenState extends State<CategoryScreen>
                       Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                const Color(0xFF303030),
-                                categoryColor,
-                                categoryColor,
-                              ]),
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              const Color(0xFF303030),
+                              categoryColor,
+                              categoryColor,
+                            ],
+                          ),
                         ),
                       ),
                     Positioned(
@@ -131,24 +132,16 @@ class _CategoryScreenState extends State<CategoryScreen>
                               top: 8.0,
                               right: 8.0,
                             ),
-                            child: AnimatedBuilder(
+                            child: AnimatedOpacityBuilder(
                               animation: _fadeAnimation,
-                              builder: (context, child) {
-                                return Opacity(
-                                  opacity: _fadeAnimation.value,
-                                  child: child,
-                                );
-                              },
-                              child: TopBar(
+                              content: TopBar(
                                 onRemoveAllTasks: () =>
                                     _removeAllTasks(context),
                                 onRemoveCompletedTasks: () =>
                                     _removeCompletedTasks(context),
                                 onRemoveCategory: () =>
                                     _removeCategoryAndTasks(context),
-                                onClose: () {
-                                  _animationController.reverse();
-                                },
+                                onClose: () => _animationController.reverse(),
                               ),
                             ),
                           ),
@@ -161,21 +154,20 @@ class _CategoryScreenState extends State<CategoryScreen>
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Hero(
-                                        tag: 'icon${widget.heroId}',
-                                        child: Icon(
-                                          IconData(
-                                            categoryIcon,
-                                            fontFamily: 'AntIcons',
-                                            fontPackage: 'ant_icons',
-                                          ),
-                                          size: 42.0,
-                                          color: categoryColor,
+                                  Hero(
+                                    tag: 'icon${widget.heroId}',
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Icon(
+                                        IconData(
+                                          categoryIcon,
+                                          fontFamily: 'AntIcons',
+                                          fontPackage: 'ant_icons',
                                         ),
+                                        size: 42.0,
+                                        color: categoryColor,
                                       ),
-                                    ],
+                                    ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
@@ -209,20 +201,14 @@ class _CategoryScreenState extends State<CategoryScreen>
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: AnimatedBuilder(
+                                    child: AnimatedOpacityBuilder(
                                       animation: _fadeAnimation,
-                                      builder: (context, child) {
-                                        return Opacity(
-                                          opacity: _fadeAnimation.value,
-                                          child: child,
-                                        );
-                                      },
-                                      child: AddTaskField(
+                                      content: AddTaskField(
                                         onAddTask: (value) {
                                           final task = Task(
                                             name: value,
                                             categoryId:
-                                                currentCategory?.id ?? -1,
+                                                currentCategory?.id ?? 0,
                                           );
                                           tasksController.add(task: task);
                                         },
@@ -230,28 +216,16 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     ),
                                   ),
                                   Expanded(
-                                    child: AnimatedBuilder(
+                                    child: AnimatedOpacityBuilder(
                                       animation: _fadeAnimation,
-                                      builder: (context, child) {
-                                        return Opacity(
-                                          opacity: _fadeAnimation.value,
-                                          child: child,
-                                        );
-                                      },
-                                      child: currentCategory != null
+                                      content: currentCategory != null
                                           ? _buildTasksList(currentCategory)
                                           : const SizedBox(),
                                     ),
                                   ),
-                                  AnimatedBuilder(
+                                  AnimatedOpacityBuilder(
                                     animation: _fadeAnimation,
-                                    builder: (context, child) {
-                                      return Opacity(
-                                        opacity: _animationController.value,
-                                        child: child,
-                                      );
-                                    },
-                                    child: BottomNavigationBar(
+                                    content: BottomNavigationBar(
                                       type: BottomNavigationBarType.fixed,
                                       unselectedFontSize: 14.0,
                                       currentIndex: _navigationIndex,
