@@ -6,7 +6,6 @@ import '../../../../../constants/strings/strings.dart' as s;
 import '../../../../../models/models.dart';
 import '../../../../../providers/providers.dart';
 import '../../../../widgets/widgets.dart';
-import '../../../category/widgets/widgets.dart';
 
 class CategoryTile extends ConsumerWidget {
   const CategoryTile({
@@ -80,7 +79,7 @@ class CategoryTile extends ConsumerWidget {
                     CategoryMenu(
                       categoryId: category.id,
                       onRemoveAllTasks: () => _removeAllTasks(context),
-                      onDeleteCategory: () => _removeCategoryAndTasks(context),
+                      onRemoveCategory: () => _removeCategoryAndTasks(context),
                       onRemoveCompletedTasks: () =>
                           _removeCompletedTasks(context),
                     ),

@@ -3,21 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../constants/strings/strings.dart' as s;
-import '../../../../models/models.dart';
-import '../../../../providers/providers.dart';
-import '../../../widgets/widgets.dart';
+import '../../constants/strings/strings.dart' as s;
+import '../../models/models.dart';
+import '../../providers/providers.dart';
+import 'widgets.dart';
 
 class CategoryMenu extends StatefulWidget {
   const CategoryMenu({
     required this.categoryId,
-    required this.onDeleteCategory,
+    required this.onRemoveCategory,
     required this.onRemoveAllTasks,
     required this.onRemoveCompletedTasks,
   });
 
   final int categoryId;
-  final VoidCallback onDeleteCategory;
+  final VoidCallback onRemoveCategory;
   final VoidCallback onRemoveAllTasks;
   final VoidCallback onRemoveCompletedTasks;
 
@@ -132,7 +132,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
             ),
             confirmationText: s.delete,
             confirmationColor: Colors.red,
-            onConfirm: widget.onDeleteCategory,
+            onConfirm: widget.onRemoveCategory,
           ),
         );
         break;
