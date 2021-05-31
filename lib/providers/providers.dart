@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../controllers/controllers.dart';
+import '../helpers.dart';
 import '../models/models.dart';
 import '../repositories/repositories.dart';
 
@@ -76,15 +78,11 @@ final todayTasksProvider = Provider.family<List<Task>, int>((ref, categoryId) {
       .watch(tasksProvider)
       .tasks
       .where((task) => !task.isDone && task.categoryId == categoryId);
-  final now = DateTime.now();
-  final today = DateTime(now.year, now.month, now.day);
   var todayTasks = <Task>[];
   for (var task in tasks) {
     if (task.dueDate != null) {
-      final taskDueTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
-      final taskDueDate =
-          DateTime(taskDueTime.year, taskDueTime.month, taskDueTime.day);
-      if (taskDueDate == today) {
+      final taskDueDate = task.dueDate?.millisToDay();
+      if (taskDueDate!.isToday) {
         todayTasks.add(task);
       }
     }
@@ -98,15 +96,11 @@ final tomorrowTasksProvider =
       .watch(tasksProvider)
       .tasks
       .where((task) => !task.isDone && task.categoryId == categoryId);
-  final now = DateTime.now();
-  final tomorrow = DateTime(now.year, now.month, now.day + 1);
   var tomorrowTasks = <Task>[];
   for (var task in tasks) {
     if (task.dueDate != null) {
-      final taskDueTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
-      final taskDueDate =
-          DateTime(taskDueTime.year, taskDueTime.month, taskDueTime.day);
-      if (taskDueDate == tomorrow) {
+      final taskDueDate = task.dueDate!.millisToDay();
+      if (taskDueDate.isTomorrow) {
         tomorrowTasks.add(task);
       }
     }
@@ -119,15 +113,11 @@ final futureTasksProvider = Provider.family<List<Task>, int>((ref, categoryId) {
       .watch(tasksProvider)
       .tasks
       .where((task) => !task.isDone && task.categoryId == categoryId);
-  final now = DateTime.now();
-  final tomorrow = DateTime(now.year, now.month, now.day + 1);
   var futureTasks = <Task>[];
   for (var task in tasks) {
     if (task.dueDate != null) {
-      final taskDueTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
-      final taskDueDate =
-          DateTime(taskDueTime.year, taskDueTime.month, taskDueTime.day);
-      if (taskDueDate.isAfter(tomorrow)) {
+      final taskDueDate = task.dueDate!.millisToDay();
+      if (taskDueDate.isAfterTomorrow) {
         futureTasks.add(task);
       }
     }
@@ -142,15 +132,11 @@ final todayCompletedTasksProvider =
       .watch(tasksProvider)
       .tasks
       .where((task) => task.isDone && task.categoryId == categoryId);
-  final now = DateTime.now();
-  final today = DateTime(now.year, now.month, now.day);
   var todayCompletedTasks = <Task>[];
   for (var task in tasks) {
     if (task.doneTime != null) {
-      final taskDoneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
-      final taskDoneDate =
-          DateTime(taskDoneTime.year, taskDoneTime.month, taskDoneTime.day);
-      if (taskDoneDate == today) {
+      final taskDoneDate = task.doneTime!.millisToDay();
+      if (taskDoneDate.isToday) {
         todayCompletedTasks.add(task);
       }
     }
@@ -165,15 +151,11 @@ final yesterdayCompletedTasksProvider =
       .watch(tasksProvider)
       .tasks
       .where((task) => task.isDone && task.categoryId == categoryId);
-  final now = DateTime.now();
-  final yesterday = DateTime(now.year, now.month, now.day - 1);
   var yesterdayCompletedTasks = <Task>[];
   for (var task in tasks) {
     if (task.doneTime != null) {
-      final taskDoneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
-      final taskDoneDate =
-          DateTime(taskDoneTime.year, taskDoneTime.month, taskDoneTime.day);
-      if (taskDoneDate == yesterday) {
+      final taskDoneDate = task.doneTime!.millisToDay();
+      if (taskDoneDate.isYesterday) {
         yesterdayCompletedTasks.add(task);
       }
     }
@@ -188,16 +170,12 @@ final pastCompletedTasksProvider =
       .watch(tasksProvider)
       .tasks
       .where((task) => task.isDone && task.categoryId == categoryId);
-  final now = DateTime.now();
-  final yesterday = DateTime(now.year, now.month, now.day - 1);
   var pastCompletedTasks = <Task>[];
   var completedTasksWithoutDoneTime = <Task>[];
   for (var task in tasks) {
     if (task.doneTime != null) {
-      final taskDoneTime = DateTime.fromMillisecondsSinceEpoch(task.doneTime!);
-      final taskDoneDate =
-          DateTime(taskDoneTime.year, taskDoneTime.month, taskDoneTime.day);
-      if (taskDoneDate.isBefore(yesterday)) {
+      final taskDoneDate = task.doneTime!.millisToDay();
+      if (taskDoneDate.isBeforeYesterday) {
         pastCompletedTasks.add(task);
       }
     } else {

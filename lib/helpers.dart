@@ -3,6 +3,45 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'constants/strings/strings.dart' as s;
 
+extension DateTimeExtensions on DateTime {
+  bool get isBeforeYesterday {
+    final now = DateTime.now();
+    final yesterday = DateTime(now.year, now.month, now.day - 1);
+    return isBefore(yesterday);
+  }
+
+  bool get isYesterday {
+    final now = DateTime.now();
+    final yesterday = DateTime(now.year, now.month, now.day - 1);
+    return yesterday == this;
+  }
+
+  bool get isToday {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    return today == this;
+  }
+
+  bool get isTomorrow {
+    final now = DateTime.now();
+    final tomorrow = DateTime(now.year, now.month, now.day + 1);
+    return tomorrow == this;
+  }
+
+  bool get isAfterTomorrow {
+    final now = DateTime.now();
+    final tomorrow = DateTime(now.year, now.month, now.day + 1);
+    return isAfter(tomorrow);
+  }
+}
+
+extension IntExtensions on int {
+  DateTime millisToDay() {
+    final timeInMillis = DateTime.fromMillisecondsSinceEpoch(this);
+    return DateTime(timeInMillis.year, timeInMillis.month, timeInMillis.day);
+  }
+}
+
 class TimeConversion {
   static String millisToDateAndTime(
     int input, {
