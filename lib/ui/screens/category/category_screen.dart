@@ -53,7 +53,6 @@ class _CategoryScreenState extends State<CategoryScreen>
     return ProviderListener<StateController<CategoryScreenStatus>>(
       provider: categoryScreenStatusProvider,
       onChange: (context, value) {
-        print(value.state);
         if (value.state == CategoryScreenStatus.remove) {
           Navigator.of(context).pop();
         }
