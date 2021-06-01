@@ -12,7 +12,8 @@
 ## Table of Contents
 
 - [Installation](#installation)
-- [Features](#features)
+- [Screenshots](#screenshots)
+- [Video](#video)
 - [Contributing](#contributing)
 - [Support](#support)
 - [License](#license)
@@ -35,7 +36,7 @@ $ snap install purple-task
 
 ---
 
-## Features:
+## Screenshots:
 - Categories and Task Management
 
 <img src="assets/screenshots/narrow_1.png">
@@ -49,10 +50,10 @@ $ snap install purple-task
 *More features coming soon*
 ---
 
-## Usage
+## Video
 
 
-- Here is a quick demo video <a href="https://www.youtube.com/watch?v=zBpbEn4pzSI" target="_blank">here</a>.
+- A quick demo video <a href="https://youtu.be/t2rkz7ALKQE" target="_blank">here</a>.
 
 ---
 
@@ -76,4 +77,4 @@ $ snap install purple-task
 ## License
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright (c) 2020 Michał Prędotka
+- Copyright (c) Michał Prędotka
