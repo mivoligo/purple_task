@@ -38,11 +38,13 @@ $ snap install purple-task
 ## Features:
 - Categories and Task Management
 
-<img src="https://res.cloudinary.com/canonical/image/fetch/f_auto,q_auto,fl_sanitize,w_819,h_515/https://dashboard.snapcraft.io/site_media/appmedia/2020/09/4e.png">
+<img src="assets/screenshots/narrow_1.png">
 
-<img src="https://res.cloudinary.com/canonical/image/fetch/f_auto,q_auto,fl_sanitize,w_819,h_515/https://dashboard.snapcraft.io/site_media/appmedia/2020/09/3e.png">
+<img src="assets/screenshots/wide_1.png">
 
-<img src="https://res.cloudinary.com/canonical/image/fetch/f_auto,q_auto,fl_sanitize,w_819,h_515/https://dashboard.snapcraft.io/site_media/appmedia/2020/09/5e.png">
+<img src="assets/screenshots/category.png">
+
+<img src="assets/screenshots/color.png">
 
 *More features coming soon*
 ---
