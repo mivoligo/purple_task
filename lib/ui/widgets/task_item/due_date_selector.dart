@@ -63,7 +63,7 @@ class DueDateSelector extends StatelessWidget {
                       style: CustomStyle.textStyleTaskFilter,
                     )
                   : const Icon(
-                      AntIcons.calendar_outline,
+                      AntIcons.calendarOutline,
                       size: 10,
                     ),
             ),

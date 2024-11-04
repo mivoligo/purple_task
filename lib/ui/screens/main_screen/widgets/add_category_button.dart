@@ -34,7 +34,7 @@ class AddCategoryButton extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Icon(
-                AntIcons.folder_add,
+                AntIcons.folderAdd,
                 color: Colors.black,
               ),
               const SizedBox(width: 8.0),

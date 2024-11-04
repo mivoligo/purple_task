@@ -24,7 +24,7 @@ class TopBar extends StatelessWidget {
       children: [
         // Go back button
         CustomIconButton(
-          icon: const Icon(AntIcons.arrow_left),
+          icon: const Icon(AntIcons.arrowLeft),
           color: Colors.white,
           tooltip: s.close,
           onPressed: () {

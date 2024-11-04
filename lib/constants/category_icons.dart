@@ -21,7 +21,7 @@ List<int> categoryIcons = [
   AntIcons.smile.codePoint,
   AntIcons.bulb.codePoint,
   AntIcons.camera.codePoint,
-  AntIcons.customer_service.codePoint,
+  AntIcons.customerService.codePoint,
   AntIcons.read.codePoint,
   AntIcons.picture.codePoint,
   AntIcons.safety.codePoint,

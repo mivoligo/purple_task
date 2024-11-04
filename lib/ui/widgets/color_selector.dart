@@ -60,7 +60,7 @@ class ColorSelector extends StatelessWidget {
                                     color: Color(categoryColors[index])),
                         child: isSelected
                             ? const Icon(
-                                AntIcons.check_outline,
+                                AntIcons.checkOutline,
                                 color: Colors.white,
                               )
                             : null,

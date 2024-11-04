@@ -51,7 +51,7 @@ class NarrowLayout extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 16.0, right: 16.0),
                     child: CustomIconButton(
                       color: Colors.white,
-                      icon: const Icon(AntIcons.info_circle),
+                      icon: const Icon(AntIcons.infoCircle),
                       tooltip: s.about,
                       onPressed: () => Navigator.of(context)
                           .push(_createRoute(AboutScreen())),

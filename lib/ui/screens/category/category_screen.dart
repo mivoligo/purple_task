@@ -244,7 +244,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                         ),
                                         const BottomNavigationBarItem(
                                           label: s.completed,
-                                          icon: Icon(AntIcons.check_circle),
+                                          icon: Icon(AntIcons.checkCircle),
                                         ),
                                       ],
                                     ),

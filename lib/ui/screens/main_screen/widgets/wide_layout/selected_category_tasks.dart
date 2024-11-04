@@ -64,7 +64,7 @@ class _SelectedCategoryTasksState extends State<SelectedCategoryTasks> {
               ),
               const BottomNavigationBarItem(
                 label: s.completed,
-                icon: Icon(AntIcons.check_circle),
+                icon: Icon(AntIcons.checkCircle),
               ),
             ],
           )
