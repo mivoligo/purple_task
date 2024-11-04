@@ -25,7 +25,6 @@ class SimpleButton extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: Theme.of(context).textTheme.button,
       ),
     );
   }

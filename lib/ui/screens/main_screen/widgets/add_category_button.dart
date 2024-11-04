@@ -42,7 +42,6 @@ class AddCategoryButton extends StatelessWidget {
                 // Flexible needed for TextOverflow to work
                 child: Text(
                   text,
-                  style: Theme.of(context).textTheme.subtitle1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

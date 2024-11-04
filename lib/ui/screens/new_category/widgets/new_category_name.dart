@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import '../../../../constants/constants.dart';
 import '../../../../constants/strings/strings.dart' as s;
 
@@ -46,9 +45,8 @@ class CategoryName extends StatelessWidget {
                 decoration: CustomStyle.inputDecoration,
               ),
             ),
-            Text(
+            const Text(
               s.categoryName,
-              style: Theme.of(context).textTheme.bodyText2,
             ),
             const Spacer(),
           ],

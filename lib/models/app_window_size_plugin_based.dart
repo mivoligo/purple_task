@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:hive/hive.dart';
-import 'package:window_size/window_size.dart' as window_size;
 import '../../constants/constants.dart';
 import 'models.dart';
 
@@ -17,16 +14,6 @@ class AppWindowSizePluginBased implements AppWindowSize {
   @override
   void setWindowSize() {
     getAppSize();
-    window_size.getWindowInfo().then((window) {
-      final screen = window.screen;
-      if (screen != null) {
-        final screenFrame = screen.visibleFrame;
-        final left = ((screenFrame.width - _appWidth) / 2).roundToDouble();
-        final top = ((screenFrame.height - _appHeight) / 3).roundToDouble();
-        final frame = Rect.fromLTWH(left, top, _appWidth, _appHeight);
-        window_size.setWindowFrame(frame);
-      }
-    });
   }
 
   void getAppSize() {

@@ -20,9 +20,7 @@ void main() async {
   await Hive.openBox<CategoryEntity>(categoryBox);
   await Hive.openBox<TaskEntity>(taskBox);
 
-  // Set app window size
-  AppWindowSize _appWindowSize = AppWindowSizePluginBased();
-  _appWindowSize.setWindowSize();
+  // todo: Set app window size
 
   runApp(
     App(),

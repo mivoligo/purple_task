@@ -19,17 +19,6 @@ class App extends StatelessWidget {
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
-          buttonBarTheme: const ButtonBarThemeData(
-            alignment: MainAxisAlignment.spaceBetween,
-          ),
-          textTheme: const TextTheme(
-            button: TextStyle(
-              color: Colors.white,
-              fontSize: 14.0,
-              fontWeight: FontWeight.w400,
-              letterSpacing: 0.8,
-            ),
-          ),
           tooltipTheme: TooltipThemeData(
             textStyle:
                 CustomStyle.textStyleLabelSmall.copyWith(color: Colors.white),
