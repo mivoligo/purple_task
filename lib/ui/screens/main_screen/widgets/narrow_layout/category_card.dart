@@ -17,8 +17,8 @@ class CategoryCard extends ConsumerWidget {
 
   final Category category;
   final VoidCallback onTap;
-  final Function(bool)? onHover;
-  final Function(bool)? onFocusChange;
+  final ValueChanged<bool>? onHover;
+  final ValueChanged<bool>? onFocusChange;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {

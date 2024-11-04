@@ -8,23 +8,16 @@ class AppWindowSizePluginBased implements AppWindowSize {
 
   @override
   void saveWindowSize(double width, double height) {
-    saveAppSizeToHive(width, height);
+    final box = Hive.box(settingsBox);
+    box.put(appWidthKey, width);
+    box.put(appHeightKey, height);
   }
 
   @override
   void setWindowSize() {
-    getAppSize();
-  }
-
-  void getAppSize() {
     final box = Hive.box(settingsBox);
     _appWidth = box.get(appWidthKey, defaultValue: 500.0);
     _appHeight = box.get(appHeightKey, defaultValue: 700.0);
-  }
-
-  void saveAppSizeToHive(double width, double height) {
-    final box = Hive.box(settingsBox);
-    box.put(appWidthKey, width);
-    box.put(appHeightKey, height);
+    // todo: handle window size setting
   }
 }

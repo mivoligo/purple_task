@@ -13,7 +13,8 @@ class MainScreen extends StatefulWidget {
 // ignore: prefer_mixin
 class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   final AppWindowSize _appWindowSize = AppWindowSizePluginBased();
-  Size? _windowSize = WidgetsBinding.instance.window.physicalSize;
+  Size? _windowSize =
+      WidgetsBinding.instance.platformDispatcher.implicitView?.physicalSize;
   Size? _tempWindowSize;
 
   @override
@@ -31,7 +32,8 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   // Used to save app window size on resize
   @override
   void didChangeMetrics() {
-    _tempWindowSize = WidgetsBinding.instance.window.physicalSize;
+    _tempWindowSize =
+        WidgetsBinding.instance.platformDispatcher.implicitView?.physicalSize;
     if (_windowSize != _tempWindowSize) {
       _windowSize = _tempWindowSize;
       _appWindowSize.saveWindowSize(_windowSize!.width, _windowSize!.height);

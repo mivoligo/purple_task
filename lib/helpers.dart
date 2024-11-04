@@ -42,7 +42,7 @@ extension IntExtensions on int {
   }
 }
 
-class TimeConversion {
+mixin TimeConversion {
   static String millisToDateAndTime(
     int input, {
     required String dateFormat,
@@ -82,8 +82,9 @@ class TimeConversion {
 
 class UrlHelper {
   Future<void> openUrl(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
       throw 'Could not launch $url';
     }
