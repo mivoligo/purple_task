@@ -18,13 +18,13 @@ class TaskOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, watch, _) {
+      builder: (context, ref, _) {
         return PopupMenuButton(
           tooltip: s.showOptions,
           onSelected: (item) {
             // remove task when clicked on the first item
             if (item as int == 0) {
-              context.read(tasksProvider.notifier).remove(task: task);
+              ref.read(tasksProvider.notifier).remove(task: task);
             }
           },
           itemBuilder: (context) {

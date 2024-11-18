@@ -17,8 +17,8 @@ class CategorySelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, watch, _) {
-        final categories = watch(categoriesProvider).categories;
+      builder: (context, ref, _) {
+        final categories = ref.watch(categoriesProvider).categories;
 
         return Card(
           elevation: 1,
@@ -29,7 +29,7 @@ class CategorySelector extends StatelessWidget {
                 dueDate: task.dueDate,
                 categoryId: item as int,
               );
-              context.read(tasksProvider.notifier).update(task: updatedTask);
+              ref.read(tasksProvider.notifier).update(task: updatedTask);
               Navigator.of(context).pop();
             },
             itemBuilder: (context) {

@@ -6,7 +6,7 @@ import '../../constants/constants.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 
-class IconSelector extends StatelessWidget {
+class IconSelector extends ConsumerWidget {
   const IconSelector({
     required this.selectedIcon,
     this.isInCreator = true,
@@ -18,7 +18,7 @@ class IconSelector extends StatelessWidget {
   final Category? category;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return AnimationLimiter(
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -42,17 +42,17 @@ class IconSelector extends StatelessWidget {
                       elevation: isSelected ? 6 : 1,
                       child: InkWell(
                         onFocusChange: isInCreator
-                            ? (_) => context
+                            ? (_) => ref
                                 .read(newCategoryControllerProvider.notifier)
                                 .iconChanged(categoryIcons[index])
-                            : (_) => context
+                            : (_) => ref
                                 .read(categoryProvider(category!).notifier)
                                 .iconChanged(icon: categoryIcons[index]),
                         onTap: isInCreator
-                            ? () => context
+                            ? () => ref
                                 .read(newCategoryControllerProvider.notifier)
                                 .iconChanged(categoryIcons[index])
-                            : () => context
+                            : () => ref
                                 .read(categoryProvider(category!).notifier)
                                 .iconChanged(icon: categoryIcons[index]),
                         child: Icon(

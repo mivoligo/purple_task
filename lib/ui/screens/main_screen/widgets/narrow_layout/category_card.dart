@@ -21,10 +21,10 @@ class CategoryCard extends ConsumerWidget {
   final ValueChanged<bool>? onFocusChange;
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context, WidgetRef ref) {
     String description;
-    final activeTasksNumber = watch(activeTasksNumberProvider(category.id));
-    final progress = watch(progressProvider(category.id));
+    final activeTasksNumber = ref.watch(activeTasksNumberProvider(category.id));
+    final progress = ref.watch(progressProvider(category.id));
     switch (activeTasksNumber) {
       case 0:
         description = '$activeTasksNumber ${s.taskPlural}';

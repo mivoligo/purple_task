@@ -242,7 +242,7 @@ final currentCategoryIndexProvider = StateProvider<int>((_) => 0);
 
 final backgroundColorNarrowLayoutProvider = Provider<Color>((ref) {
   final categories = ref.watch(categoriesProvider).categories;
-  final currentIndex = ref.watch(currentCategoryIndexProvider).state;
+  final currentIndex = ref.watch(currentCategoryIndexProvider);
   if (categories.isEmpty) {
     return Colors.deepPurple;
   } else {
@@ -251,7 +251,7 @@ final backgroundColorNarrowLayoutProvider = Provider<Color>((ref) {
 });
 
 final backgroundColorWideLayoutProvider = Provider<Color>((ref) {
-  final currentCategory = ref.watch(currentCategoryProvider).state;
+  final currentCategory = ref.watch(currentCategoryProvider);
   return currentCategory?.color ?? Colors.deepPurple;
 });
 

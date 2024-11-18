@@ -14,9 +14,9 @@ class Settings extends StatelessWidget {
       heroTag: 'settings',
       content: Expanded(
         child: Consumer(
-          builder: (context, watch, _) {
-            final state = watch(settingsControllerProvider);
-            final controller = watch(settingsControllerProvider.notifier);
+          builder: (context, ref, _) {
+            final state = ref.watch(settingsControllerProvider);
+            final controller = ref.watch(settingsControllerProvider.notifier);
             return ListView(
               padding: const EdgeInsets.symmetric(horizontal: 28.0),
               children: [

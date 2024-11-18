@@ -78,9 +78,9 @@ class WideLayout extends StatelessWidget {
                     child: Column(
                       children: [
                         Expanded(
-                          child: Consumer(builder: (context, watch, _) {
+                          child: Consumer(builder: (context, ref, _) {
                             final categories =
-                                watch(categoriesProvider).categories;
+                                ref.watch(categoriesProvider).categories;
                             return VerticalList(
                               categories: categories,
                             );
@@ -110,16 +110,16 @@ class WideLayout extends StatelessWidget {
                           SizedBox(
                             width: 500,
                             child: Consumer(
-                              builder: (context, watch, _) => AddTaskField(
+                              builder: (context, ref, _) => AddTaskField(
                                 onAddTask: (value) {
                                   final task = Task(
                                     name: value,
-                                    categoryId: watch(currentCategoryProvider)
-                                            .state
+                                    categoryId: ref
+                                            .watch(currentCategoryProvider)
                                             ?.id ??
                                         -1,
                                   );
-                                  context
+                                  ref
                                       .read(tasksProvider.notifier)
                                       .add(task: task);
                                 },
@@ -130,16 +130,16 @@ class WideLayout extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Consumer(
-                              builder: (context, watch, _) {
-                                return watch(currentCategoryProvider).state ==
+                              builder: (context, ref, _) {
+                                return ref.watch(currentCategoryProvider) ==
                                         null
                                     ? UncategorizedTasks(
                                         width: 460,
                                         height: appHeight - 186,
                                       )
                                     : SelectedCategoryTasks(
-                                        category: watch(currentCategoryProvider)
-                                            .state!,
+                                        category:
+                                            ref.watch(currentCategoryProvider)!,
                                         width: 460,
                                         height: appHeight - 152,
                                       );

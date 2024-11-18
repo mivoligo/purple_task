@@ -10,13 +10,13 @@ import '../../../screens.dart';
 import '../widgets.dart';
 import 'category_list.dart';
 
-class NarrowLayout extends StatelessWidget {
+class NarrowLayout extends ConsumerWidget {
   const NarrowLayout({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final appHeight = MediaQuery.sizeOf(context).height;
 
     return Stack(
@@ -72,9 +72,7 @@ class NarrowLayout extends StatelessWidget {
                                 name: value,
                                 categoryId: -1,
                               );
-                              context
-                                  .read(tasksProvider.notifier)
-                                  .add(task: task);
+                              ref.read(tasksProvider.notifier).add(task: task);
                             },
                           ),
                         ),

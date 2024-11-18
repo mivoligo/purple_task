@@ -34,9 +34,9 @@ class _SelectedCategoryTasksState extends State<SelectedCategoryTasks> {
       decoration: CustomStyle.uncategorizedTasksDecoration,
       child: Column(
         children: [
-          Consumer(builder: (context, watch, _) {
+          Consumer(builder: (context, ref, _) {
             final currentCategory =
-                watch(categoryProvider(widget.category)).category;
+                ref.watch(categoryProvider(widget.category)).category;
             return Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

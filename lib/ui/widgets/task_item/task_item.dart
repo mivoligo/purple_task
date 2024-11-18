@@ -46,12 +46,13 @@ class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, watch, _) {
-        final taskTileState = watch(taskTileProvider(widget.task));
+      builder: (context, ref, _) {
+        final taskTileState = ref.watch(taskTileProvider(widget.task));
         final tileStatus = taskTileState.status;
-        final tileController = watch(taskTileProvider(widget.task).notifier);
-        final tasksController = watch(tasksProvider.notifier);
-        final settings = watch(settingsControllerProvider);
+        final tileController =
+            ref.watch(taskTileProvider(widget.task).notifier);
+        final tasksController = ref.watch(tasksProvider.notifier);
+        final settings = ref.watch(settingsControllerProvider);
         return Column(
           children: [
             Row(

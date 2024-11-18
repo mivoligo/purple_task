@@ -8,7 +8,7 @@ import '../../models/models.dart';
 import '../../providers/providers.dart';
 import 'widgets.dart';
 
-class CategoryMenu extends StatefulWidget {
+class CategoryMenu extends ConsumerStatefulWidget {
   const CategoryMenu({
     required this.onRemoveCategory,
     required this.onRemoveAllTasks,
@@ -23,7 +23,7 @@ class CategoryMenu extends StatefulWidget {
   _CategoryMenuState createState() => _CategoryMenuState();
 }
 
-class _CategoryMenuState extends State<CategoryMenu> {
+class _CategoryMenuState extends ConsumerState<CategoryMenu> {
   late final textController = TextEditingController();
 
   @override
@@ -140,7 +140,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
           context: context,
           barrierDismissible: false,
           builder: (_) {
-            final category = context.read(currentCategoryProvider).state!;
+            final category = ref.read(currentCategoryProvider)!;
             textController.text = category.name;
             return ConfirmationDialog(
               title: s.questionChangeName,
@@ -152,9 +152,8 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   onSubmitted: (value) {
                     final updatedCategory =
                         category.copyWith(name: textController.text);
-                    _updateCategory(context, updatedCategory);
-                    context.read(currentCategoryProvider).state =
-                        updatedCategory;
+                    _updateCategory(updatedCategory);
+                    // ref.read(currentCategoryProvider) = updatedCategory;
                     Navigator.of(context).pop();
                   },
                 ),
@@ -164,9 +163,8 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   ? () {
                       final updatedCategory =
                           category.copyWith(name: textController.text);
-                      _updateCategory(context, updatedCategory);
-                      context.read(currentCategoryProvider).state =
-                          updatedCategory;
+                      _updateCategory(updatedCategory);
+                      // ref.read(currentCategoryProvider).state = updatedCategory;
                     }
                   : () => null,
             );
@@ -180,9 +178,10 @@ class _CategoryMenuState extends State<CategoryMenu> {
           barrierDismissible: false,
           builder: (_) {
             return Consumer(
-              builder: (context, watch, _) {
-                final category = watch(currentCategoryProvider).state!;
-                final color = watch(categoryProvider(category)).category.color;
+              builder: (context, ref, _) {
+                final category = ref.watch(currentCategoryProvider)!;
+                final color =
+                    ref.watch(categoryProvider(category)).category.color;
                 return ConfirmationDialog(
                   title: s.questionChangeColor,
                   content: SizedBox(
@@ -208,9 +207,8 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   confirmationText: s.save,
                   onConfirm: () {
                     final updatedCategory = category.copyWith(color: color);
-                    _updateCategory(context, updatedCategory);
-                    context.read(currentCategoryProvider).state =
-                        updatedCategory;
+                    _updateCategory(updatedCategory);
+                    // ref.read(currentCategoryProvider).state = updatedCategory;
                   },
                 );
               },
@@ -225,9 +223,10 @@ class _CategoryMenuState extends State<CategoryMenu> {
           barrierDismissible: false,
           builder: (context) {
             return Consumer(
-              builder: (context, watch, _) {
-                final category = watch(currentCategoryProvider).state!;
-                final icon = watch(categoryProvider(category)).category.icon;
+              builder: (context, ref, _) {
+                final category = ref.watch(currentCategoryProvider)!;
+                final icon =
+                    ref.watch(categoryProvider(category)).category.icon;
                 return ConfirmationDialog(
                   title: s.questionChangeIcon,
                   content: SizedBox(
@@ -260,9 +259,8 @@ class _CategoryMenuState extends State<CategoryMenu> {
                   confirmationText: s.save,
                   onConfirm: () {
                     final updatedCategory = category.copyWith(icon: icon);
-                    _updateCategory(context, updatedCategory);
-                    context.read(currentCategoryProvider).state =
-                        updatedCategory;
+                    _updateCategory(updatedCategory);
+                    // ref.read(currentCategoryProvider) = updatedCategory;
                   },
                 );
               },
@@ -273,7 +271,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
     }
   }
 
-  void _updateCategory(BuildContext context, Category category) {
-    context.read(categoriesProvider.notifier).update(category: category);
+  void _updateCategory(Category category) {
+    ref.read(categoriesProvider.notifier).update(category: category);
   }
 }

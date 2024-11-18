@@ -19,13 +19,14 @@ class DueDateSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, watch, _) {
-        final dateFormatSetting = watch(settingsControllerProvider).dateFormat;
+      builder: (context, ref, _) {
+        final dateFormatSetting =
+            ref.watch(settingsControllerProvider).dateFormat;
         return Card(
           elevation: 0,
           child: PopupMenuButton(
             tooltip: s.setDueDate,
-            onSelected: (dynamic item) => onItemSelected(context, item),
+            onSelected: (dynamic item) => onItemSelected(context, ref, item),
             itemBuilder: (context) {
               var menuList = <PopupMenuEntry<Object>>[];
               menuList.add(
@@ -73,7 +74,7 @@ class DueDateSelector extends StatelessWidget {
     );
   }
 
-  void onItemSelected(BuildContext context, int item) {
+  void onItemSelected(BuildContext context, WidgetRef ref, int item) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final tomorrow = DateTime(now.year, now.month, now.day + 1);
@@ -89,7 +90,7 @@ class DueDateSelector extends StatelessWidget {
         break;
       case 2:
         // set custom date
-        useSelectedDate(context);
+        useSelectedDate(context, ref);
         return;
       case 3:
         // set date to null
@@ -97,10 +98,10 @@ class DueDateSelector extends StatelessWidget {
         break;
     }
     final updatedTask = task.copyWith(dueDate: dueDate);
-    context.read(tasksProvider.notifier).update(task: updatedTask);
+    ref.read(tasksProvider.notifier).update(task: updatedTask);
   }
 
-  void useSelectedDate(BuildContext context) async {
+  void useSelectedDate(BuildContext context, WidgetRef ref) async {
     final dueDateDate = task.dueDate != null
         ? DateTime.fromMillisecondsSinceEpoch(task.dueDate!)
         : DateTime.now();
@@ -116,7 +117,7 @@ class DueDateSelector extends StatelessWidget {
     if (selectedDate != null) {
       final updatedTask =
           task.copyWith(dueDate: selectedDate.millisecondsSinceEpoch);
-      context.read(tasksProvider.notifier).update(task: updatedTask);
+      ref.read(tasksProvider.notifier).update(task: updatedTask);
     }
   }
 }

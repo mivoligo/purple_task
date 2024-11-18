@@ -17,8 +17,8 @@ class _CategoryListState extends State<CategoryList> {
     final _appWidth = MediaQuery.of(context).size.width;
 
     return Consumer(
-      builder: (context, watch, _) {
-        final state = watch(categoriesProvider);
+      builder: (context, ref, _) {
+        final state = ref.watch(categoriesProvider);
         if (state.status == CategoriesStateStatus.initial) {
           return const Center(child: CircularProgressIndicator());
         } else if (state.status == CategoriesStateStatus.data) {
@@ -59,46 +59,47 @@ class __HorizontalPagesState extends State<_HorizontalPages> {
 
   @override
   Widget build(BuildContext context) {
-    return ProviderListener<StateController<CategoryCreatorStatus>>(
-      provider: categoryCreatorStatusProvider,
-      // move to the end of the list of categories
-      onChange: (context, value) {
-        if (value.state == CategoryCreatorStatus.success) {
-          _pageController.animateToPage(
-            widget.state.categories.length,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeIn,
-          );
-        }
-      },
-      child: PageView.builder(
-        controller: _pageController,
-        itemCount: widget.state.categories.length,
-        onPageChanged: (index) =>
-            context.read(currentCategoryIndexProvider).state = index,
-        itemBuilder: (context, index) {
-          final category = widget.state.categories[index];
-
-          return CategoryCard(
-            category: category,
-            onTap: () {
-              context.read(currentCategoryProvider).state = category;
-              Navigator.of(context).push(
-                PageRouteBuilder(
-                  pageBuilder: (context, anim1, anim2) =>
-                      CategoryScreen(heroId: category.id),
-                  transitionsBuilder: (context, anim1, anim2, child) {
-                    return FadeTransition(
-                      opacity: anim1,
-                      child: child,
-                    );
-                  },
-                ),
-              );
-            },
-          );
-        },
-      ),
-    );
+    return Placeholder();
+    // return ProviderListener<StateController<CategoryCreatorStatus>>(
+    //   provider: categoryCreatorStatusProvider,
+    //   // move to the end of the list of categories
+    //   onChange: (context, value) {
+    //     if (value.state == CategoryCreatorStatus.success) {
+    //       _pageController.animateToPage(
+    //         widget.state.categories.length,
+    //         duration: const Duration(milliseconds: 300),
+    //         curve: Curves.easeIn,
+    //       );
+    //     }
+    //   },
+    //   child: PageView.builder(
+    //     controller: _pageController,
+    //     itemCount: widget.state.categories.length,
+    //     onPageChanged: (index) =>
+    //         context.read(currentCategoryIndexProvider).state = index,
+    //     itemBuilder: (context, index) {
+    //       final category = widget.state.categories[index];
+    //
+    //       return CategoryCard(
+    //         category: category,
+    //         onTap: () {
+    //           context.read(currentCategoryProvider).state = category;
+    //           Navigator.of(context).push(
+    //             PageRouteBuilder(
+    //               pageBuilder: (context, anim1, anim2) =>
+    //                   CategoryScreen(heroId: category.id),
+    //               transitionsBuilder: (context, anim1, anim2, child) {
+    //                 return FadeTransition(
+    //                   opacity: anim1,
+    //                   child: child,
+    //                 );
+    //               },
+    //             ),
+    //           );
+    //         },
+    //       );
+    //     },
+    //   ),
+    // );
   }
 }

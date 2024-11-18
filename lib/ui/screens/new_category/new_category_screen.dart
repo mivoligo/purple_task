@@ -9,9 +9,10 @@ class NewCategoryScreen extends ConsumerWidget {
   final _focusNode = FocusNode();
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final newCategoryState = watch(newCategoryControllerProvider);
-    final newCategoryController = watch(newCategoryControllerProvider.notifier);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final newCategoryState = ref.watch(newCategoryControllerProvider);
+    final newCategoryController =
+        ref.watch(newCategoryControllerProvider.notifier);
     switch (newCategoryState.status) {
       case NewCategoryStatus.initial:
         return CategoryInitial(color: newCategoryState.color);
@@ -56,8 +57,8 @@ class NewCategoryScreen extends ConsumerWidget {
           color: newCategoryState.color,
           onNext: () {
             newCategoryController.addNewCategory();
-            watch(categoryCreatorStatusProvider).state =
-                CategoryCreatorStatus.success;
+            // ref.watch(categoryCreatorStatusProvider) =
+            //     CategoryCreatorStatus.success;
             Navigator.of(context).pop();
           },
           selectedIcon: newCategoryState.icon,

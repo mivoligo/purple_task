@@ -16,8 +16,8 @@ class UncategorizedTasks extends ConsumerWidget {
   final double height;
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final uncategorizedTasks = watch(uncategorizedTasksProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final uncategorizedTasks = ref.watch(uncategorizedTasksProvider);
     return uncategorizedTasks.isNotEmpty
         ? Container(
             width: width,

@@ -16,12 +16,12 @@ class CategoryTile extends ConsumerWidget {
   final Category category;
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final progress = watch(progressProvider(category.id));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final progress = ref.watch(progressProvider(category.id));
     final isCurrentCategory =
-        watch(currentCategoryProvider).state?.id == category.id;
+        ref.watch(currentCategoryProvider)?.id == category.id;
     var description = '';
-    final activeTasksNumber = watch(
+    final activeTasksNumber = ref.watch(
       activeTasksNumberProvider(category.id),
     );
     switch (activeTasksNumber) {
@@ -46,9 +46,9 @@ class CategoryTile extends ConsumerWidget {
       decoration: CustomStyle.categoryCardDecoration,
       child: InkWell(
         onTap: () {
-          isCurrentCategory
-              ? watch(currentCategoryProvider).state = null
-              : watch(currentCategoryProvider).state = category;
+          // isCurrentCategory
+          //     ? ref.watch(currentCategoryProvider) = null
+          //     : ref.watch(currentCategoryProvider) = category;
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -111,23 +111,23 @@ class CategoryTile extends ConsumerWidget {
   }
 
   void _removeAllTasks(BuildContext context) {
-    context
-        .read(tasksProvider.notifier)
-        .removeAllTasksForCategory(categoryId: category.id);
+    // context
+    //     .read(tasksProvider.notifier)
+    //     .removeAllTasksForCategory(categoryId: category.id);
   }
 
   void _removeCompletedTasks(BuildContext context) {
-    context
-        .read(tasksProvider.notifier)
-        .removeCompletedTasksForCategory(categoryId: category.id);
+    // context
+    //     .read(tasksProvider.notifier)
+    //     .removeCompletedTasksForCategory(categoryId: category.id);
   }
 
   void _removeCategoryAndTasks(BuildContext context) {
     // delete tasks with category id
     _removeAllTasks(context);
     // delete category
-    context.read(categoriesProvider.notifier).remove(category: category);
+    // context.read(categoriesProvider.notifier).remove(category: category);
     // remove category from current category state
-    context.read(currentCategoryProvider).state = null;
+    // context.read(currentCategoryProvider).state = null;
   }
 }

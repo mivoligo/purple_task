@@ -8,8 +8,8 @@ class AnimatedBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, watch, _) {
-        final backgroundColor = watch(backgroundColorNarrowLayoutProvider);
+      builder: (context, ref, _) {
+        final backgroundColor = ref.watch(backgroundColorNarrowLayoutProvider);
 
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),

@@ -47,9 +47,9 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
       child: SafeArea(
         child: Scaffold(
           body: Consumer(
-            builder: (context, watch, _) {
+            builder: (context, ref, _) {
               final isCategoryListEmpty =
-                  watch(categoriesProvider).categories.isEmpty;
+                  ref.watch(categoriesProvider).categories.isEmpty;
               return LayoutBuilder(
                 builder: (context, constraints) {
                   if (constraints.maxWidth < 700 || isCategoryListEmpty) {

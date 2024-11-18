@@ -29,13 +29,15 @@ class _PlannedTasksState extends State<PlannedTasks> {
   Widget build(BuildContext context) {
     return Scrollbar(
       child: Consumer(
-        builder: (context, watch, _) {
+        builder: (context, ref, _) {
           final noDueDateTasks =
-              watch(noDueDateTasksProvider(widget.categoryId));
-          final overdueTasks = watch(overdueTasksProvider(widget.categoryId));
-          final todayTasks = watch(todayTasksProvider(widget.categoryId));
-          final tomorrowTasks = watch(tomorrowTasksProvider(widget.categoryId));
-          final futureTasks = watch(futureTasksProvider(widget.categoryId));
+              ref.watch(noDueDateTasksProvider(widget.categoryId));
+          final overdueTasks =
+              ref.watch(overdueTasksProvider(widget.categoryId));
+          final todayTasks = ref.watch(todayTasksProvider(widget.categoryId));
+          final tomorrowTasks =
+              ref.watch(tomorrowTasksProvider(widget.categoryId));
+          final futureTasks = ref.watch(futureTasksProvider(widget.categoryId));
           return CustomScrollView(
             key: const PageStorageKey('planned tasks'),
             controller: _scrollController,

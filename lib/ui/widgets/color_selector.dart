@@ -7,7 +7,7 @@ import '../../constants/constants.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 
-class ColorSelector extends StatelessWidget {
+class ColorSelector extends ConsumerWidget {
   const ColorSelector({
     required this.selectedColor,
     this.isInCreator = true,
@@ -19,7 +19,7 @@ class ColorSelector extends StatelessWidget {
   final Category? category;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return AnimationLimiter(
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -43,18 +43,18 @@ class ColorSelector extends StatelessWidget {
                       elevation: isSelected ? 6 : 1,
                       child: InkWell(
                         onFocusChange: isInCreator
-                            ? (_) => context
+                            ? (_) => ref
                                 .read(newCategoryControllerProvider.notifier)
                                 .colorChanged(Color(categoryColors[index]))
-                            : (_) => context
+                            : (_) => ref
                                 .read(categoryProvider(category!).notifier)
                                 .colorChanged(
                                     color: Color(categoryColors[index])),
                         onTap: isInCreator
-                            ? () => context
+                            ? () => ref
                                 .read(newCategoryControllerProvider.notifier)
                                 .colorChanged(Color(categoryColors[index]))
-                            : () => context
+                            : () => ref
                                 .read(categoryProvider(category!).notifier)
                                 .colorChanged(
                                     color: Color(categoryColors[index])),
