@@ -17,29 +17,11 @@ class NarrowLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appHeight = MediaQuery.of(context).size.height;
+    final appHeight = MediaQuery.sizeOf(context).height;
 
     return Stack(
       children: [
-        Consumer(
-          builder: (context, watch, _) {
-            final backgroundColor = watch(backgroundColorNarrowLayoutProvider);
-
-            return AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      const Color(0xFF303030),
-                      backgroundColor,
-                      backgroundColor,
-                    ]),
-              ),
-            );
-          },
-        ),
+        const AnimatedBackground(),
         Column(
           children: [
             Row(
@@ -83,7 +65,7 @@ class NarrowLayout extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(
-                          width: 440,
+                          width: 240,
                           child: AddTaskField(
                             onAddTask: (value) {
                               final task = Task(

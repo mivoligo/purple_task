@@ -25,25 +25,7 @@ class WideLayout extends StatelessWidget {
 
     return Stack(
       children: [
-        Consumer(
-          builder: (context, watch, _) {
-            final backgroundColor = watch(backgroundColorWideLayoutProvider);
-
-            return AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      const Color(0xFF303030),
-                      backgroundColor,
-                      backgroundColor,
-                    ]),
-              ),
-            );
-          },
-        ),
+        const AnimatedBackground(),
         Column(
           children: [
             Row(
