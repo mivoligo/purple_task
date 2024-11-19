@@ -66,7 +66,7 @@ class AboutScreen extends StatelessWidget {
     );
   }
 
-  _showLicenseDialog(BuildContext context) {
+  Future _showLicenseDialog(BuildContext context) {
     return showDialog(
       context: context,
       builder: (_) {
@@ -78,7 +78,7 @@ class AboutScreen extends StatelessWidget {
             SimpleButton(
               text: s.close,
               onPressed: Navigator.of(context).pop,
-            )
+            ),
           ],
         );
       },

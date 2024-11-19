@@ -34,13 +34,14 @@ class NewCategoryBase extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    const Color(0xFF303030),
-                    color,
-                    color,
-                  ]),
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  const Color(0xFF303030),
+                  color,
+                  color,
+                ],
+              ),
             ),
           ),
           Center(

@@ -33,15 +33,17 @@ class _SelectedCategoryTasksState extends State<SelectedCategoryTasks> {
       decoration: CustomStyle.uncategorizedTasksDecoration,
       child: Column(
         children: [
-          Consumer(builder: (context, ref, _) {
-            final currentCategory = widget.category;
-            return Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: _buildTasksList(currentCategory),
-              ),
-            );
-          }),
+          Consumer(
+            builder: (context, ref, _) {
+              final currentCategory = widget.category;
+              return Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _buildTasksList(currentCategory),
+                ),
+              );
+            },
+          ),
           BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             unselectedFontSize: 14.0,
@@ -65,7 +67,7 @@ class _SelectedCategoryTasksState extends State<SelectedCategoryTasks> {
                 icon: Icon(AntIcons.checkCircle),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

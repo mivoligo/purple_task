@@ -36,7 +36,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
     super.dispose();
   }
 
-  _updateField() {
+  void _updateField() {
     setState(() {
       _hasText = _controller.text.trim().isNotEmpty;
     });

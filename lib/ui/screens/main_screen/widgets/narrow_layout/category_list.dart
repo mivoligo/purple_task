@@ -48,7 +48,8 @@ class _HorizontalPages extends ConsumerStatefulWidget {
 
 class __HorizontalPagesState extends ConsumerState<_HorizontalPages> {
   late final _pageController = PageController(
-      viewportFraction: (widget.appWidth - 48) / widget.appWidth);
+    viewportFraction: (widget.appWidth - 48) / widget.appWidth,
+  );
 
   @override
   void dispose() {

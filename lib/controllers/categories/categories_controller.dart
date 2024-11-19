@@ -25,7 +25,7 @@ class CategoriesNotifier extends _$CategoriesNotifier {
     await ref.read(categoryRepositoryProvider).update(category: category);
     state = [
       for (final element in state)
-        if (element.id == category.id) category else element
+        if (element.id == category.id) category else element,
     ];
   }
 }

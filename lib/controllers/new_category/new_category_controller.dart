@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -72,8 +71,8 @@ class NewCategoryNotifier extends _$NewCategoryNotifier {
 }
 
 Color _setRandomColor() {
-    return Color(categoryColors[Random().nextInt(categoryColors.length)]);
-  }
+  return Color(categoryColors[Random().nextInt(categoryColors.length)]);
+}
 // class NewCategoryController extends StateNotifier<NewCategoryState> {
 //   NewCategoryController({
 //     required CategoriesController categoriesController,

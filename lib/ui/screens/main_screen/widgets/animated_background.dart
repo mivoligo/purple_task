@@ -15,13 +15,14 @@ class AnimatedBackground extends StatelessWidget {
           duration: const Duration(milliseconds: 300),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  const Color(0xFF303030),
-                  backgroundColor,
-                  backgroundColor,
-                ]),
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                const Color(0xFF303030),
+                backgroundColor,
+                backgroundColor,
+              ],
+            ),
           ),
         );
       },

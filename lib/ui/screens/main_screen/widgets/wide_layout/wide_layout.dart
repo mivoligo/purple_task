@@ -68,7 +68,7 @@ class WideLayout extends StatelessWidget {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
             Expanded(
@@ -79,13 +79,15 @@ class WideLayout extends StatelessWidget {
                     child: Column(
                       children: [
                         Expanded(
-                          child: Consumer(builder: (context, ref, _) {
-                            final categories =
-                                ref.watch(categoriesNotifierProvider);
-                            return VerticalList(
-                              categories: categories,
-                            );
-                          }),
+                          child: Consumer(
+                            builder: (context, ref, _) {
+                              final categories =
+                                  ref.watch(categoriesNotifierProvider);
+                              return VerticalList(
+                                categories: categories,
+                              );
+                            },
+                          ),
                         ),
                         Hero(
                           tag: 'new_category',
@@ -146,7 +148,7 @@ class WideLayout extends StatelessWidget {
                                       );
                               },
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),

@@ -80,9 +80,10 @@ class _CategoryTasksState extends State<CategoryTasks> {
                   widget.onAddTask(value);
                   setState(() {
                     _scrollController.animateTo(
-                        _scrollController.position.minScrollExtent,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.ease);
+                      _scrollController.position.minScrollExtent,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
                   });
                 },
               ),
@@ -115,7 +116,7 @@ class _CategoryTasksState extends State<CategoryTasks> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

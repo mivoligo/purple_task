@@ -26,7 +26,7 @@ class TimeFormatSelector extends StatelessWidget {
             ),
             tooltip: s.changeFormat,
             onSelected: (item) => controller.setTimeFormat(
-              timeFormat: item as String,
+              timeFormat: item,
             ),
             itemBuilder: (context) {
               var menuList = <PopupMenuEntry<String>>[];

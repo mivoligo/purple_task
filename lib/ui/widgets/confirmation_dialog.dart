@@ -50,7 +50,7 @@ class ConfirmationDialog extends StatelessWidget {
             Navigator.of(context).pop();
           },
           color: confirmationColor,
-        )
+        ),
       ],
     );
   }

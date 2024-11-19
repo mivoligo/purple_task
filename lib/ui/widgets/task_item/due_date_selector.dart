@@ -60,7 +60,9 @@ class DueDateSelector extends StatelessWidget {
               child: task.dueDate != null
                   ? Text(
                       TimeConversion.formatDueDate(
-                          task.dueDate, dateFormatSetting),
+                        task.dueDate,
+                        dateFormatSetting,
+                      ),
                       style: CustomStyle.textStyleTaskFilter,
                     )
                   : const Icon(

@@ -18,7 +18,7 @@ class DateFormatSelector extends StatelessWidget {
           child: PopupMenuButton(
             tooltip: s.changeFormat,
             onSelected: (item) => controller.setDateFormat(
-              dateFormat: item as String,
+              dateFormat: item,
             ),
             itemBuilder: (context) {
               var menuList = <PopupMenuEntry<String>>[];

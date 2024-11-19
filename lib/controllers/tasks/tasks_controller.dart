@@ -36,14 +36,16 @@ class TasksNotifier extends _$TasksNotifier {
     state = state.where((element) => element.categoryId != categoryId).toList();
   }
 
-  Future<void> removeCompletedTasksForCategory(
-      {required int categoryId}) async {
+  Future<void> removeCompletedTasksForCategory({
+    required int categoryId,
+  }) async {
     await ref
         .read(taskRepositoryProvider)
         .removeCompletedTasksForCategory(categoryId);
     state = state
         .where(
-            (element) => !(element.categoryId == categoryId && element.isDone))
+          (element) => !(element.categoryId == categoryId && element.isDone),
+        )
         .toList();
   }
 }

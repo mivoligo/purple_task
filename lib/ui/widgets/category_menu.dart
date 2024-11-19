@@ -49,32 +49,44 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
         onSelected: (dynamic item) => onItemSelected(context, item),
         itemBuilder: (context) {
           final menuList = <PopupMenuEntry<Object>>[];
-          menuList.add(const PopupMenuItem(
-            child: Text(s.deleteCompleted),
-            value: 1,
-          ));
-          menuList.add(const PopupMenuItem(
-            child: Text(s.deleteAllTasks),
-            value: 2,
-          ));
+          menuList.add(
+            const PopupMenuItem(
+              child: Text(s.deleteCompleted),
+              value: 1,
+            ),
+          );
+          menuList.add(
+            const PopupMenuItem(
+              child: Text(s.deleteAllTasks),
+              value: 2,
+            ),
+          );
           menuList.add(const PopupMenuDivider());
-          menuList.add(const PopupMenuItem(
-            child: Text(s.deleteCategory),
-            value: 3,
-          ));
+          menuList.add(
+            const PopupMenuItem(
+              child: Text(s.deleteCategory),
+              value: 3,
+            ),
+          );
           menuList.add(const PopupMenuDivider());
-          menuList.add(const PopupMenuItem(
-            child: Text(s.changeName),
-            value: 4,
-          ));
-          menuList.add(const PopupMenuItem(
-            child: Text(s.changeColor),
-            value: 5,
-          ));
-          menuList.add(const PopupMenuItem(
-            child: Text(s.changeIcon),
-            value: 6,
-          ));
+          menuList.add(
+            const PopupMenuItem(
+              child: Text(s.changeName),
+              value: 4,
+            ),
+          );
+          menuList.add(
+            const PopupMenuItem(
+              child: Text(s.changeColor),
+              value: 5,
+            ),
+          );
+          menuList.add(
+            const PopupMenuItem(
+              child: Text(s.changeIcon),
+              value: 6,
+            ),
+          );
 
           return menuList;
         },

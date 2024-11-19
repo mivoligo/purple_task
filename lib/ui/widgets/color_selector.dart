@@ -49,7 +49,8 @@ class ColorSelector extends ConsumerWidget {
                             : (_) => ref
                                 .read(categoryNotifierProvider.notifier)
                                 .changeColor(
-                                    color: Color(categoryColors[index])),
+                                  color: Color(categoryColors[index]),
+                                ),
                         onTap: isInCreator
                             ? () => ref
                                 .read(newCategoryNotifierProvider.notifier)
@@ -57,7 +58,8 @@ class ColorSelector extends ConsumerWidget {
                             : () => ref
                                 .read(categoryNotifierProvider.notifier)
                                 .changeColor(
-                                    color: Color(categoryColors[index])),
+                                  color: Color(categoryColors[index]),
+                                ),
                         child: isSelected
                             ? const Icon(
                                 AntIcons.checkOutline,

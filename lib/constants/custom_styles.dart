@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 class CustomStyle {
   static const standardBackground = BoxDecoration(
     gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [
-          Color(0xFF303030),
-          Color(0xFF673AB7),
-        ]),
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        Color(0xFF303030),
+        Color(0xFF673AB7),
+      ],
+    ),
   );
 
   static const categoryCardDecoration = BoxDecoration(

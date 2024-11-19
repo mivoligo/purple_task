@@ -37,23 +37,25 @@ class CategorySelector extends StatelessWidget {
             itemBuilder: (context) {
               var menuList = <PopupMenuEntry<Object>>[];
               for (var category in categories) {
-                menuList.add(PopupMenuItem(
-                  child: Row(
-                    children: [
-                      Icon(
-                        IconData(
-                          category.icon,
-                          fontFamily: 'AntIcons',
-                          fontPackage: 'ant_icons',
+                menuList.add(
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        Icon(
+                          IconData(
+                            category.icon,
+                            fontFamily: 'AntIcons',
+                            fontPackage: 'ant_icons',
+                          ),
+                          color: category.color,
                         ),
-                        color: category.color,
-                      ),
-                      const SizedBox(width: 8),
-                      Flexible(child: Text(category.name)),
-                    ],
+                        const SizedBox(width: 8),
+                        Flexible(child: Text(category.name)),
+                      ],
+                    ),
+                    value: category.id,
                   ),
-                  value: category.id,
-                ));
+                );
               }
               return menuList;
             },
@@ -70,7 +72,8 @@ class CategorySelector extends StatelessWidget {
                     );
                   } else {
                     final currentCategory = categories.firstWhere(
-                        (category) => category.id == task.categoryId);
+                      (category) => category.id == task.categoryId,
+                    );
                     return Row(
                       children: [
                         Icon(
@@ -87,7 +90,8 @@ class CategorySelector extends StatelessWidget {
                           child: Text(
                             currentCategory.name,
                             style: CustomStyle.textStyleTaskFilter.copyWith(
-                                color: Theme.of(context).primaryColor),
+                              color: Theme.of(context).primaryColor,
+                            ),
                           ),
                         ),
                       ],

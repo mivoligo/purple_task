@@ -35,7 +35,8 @@ class _AllTasksState extends State<AllTasks> {
           final todayCompletedTasks = ref
               .watch(todayCompletedTasksInCategoryProvider(widget.categoryId));
           final yesterdayCompletedTasks = ref.watch(
-              yesterdayCompletedTasksInCategoryProvider(widget.categoryId));
+            yesterdayCompletedTasksInCategoryProvider(widget.categoryId),
+          );
           final pastCompletedTasks = ref
               .watch(pastCompletedTasksInCategoryProvider(widget.categoryId));
           final noDueDateTasks =
