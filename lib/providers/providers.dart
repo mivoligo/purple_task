@@ -1,266 +1,258 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../controllers/controllers.dart';
 import '../helpers.dart';
 import '../models/models.dart';
 import '../repositories/repositories.dart';
 
-final categoryRepositoryProvider = Provider((ref) => CategoryRepository());
+part 'providers.g.dart';
 
-final categoriesProvider =
-    StateNotifierProvider<CategoriesController, CategoriesState>((ref) {
-  return CategoriesController(
-    baseCategoryRepository: ref.watch(categoryRepositoryProvider),
-  );
-});
+@riverpod
+BaseCategoryRepository categoryRepository(Ref ref) => CategoryRepository();
 
-final newCategoryControllerProvider =
-    StateNotifierProvider.autoDispose<NewCategoryController, NewCategoryState>(
-  (ref) {
-    return NewCategoryController(
-      categoriesController: ref.watch(categoriesProvider.notifier),
-      tasksController: ref.watch(tasksProvider.notifier),
-    );
-  },
-);
+@riverpod
+BaseTaskRepository taskRepository(Ref ref) => TaskRepository();
 
-final categoryProvider =
-    StateNotifierProvider.family<CategoryController, CategoryState, Category>(
-        (ref, category) {
-  return CategoryController(category: category);
-});
+@riverpod
+class NoDueDateTasksInCategory extends _$NoDueDateTasksInCategory {
+  @override
+  List<Task> build(int categoryId) {
+    final tasks = ref
+        .watch(tasksNotifierProvider)
+        .where((task) =>
+            task.categoryId == categoryId &&
+            !task.isDone &&
+            task.dueDate == null)
+        .toList();
+    return tasks.reversed.toList();
+  }
+}
 
-final taskRepositoryProvider = Provider((ref) => TaskRepository());
-
-final tasksProvider = StateNotifierProvider<TasksController, TasksState>((ref) {
-  return TasksController(
-    baseTaskRepository: ref.watch(taskRepositoryProvider),
-  );
-});
-
-final noDueDateTasksProvider =
-    Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref
-      .watch(tasksProvider)
-      .tasks
-      .where((task) =>
-          !task.isDone && task.categoryId == categoryId && task.dueDate == null)
-      .toList();
-  return tasks.reversed.toList();
-});
-
-final overdueTasksProvider =
-    Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref
-      .watch(tasksProvider)
-      .tasks
-      .where((task) => !task.isDone && task.categoryId == categoryId);
-  final now = DateTime.now();
-  final today = DateTime(now.year, now.month, now.day);
-  var overdueTasks = <Task>[];
-  for (var task in tasks) {
-    if (task.dueDate != null) {
-      final taskDueTime = DateTime.fromMillisecondsSinceEpoch(task.dueDate!);
-      final taskDueDate =
-          DateTime(taskDueTime.year, taskDueTime.month, taskDueTime.day);
+@riverpod
+class OverdueTasksInCategory extends _$OverdueTasksInCategory {
+  @override
+  List<Task> build(int categoryId) {
+    final tasks = ref.watch(tasksNotifierProvider).where((task) =>
+        task.categoryId == categoryId && !task.isDone && task.dueDate != null);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final overdueTasks = <Task>[];
+    for (final task in tasks) {
+      final taskDueDate = task.dueDate!.millisToDay();
       if (taskDueDate.isBefore(today)) {
         overdueTasks.add(task);
       }
     }
+    overdueTasks.sort(
+      (a, b) => a.dueDate!.compareTo(b.dueDate!),
+    );
+    return overdueTasks;
   }
-  overdueTasks.sort((a, b) => a.dueDate!.compareTo(b.dueDate!));
-  return overdueTasks;
-});
+}
 
-final todayTasksProvider = Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref
-      .watch(tasksProvider)
-      .tasks
-      .where((task) => !task.isDone && task.categoryId == categoryId);
-  var todayTasks = <Task>[];
-  for (var task in tasks) {
-    if (task.dueDate != null) {
-      final taskDueDate = task.dueDate?.millisToDay();
-      if (taskDueDate!.isToday) {
+@riverpod
+class TodayTasksInCategory extends _$TodayTasksInCategory {
+  @override
+  List<Task> build(int categoryId) {
+    final tasks = ref.watch(tasksNotifierProvider).where((task) =>
+        !task.isDone && task.categoryId == categoryId && task.dueDate != null);
+    final todayTasks = <Task>[];
+    for (final task in tasks) {
+      final taskDueDate = task.dueDate!.millisToDay();
+      if (taskDueDate.isToday) {
         todayTasks.add(task);
       }
     }
+    return todayTasks;
   }
-  return todayTasks;
-});
+}
 
-final tomorrowTasksProvider =
-    Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref
-      .watch(tasksProvider)
-      .tasks
-      .where((task) => !task.isDone && task.categoryId == categoryId);
-  var tomorrowTasks = <Task>[];
-  for (var task in tasks) {
-    if (task.dueDate != null) {
+@riverpod
+class TomorrowTasksInCategory extends _$TomorrowTasksInCategory {
+  @override
+  List<Task> build(int categoryId) {
+    final tasks = ref.watch(tasksNotifierProvider).where((task) =>
+        task.categoryId == categoryId && !task.isDone && task.dueDate != null);
+    final tomorrowTasks = <Task>[];
+    for (final task in tasks) {
       final taskDueDate = task.dueDate!.millisToDay();
       if (taskDueDate.isTomorrow) {
         tomorrowTasks.add(task);
       }
     }
+    return tomorrowTasks;
   }
-  return tomorrowTasks;
-});
+}
 
-final futureTasksProvider = Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref
-      .watch(tasksProvider)
-      .tasks
-      .where((task) => !task.isDone && task.categoryId == categoryId);
-  var futureTasks = <Task>[];
-  for (var task in tasks) {
-    if (task.dueDate != null) {
+@riverpod
+class FutureTasksInCategory extends _$FutureTasksInCategory {
+  @override
+  List<Task> build(int categoryId) {
+    final tasks = ref.watch(tasksNotifierProvider).where((task) =>
+        task.categoryId == categoryId && !task.isDone && task.dueDate != null);
+    final futureTasks = <Task>[];
+    for (final task in tasks) {
       final taskDueDate = task.dueDate!.millisToDay();
       if (taskDueDate.isAfterTomorrow) {
         futureTasks.add(task);
       }
     }
+    futureTasks.sort((a, b) => a.dueDate!.compareTo(b.dueDate!));
+    return futureTasks;
   }
-  futureTasks.sort((a, b) => a.dueDate!.compareTo(b.dueDate!));
-  return futureTasks;
-});
+}
 
-final todayCompletedTasksProvider =
-    Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref
-      .watch(tasksProvider)
-      .tasks
-      .where((task) => task.isDone && task.categoryId == categoryId);
-  var todayCompletedTasks = <Task>[];
-  for (var task in tasks) {
-    if (task.doneTime != null) {
+@riverpod
+class TodayCompletedTasksInCategory extends _$TodayCompletedTasksInCategory {
+  @override
+  List<Task> build(int categoryId) {
+    final tasks = ref.watch(tasksNotifierProvider).where((task) =>
+        task.categoryId == categoryId && task.isDone && task.doneTime != null);
+    final todayCompletedTasks = <Task>[];
+    for (final task in tasks) {
       final taskDoneDate = task.doneTime!.millisToDay();
       if (taskDoneDate.isToday) {
         todayCompletedTasks.add(task);
       }
     }
+    todayCompletedTasks.sort((b, a) => a.doneTime!.compareTo(b.doneTime!));
+    return todayCompletedTasks;
   }
-  todayCompletedTasks.sort((b, a) => a.doneTime!.compareTo(b.doneTime!));
-  return todayCompletedTasks;
-});
+}
 
-final yesterdayCompletedTasksProvider =
-    Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref
-      .watch(tasksProvider)
-      .tasks
-      .where((task) => task.isDone && task.categoryId == categoryId);
-  var yesterdayCompletedTasks = <Task>[];
-  for (var task in tasks) {
-    if (task.doneTime != null) {
+@riverpod
+class YesterdayCompletedTasksInCategory
+    extends _$YesterdayCompletedTasksInCategory {
+  @override
+  List<Task> build(int categoryId) {
+    final tasks = ref.watch(tasksNotifierProvider).where((task) =>
+        task.categoryId == categoryId && task.isDone && task.doneTime != null);
+    final yesterdayCompletedTasks = <Task>[];
+    for (final task in tasks) {
       final taskDoneDate = task.doneTime!.millisToDay();
       if (taskDoneDate.isYesterday) {
         yesterdayCompletedTasks.add(task);
       }
     }
+    yesterdayCompletedTasks.sort((b, a) => a.doneTime!.compareTo(b.doneTime!));
+    return yesterdayCompletedTasks;
   }
-  yesterdayCompletedTasks.sort((b, a) => a.doneTime!.compareTo(b.doneTime!));
-  return yesterdayCompletedTasks;
-});
+}
 
-final pastCompletedTasksProvider =
-    Provider.family<List<Task>, int>((ref, categoryId) {
-  final tasks = ref
-      .watch(tasksProvider)
-      .tasks
-      .where((task) => task.isDone && task.categoryId == categoryId);
-  var pastCompletedTasks = <Task>[];
-  var completedTasksWithoutDoneTime = <Task>[];
-  for (var task in tasks) {
-    if (task.doneTime != null) {
-      final taskDoneDate = task.doneTime!.millisToDay();
-      if (taskDoneDate.isBeforeYesterday) {
-        pastCompletedTasks.add(task);
+@riverpod
+class PastCompletedTasksInCategory extends _$PastCompletedTasksInCategory {
+  @override
+  List<Task> build(int categoryId) {
+    final tasks = ref
+        .watch(tasksNotifierProvider)
+        .where((task) => task.categoryId == categoryId && task.isDone);
+    final pastCompletedTasks = <Task>[];
+    final completedTasksWithoutDoneTime = <Task>[];
+    for (final task in tasks) {
+      if (task.doneTime != null) {
+        final taskDoneDate = task.doneTime!.millisToDay();
+        if (taskDoneDate.isBeforeYesterday) {
+          pastCompletedTasks.add(task);
+        }
+      } else {
+        completedTasksWithoutDoneTime.add(task);
       }
-    } else {
-      completedTasksWithoutDoneTime.add(task);
     }
+    pastCompletedTasks.sort((b, a) => a.doneTime!.compareTo(b.doneTime!));
+    return [...pastCompletedTasks, ...completedTasksWithoutDoneTime];
   }
-  pastCompletedTasks.sort((b, a) => a.doneTime!.compareTo(b.doneTime!));
-  pastCompletedTasks.addAll(completedTasksWithoutDoneTime);
-  return pastCompletedTasks;
-});
+}
 
-final allActiveTasksProvider = Provider<int>((ref) {
-  final tasks = ref.watch(tasksProvider).tasks;
+@riverpod
+int numberOfAllActiveTasks(Ref ref) {
+  final tasks = ref.watch(tasksNotifierProvider);
   return tasks.where((element) => !element.isDone).length;
-});
+}
 
-final uncategorizedTasksProvider = Provider<List<Task>>((ref) {
-  final tasks = ref.watch(tasksProvider).tasks;
-  return tasks.where((element) => element.categoryId == -1).toList();
-});
+@riverpod
+List<Task> uncategorizedTasks(Ref ref) {
+  return ref
+      .watch(tasksNotifierProvider)
+      .where((element) => element.categoryId == -1)
+      .toList();
+}
 
-final activeTasksNumberProvider = Provider.family<int, int?>((ref, categoryId) {
+@riverpod
+int numberOfActiveTasksInCategory(Ref ref, int? categoryId) {
   if (categoryId == null) {
     return 0;
   }
-  final tasks = ref.watch(tasksProvider).tasks;
-  return tasks
+  return ref
+      .watch(tasksNotifierProvider)
       .where((task) => task.categoryId == categoryId && !task.isDone)
       .length;
-});
+}
 
-final progressProvider = Provider.family<double, int?>((ref, categoryId) {
-  if (categoryId == null) {
-    return 0;
+@riverpod
+double completionProgress(Ref ref, int categoryId) {
+  final tasks = ref.watch(tasksNotifierProvider);
+  final allTasksInCategory =
+      tasks.where((task) => task.categoryId == categoryId);
+  final completedTasksInCategory =
+      allTasksInCategory.where((task) => task.isDone);
+  if (allTasksInCategory.isNotEmpty) {
+    return completedTasksInCategory.length / allTasksInCategory.length;
   }
-  final tasks = ref.watch(tasksProvider).tasks;
-  final allTasks = tasks.where((task) => task.categoryId == categoryId).length;
-  final completedTasks = tasks
-      .where((task) => task.categoryId == categoryId && task.isDone)
-      .length;
-  if (allTasks > 0) {
-    return completedTasks / allTasks;
-  } else {
-    return 0;
-  }
-});
+  return 0.0;
+}
 
-final taskTileProvider = StateNotifierProvider.family
-    .autoDispose<TaskTileController, TaskTileState, Task>(
-  (ref, task) => TaskTileController(task: task),
-);
 
-final settingsRepositoryProvider = Provider((ref) => SettingsRepository());
+@riverpod
+BaseSettingsRepository settingsRepository(Ref ref) => SettingsRepository();
 
-final settingsControllerProvider =
-    StateNotifierProvider<SettingsController, SettingsState>((ref) {
-  return SettingsController(
-      baseSettingsRepository: ref.watch(settingsRepositoryProvider));
-});
+@riverpod
+class CurrentCategory extends _$CurrentCategory {
+  @override
+  Category? build() => null;
 
-final currentCategoryProvider = StateProvider<Category?>((_) => null);
+  void setCurrentCategory(Category? category) => state = category;
+}
 
-final currentCategoryIndexProvider = StateProvider<int>((_) => 0);
+@riverpod
+class CurrentCategoryIndex extends _$CurrentCategoryIndex {
+  @override
+  int build() => 0;
 
-final backgroundColorNarrowLayoutProvider = Provider<Color>((ref) {
-  final categories = ref.watch(categoriesProvider).categories;
+  void updateIndex(int value) => state = value;
+}
+
+@riverpod
+Color backgroundColorNarrowLayout(Ref ref) {
+  final categories = ref.watch(categoriesNotifierProvider);
   final currentIndex = ref.watch(currentCategoryIndexProvider);
   if (categories.isEmpty) {
     return Colors.deepPurple;
-  } else {
-    return categories[currentIndex].color;
   }
-});
+  return categories[currentIndex].color;
+}
 
-final backgroundColorWideLayoutProvider = Provider<Color>((ref) {
-  final currentCategory = ref.watch(currentCategoryProvider);
-  return currentCategory?.color ?? Colors.deepPurple;
-});
+@riverpod
+Color backgroundColorWideLayout(Ref ref) =>
+    ref.watch(currentCategoryProvider)?.color ?? Colors.deepPurple;
+
+@riverpod
+class CategoryCreatorCurrentStatus extends _$CategoryCreatorCurrentStatus {
+  @override
+  CategoryCreatorStatus build() => CategoryCreatorStatus.normal;
+
+  void setStatus(CategoryCreatorStatus status) => state = status;
+}
+
+@riverpod
+class CategoryScreenCurrentStatus extends _$CategoryScreenCurrentStatus {
+  @override
+  CategoryScreenStatus build() => CategoryScreenStatus.data;
+
+  void setStatus(CategoryScreenStatus status) => state = status;
+}
 
 enum CategoryCreatorStatus { normal, success }
 
-final categoryCreatorStatusProvider =
-    StateProvider((_) => CategoryCreatorStatus.normal);
-
 enum CategoryScreenStatus { data, remove }
-
-final categoryScreenStatusProvider =
-    StateProvider((_) => CategoryScreenStatus.data);

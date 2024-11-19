@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/strings/strings.dart' as s;
+import '../../../../../controllers/controllers.dart';
 import '../../../../../models/models.dart';
 import '../../../../../providers/providers.dart';
 import '../../../../widgets/widgets.dart';
@@ -80,7 +81,7 @@ class WideLayout extends StatelessWidget {
                         Expanded(
                           child: Consumer(builder: (context, ref, _) {
                             final categories =
-                                ref.watch(categoriesProvider).categories;
+                                ref.watch(categoriesNotifierProvider);
                             return VerticalList(
                               categories: categories,
                             );
@@ -120,7 +121,7 @@ class WideLayout extends StatelessWidget {
                                         -1,
                                   );
                                   ref
-                                      .read(tasksProvider.notifier)
+                                      .read(tasksNotifierProvider.notifier)
                                       .add(task: task);
                                 },
                               ),

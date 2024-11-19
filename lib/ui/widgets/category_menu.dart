@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/strings/strings.dart' as s;
+import '../../controllers/categories/categories_controller.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import 'widgets.dart';
@@ -153,7 +154,9 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                     final updatedCategory =
                         category.copyWith(name: textController.text);
                     _updateCategory(updatedCategory);
-                    // ref.read(currentCategoryProvider) = updatedCategory;
+                    ref
+                        .read(currentCategoryProvider.notifier)
+                        .setCurrentCategory(updatedCategory);
                     Navigator.of(context).pop();
                   },
                 ),
@@ -164,7 +167,9 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                       final updatedCategory =
                           category.copyWith(name: textController.text);
                       _updateCategory(updatedCategory);
-                      // ref.read(currentCategoryProvider).state = updatedCategory;
+                      ref
+                          .read(currentCategoryProvider.notifier)
+                          .setCurrentCategory(updatedCategory);
                     }
                   : () => null,
             );
@@ -180,8 +185,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
             return Consumer(
               builder: (context, ref, _) {
                 final category = ref.watch(currentCategoryProvider)!;
-                final color =
-                    ref.watch(categoryProvider(category)).category.color;
+                final color = category.color;
                 return ConfirmationDialog(
                   title: s.questionChangeColor,
                   content: SizedBox(
@@ -208,7 +212,9 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                   onConfirm: () {
                     final updatedCategory = category.copyWith(color: color);
                     _updateCategory(updatedCategory);
-                    // ref.read(currentCategoryProvider).state = updatedCategory;
+                    ref
+                        .read(currentCategoryProvider.notifier)
+                        .setCurrentCategory(updatedCategory);
                   },
                 );
               },
@@ -225,8 +231,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
             return Consumer(
               builder: (context, ref, _) {
                 final category = ref.watch(currentCategoryProvider)!;
-                final icon =
-                    ref.watch(categoryProvider(category)).category.icon;
+                final icon = category.icon;
                 return ConfirmationDialog(
                   title: s.questionChangeIcon,
                   content: SizedBox(
@@ -260,7 +265,9 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                   onConfirm: () {
                     final updatedCategory = category.copyWith(icon: icon);
                     _updateCategory(updatedCategory);
-                    // ref.read(currentCategoryProvider) = updatedCategory;
+                    ref
+                        .read(currentCategoryProvider.notifier)
+                        .setCurrentCategory(updatedCategory);
                   },
                 );
               },
@@ -272,6 +279,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
   }
 
   void _updateCategory(Category category) {
-    ref.read(categoriesProvider.notifier).update(category: category);
+    ref.read(categoriesNotifierProvider.notifier).update(category: category);
   }
 }

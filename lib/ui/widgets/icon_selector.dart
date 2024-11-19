@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../constants/constants.dart';
+import '../../controllers/controllers.dart';
 import '../../models/models.dart';
-import '../../providers/providers.dart';
 
 class IconSelector extends ConsumerWidget {
   const IconSelector({
@@ -43,18 +43,18 @@ class IconSelector extends ConsumerWidget {
                       child: InkWell(
                         onFocusChange: isInCreator
                             ? (_) => ref
-                                .read(newCategoryControllerProvider.notifier)
-                                .iconChanged(categoryIcons[index])
+                                .read(newCategoryNotifierProvider.notifier)
+                                .changeIcon(categoryIcons[index])
                             : (_) => ref
-                                .read(categoryProvider(category!).notifier)
-                                .iconChanged(icon: categoryIcons[index]),
+                                .read(categoryNotifierProvider.notifier)
+                                .changeIcon(icon: categoryIcons[index]),
                         onTap: isInCreator
                             ? () => ref
-                                .read(newCategoryControllerProvider.notifier)
-                                .iconChanged(categoryIcons[index])
+                                .read(newCategoryNotifierProvider.notifier)
+                                .changeIcon(categoryIcons[index])
                             : () => ref
-                                .read(categoryProvider(category!).notifier)
-                                .iconChanged(icon: categoryIcons[index]),
+                                .read(categoryNotifierProvider.notifier)
+                                .changeIcon(icon: categoryIcons[index]),
                         child: Icon(
                           IconData(
                             categoryIcons[index],

@@ -32,20 +32,22 @@ class _AllTasksState extends State<AllTasks> {
     return Scrollbar(
       child: Consumer(
         builder: (context, ref, _) {
-          final todayCompletedTasks =
-              ref.watch(todayCompletedTasksProvider(widget.categoryId));
-          final yesterdayCompletedTasks =
-              ref.watch(yesterdayCompletedTasksProvider(widget.categoryId));
-          final pastCompletedTasks =
-              ref.watch(pastCompletedTasksProvider(widget.categoryId));
+          final todayCompletedTasks = ref
+              .watch(todayCompletedTasksInCategoryProvider(widget.categoryId));
+          final yesterdayCompletedTasks = ref.watch(
+              yesterdayCompletedTasksInCategoryProvider(widget.categoryId));
+          final pastCompletedTasks = ref
+              .watch(pastCompletedTasksInCategoryProvider(widget.categoryId));
           final noDueDateTasks =
-              ref.watch(noDueDateTasksProvider(widget.categoryId));
+              ref.watch(noDueDateTasksInCategoryProvider(widget.categoryId));
           final overdueTasks =
-              ref.watch(overdueTasksProvider(widget.categoryId));
-          final todayTasks = ref.watch(todayTasksProvider(widget.categoryId));
+              ref.watch(overdueTasksInCategoryProvider(widget.categoryId));
+          final todayTasks =
+              ref.watch(todayTasksInCategoryProvider(widget.categoryId));
           final tomorrowTasks =
-              ref.watch(tomorrowTasksProvider(widget.categoryId));
-          final futureTasks = ref.watch(futureTasksProvider(widget.categoryId));
+              ref.watch(tomorrowTasksInCategoryProvider(widget.categoryId));
+          final futureTasks =
+              ref.watch(futureTasksInCategoryProvider(widget.categoryId));
           return CustomScrollView(
             key: const PageStorageKey('all tasks'),
             controller: _scrollController,

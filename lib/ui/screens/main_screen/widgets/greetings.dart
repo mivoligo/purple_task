@@ -23,7 +23,7 @@ class Greetings extends StatelessWidget {
         const SizedBox(height: 8.0),
         Consumer(
           builder: (context, ref, child) {
-            final tasksNumber = ref.watch(allActiveTasksProvider);
+            final tasksNumber = ref.watch(numberOfAllActiveTasksProvider);
             String text;
             switch (tasksNumber) {
               case 0:

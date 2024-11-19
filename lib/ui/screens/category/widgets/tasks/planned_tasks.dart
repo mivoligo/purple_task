@@ -31,13 +31,15 @@ class _PlannedTasksState extends State<PlannedTasks> {
       child: Consumer(
         builder: (context, ref, _) {
           final noDueDateTasks =
-              ref.watch(noDueDateTasksProvider(widget.categoryId));
+              ref.watch(noDueDateTasksInCategoryProvider(widget.categoryId));
           final overdueTasks =
-              ref.watch(overdueTasksProvider(widget.categoryId));
-          final todayTasks = ref.watch(todayTasksProvider(widget.categoryId));
+              ref.watch(overdueTasksInCategoryProvider(widget.categoryId));
+          final todayTasks =
+              ref.watch(todayTasksInCategoryProvider(widget.categoryId));
           final tomorrowTasks =
-              ref.watch(tomorrowTasksProvider(widget.categoryId));
-          final futureTasks = ref.watch(futureTasksProvider(widget.categoryId));
+              ref.watch(tomorrowTasksInCategoryProvider(widget.categoryId));
+          final futureTasks =
+              ref.watch(futureTasksInCategoryProvider(widget.categoryId));
           return CustomScrollView(
             key: const PageStorageKey('planned tasks'),
             controller: _scrollController,

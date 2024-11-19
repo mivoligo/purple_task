@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/constants.dart';
 import '../../../../../constants/strings/strings.dart' as s;
+import '../../../../../controllers/controllers.dart';
 import '../../../../../models/models.dart';
 import '../../../../../providers/providers.dart';
 import '../../../../widgets/widgets.dart';
@@ -17,12 +18,12 @@ class CategoryTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final progress = ref.watch(progressProvider(category.id));
+    final progress = ref.watch(completionProgressProvider(category.id));
     final isCurrentCategory =
         ref.watch(currentCategoryProvider)?.id == category.id;
     var description = '';
     final activeTasksNumber = ref.watch(
-      activeTasksNumberProvider(category.id),
+      numberOfActiveTasksInCategoryProvider(category.id),
     );
     switch (activeTasksNumber) {
       case 0:
@@ -46,9 +47,13 @@ class CategoryTile extends ConsumerWidget {
       decoration: CustomStyle.categoryCardDecoration,
       child: InkWell(
         onTap: () {
-          // isCurrentCategory
-          //     ? ref.watch(currentCategoryProvider) = null
-          //     : ref.watch(currentCategoryProvider) = category;
+          isCurrentCategory
+              ? ref
+                  .read(currentCategoryProvider.notifier)
+                  .setCurrentCategory(null)
+              : ref
+                  .watch(currentCategoryProvider.notifier)
+                  .setCurrentCategory(category);
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -77,10 +82,9 @@ class CategoryTile extends ConsumerWidget {
                   ),
                   if (isCurrentCategory)
                     CategoryMenu(
-                      onRemoveAllTasks: () => _removeAllTasks(context),
-                      onRemoveCategory: () => _removeCategoryAndTasks(context),
-                      onRemoveCompletedTasks: () =>
-                          _removeCompletedTasks(context),
+                      onRemoveAllTasks: () => _removeAllTasks(ref),
+                      onRemoveCategory: () => _removeCategoryAndTasks(ref),
+                      onRemoveCompletedTasks: () => _removeCompletedTasks(ref),
                     ),
                 ],
               ),
@@ -110,24 +114,24 @@ class CategoryTile extends ConsumerWidget {
     );
   }
 
-  void _removeAllTasks(BuildContext context) {
-    // context
-    //     .read(tasksProvider.notifier)
-    //     .removeAllTasksForCategory(categoryId: category.id);
+  void _removeAllTasks(WidgetRef ref) {
+    ref
+        .read(tasksNotifierProvider.notifier)
+        .removeAllTasksForCategory(categoryId: category.id);
   }
 
-  void _removeCompletedTasks(BuildContext context) {
-    // context
-    //     .read(tasksProvider.notifier)
-    //     .removeCompletedTasksForCategory(categoryId: category.id);
+  void _removeCompletedTasks(WidgetRef ref) {
+    ref
+        .read(tasksNotifierProvider.notifier)
+        .removeCompletedTasksForCategory(categoryId: category.id);
   }
 
-  void _removeCategoryAndTasks(BuildContext context) {
+  void _removeCategoryAndTasks(WidgetRef ref) {
     // delete tasks with category id
-    _removeAllTasks(context);
+    _removeAllTasks(ref);
     // delete category
-    // context.read(categoriesProvider.notifier).remove(category: category);
+    ref.read(categoriesNotifierProvider.notifier).remove(category: category);
     // remove category from current category state
-    // context.read(currentCategoryProvider).state = null;
+    ref.read(currentCategoryProvider.notifier).setCurrentCategory(null);
   }
 }

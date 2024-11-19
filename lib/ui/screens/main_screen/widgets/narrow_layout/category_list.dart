@@ -15,39 +15,38 @@ class _CategoryListState extends State<CategoryList> {
   @override
   Widget build(BuildContext context) {
     final _appWidth = MediaQuery.of(context).size.width;
+    return _HorizontalPages(appWidth: _appWidth);
 
-    return Consumer(
-      builder: (context, ref, _) {
-        final state = ref.watch(categoriesProvider);
-        if (state.status == CategoriesStateStatus.initial) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state.status == CategoriesStateStatus.data) {
-          return _HorizontalPages(
-            state: state,
-            appWidth: _appWidth,
-          );
-        }
-        return const SizedBox();
-      },
-    );
+    // return Consumer(
+    //   builder: (context, ref, _) {
+    //     final state = ref.watch(categoriesProvider);
+    //     if (state.status == CategoriesStateStatus.initial) {
+    //       return const Center(child: CircularProgressIndicator());
+    //     } else if (state.status == CategoriesStateStatus.data) {
+    //       return _HorizontalPages(
+    //         state: state,
+    //         appWidth: _appWidth,
+    //       );
+    //     }
+    //     return const SizedBox();
+    //   },
+    // );
   }
 }
 
-class _HorizontalPages extends StatefulWidget {
+class _HorizontalPages extends ConsumerStatefulWidget {
   const _HorizontalPages({
     Key? key,
-    required this.state,
     required this.appWidth,
   }) : super(key: key);
 
-  final CategoriesState state;
   final double appWidth;
 
   @override
   __HorizontalPagesState createState() => __HorizontalPagesState();
 }
 
-class __HorizontalPagesState extends State<_HorizontalPages> {
+class __HorizontalPagesState extends ConsumerState<_HorizontalPages> {
   late final _pageController = PageController(
       viewportFraction: (widget.appWidth - 48) / widget.appWidth);
 
@@ -59,7 +58,35 @@ class __HorizontalPagesState extends State<_HorizontalPages> {
 
   @override
   Widget build(BuildContext context) {
-    return Placeholder();
+    return PageView.builder(
+      itemCount: ref.watch(categoriesNotifierProvider).length,
+      itemBuilder: (context, index) {
+        final category = ref.watch(categoriesNotifierProvider)[index];
+        return CategoryCard(
+          category: category,
+          onTap: () {
+            ref
+                .read(currentCategoryProvider.notifier)
+                .setCurrentCategory(category);
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                pageBuilder: (context, anim1, anim2) =>
+                    CategoryScreen(category: category, heroId: category.id),
+                transitionsBuilder: (context, anim1, anim2, child) {
+                  return FadeTransition(
+                    opacity: anim1,
+                    child: child,
+                  );
+                },
+              ),
+            );
+          },
+        );
+      },
+      onPageChanged: (index) =>
+          ref.read(currentCategoryIndexProvider.notifier).updateIndex(index),
+    );
+    // return Placeholder();
     // return ProviderListener<StateController<CategoryCreatorStatus>>(
     //   provider: categoryCreatorStatusProvider,
     //   // move to the end of the list of categories

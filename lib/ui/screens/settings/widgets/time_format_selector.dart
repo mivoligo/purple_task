@@ -3,16 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/constants.dart';
 import '../../../../constants/strings/strings.dart' as s;
+import '../../../../controllers/controllers.dart';
 import '../../../../helpers.dart';
-import '../../../../providers/providers.dart';
 
 class TimeFormatSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final state = ref.watch(settingsControllerProvider);
-        final controller = ref.watch(settingsControllerProvider.notifier);
+        final state = ref.watch(settingsNotifierProvider);
+        final controller = ref.watch(settingsNotifierProvider.notifier);
         return Card(
           elevation: 1,
           child: PopupMenuButton(

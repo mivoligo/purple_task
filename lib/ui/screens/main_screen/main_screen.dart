@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../controllers/categories/categories_controller.dart';
 import '../../../models/models.dart';
-import '../../../providers/providers.dart';
 import 'widgets/widgets.dart';
 
 class MainScreen extends StatefulWidget {
@@ -49,7 +49,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
           body: Consumer(
             builder: (context, ref, _) {
               final isCategoryListEmpty =
-                  ref.watch(categoriesProvider).categories.isEmpty;
+                  ref.watch(categoriesNotifierProvider).isEmpty;
               return LayoutBuilder(
                 builder: (context, constraints) {
                   if (constraints.maxWidth < 700 || isCategoryListEmpty) {

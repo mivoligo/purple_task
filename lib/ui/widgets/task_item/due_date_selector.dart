@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/constants.dart';
 import '../../../constants/strings/strings.dart' as s;
+import '../../../controllers/controllers.dart';
 import '../../../helpers.dart';
 import '../../../models/models.dart';
-import '../../../providers/providers.dart';
 
 class DueDateSelector extends StatelessWidget {
   const DueDateSelector({
@@ -21,7 +21,7 @@ class DueDateSelector extends StatelessWidget {
     return Consumer(
       builder: (context, ref, _) {
         final dateFormatSetting =
-            ref.watch(settingsControllerProvider).dateFormat;
+            ref.watch(settingsNotifierProvider).dateFormat;
         return Card(
           elevation: 0,
           child: PopupMenuButton(
@@ -98,7 +98,7 @@ class DueDateSelector extends StatelessWidget {
         break;
     }
     final updatedTask = task.copyWith(dueDate: dueDate);
-    ref.read(tasksProvider.notifier).update(task: updatedTask);
+    ref.read(tasksNotifierProvider.notifier).update(task: updatedTask);
   }
 
   void useSelectedDate(BuildContext context, WidgetRef ref) async {
@@ -117,7 +117,7 @@ class DueDateSelector extends StatelessWidget {
     if (selectedDate != null) {
       final updatedTask =
           task.copyWith(dueDate: selectedDate.millisecondsSinceEpoch);
-      ref.read(tasksProvider.notifier).update(task: updatedTask);
+      ref.read(tasksNotifierProvider.notifier).update(task: updatedTask);
     }
   }
 }

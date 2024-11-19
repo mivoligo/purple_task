@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/constants.dart';
 import '../../../constants/strings/strings.dart' as s;
+import '../../../controllers/controllers.dart';
 import '../../../models/models.dart';
-import '../../../providers/providers.dart';
 
 class CategorySelector extends StatelessWidget {
   const CategorySelector({
@@ -18,7 +18,7 @@ class CategorySelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final categories = ref.watch(categoriesProvider).categories;
+        final categories = ref.watch(categoriesNotifierProvider);
 
         return Card(
           elevation: 1,
@@ -29,7 +29,9 @@ class CategorySelector extends StatelessWidget {
                 dueDate: task.dueDate,
                 categoryId: item as int,
               );
-              ref.read(tasksProvider.notifier).update(task: updatedTask);
+              ref
+                  .read(tasksNotifierProvider.notifier)
+                  .update(task: updatedTask);
               Navigator.of(context).pop();
             },
             itemBuilder: (context) {

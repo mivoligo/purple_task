@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class SettingsState extends Equatable {
-  SettingsState({
+  const SettingsState({
     required this.timeFormat,
     required this.dateFormat,
     required this.showDoneTime,

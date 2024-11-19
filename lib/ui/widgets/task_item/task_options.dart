@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/constants.dart';
 import '../../../constants/strings/strings.dart' as s;
+import '../../../controllers/controllers.dart';
 import '../../../models/models.dart';
-import '../../../providers/providers.dart';
 import 'category_selector.dart';
 
 class TaskOptions extends StatelessWidget {
@@ -24,7 +24,7 @@ class TaskOptions extends StatelessWidget {
           onSelected: (item) {
             // remove task when clicked on the first item
             if (item as int == 0) {
-              ref.read(tasksProvider.notifier).remove(task: task);
+              ref.read(tasksNotifierProvider.notifier).remove(task: task);
             }
           },
           itemBuilder: (context) {

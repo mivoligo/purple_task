@@ -23,8 +23,9 @@ class CategoryCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     String description;
-    final activeTasksNumber = ref.watch(activeTasksNumberProvider(category.id));
-    final progress = ref.watch(progressProvider(category.id));
+    final activeTasksNumber =
+        ref.watch(numberOfActiveTasksInCategoryProvider(category.id));
+    final progress = ref.watch(completionProgressProvider(category.id));
     switch (activeTasksNumber) {
       case 0:
         description = '$activeTasksNumber ${s.taskPlural}';

@@ -7,7 +7,6 @@ import '../../../constants/strings/strings.dart' as s;
 import '../../../controllers/controllers.dart';
 import '../../../helpers.dart';
 import '../../../models/models.dart';
-import '../../../providers/providers.dart';
 import '../widgets.dart';
 import 'due_date_selector.dart';
 import 'task_options.dart';
@@ -47,12 +46,12 @@ class _TaskItemState extends State<TaskItem> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final taskTileState = ref.watch(taskTileProvider(widget.task));
+        final taskTileState = ref.watch(taskTileNotifierProvider(widget.task));
         final tileStatus = taskTileState.status;
         final tileController =
-            ref.watch(taskTileProvider(widget.task).notifier);
-        final tasksController = ref.watch(tasksProvider.notifier);
-        final settings = ref.watch(settingsControllerProvider);
+            ref.watch(taskTileNotifierProvider(widget.task).notifier);
+        final tasksController = ref.watch(tasksNotifierProvider.notifier);
+        final settings = ref.watch(settingsNotifierProvider);
         return Column(
           children: [
             Row(

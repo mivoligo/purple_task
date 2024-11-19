@@ -4,7 +4,10 @@ import '../../models/models.dart';
 enum TaskTileStateStatus { initial, data, editName }
 
 class TaskTileState extends Equatable {
-  TaskTileState({required this.task, required this.status});
+  const TaskTileState({
+    required this.task,
+    required this.status,
+  });
 
   factory TaskTileState.initial() {
     return TaskTileState(

@@ -28,7 +28,7 @@ class TaskRepository extends BaseTaskRepository {
 
   @override
   List<Task> getTasks() {
-    return _box.values.map((e) => Task.fromEntity(e)).toList();
+    return _box.values.map(Task.fromEntity).toList();
   }
 
   @override

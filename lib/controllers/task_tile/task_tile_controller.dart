@@ -1,17 +1,15 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../models/models.dart';
 import '../controllers.dart';
 
-class TaskTileController extends StateNotifier<TaskTileState> {
-  TaskTileController({required this.task}) : super(TaskTileState.initial()) {
-    _load(task: task);
-  }
+part 'task_tile_controller.g.dart';
 
-  final Task task;
-
-  _load({required Task task}) {
-    state = state.copyWith(task: task, status: TaskTileStateStatus.data);
+@riverpod
+class TaskTileNotifier extends _$TaskTileNotifier {
+  @override
+  TaskTileState build(Task task) {
+    return TaskTileState(task: task, status: TaskTileStateStatus.data);
   }
 
   void collapseTile() {

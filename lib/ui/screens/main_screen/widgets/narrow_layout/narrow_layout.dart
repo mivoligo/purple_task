@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/strings/strings.dart' as s;
+import '../../../../../controllers/controllers.dart';
 import '../../../../../models/models.dart';
-import '../../../../../providers/providers.dart';
 import '../../../../widgets/widgets.dart';
 import '../../../screens.dart';
 import '../widgets.dart';
@@ -72,7 +72,9 @@ class NarrowLayout extends ConsumerWidget {
                                 name: value,
                                 categoryId: -1,
                               );
-                              ref.read(tasksProvider.notifier).add(task: task);
+                              ref
+                                  .read(tasksNotifierProvider.notifier)
+                                  .add(task: task);
                             },
                           ),
                         ),

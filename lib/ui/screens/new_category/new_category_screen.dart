@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../controllers/controllers.dart';
-import '../../../providers/providers.dart';
 import 'widgets/widgets.dart';
 
 class NewCategoryScreen extends ConsumerWidget {
@@ -10,16 +9,16 @@ class NewCategoryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final newCategoryState = ref.watch(newCategoryControllerProvider);
+    final newCategoryState = ref.watch(newCategoryNotifierProvider);
     final newCategoryController =
-        ref.watch(newCategoryControllerProvider.notifier);
+        ref.watch(newCategoryNotifierProvider.notifier);
     switch (newCategoryState.status) {
       case NewCategoryStatus.initial:
         return CategoryInitial(color: newCategoryState.color);
 
       case NewCategoryStatus.name:
         return CategoryName(
-          onNameChanged: newCategoryController.nameChanged,
+          onNameChanged: newCategoryController.changeName,
           color: newCategoryState.color,
           focusNode: _focusNode,
           onSubmitted: () {
@@ -51,7 +50,7 @@ class NewCategoryScreen extends ConsumerWidget {
       case NewCategoryStatus.tasks:
         return CategoryTasks(
           tasks: newCategoryState.tasks,
-          onAddTask: newCategoryController.tasksChanged,
+          onAddTask: newCategoryController.changeTasks,
           focusNode: _focusNode,
           name: newCategoryState.name,
           color: newCategoryState.color,

@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../constants/constants.dart';
+import '../../controllers/controllers.dart';
 import '../../models/models.dart';
-import '../../providers/providers.dart';
 
 class ColorSelector extends ConsumerWidget {
   const ColorSelector({
@@ -44,19 +44,19 @@ class ColorSelector extends ConsumerWidget {
                       child: InkWell(
                         onFocusChange: isInCreator
                             ? (_) => ref
-                                .read(newCategoryControllerProvider.notifier)
-                                .colorChanged(Color(categoryColors[index]))
+                                .read(newCategoryNotifierProvider.notifier)
+                                .changeColor(Color(categoryColors[index]))
                             : (_) => ref
-                                .read(categoryProvider(category!).notifier)
-                                .colorChanged(
+                                .read(categoryNotifierProvider.notifier)
+                                .changeColor(
                                     color: Color(categoryColors[index])),
                         onTap: isInCreator
                             ? () => ref
-                                .read(newCategoryControllerProvider.notifier)
-                                .colorChanged(Color(categoryColors[index]))
+                                .read(newCategoryNotifierProvider.notifier)
+                                .changeColor(Color(categoryColors[index]))
                             : () => ref
-                                .read(categoryProvider(category!).notifier)
-                                .colorChanged(
+                                .read(categoryNotifierProvider.notifier)
+                                .changeColor(
                                     color: Color(categoryColors[index])),
                         child: isSelected
                             ? const Icon(

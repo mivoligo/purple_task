@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../constants/constants.dart';
 import '../../../../../constants/strings/strings.dart' as s;
 import '../../../../../models/models.dart';
-import '../../../../../providers/providers.dart';
 import '../../../category/widgets/widgets.dart';
 
 class SelectedCategoryTasks extends StatefulWidget {
@@ -35,8 +34,7 @@ class _SelectedCategoryTasksState extends State<SelectedCategoryTasks> {
       child: Column(
         children: [
           Consumer(builder: (context, ref, _) {
-            final currentCategory =
-                ref.watch(categoryProvider(widget.category)).category;
+            final currentCategory = widget.category;
             return Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

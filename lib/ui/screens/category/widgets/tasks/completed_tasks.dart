@@ -30,12 +30,12 @@ class _CompletedTasksState extends State<CompletedTasks> {
     return Scrollbar(
       child: Consumer(
         builder: (context, ref, _) {
-          final todayCompletedTasks =
-              ref.watch(todayCompletedTasksProvider(widget.categoryId));
-          final yesterdayCompletedTasks =
-              ref.watch(yesterdayCompletedTasksProvider(widget.categoryId));
-          final pastCompletedTasks =
-              ref.watch(pastCompletedTasksProvider(widget.categoryId));
+          final todayCompletedTasks = ref
+              .watch(todayCompletedTasksInCategoryProvider(widget.categoryId));
+          final yesterdayCompletedTasks = ref.watch(
+              yesterdayCompletedTasksInCategoryProvider(widget.categoryId));
+          final pastCompletedTasks = ref
+              .watch(pastCompletedTasksInCategoryProvider(widget.categoryId));
           return CustomScrollView(
             key: const PageStorageKey('completed tasks'),
             controller: _scrollController,

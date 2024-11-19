@@ -32,6 +32,6 @@ class CategoryRepository extends BaseCategoryRepository {
 
   @override
   List<Category> getCategories() {
-    return _box.values.map((e) => Category.fromEntity(e)).toList();
+    return _box.values.map(Category.fromEntity).toList();
   }
 }
