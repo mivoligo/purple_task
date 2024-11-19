@@ -24,18 +24,11 @@ class Greetings extends StatelessWidget {
         Consumer(
           builder: (context, ref, child) {
             final tasksNumber = ref.watch(numberOfAllActiveTasksProvider);
-            String text;
-            switch (tasksNumber) {
-              case 0:
-                text = s.noTasksGreetings;
-                break;
-              case 1:
-                text =
-                    '${s.greetingsStart}$tasksNumber${s.greetingsEndSingular}';
-                break;
-              default:
-                text = '${s.greetingsStart}$tasksNumber${s.greetingsEndPlural}';
-            }
+            final text = switch (tasksNumber) {
+              0 => s.noTasksGreetings,
+              1 => '${s.greetingsStart}$tasksNumber${s.greetingsEndSingular}',
+              _ => '${s.greetingsStart}$tasksNumber${s.greetingsEndPlural}',
+            };
             return Text(
               text,
               style: CustomStyle.textStyleTitle.copyWith(

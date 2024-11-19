@@ -17,7 +17,6 @@ class AnimatedProgressBar extends StatelessWidget {
       height: 4.0,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          // get width of parent Container
           final _width = constraints.constrainWidth();
           return Row(
             children: [

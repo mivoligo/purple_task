@@ -24,11 +24,11 @@ class DueDateSelector extends StatelessWidget {
             ref.watch(settingsNotifierProvider).dateFormat;
         return Card(
           elevation: 0,
-          child: PopupMenuButton(
+          child: PopupMenuButton<int>(
             tooltip: s.setDueDate,
-            onSelected: (dynamic item) => onItemSelected(context, ref, item),
+            onSelected: (item) => onItemSelected(context, ref, item),
             itemBuilder: (context) {
-              var menuList = <PopupMenuEntry<Object>>[];
+              var menuList = <PopupMenuEntry<int>>[];
               menuList.add(
                 const PopupMenuItem(
                   child: Text(s.today),
@@ -80,24 +80,17 @@ class DueDateSelector extends StatelessWidget {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final tomorrow = DateTime(now.year, now.month, now.day + 1);
-    var dueDate;
+    int? dueDate;
     switch (item) {
       case 0:
-        // set due date to today
         dueDate = today.millisecondsSinceEpoch;
-        break;
       case 1:
-        // set due date to tomorrow
         dueDate = tomorrow.millisecondsSinceEpoch;
-        break;
       case 2:
-        // set custom date
         useSelectedDate(context, ref);
         return;
       case 3:
-        // set date to null
         dueDate = null;
-        break;
     }
     final updatedTask = task.copyWith(dueDate: dueDate);
     ref.read(tasksNotifierProvider.notifier).update(task: updatedTask);

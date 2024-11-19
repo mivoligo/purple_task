@@ -74,15 +74,11 @@ class _SelectedCategoryTasksState extends State<SelectedCategoryTasks> {
   }
 
   Widget _buildTasksList(Category category) {
-    switch (_navigationIndex) {
-      case 0:
-        return PlannedTasks(categoryId: category.id);
-      case 1:
-        return AllTasks(categoryId: category.id);
-      case 2:
-        return CompletedTasks(categoryId: category.id);
-      default:
-        return PlannedTasks(categoryId: category.id);
-    }
+    return switch (_navigationIndex) {
+      0 => PlannedTasks(categoryId: category.id),
+      1 => AllTasks(categoryId: category.id),
+      2 => CompletedTasks(categoryId: category.id),
+      _ => PlannedTasks(categoryId: category.id)
+    };
   }
 }

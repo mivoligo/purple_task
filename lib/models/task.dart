@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import '../entities/entities.dart';
 
 class Task extends Equatable {
-  Task({
+  const Task({
     required this.name,
     this.isDone = false,
     required this.categoryId,
@@ -11,20 +11,15 @@ class Task extends Equatable {
     this.key,
   });
 
-  factory Task.empty() {
-    return Task(name: '', categoryId: 0);
-  }
-
-  factory Task.fromEntity(TaskEntity entity) {
-    return Task(
-      name: entity.name,
-      isDone: entity.isDone,
-      categoryId: entity.categoryId,
-      dueDate: entity.dueDate,
-      doneTime: entity.doneTime,
-      key: entity.key,
-    );
-  }
+  Task.fromEntity(TaskEntity entity)
+      : this(
+          name: entity.name,
+          isDone: entity.isDone,
+          categoryId: entity.categoryId,
+          dueDate: entity.dueDate,
+          doneTime: entity.doneTime,
+          key: entity.key,
+        );
 
   final String name;
   final bool isDone;

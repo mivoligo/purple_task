@@ -48,8 +48,8 @@ class _DialogBaseState extends State<DialogBase>
 
   @override
   Widget build(BuildContext context) {
-    final _appWidth = MediaQuery.of(context).size.width;
-    final _isWide = MediaQuery.of(context).size.width > 600;
+    final _appWidth = MediaQuery.sizeOf(context).width;
+    final _isWide = _appWidth > 600;
     return Scaffold(
       body: Container(
         child: Stack(

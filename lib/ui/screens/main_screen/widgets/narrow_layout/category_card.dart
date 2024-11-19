@@ -22,20 +22,14 @@ class CategoryCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String description;
     final activeTasksNumber =
         ref.watch(numberOfActiveTasksInCategoryProvider(category.id));
     final progress = ref.watch(completionProgressProvider(category.id));
-    switch (activeTasksNumber) {
-      case 0:
-        description = '$activeTasksNumber ${s.taskPlural}';
-        break;
-      case 1:
-        description = '$activeTasksNumber ${s.taskSingular}';
-        break;
-      default:
-        description = '$activeTasksNumber ${s.taskPlural}';
-    }
+    final description = switch (activeTasksNumber) {
+      0 => '$activeTasksNumber ${s.taskPlural}',
+      1 => '$activeTasksNumber ${s.taskSingular}',
+      _ => '$activeTasksNumber ${s.taskPlural}',
+    };
     return Padding(
       padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
       child: Stack(

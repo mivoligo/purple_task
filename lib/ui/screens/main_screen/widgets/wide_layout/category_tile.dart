@@ -21,20 +21,14 @@ class CategoryTile extends ConsumerWidget {
     final progress = ref.watch(completionProgressProvider(category.id));
     final isCurrentCategory =
         ref.watch(currentCategoryProvider)?.id == category.id;
-    var description = '';
     final activeTasksNumber = ref.watch(
       numberOfActiveTasksInCategoryProvider(category.id),
     );
-    switch (activeTasksNumber) {
-      case 0:
-        description = '$activeTasksNumber ${s.taskPlural}';
-        break;
-      case 1:
-        description = '$activeTasksNumber ${s.taskSingular}';
-        break;
-      default:
-        description = '$activeTasksNumber ${s.taskPlural}';
-    }
+    final description = switch (activeTasksNumber) {
+      0 => '$activeTasksNumber ${s.taskPlural}',
+      1 => '$activeTasksNumber ${s.taskSingular}',
+      _ => '$activeTasksNumber ${s.taskPlural}',
+    };
     return AnimatedContainer(
       duration: const Duration(milliseconds: 150),
       curve: Curves.decelerate,

@@ -12,12 +12,10 @@ class NewCategoryScreen extends ConsumerWidget {
     final newCategoryState = ref.watch(newCategoryNotifierProvider);
     final newCategoryController =
         ref.watch(newCategoryNotifierProvider.notifier);
-    switch (newCategoryState.status) {
-      case NewCategoryStatus.initial:
-        return CategoryInitial(color: newCategoryState.color);
-
-      case NewCategoryStatus.name:
-        return CategoryName(
+    return switch (newCategoryState.status) {
+      NewCategoryStatus.initial =>
+        CategoryInitial(color: newCategoryState.color),
+      NewCategoryStatus.name => CategoryName(
           onNameChanged: newCategoryController.changeName,
           color: newCategoryState.color,
           focusNode: _focusNode,
@@ -27,28 +25,22 @@ class NewCategoryScreen extends ConsumerWidget {
             newCategoryController.progressToColor();
           },
           onNext: newCategoryController.progressToColor,
-        );
-
-      case NewCategoryStatus.color:
-        return CategoryColor(
+        ),
+      NewCategoryStatus.color => CategoryColor(
           focusNode: _focusNode,
           name: newCategoryState.name,
           color: newCategoryState.color,
           selectedColor: newCategoryState.color,
           onNext: newCategoryController.progressToIcon,
-        );
-
-      case NewCategoryStatus.icon:
-        return CategoryIcon(
+        ),
+      NewCategoryStatus.icon => CategoryIcon(
           focusNode: _focusNode,
           name: newCategoryState.name,
           color: newCategoryState.color,
           onNext: newCategoryController.progressToTasks,
           selectedIcon: newCategoryState.icon,
-        );
-
-      case NewCategoryStatus.tasks:
-        return CategoryTasks(
+        ),
+      NewCategoryStatus.tasks => CategoryTasks(
           tasks: newCategoryState.tasks,
           onAddTask: newCategoryController.changeTasks,
           focusNode: _focusNode,
@@ -61,7 +53,7 @@ class NewCategoryScreen extends ConsumerWidget {
             Navigator.of(context).pop();
           },
           selectedIcon: newCategoryState.icon,
-        );
-    }
+        )
+    };
   }
 }

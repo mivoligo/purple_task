@@ -112,7 +112,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
             onConfirm: widget.onRemoveCompletedTasks,
           ),
         );
-        break;
       // delete all tasks from category
       case 2:
         showDialog(
@@ -129,7 +128,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
             onConfirm: widget.onRemoveAllTasks,
           ),
         );
-        break;
       // delete category
       case 3:
         showDialog(
@@ -146,7 +144,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
             onConfirm: widget.onRemoveCategory,
           ),
         );
-        break;
       // change name of category
       case 4:
         showDialog(
@@ -187,7 +184,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
             );
           },
         );
-        break;
       // change color of category
       case 5:
         showDialog(
@@ -233,7 +229,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
             );
           },
         );
-        break;
       // change icon of category
       case 6:
         showDialog(
@@ -286,7 +281,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
             );
           },
         );
-        break;
     }
   }
 

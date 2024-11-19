@@ -9,13 +9,6 @@ class TaskTileState extends Equatable {
     required this.status,
   });
 
-  factory TaskTileState.initial() {
-    return TaskTileState(
-      task: Task.empty(),
-      status: TaskTileStateStatus.initial,
-    );
-  }
-
   final Task task;
   final TaskTileStateStatus status;
 

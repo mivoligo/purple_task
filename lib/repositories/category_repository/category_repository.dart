@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 import '../../constants/constants.dart';
 import '../../entities/entities.dart';
 import '../../models/models.dart';
-import '../repositories.dart';
+import 'base_category_repository.dart';
 
 class CategoryRepository extends BaseCategoryRepository {
   final _box = Hive.box<CategoryEntity>(categoryBox);

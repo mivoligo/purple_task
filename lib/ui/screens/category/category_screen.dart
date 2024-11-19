@@ -58,22 +58,16 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
     final categoryColor = currentCategory?.color ?? Colors.transparent;
     final categoryIcon = currentCategory?.icon ?? 1;
     final tasksController = ref.watch(tasksNotifierProvider.notifier);
-    var description = '';
     final activeTasksNumber =
         ref.watch(numberOfActiveTasksInCategoryProvider(currentCategory?.id));
     final progress =
         ref.watch(completionProgressProvider(currentCategory?.id ?? 0));
 
-    switch (activeTasksNumber) {
-      case 0:
-        description = '$activeTasksNumber ${s.taskPlural}';
-        break;
-      case 1:
-        description = '$activeTasksNumber ${s.taskSingular}';
-        break;
-      default:
-        description = '$activeTasksNumber ${s.taskPlural}';
-    }
+    final description = switch (activeTasksNumber) {
+      0 => '$activeTasksNumber ${s.taskPlural}',
+      1 => '$activeTasksNumber ${s.taskSingular}',
+      _ => '$activeTasksNumber ${s.taskPlural}',
+    };
 
     return Scaffold(
       body: LayoutBuilder(
@@ -504,15 +498,11 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
   }
 
   Widget _buildTasksList(Category category) {
-    switch (_navigationIndex) {
-      case 0:
-        return PlannedTasks(categoryId: category.id);
-      case 1:
-        return AllTasks(categoryId: category.id);
-      case 2:
-        return CompletedTasks(categoryId: category.id);
-      default:
-        return PlannedTasks(categoryId: category.id);
-    }
+    return switch (_navigationIndex) {
+      0 => PlannedTasks(categoryId: category.id),
+      1 => AllTasks(categoryId: category.id),
+      2 => CompletedTasks(categoryId: category.id),
+      _ => PlannedTasks(categoryId: category.id),
+    };
   }
 }
