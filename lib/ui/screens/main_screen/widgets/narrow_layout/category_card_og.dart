@@ -7,8 +7,8 @@ import '../../../../../models/models.dart';
 import '../../../../../providers/providers.dart';
 import '../../../../widgets/category_header.dart';
 
-class CategoryCard extends ConsumerWidget {
-  const CategoryCard({
+class CategoryCardOg extends ConsumerWidget {
+  const CategoryCardOg({
     required this.category,
     required this.onTap,
     this.onHover,

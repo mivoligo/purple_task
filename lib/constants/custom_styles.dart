@@ -73,6 +73,7 @@ class CustomStyle {
   static const textStyleTaskName = TextStyle(
     color: Colors.black,
     fontSize: 16.0,
+    fontWeight: FontWeight.w500,
   );
 
   static const textStyleTaskFilter = TextStyle(

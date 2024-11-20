@@ -1,6 +1,7 @@
 export 'add_task_field.dart';
 export 'animated_opacity_builder.dart';
 export 'animated_progress_bar.dart';
+export 'category_element_base.dart';
 export 'category_header.dart';
 export 'category_menu.dart';
 export 'color_selector.dart';

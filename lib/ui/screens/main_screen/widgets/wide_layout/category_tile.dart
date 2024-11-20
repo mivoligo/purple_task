@@ -25,7 +25,6 @@ class CategoryTile extends ConsumerWidget {
       numberOfActiveTasksInCategoryProvider(category.id),
     );
     final description = switch (activeTasksNumber) {
-      0 => '$activeTasksNumber ${s.taskPlural}',
       1 => '$activeTasksNumber ${s.taskSingular}',
       _ => '$activeTasksNumber ${s.taskPlural}',
     };
@@ -64,14 +63,14 @@ class CategoryTile extends ConsumerWidget {
                         fontFamily: 'AntIcons',
                         fontPackage: 'ant_icons',
                       ),
-                      size: 38.0,
+                      size: 24.0,
                       color: category.color,
                     ),
                   ),
                   Expanded(
                     child: Text(
                       '${category.name}',
-                      style: CustomStyle.textStyle20,
+                      style: CustomStyle.textStyleTaskName,
                     ),
                   ),
                   if (isCurrentCategory)

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../controllers/controllers.dart';
 import '../../../../../providers/providers.dart';
 import '../../../screens.dart';
-import 'category_card.dart';
+import 'category_card_og.dart';
 
 class CategoryList extends StatefulWidget {
   @override
@@ -63,7 +63,7 @@ class __HorizontalPagesState extends ConsumerState<_HorizontalPages> {
       itemCount: ref.watch(categoriesNotifierProvider).length,
       itemBuilder: (context, index) {
         final category = ref.watch(categoriesNotifierProvider)[index];
-        return CategoryCard(
+        return CategoryCardOg(
           category: category,
           onTap: () {
             ref
