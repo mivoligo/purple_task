@@ -35,62 +35,51 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      borderRadius: BorderRadius.circular(20),
-      clipBehavior: Clip.antiAlias,
-      child: PopupMenuButton(
-        tooltip: s.showOptions,
-        icon: const Icon(
-          AntIcons.menu,
-          color: Color(0xFF616161),
+    return MenuAnchor(
+      consumeOutsideTap: true,
+      menuChildren: [
+        MenuItemButton(
+          child: const Text(s.deleteCompleted),
+          onPressed: () => onItemSelected(context, 1),
         ),
-        offset: const Offset(0, 48),
-        elevation: 4.0,
-        onSelected: (dynamic item) => onItemSelected(context, item),
-        itemBuilder: (context) {
-          final menuList = <PopupMenuEntry<Object>>[];
-          menuList.add(
-            const PopupMenuItem(
-              child: Text(s.deleteCompleted),
-              value: 1,
-            ),
-          );
-          menuList.add(
-            const PopupMenuItem(
-              child: Text(s.deleteAllTasks),
-              value: 2,
-            ),
-          );
-          menuList.add(const PopupMenuDivider());
-          menuList.add(
-            const PopupMenuItem(
-              child: Text(s.deleteCategory),
-              value: 3,
-            ),
-          );
-          menuList.add(const PopupMenuDivider());
-          menuList.add(
-            const PopupMenuItem(
-              child: Text(s.changeName),
-              value: 4,
-            ),
-          );
-          menuList.add(
-            const PopupMenuItem(
-              child: Text(s.changeColor),
-              value: 5,
-            ),
-          );
-          menuList.add(
-            const PopupMenuItem(
-              child: Text(s.changeIcon),
-              value: 6,
-            ),
-          );
-
-          return menuList;
-        },
-      ),
+        MenuItemButton(
+          child: const Text(s.deleteAllTasks),
+          onPressed: () => onItemSelected(context, 2),
+        ),
+        const PopupMenuDivider(),
+        MenuItemButton(
+          child: const Text(s.deleteCategory),
+          onPressed: () => onItemSelected(context, 3),
+        ),
+        const PopupMenuDivider(),
+        MenuItemButton(
+          child: const Text(s.changeName),
+          onPressed: () => onItemSelected(context, 4),
+        ),
+        MenuItemButton(
+          child: const Text(s.changeColor),
+          onPressed: () => onItemSelected(context, 5),
+        ),
+        MenuItemButton(
+          child: const Text(s.changeIcon),
+          onPressed: () => onItemSelected(context, 6),
+        ),
+      ],
+      builder: (context, controller, child) {
+        return IconButton(
+          onPressed: () {
+            if (controller.isOpen) {
+              controller.close();
+            } else {
+              controller.open();
+            }
+          },
+          icon: const Icon(
+            AntIcons.menu,
+            size: 16,
+          ),
+        );
+      },
     );
   }
 

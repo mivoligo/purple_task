@@ -27,40 +27,38 @@ class _PlannedTasksState extends State<PlannedTasks> {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      child: Consumer(
-        builder: (context, ref, _) {
-          final noDueDateTasks =
-              ref.watch(noDueDateTasksInCategoryProvider(widget.categoryId));
-          final overdueTasks =
-              ref.watch(overdueTasksInCategoryProvider(widget.categoryId));
-          final todayTasks =
-              ref.watch(todayTasksInCategoryProvider(widget.categoryId));
-          final tomorrowTasks =
-              ref.watch(tomorrowTasksInCategoryProvider(widget.categoryId));
-          final futureTasks =
-              ref.watch(futureTasksInCategoryProvider(widget.categoryId));
-          return CustomScrollView(
-            key: const PageStorageKey('planned tasks'),
-            controller: _scrollController,
-            slivers: [
-              SliverTasksList(list: noDueDateTasks),
-              if (overdueTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.overdue),
-              SliverTasksList(list: overdueTasks),
-              if (todayTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.today),
-              SliverTasksList(list: todayTasks),
-              if (tomorrowTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.tomorrow),
-              SliverTasksList(list: tomorrowTasks),
-              if (futureTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.later),
-              SliverTasksList(list: futureTasks),
-            ],
-          );
-        },
-      ),
+    return Consumer(
+      builder: (context, ref, _) {
+        final noDueDateTasks =
+            ref.watch(noDueDateTasksInCategoryProvider(widget.categoryId));
+        final overdueTasks =
+            ref.watch(overdueTasksInCategoryProvider(widget.categoryId));
+        final todayTasks =
+            ref.watch(todayTasksInCategoryProvider(widget.categoryId));
+        final tomorrowTasks =
+            ref.watch(tomorrowTasksInCategoryProvider(widget.categoryId));
+        final futureTasks =
+            ref.watch(futureTasksInCategoryProvider(widget.categoryId));
+        return CustomScrollView(
+          key: const PageStorageKey('planned tasks'),
+          controller: _scrollController,
+          slivers: [
+            SliverTasksList(list: noDueDateTasks),
+            if (overdueTasks.isNotEmpty)
+              const SliverTaskListHeader(title: s.overdue),
+            SliverTasksList(list: overdueTasks),
+            if (todayTasks.isNotEmpty)
+              const SliverTaskListHeader(title: s.today),
+            SliverTasksList(list: todayTasks),
+            if (tomorrowTasks.isNotEmpty)
+              const SliverTaskListHeader(title: s.tomorrow),
+            SliverTasksList(list: tomorrowTasks),
+            if (futureTasks.isNotEmpty)
+              const SliverTaskListHeader(title: s.later),
+            SliverTasksList(list: futureTasks),
+          ],
+        );
+      },
     );
   }
 }

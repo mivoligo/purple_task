@@ -29,57 +29,55 @@ class _AllTasksState extends State<AllTasks> {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      child: Consumer(
-        builder: (context, ref, _) {
-          final todayCompletedTasks = ref
-              .watch(todayCompletedTasksInCategoryProvider(widget.categoryId));
-          final yesterdayCompletedTasks = ref.watch(
-            yesterdayCompletedTasksInCategoryProvider(widget.categoryId),
-          );
-          final pastCompletedTasks = ref
-              .watch(pastCompletedTasksInCategoryProvider(widget.categoryId));
-          final noDueDateTasks =
-              ref.watch(noDueDateTasksInCategoryProvider(widget.categoryId));
-          final overdueTasks =
-              ref.watch(overdueTasksInCategoryProvider(widget.categoryId));
-          final todayTasks =
-              ref.watch(todayTasksInCategoryProvider(widget.categoryId));
-          final tomorrowTasks =
-              ref.watch(tomorrowTasksInCategoryProvider(widget.categoryId));
-          final futureTasks =
-              ref.watch(futureTasksInCategoryProvider(widget.categoryId));
-          return CustomScrollView(
-            key: const PageStorageKey('all tasks'),
-            controller: _scrollController,
-            shrinkWrap: widget.shrinkWrap,
-            slivers: [
-              SliverTasksList(list: noDueDateTasks),
-              if (overdueTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.overdue),
-              SliverTasksList(list: overdueTasks),
-              if (todayTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.today),
-              SliverTasksList(list: todayTasks),
-              if (tomorrowTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.tomorrow),
-              SliverTasksList(list: tomorrowTasks),
-              if (futureTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.later),
-              SliverTasksList(list: futureTasks),
-              if (todayCompletedTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.completedToday),
-              SliverTasksList(list: todayCompletedTasks),
-              if (yesterdayCompletedTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.completedYesterday),
-              SliverTasksList(list: yesterdayCompletedTasks),
-              if (pastCompletedTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.completedEarlier),
-              SliverTasksList(list: pastCompletedTasks),
-            ],
-          );
-        },
-      ),
+    return Consumer(
+      builder: (context, ref, _) {
+        final todayCompletedTasks =
+            ref.watch(todayCompletedTasksInCategoryProvider(widget.categoryId));
+        final yesterdayCompletedTasks = ref.watch(
+          yesterdayCompletedTasksInCategoryProvider(widget.categoryId),
+        );
+        final pastCompletedTasks =
+            ref.watch(pastCompletedTasksInCategoryProvider(widget.categoryId));
+        final noDueDateTasks =
+            ref.watch(noDueDateTasksInCategoryProvider(widget.categoryId));
+        final overdueTasks =
+            ref.watch(overdueTasksInCategoryProvider(widget.categoryId));
+        final todayTasks =
+            ref.watch(todayTasksInCategoryProvider(widget.categoryId));
+        final tomorrowTasks =
+            ref.watch(tomorrowTasksInCategoryProvider(widget.categoryId));
+        final futureTasks =
+            ref.watch(futureTasksInCategoryProvider(widget.categoryId));
+        return CustomScrollView(
+          key: const PageStorageKey('all tasks'),
+          controller: _scrollController,
+          shrinkWrap: widget.shrinkWrap,
+          slivers: [
+            SliverTasksList(list: noDueDateTasks),
+            if (overdueTasks.isNotEmpty)
+              const SliverTaskListHeader(title: s.overdue),
+            SliverTasksList(list: overdueTasks),
+            if (todayTasks.isNotEmpty)
+              const SliverTaskListHeader(title: s.today),
+            SliverTasksList(list: todayTasks),
+            if (tomorrowTasks.isNotEmpty)
+              const SliverTaskListHeader(title: s.tomorrow),
+            SliverTasksList(list: tomorrowTasks),
+            if (futureTasks.isNotEmpty)
+              const SliverTaskListHeader(title: s.later),
+            SliverTasksList(list: futureTasks),
+            if (todayCompletedTasks.isNotEmpty)
+              const SliverTaskListHeader(title: s.completedToday),
+            SliverTasksList(list: todayCompletedTasks),
+            if (yesterdayCompletedTasks.isNotEmpty)
+              const SliverTaskListHeader(title: s.completedYesterday),
+            SliverTasksList(list: yesterdayCompletedTasks),
+            if (pastCompletedTasks.isNotEmpty)
+              const SliverTaskListHeader(title: s.completedEarlier),
+            SliverTasksList(list: pastCompletedTasks),
+          ],
+        );
+      },
     );
   }
 }

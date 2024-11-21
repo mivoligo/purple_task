@@ -21,7 +21,7 @@ class SimpleButton extends StatelessWidget {
       onPressed: onPressed,
       style: TextButton.styleFrom(
         backgroundColor: color,
-        padding: const EdgeInsets.all(16),
+        // padding: const EdgeInsets.all(16),
       ),
       child: Text(
         text,

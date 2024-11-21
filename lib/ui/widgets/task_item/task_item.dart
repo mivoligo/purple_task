@@ -57,7 +57,7 @@ class _TaskItemState extends State<TaskItem> {
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(0.0),
                   child: Checkbox(
                     value: widget.task.isDone,
                     activeColor: Colors.grey,
@@ -163,7 +163,7 @@ class _TaskItemState extends State<TaskItem> {
                     )
                   : null,
             ),
-            const Divider(height: 1),
+            // const Divider(height: 1, color: Colors.blueGrey,),
           ],
         );
       },

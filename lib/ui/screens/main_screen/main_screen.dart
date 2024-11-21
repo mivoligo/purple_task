@@ -43,25 +43,23 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: SafeArea(
-        child: Scaffold(
-          body: Consumer(
-            builder: (context, ref, _) {
-              final isCategoryListEmpty =
-                  ref.watch(categoriesNotifierProvider).isEmpty;
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  if (constraints.maxWidth < 700 || isCategoryListEmpty) {
-                    return const NarrowLayout();
-                  } else {
-                    return const WideLayout();
-                  }
-                },
-              );
-            },
-          ),
+    return SafeArea(
+      child: Scaffold(
+        // resizeToAvoidBottomInset: false,
+        body: Consumer(
+          builder: (context, ref, _) {
+            final isCategoryListEmpty =
+                ref.watch(categoriesNotifierProvider).isEmpty;
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                if (constraints.maxWidth < 700 || isCategoryListEmpty) {
+                  return const NarrowLayout();
+                } else {
+                  return const WideLayout();
+                }
+              },
+            );
+          },
         ),
       ),
     );

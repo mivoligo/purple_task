@@ -16,15 +16,11 @@ class CustomIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: color,
-      borderRadius: BorderRadius.circular(20),
-      clipBehavior: Clip.antiAlias,
-      child: IconButton(
-        icon: icon,
-        tooltip: tooltip,
-        onPressed: onPressed,
-      ),
+    return IconButton(
+      color: Colors.white,
+      icon: icon,
+      tooltip: tooltip,
+      onPressed: onPressed,
     );
   }
 }

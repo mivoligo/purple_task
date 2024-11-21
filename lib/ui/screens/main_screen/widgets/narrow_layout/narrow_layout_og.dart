@@ -17,8 +17,6 @@ class NarrowLayoutOg extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appHeight = MediaQuery.sizeOf(context).height;
-
     return Stack(
       children: [
         const AnimatedBackground(),
@@ -79,10 +77,7 @@ class NarrowLayoutOg extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(height: 1.0),
-                        UncategorizedTasks(
-                          width: 400,
-                          height: appHeight - 542,
-                        ),
+                        UncategorizedTasks(),
                       ],
                     ),
                   ),

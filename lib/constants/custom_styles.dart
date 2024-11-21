@@ -26,9 +26,9 @@ class CustomStyle {
 
   static const inputDecoration = BoxDecoration(
     color: Color(0xFFFAFAFA),
-    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+    borderRadius: BorderRadius.all(Radius.circular(8.0)),
     boxShadow: [
-      BoxShadow(color: Color(0xFFE0E0E0), offset: Offset(0.0, -2.0)),
+      BoxShadow(color: Color(0xFFE0E0E0), offset: Offset(0.0, -1.0)),
       BoxShadow(color: Colors.white, offset: Offset(0.0, 1.0)),
     ],
   );
@@ -48,6 +48,8 @@ class CustomStyle {
   static const uncategorizedTasksDecoration = BoxDecoration(
     color: Colors.white70,
     borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(12),
+      topRight: Radius.circular(12),
       bottomLeft: Radius.circular(12),
       bottomRight: Radius.circular(12),
     ),
