@@ -8,6 +8,7 @@ import '../../../../../models/models.dart';
 import '../../../../widgets/add_task_field.dart';
 import '../../../../widgets/category_list.dart';
 import '../../../../widgets/icon_button.dart';
+import '../../../screens.dart';
 import '../add_category_button.dart';
 import '../greetings.dart';
 import '../uncategorized_tasks.dart';
@@ -29,21 +30,30 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Stack(
-            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Positioned(
                 top: 8,
                 right: 16,
                 child: Row(
                   children: [
-                    CustomIconButton(
-                      icon: const Icon(AntIcons.infoCircle),
-                      onPressed: () {},
+                    Hero(
+                      tag: 'about',
+                      child: CustomIconButton(
+                        icon: const Icon(AntIcons.infoCircle),
+                        onPressed: () => Navigator.of(context).push(
+                          _createRoute(AboutScreen()),
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    CustomIconButton(
-                      icon: const Icon(AntIcons.setting),
-                      onPressed: () {},
+                    Hero(
+                      tag: 'settings',
+                      child: CustomIconButton(
+                        icon: const Icon(AntIcons.setting),
+                        onPressed: () => Navigator.of(context).push(
+                          _createRoute(Settings()),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -170,6 +180,18 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
           );
         },
       ),
+    );
+  }
+
+  Route _createRoute(Widget target) {
+    return PageRouteBuilder(
+      pageBuilder: (context, anim1, anim2) => target,
+      transitionsBuilder: (context, anim1, anim2, child) {
+        return FadeTransition(
+          opacity: anim1,
+          child: child,
+        );
+      },
     );
   }
 }

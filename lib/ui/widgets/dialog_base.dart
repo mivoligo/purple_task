@@ -97,7 +97,7 @@ class _DialogBaseState extends State<DialogBase>
                           ),
                           CustomIconButton(
                             icon: const Icon(AntIcons.close),
-                            color: Colors.white,
+                            color: Colors.black,
                             tooltip: s.close,
                             onPressed: () {
                               _animationController.reverse();
