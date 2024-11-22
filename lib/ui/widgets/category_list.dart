@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../controllers/categories/categories_controller.dart';
+import '../../providers/providers.dart';
+import '../screens/screens.dart';
 import 'category_element.dart';
 import 'category_menu.dart';
 
@@ -13,6 +15,7 @@ class CategoryList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categories = ref.watch(categoriesNotifierProvider);
+    final currentCategory = ref.watch(currentCategoryProvider.notifier);
 
     Widget proxyDecorator(
       Widget child,
@@ -50,33 +53,52 @@ class CategoryList extends ConsumerWidget {
         return Padding(
           key: Key(index.toString()),
           padding: const EdgeInsets.symmetric(vertical: 4.0),
-          child: Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IntrinsicHeight(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: CategoryElement(category),
-                    ),
-                    ReorderableDragStartListener(
-                      index: index,
-                      child: MetaData(
-                        behavior: HitTestBehavior.opaque,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const VerticalDivider(),
-                            CategoryMenu(
-                              onRemoveCategory: () {},
-                              onRemoveAllTasks: () {},
-                              onRemoveCompletedTasks: () {},
-                            ),
-                          ],
+          child: InkWell(
+            onTap: () {
+              currentCategory.setCurrentCategory(category);
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, anim1, anim2) =>
+                      CategoryScreen(category: category, heroId: category.id),
+                  transitionsBuilder: (context, anim1, anim2, child) {
+                    return FadeTransition(
+                      opacity: anim1,
+                      child: child,
+                    );
+                  },
+                ),
+                // MaterialPageRoute(builder: (context) => AboutDialog(),)
+              );
+            },
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IntrinsicHeight(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CategoryElement(category),
+                      ),
+                      ReorderableDragStartListener(
+                        index: index,
+                        child: MetaData(
+                          behavior: HitTestBehavior.opaque,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const VerticalDivider(),
+                              CategoryMenu(
+                                onRemoveCategory: () {},
+                                onRemoveAllTasks: () {},
+                                onRemoveCompletedTasks: () {},
+                                iconSize: 16,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

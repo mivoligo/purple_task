@@ -5,27 +5,26 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../constants/constants.dart';
 import '../../controllers/controllers.dart';
-import '../../models/models.dart';
 
 class ColorSelector extends ConsumerWidget {
   const ColorSelector({
     required this.selectedColor,
     this.isInCreator = true,
-    this.category,
   });
 
   final Color selectedColor;
   final bool isInCreator;
-  final Category? category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final category = ref.watch(categoryNotifierProvider);
+
     return AnimationLimiter(
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categoryColors.length,
         itemBuilder: (context, index) {
-          final isSelected = selectedColor == Color(categoryColors[index]);
+          final isSelected = category.color == Color(categoryColors[index]);
           return AnimationConfiguration.staggeredList(
             position: index,
             duration: const Duration(milliseconds: 300),

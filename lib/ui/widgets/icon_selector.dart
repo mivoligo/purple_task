@@ -4,27 +4,26 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../constants/constants.dart';
 import '../../controllers/controllers.dart';
-import '../../models/models.dart';
 
 class IconSelector extends ConsumerWidget {
   const IconSelector({
     required this.selectedIcon,
     this.isInCreator = true,
-    this.category,
   });
 
   final int selectedIcon;
   final bool isInCreator;
-  final Category? category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final category = ref.watch(categoryNotifierProvider);
+
     return AnimationLimiter(
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categoryIcons.length,
         itemBuilder: (context, index) {
-          final isSelected = selectedIcon == categoryIcons[index];
+          final isSelected = category.icon == categoryIcons[index];
           return AnimationConfiguration.staggeredList(
             position: index,
             duration: const Duration(milliseconds: 300),

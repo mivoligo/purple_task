@@ -10,6 +10,8 @@ class CategoryElementBase extends StatelessWidget {
     required this.description,
     required this.progress,
     required this.color,
+    this.iconSize,
+    this.titleTextStyle,
   });
 
   final int icon;
@@ -17,6 +19,8 @@ class CategoryElementBase extends StatelessWidget {
   final String description;
   final double progress;
   final Color color;
+  final double? iconSize;
+  final TextStyle? titleTextStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +36,15 @@ class CategoryElementBase extends StatelessWidget {
                 fontFamily: 'AntIcons',
                 fontPackage: 'ant_icons',
               ),
+              size: iconSize,
               color: color,
             ),
             const SizedBox(width: 8),
             Flexible(
               child: Text(
                 name,
-                style: Theme.of(context).textTheme.titleMedium,
+                style:
+                    titleTextStyle ?? Theme.of(context).textTheme.titleMedium,
               ),
             ),
           ],

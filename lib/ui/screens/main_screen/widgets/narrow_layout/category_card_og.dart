@@ -82,6 +82,7 @@ class CategoryCardOg extends ConsumerWidget {
                   color: category.color,
                   description: description,
                   progress: progress,
+                  category: category,
                 ),
               ),
             ),

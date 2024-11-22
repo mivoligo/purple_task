@@ -139,21 +139,6 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Hero(
-                              tag: 'icon${widget.heroId}',
-                              child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Icon(
-                                  IconData(
-                                    categoryIcon,
-                                    fontFamily: 'AntIcons',
-                                    fontPackage: 'ant_icons',
-                                  ),
-                                  size: 42.0,
-                                  color: categoryColor,
-                                ),
-                              ),
-                            ),
                             Padding(
                               padding: const EdgeInsets.only(
                                 left: 4.0,
@@ -176,11 +161,15 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                                     child: fromHeroContext.widget,
                                   );
                                 },
-                                child: CategoryHeader(
-                                  title: categoryName,
+                                child: CategoryElementBase(
+                                  icon: categoryIcon,
+                                  name: categoryName,
                                   description: description,
                                   progress: progress,
                                   color: categoryColor,
+                                  iconSize: 28,
+                                  titleTextStyle:
+                                      Theme.of(context).textTheme.titleLarge,
                                 ),
                               ),
                             ),

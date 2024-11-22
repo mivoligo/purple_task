@@ -90,11 +90,6 @@ class _DialogBaseState extends State<DialogBase>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const SizedBox(width: 40.0),
-                          Text(
-                            widget.title,
-                            style: CustomStyle.textStyle24,
-                          ),
                           CustomIconButton(
                             icon: const Icon(AntIcons.close),
                             color: Colors.black,
@@ -104,6 +99,11 @@ class _DialogBaseState extends State<DialogBase>
                               Navigator.of(context).pop();
                             },
                           ),
+                          Text(
+                            widget.title,
+                            style: CustomStyle.textStyle24,
+                          ),
+                          const SizedBox(width: 40.0),
                         ],
                       ),
                     ),

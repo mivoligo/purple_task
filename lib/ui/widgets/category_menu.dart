@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/strings/strings.dart' as s;
 import '../../controllers/categories/categories_controller.dart';
+import '../../controllers/category/category_controller.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import 'widgets.dart';
@@ -14,11 +15,13 @@ class CategoryMenu extends ConsumerStatefulWidget {
     required this.onRemoveCategory,
     required this.onRemoveAllTasks,
     required this.onRemoveCompletedTasks,
+    this.iconSize,
   });
 
   final VoidCallback onRemoveCategory;
   final VoidCallback onRemoveAllTasks;
   final VoidCallback onRemoveCompletedTasks;
+  final double? iconSize;
 
   @override
   _CategoryMenuState createState() => _CategoryMenuState();
@@ -67,6 +70,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
       ],
       builder: (context, controller, child) {
         return IconButton(
+          tooltip: s.showOptions,
           onPressed: () {
             if (controller.isOpen) {
               controller.close();
@@ -74,9 +78,9 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
               controller.open();
             }
           },
-          icon: const Icon(
+          icon: Icon(
             AntIcons.menu,
-            size: 16,
+            size: widget.iconSize,
           ),
         );
       },
@@ -181,7 +185,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
           builder: (_) {
             return Consumer(
               builder: (context, ref, _) {
-                final category = ref.watch(currentCategoryProvider)!;
+                final category = ref.watch(categoryNotifierProvider);
                 final color = category.color;
                 return ConfirmationDialog(
                   title: s.questionChangeColor,
@@ -199,7 +203,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                           child: ColorSelector(
                             selectedColor: color,
                             isInCreator: false,
-                            category: category,
                           ),
                         ),
                       ],
@@ -226,7 +229,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
           builder: (context) {
             return Consumer(
               builder: (context, ref, _) {
-                final category = ref.watch(currentCategoryProvider)!;
+                final category = ref.watch(categoryNotifierProvider);
                 final icon = category.icon;
                 return ConfirmationDialog(
                   title: s.questionChangeIcon,
@@ -241,7 +244,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                             fontFamily: 'AntIcons',
                             fontPackage: 'ant_icons',
                           ),
-                          color: Colors.blueGrey,
+                          color: category.color,
                           size: 28,
                         ),
                         const SizedBox(height: 16.0),
@@ -250,7 +253,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                             child: IconSelector(
                               selectedIcon: icon,
                               isInCreator: false,
-                              category: category,
                             ),
                           ),
                         ),
