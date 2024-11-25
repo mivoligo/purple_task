@@ -22,78 +22,78 @@ class DueDateSelector extends StatelessWidget {
       builder: (context, ref, _) {
         final dateFormatSetting =
             ref.watch(settingsNotifierProvider).dateFormat;
-        return Card(
-          elevation: 0,
-          child: PopupMenuButton<int>(
-            tooltip: s.setDueDate,
-            onSelected: (item) => onItemSelected(context, ref, item),
-            itemBuilder: (context) {
-              var menuList = <PopupMenuEntry<int>>[];
-              menuList.add(
-                const PopupMenuItem(
-                  child: Text(s.today),
-                  value: 0,
-                ),
-              );
-              menuList.add(
-                const PopupMenuItem(
-                  child: Text(s.tomorrow),
-                  value: 1,
-                ),
-              );
-              menuList.add(
-                const PopupMenuItem(
-                  child: Text(s.customDate),
-                  value: 2,
-                ),
-              );
-              menuList.add(
-                const PopupMenuItem(
-                  child: Text(s.noDate),
-                  value: 3,
-                ),
-              );
-              return menuList;
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+
+        return MenuAnchor(
+          consumeOutsideTap: true,
+          menuChildren: [
+            MenuItemButton(
+              onPressed: () {
+                final now = DateTime.now();
+                final today = DateTime(now.year, now.month, now.day);
+                ref.read(tasksNotifierProvider.notifier).update(
+                      task:
+                          task.copyWith(dueDate: today.millisecondsSinceEpoch),
+                    );
+              },
+              child: const Text(s.today),
+            ),
+            MenuItemButton(
+              onPressed: () {
+                final now = DateTime.now();
+                final tomorrow = DateTime(now.year, now.month, now.day + 1);
+                ref.read(tasksNotifierProvider.notifier).update(
+                      task: task.copyWith(
+                        dueDate: tomorrow.millisecondsSinceEpoch,
+                      ),
+                    );
+              },
+              child: const Text(s.tomorrow),
+            ),
+            MenuItemButton(
+              onPressed: () {
+                useSelectedDate(context, ref);
+              },
+              child: const Text(s.customDate),
+            ),
+            MenuItemButton(
+              onPressed: () {
+                ref
+                    .read(tasksNotifierProvider.notifier)
+                    .update(task: task.copyWith(dueDate: null));
+              },
+              child: const Text(s.noDate),
+            ),
+          ],
+          builder: (context, controller, child) {
+            return OutlinedButton(
+              style: const ButtonStyle().copyWith(
+                padding: const WidgetStatePropertyAll(EdgeInsets.all(8)),
+              ),
+              onPressed: () {
+                if (controller.isOpen) {
+                  controller.close();
+                } else {
+                  controller.open();
+                }
+              },
               child: task.dueDate != null
                   ? Text(
                       TimeConversion.formatDueDate(
                         task.dueDate,
                         dateFormatSetting,
                       ),
+                      // todo same letter width
                       style: CustomStyle.textStyleTaskFilter,
                     )
                   : const Icon(
                       AntIcons.calendarOutline,
-                      size: 10,
+                      size: 16,
                     ),
-            ),
-          ),
+            );
+          },
         );
       },
     );
-  }
-
-  void onItemSelected(BuildContext context, WidgetRef ref, int item) {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final tomorrow = DateTime(now.year, now.month, now.day + 1);
-    int? dueDate;
-    switch (item) {
-      case 0:
-        dueDate = today.millisecondsSinceEpoch;
-      case 1:
-        dueDate = tomorrow.millisecondsSinceEpoch;
-      case 2:
-        useSelectedDate(context, ref);
-        return;
-      case 3:
-        dueDate = null;
-    }
-    final updatedTask = task.copyWith(dueDate: dueDate);
-    ref.read(tasksNotifierProvider.notifier).update(task: updatedTask);
   }
 
   void useSelectedDate(BuildContext context, WidgetRef ref) async {
