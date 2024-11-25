@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../entities/entities.dart';
 
 class Category extends Equatable {
-  Category({
+  const Category({
     required this.id,
     required this.name,
     required this.color,
@@ -19,9 +19,7 @@ class Category extends Equatable {
     );
   }
 
-  factory Category.empty() {
-    return Category(id: 0, name: '', color: Colors.black, icon: 0);
-  }
+  const Category.empty() : this(id: 0, name: '', color: Colors.black, icon: 0);
 
   final int id;
   final String name;

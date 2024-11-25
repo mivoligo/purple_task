@@ -7,7 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../constants/strings/strings.dart' as s;
 import '../../../../../controllers/controllers.dart';
 import '../../../../../models/models.dart';
-import '../../../../../providers/providers.dart';
 import '../../../../widgets/widgets.dart';
 import '../../../screens.dart';
 import '../widgets.dart';
@@ -118,7 +117,7 @@ class WideLayout extends StatelessWidget {
                                   final task = Task(
                                     name: value,
                                     categoryId: ref
-                                            .watch(currentCategoryProvider)
+                                            .watch(categoryNotifierProvider)
                                             ?.id ??
                                         -1,
                                   );
@@ -134,12 +133,12 @@ class WideLayout extends StatelessWidget {
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Consumer(
                               builder: (context, ref, _) {
-                                return ref.watch(currentCategoryProvider) ==
+                                return ref.watch(categoryNotifierProvider) ==
                                         null
                                     ? UncategorizedTasks()
                                     : SelectedCategoryTasks(
-                                        category:
-                                            ref.watch(currentCategoryProvider)!,
+                                        category: ref
+                                            .watch(categoryNotifierProvider)!,
                                         width: 460,
                                         height: appHeight - 152,
                                       );

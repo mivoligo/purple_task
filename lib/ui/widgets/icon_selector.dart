@@ -23,7 +23,7 @@ class IconSelector extends ConsumerWidget {
         scrollDirection: Axis.horizontal,
         itemCount: categoryIcons.length,
         itemBuilder: (context, index) {
-          final isSelected = category.icon == categoryIcons[index];
+          final isSelected = category?.icon == categoryIcons[index];
           return AnimationConfiguration.staggeredList(
             position: index,
             duration: const Duration(milliseconds: 300),

@@ -233,34 +233,14 @@ double completionProgress(Ref ref, int categoryId) {
 BaseSettingsRepository settingsRepository(Ref ref) => SettingsRepository();
 
 @riverpod
-class CurrentCategory extends _$CurrentCategory {
-  @override
-  Category? build() => null;
-
-  void setCurrentCategory(Category? category) => state = category;
-}
-
-@riverpod
-class CurrentCategoryIndex extends _$CurrentCategoryIndex {
-  @override
-  int build() => 0;
-
-  void updateIndex(int value) => state = value;
-}
-
-@riverpod
 Color backgroundColorNarrowLayout(Ref ref) {
-  final categories = ref.watch(categoriesNotifierProvider);
-  final currentIndex = ref.watch(currentCategoryIndexProvider);
-  if (categories.isEmpty) {
-    return Colors.deepPurple;
-  }
-  return categories[currentIndex].color;
+  final currentCategory = ref.watch(categoryNotifierProvider);
+  return currentCategory?.color ?? Colors.deepPurple;
 }
 
 @riverpod
 Color backgroundColorWideLayout(Ref ref) =>
-    ref.watch(currentCategoryProvider)?.color ?? Colors.deepPurple;
+    ref.watch(categoryNotifierProvider)?.color ?? Colors.deepPurple;
 
 @riverpod
 class CategoryCreatorCurrentStatus extends _$CategoryCreatorCurrentStatus {

@@ -386,7 +386,7 @@ final settingsRepositoryProvider =
 // ignore: unused_element
 typedef SettingsRepositoryRef = AutoDisposeProviderRef<BaseSettingsRepository>;
 String _$backgroundColorNarrowLayoutHash() =>
-    r'fd5a07a8dc0d9c218a588c8a9c1c2a7425664dec';
+    r'ae254f98f0d1f1da95f4b9a518830a53d5d2573c';
 
 /// See also [backgroundColorNarrowLayout].
 @ProviderFor(backgroundColorNarrowLayout)
@@ -404,7 +404,7 @@ final backgroundColorNarrowLayoutProvider = AutoDisposeProvider<Color>.internal(
 // ignore: unused_element
 typedef BackgroundColorNarrowLayoutRef = AutoDisposeProviderRef<Color>;
 String _$backgroundColorWideLayoutHash() =>
-    r'ad8c8b64ab56560ea8490d03ca3b398b6dd7b7e2';
+    r'9327da49fe85256cfc438539888bbd252657bcb9';
 
 /// See also [backgroundColorWideLayout].
 @ProviderFor(backgroundColorWideLayout)
@@ -1619,39 +1619,6 @@ class _PastCompletedTasksInCategoryProviderElement
       (origin as PastCompletedTasksInCategoryProvider).categoryId;
 }
 
-String _$currentCategoryHash() => r'12037b0cb81ee98c769e721bf7e86e7c9a5869c4';
-
-/// See also [CurrentCategory].
-@ProviderFor(CurrentCategory)
-final currentCategoryProvider =
-    AutoDisposeNotifierProvider<CurrentCategory, Category?>.internal(
-  CurrentCategory.new,
-  name: r'currentCategoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$currentCategoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$CurrentCategory = AutoDisposeNotifier<Category?>;
-String _$currentCategoryIndexHash() =>
-    r'e7172ede83aa24a880d83d673066e8168a555973';
-
-/// See also [CurrentCategoryIndex].
-@ProviderFor(CurrentCategoryIndex)
-final currentCategoryIndexProvider =
-    AutoDisposeNotifierProvider<CurrentCategoryIndex, int>.internal(
-  CurrentCategoryIndex.new,
-  name: r'currentCategoryIndexProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$currentCategoryIndexHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$CurrentCategoryIndex = AutoDisposeNotifier<int>;
 String _$categoryCreatorCurrentStatusHash() =>
     r'd9eb744f03d9b43e036928d94280a4ea9cd11909';
 

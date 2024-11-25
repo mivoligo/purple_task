@@ -24,7 +24,7 @@ class ColorSelector extends ConsumerWidget {
         scrollDirection: Axis.horizontal,
         itemCount: categoryColors.length,
         itemBuilder: (context, index) {
-          final isSelected = category.color == Color(categoryColors[index]);
+          final isSelected = category?.color == Color(categoryColors[index]);
           return AnimationConfiguration.staggeredList(
             position: index,
             duration: const Duration(milliseconds: 300),

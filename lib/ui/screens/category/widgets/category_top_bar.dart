@@ -1,21 +1,18 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import '../../../../constants/strings/strings.dart' as s;
+import '../../../../models/models.dart';
 import '../../../widgets/widgets.dart';
 
-class TopBar extends StatelessWidget {
-  const TopBar({
+class CategoryTopBar extends StatelessWidget {
+  const CategoryTopBar({
     Key? key,
-    required this.onRemoveAllTasks,
-    required this.onRemoveCompletedTasks,
-    required this.onRemoveCategory,
     required this.onClose,
+    required this.category,
   }) : super(key: key);
 
-  final VoidCallback onRemoveAllTasks;
-  final VoidCallback onRemoveCompletedTasks;
-  final VoidCallback onRemoveCategory;
   final VoidCallback onClose;
+  final Category category;
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +31,8 @@ class TopBar extends StatelessWidget {
         ),
         // Menu button
         CategoryMenu(
-          onRemoveAllTasks: onRemoveAllTasks,
-          onRemoveCompletedTasks: onRemoveCompletedTasks,
-          onRemoveCategory: onRemoveCategory,
+          category: category,
+          canDeleteCategory: false,
         ),
       ],
     );

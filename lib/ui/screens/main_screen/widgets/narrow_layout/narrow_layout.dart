@@ -10,6 +10,7 @@ import '../../../../widgets/category_list.dart';
 import '../../../../widgets/icon_button.dart';
 import '../../../screens.dart';
 import '../add_category_button.dart';
+import '../animated_background.dart';
 import '../greetings.dart';
 import '../uncategorized_tasks.dart';
 
@@ -25,11 +26,10 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: CustomStyle.standardBackground,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return Stack(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return AnimatedBackground(
+          child: Stack(
             children: [
               Positioned(
                 top: 8,
@@ -152,6 +152,10 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
                                 ),
                               ),
                               onPressed: () {
+                                ref
+                                    .read(categoryNotifierProvider.notifier)
+                                    .setCurrentCategory(null);
+
                                 setState(() {
                                   hideCategories = !hideCategories;
                                 });
@@ -177,9 +181,9 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
                 ),
               ),
             ],
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 

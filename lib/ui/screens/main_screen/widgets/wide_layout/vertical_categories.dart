@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../../models/models.dart';
-import 'category_tile.dart';
 
 class VerticalList extends StatelessWidget {
   const VerticalList({
@@ -15,8 +14,7 @@ class VerticalList extends StatelessWidget {
     return ListView.builder(
       itemCount: categories.length,
       itemBuilder: (context, index) {
-        final category = categories[index];
-        return CategoryTile(category: category);
+        return const SizedBox();
       },
     );
   }

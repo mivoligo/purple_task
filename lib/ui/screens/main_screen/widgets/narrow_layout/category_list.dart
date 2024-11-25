@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../controllers/controllers.dart';
-import '../../../../../providers/providers.dart';
 import '../../../screens.dart';
 import 'category_card_og.dart';
 
@@ -67,7 +66,7 @@ class __HorizontalPagesState extends ConsumerState<_HorizontalPages> {
           category: category,
           onTap: () {
             ref
-                .read(currentCategoryProvider.notifier)
+                .read(categoryNotifierProvider.notifier)
                 .setCurrentCategory(category);
             Navigator.of(context).push(
               PageRouteBuilder(
@@ -84,8 +83,8 @@ class __HorizontalPagesState extends ConsumerState<_HorizontalPages> {
           },
         );
       },
-      onPageChanged: (index) =>
-          ref.read(currentCategoryIndexProvider.notifier).updateIndex(index),
+      // onPageChanged: (index) =>
+      //     ref.read(currentCategoryIndexProvider.notifier).updateIndex(index),
     );
     // return Placeholder();
     // return ProviderListener<StateController<CategoryCreatorStatus>>(

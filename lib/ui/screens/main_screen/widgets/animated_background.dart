@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../providers/providers.dart';
 
 class AnimatedBackground extends StatelessWidget {
-  const AnimatedBackground();
+  const AnimatedBackground({this.child});
+
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class AnimatedBackground extends StatelessWidget {
               ],
             ),
           ),
+          child: child,
         );
       },
     );

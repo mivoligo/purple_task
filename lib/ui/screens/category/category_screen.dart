@@ -52,16 +52,13 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
 
   @override
   Widget build(BuildContext context) {
-    final currentCategory = ref.watch(currentCategoryProvider);
-    // final currentCategory = widget.category;
-    final categoryName = currentCategory?.name ?? '';
-    final categoryColor = currentCategory?.color ?? Colors.transparent;
-    final categoryIcon = currentCategory?.icon ?? 1;
-    final tasksController = ref.watch(tasksNotifierProvider.notifier);
+    final currentCategory = ref
+        .watch(categoriesNotifierProvider)
+        .firstWhere((element) => element.id == widget.category.id);
+    final categoryColor = currentCategory.color;
     final activeTasksNumber =
-        ref.watch(numberOfActiveTasksInCategoryProvider(currentCategory?.id));
-    final progress =
-        ref.watch(completionProgressProvider(currentCategory?.id ?? 0));
+        ref.watch(numberOfActiveTasksInCategoryProvider(currentCategory.id));
+    final progress = ref.watch(completionProgressProvider(currentCategory.id));
 
     final description = switch (activeTasksNumber) {
       0 => '$activeTasksNumber ${s.taskPlural}',
@@ -121,12 +118,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                       ),
                       child: AnimatedOpacityBuilder(
                         animation: _fadeAnimation,
-                        content: TopBar(
-                          onRemoveAllTasks: () => _removeAllTasks(ref),
-                          onRemoveCompletedTasks: () =>
-                              _removeCompletedTasks(ref),
-                          onRemoveCategory: () => _removeCategoryAndTasks(ref),
+                        content: CategoryTopBar(
                           onClose: () => _animationController.reverse(),
+                          category: currentCategory,
                         ),
                       ),
                     ),
@@ -162,8 +156,8 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                                   );
                                 },
                                 child: CategoryElementBase(
-                                  icon: categoryIcon,
-                                  name: categoryName,
+                                  icon: currentCategory.icon,
+                                  name: currentCategory.name,
                                   description: description,
                                   progress: progress,
                                   color: categoryColor,
@@ -181,9 +175,11 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                                   onAddTask: (value) {
                                     final task = Task(
                                       name: value,
-                                      categoryId: currentCategory?.id ?? 0,
+                                      categoryId: currentCategory.id,
                                     );
-                                    tasksController.add(task: task);
+                                    ref
+                                        .read(tasksNotifierProvider.notifier)
+                                        .add(task: task);
                                   },
                                 ),
                               ),
@@ -191,9 +187,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                             Expanded(
                               child: AnimatedOpacityBuilder(
                                 animation: _fadeAnimation,
-                                content: currentCategory != null
-                                    ? _buildTasksList(currentCategory)
-                                    : const SizedBox(),
+                                content: _buildTasksList(currentCategory),
                               ),
                             ),
                             AnimatedOpacityBuilder(
@@ -235,255 +229,6 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
         },
       ),
     );
-    // return ProviderListener<StateController<CategoryScreenStatus>>(
-    //   provider: categoryScreenStatusProvider,
-    //   onChange: (context, value) {
-    //     if (value.state == CategoryScreenStatus.remove) {
-    //       Navigator.of(context).pop();
-    //     }
-    //   },
-    //   child: Consumer(
-    //     builder: (context, ref, _) {
-    //       final currentCategory = ref.watch(currentCategoryProvider);
-    //
-    //       final categoryName = currentCategory?.name ?? '';
-    //       final categoryColor = currentCategory?.color ?? Colors.transparent;
-    //       final categoryIcon = currentCategory?.icon ?? 1;
-    //       final tasksController = ref.watch(tasksProvider.notifier);
-    //       var description = '';
-    //       final activeTasksNumber =
-    //           ref.watch(activeTasksNumberProvider(currentCategory?.id));
-    //       final progress = ref.watch(progressProvider(currentCategory?.id));
-    //
-    //       switch (activeTasksNumber) {
-    //         case 0:
-    //           description = '$activeTasksNumber ${s.taskPlural}';
-    //           break;
-    //         case 1:
-    //           description = '$activeTasksNumber ${s.taskSingular}';
-    //           break;
-    //         default:
-    //           description = '$activeTasksNumber ${s.taskPlural}';
-    //       }
-    //
-    //       return Scaffold(
-    //         body: LayoutBuilder(
-    //           builder: (context, constrains) {
-    //             var _isWide = constrains.maxWidth > 600;
-    //             return Stack(
-    //               alignment: Alignment.center,
-    //               children: [
-    //                 if (_isWide)
-    //                   Container(
-    //                     decoration: BoxDecoration(
-    //                       gradient: LinearGradient(
-    //                         begin: Alignment.topCenter,
-    //                         end: Alignment.bottomCenter,
-    //                         colors: [
-    //                           const Color(0xFF303030),
-    //                           categoryColor,
-    //                           categoryColor,
-    //                         ],
-    //                       ),
-    //                     ),
-    //                   ),
-    //                 Positioned(
-    //                   width: _isWide
-    //                       ? math.min((constrains.maxWidth - 80), 600)
-    //                       : constrains.maxWidth,
-    //                   top: _isWide ? 40 : 0,
-    //                   bottom: _isWide ? 40 : 0,
-    //                   child: Hero(
-    //                     tag: 'main${widget.heroId}',
-    //                     child: Container(
-    //                       decoration: _isWide
-    //                           ? CustomStyle.dialogDecoration
-    //                           : const BoxDecoration(color: Color(0xFFEEEEEE)),
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Positioned(
-    //                   width: _isWide
-    //                       ? math.min((constrains.maxWidth - 80), 600)
-    //                       : constrains.maxWidth,
-    //                   top: _isWide ? 40 : 0,
-    //                   bottom: _isWide ? 40 : 0,
-    //                   child: Column(
-    //                     children: [
-    //                       Padding(
-    //                         padding: const EdgeInsets.only(
-    //                           left: 8.0,
-    //                           top: 8.0,
-    //                           right: 8.0,
-    //                         ),
-    //                         child: AnimatedOpacityBuilder(
-    //                           animation: _fadeAnimation,
-    //                           content: TopBar(
-    //                             onRemoveAllTasks: () =>
-    //                                 _removeAllTasks(ref),
-    //                             onRemoveCompletedTasks: () =>
-    //                                 _removeCompletedTasks(ref),
-    //                             onRemoveCategory: () =>
-    //                                 _removeCategoryAndTasks(ref),
-    //                             onClose: () => _animationController.reverse(),
-    //                           ),
-    //                         ),
-    //                       ),
-    //                       Expanded(
-    //                         child: Padding(
-    //                           padding: const EdgeInsets.symmetric(
-    //                             vertical: 12.0,
-    //                             horizontal: 32.0,
-    //                           ),
-    //                           child: Column(
-    //                             crossAxisAlignment: CrossAxisAlignment.stretch,
-    //                             children: [
-    //                               Hero(
-    //                                 tag: 'icon${widget.heroId}',
-    //                                 child: Align(
-    //                                   alignment: Alignment.topLeft,
-    //                                   child: Icon(
-    //                                     IconData(
-    //                                       categoryIcon,
-    //                                       fontFamily: 'AntIcons',
-    //                                       fontPackage: 'ant_icons',
-    //                                     ),
-    //                                     size: 42.0,
-    //                                     color: categoryColor,
-    //                                   ),
-    //                                 ),
-    //                               ),
-    //                               Padding(
-    //                                 padding: const EdgeInsets.only(
-    //                                   left: 4.0,
-    //                                   top: 20.0,
-    //                                   right: 4.0,
-    //                                   bottom: 12.0,
-    //                                 ),
-    //                                 child: Hero(
-    //                                   tag: 'header${widget.heroId}',
-    //                                   // get rid of overflow error
-    //                                   // https://github.com/flutter/flutter/issues/27320
-    //                                   flightShuttleBuilder: (
-    //                                     flightContext,
-    //                                     animation,
-    //                                     flightDirection,
-    //                                     fromHeroContext,
-    //                                     toHeroContext,
-    //                                   ) {
-    //                                     return SingleChildScrollView(
-    //                                       child: fromHeroContext.widget,
-    //                                     );
-    //                                   },
-    //                                   child: CategoryHeader(
-    //                                     title: categoryName,
-    //                                     description: description,
-    //                                     progress: progress,
-    //                                     color: categoryColor,
-    //                                   ),
-    //                                 ),
-    //                               ),
-    //                               Padding(
-    //                                 padding: const EdgeInsets.only(bottom: 8.0),
-    //                                 child: AnimatedOpacityBuilder(
-    //                                   animation: _fadeAnimation,
-    //                                   content: AddTaskField(
-    //                                     onAddTask: (value) {
-    //                                       final task = Task(
-    //                                         name: value,
-    //                                         categoryId:
-    //                                             currentCategory?.id ?? 0,
-    //                                       );
-    //                                       tasksController.add(task: task);
-    //                                     },
-    //                                   ),
-    //                                 ),
-    //                               ),
-    //                               Expanded(
-    //                                 child: AnimatedOpacityBuilder(
-    //                                   animation: _fadeAnimation,
-    //                                   content: currentCategory != null
-    //                                       ? _buildTasksList(currentCategory)
-    //                                       : const SizedBox(),
-    //                                 ),
-    //                               ),
-    //                               AnimatedOpacityBuilder(
-    //                                 animation: _fadeAnimation,
-    //                                 content: BottomNavigationBar(
-    //                                   type: BottomNavigationBarType.fixed,
-    //                                   unselectedFontSize: 14.0,
-    //                                   currentIndex: _navigationIndex,
-    //                                   onTap: (index) {
-    //                                     setState(() {
-    //                                       _navigationIndex = index;
-    //                                     });
-    //                                   },
-    //                                   items: [
-    //                                     const BottomNavigationBarItem(
-    //                                       label: s.toDo,
-    //                                       icon: Icon(AntIcons.edit),
-    //                                     ),
-    //                                     const BottomNavigationBarItem(
-    //                                       label: s.all,
-    //                                       icon: Icon(AntIcons.profile),
-    //                                     ),
-    //                                     const BottomNavigationBarItem(
-    //                                       label: s.completed,
-    //                                       icon: Icon(AntIcons.checkCircle),
-    //                                     ),
-    //                                   ],
-    //                                 ),
-    //                               ),
-    //                             ],
-    //                           ),
-    //                         ),
-    //                       ),
-    //                     ],
-    //                   ),
-    //                 ),
-    //               ],
-    //             );
-    //           },
-    //         ),
-    //       );
-    //     },
-    //   ),
-    // );
-  }
-
-  void _removeAllTasks(WidgetRef ref) {
-    final currentCategory = ref.read(currentCategoryProvider);
-    if (currentCategory != null) {
-      ref
-          .read(tasksNotifierProvider.notifier)
-          .removeAllTasksForCategory(categoryId: currentCategory.id);
-    }
-  }
-
-  void _removeCompletedTasks(WidgetRef ref) {
-    final currentCategory = ref.read(currentCategoryProvider);
-    if (currentCategory != null) {
-      ref
-          .read(tasksNotifierProvider.notifier)
-          .removeCompletedTasksForCategory(categoryId: currentCategory.id);
-    }
-  }
-
-  void _removeCategoryAndTasks(WidgetRef ref) {
-    // final currentCategory = ref.read(currentCategoryProvider);
-    // if (currentCategory != null) {
-    //   // delete tasks with category id
-    //   _removeAllTasks(ref);
-    //   // change state so the page will pop
-    //   ref.read(categoryScreenStatusProvider) =
-    //       CategoryScreenStatus.remove;
-    //   // delete category
-    //   ref
-    //       .read(categoriesProvider.notifier)
-    //       .remove(category: currentCategory);
-    //   // remove category from current category state
-    //   ref.read(currentCategoryProvider) = null;
-    // }
   }
 
   Widget _buildTasksList(Category category) {

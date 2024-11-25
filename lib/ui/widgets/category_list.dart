@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../controllers/categories/categories_controller.dart';
-import '../../providers/providers.dart';
+import '../../controllers/category/category_controller.dart';
 import '../screens/screens.dart';
 import 'category_element.dart';
 import 'category_menu.dart';
@@ -15,7 +15,8 @@ class CategoryList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categories = ref.watch(categoriesNotifierProvider);
-    final currentCategory = ref.watch(currentCategoryProvider.notifier);
+    final currentCategoryNotifier =
+        ref.watch(categoryNotifierProvider.notifier);
 
     Widget proxyDecorator(
       Widget child,
@@ -55,7 +56,7 @@ class CategoryList extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(vertical: 4.0),
           child: InkWell(
             onTap: () {
-              currentCategory.setCurrentCategory(category);
+              currentCategoryNotifier.setCurrentCategory(category);
               Navigator.of(context).push(
                 PageRouteBuilder(
                   pageBuilder: (context, anim1, anim2) =>
@@ -88,9 +89,8 @@ class CategoryList extends ConsumerWidget {
                             children: [
                               const VerticalDivider(),
                               CategoryMenu(
-                                onRemoveCategory: () {},
-                                onRemoveAllTasks: () {},
-                                onRemoveCompletedTasks: () {},
+                                category: category,
+                                canDeleteCategory: true,
                                 iconSize: 16,
                               ),
                             ],
