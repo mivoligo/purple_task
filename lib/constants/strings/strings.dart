@@ -33,6 +33,7 @@ const String completedEarlier = 'Completed earlier';
 const String showOptions = 'Show options';
 const String hideOptions = 'Hide options';
 const String dueDate = 'Due date';
+const String yesterday = 'Yesterday';
 const String today = 'Today';
 const String tomorrow = 'Tomorrow';
 const String customDate = 'Custom date';

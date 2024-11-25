@@ -52,6 +52,9 @@ mixin TimeConverter {
     final localDateTime = dateTime.toLocal();
     final date = DateFormat(dateFormat).format(localDateTime);
     final time = DateFormat(timeFormat).format(localDateTime);
+    if (input.millisToDay().isToday || input.millisToDay().isYesterday) {
+      return '$time';
+    }
     return '$date, $time';
   }
 

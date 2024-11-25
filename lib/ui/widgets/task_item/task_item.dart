@@ -120,7 +120,7 @@ class _TaskItemState extends State<TaskItem> {
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0, bottom: 4.0),
+                    padding: const EdgeInsets.only(left: 6.0, bottom: 4.0),
                     child: Text(
                       '${s.completed}: ${TimeConverter.millisToDateAndTime(
                         widget.task.doneTime!,
