@@ -66,166 +66,168 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
       _ => '$activeTasksNumber ${s.taskPlural}',
     };
 
-    return Scaffold(
-      body: LayoutBuilder(
-        builder: (context, constrains) {
-          var _isWide = constrains.maxWidth > 600;
-          return Stack(
-            alignment: Alignment.center,
-            children: [
-              if (_isWide)
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        const Color(0xFF303030),
-                        categoryColor,
-                        categoryColor,
-                      ],
+    return SafeArea(
+      child: Scaffold(
+        body: LayoutBuilder(
+          builder: (context, constrains) {
+            var _isWide = constrains.maxWidth > 600;
+            return Stack(
+              alignment: Alignment.center,
+              children: [
+                if (_isWide)
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          const Color(0xFF303030),
+                          categoryColor,
+                          categoryColor,
+                        ],
+                      ),
+                    ),
+                  ),
+                Positioned(
+                  width: _isWide
+                      ? math.min((constrains.maxWidth - 80), 600)
+                      : constrains.maxWidth,
+                  top: _isWide ? 40 : 0,
+                  bottom: _isWide ? 40 : 0,
+                  child: Hero(
+                    tag: 'main${widget.heroId}',
+                    child: Container(
+                      decoration: _isWide
+                          ? CustomStyle.dialogDecoration
+                          : const BoxDecoration(color: Color(0xFFEEEEEE)),
                     ),
                   ),
                 ),
-              Positioned(
-                width: _isWide
-                    ? math.min((constrains.maxWidth - 80), 600)
-                    : constrains.maxWidth,
-                top: _isWide ? 40 : 0,
-                bottom: _isWide ? 40 : 0,
-                child: Hero(
-                  tag: 'main${widget.heroId}',
-                  child: Container(
-                    decoration: _isWide
-                        ? CustomStyle.dialogDecoration
-                        : const BoxDecoration(color: Color(0xFFEEEEEE)),
-                  ),
-                ),
-              ),
-              Positioned(
-                width: _isWide
-                    ? math.min((constrains.maxWidth - 80), 600)
-                    : constrains.maxWidth,
-                top: _isWide ? 40 : 0,
-                bottom: _isWide ? 40 : 0,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 8.0,
-                        top: 8.0,
-                        right: 8.0,
-                      ),
-                      child: AnimatedOpacityBuilder(
-                        animation: _fadeAnimation,
-                        content: CategoryTopBar(
-                          onClose: () => _animationController.reverse(),
-                          category: currentCategory,
+                Positioned(
+                  width: _isWide
+                      ? math.min((constrains.maxWidth - 80), 600)
+                      : constrains.maxWidth,
+                  top: _isWide ? 40 : 0,
+                  bottom: _isWide ? 40 : 0,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 8.0,
+                          top: 8.0,
+                          right: 8.0,
+                        ),
+                        child: AnimatedOpacityBuilder(
+                          animation: _fadeAnimation,
+                          content: CategoryTopBar(
+                            onClose: () => _animationController.reverse(),
+                            category: currentCategory,
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12.0,
-                          horizontal: 32.0,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: 4.0,
-                                top: 20.0,
-                                right: 4.0,
-                                bottom: 12.0,
-                              ),
-                              child: Hero(
-                                tag: 'header${widget.heroId}',
-                                // get rid of overflow error
-                                // https://github.com/flutter/flutter/issues/27320
-                                flightShuttleBuilder: (
-                                  flightContext,
-                                  animation,
-                                  flightDirection,
-                                  fromHeroContext,
-                                  toHeroContext,
-                                ) {
-                                  return SingleChildScrollView(
-                                    child: fromHeroContext.widget,
-                                  );
-                                },
-                                child: CategoryElementBase(
-                                  icon: currentCategory.icon,
-                                  name: currentCategory.name,
-                                  description: description,
-                                  progress: progress,
-                                  color: categoryColor,
-                                  iconSize: 28,
-                                  titleTextStyle:
-                                      Theme.of(context).textTheme.titleLarge,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 12.0,
+                            horizontal: 32.0,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 4.0,
+                                  top: 20.0,
+                                  right: 4.0,
+                                  bottom: 12.0,
                                 ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: AnimatedOpacityBuilder(
-                                animation: _fadeAnimation,
-                                content: AddTaskField(
-                                  onAddTask: (value) {
-                                    final task = Task(
-                                      name: value,
-                                      categoryId: currentCategory.id,
+                                child: Hero(
+                                  tag: 'header${widget.heroId}',
+                                  // get rid of overflow error
+                                  // https://github.com/flutter/flutter/issues/27320
+                                  flightShuttleBuilder: (
+                                    flightContext,
+                                    animation,
+                                    flightDirection,
+                                    fromHeroContext,
+                                    toHeroContext,
+                                  ) {
+                                    return SingleChildScrollView(
+                                      child: fromHeroContext.widget,
                                     );
-                                    ref
-                                        .read(tasksNotifierProvider.notifier)
-                                        .add(task: task);
                                   },
+                                  child: CategoryElementBase(
+                                    icon: currentCategory.icon,
+                                    name: currentCategory.name,
+                                    description: description,
+                                    progress: progress,
+                                    color: categoryColor,
+                                    iconSize: 28,
+                                    titleTextStyle:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: AnimatedOpacityBuilder(
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: AnimatedOpacityBuilder(
+                                  animation: _fadeAnimation,
+                                  content: AddTaskField(
+                                    onAddTask: (value) {
+                                      final task = Task(
+                                        name: value,
+                                        categoryId: currentCategory.id,
+                                      );
+                                      ref
+                                          .read(tasksNotifierProvider.notifier)
+                                          .add(task: task);
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: AnimatedOpacityBuilder(
+                                  animation: _fadeAnimation,
+                                  content: _buildTasksList(currentCategory),
+                                ),
+                              ),
+                              AnimatedOpacityBuilder(
                                 animation: _fadeAnimation,
-                                content: _buildTasksList(currentCategory),
+                                content: NavigationBar(
+                                  backgroundColor: Colors.transparent,
+                                  selectedIndex: _navigationIndex,
+                                  onDestinationSelected: (index) {
+                                    setState(() {
+                                      _navigationIndex = index;
+                                    });
+                                  },
+                                  destinations: [
+                                    const NavigationDestination(
+                                      label: s.toDo,
+                                      icon: Icon(AntIcons.edit),
+                                    ),
+                                    const NavigationDestination(
+                                      label: s.all,
+                                      icon: Icon(AntIcons.profile),
+                                    ),
+                                    const NavigationDestination(
+                                      label: s.completed,
+                                      icon: Icon(AntIcons.checkCircle),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            AnimatedOpacityBuilder(
-                              animation: _fadeAnimation,
-                              content: NavigationBar(
-                                backgroundColor: Colors.transparent,
-                                selectedIndex: _navigationIndex,
-                                onDestinationSelected: (index) {
-                                  setState(() {
-                                    _navigationIndex = index;
-                                  });
-                                },
-                                destinations: [
-                                  const NavigationDestination(
-                                    label: s.toDo,
-                                    icon: Icon(AntIcons.edit),
-                                  ),
-                                  const NavigationDestination(
-                                    label: s.all,
-                                    icon: Icon(AntIcons.profile),
-                                  ),
-                                  const NavigationDestination(
-                                    label: s.completed,
-                                    icon: Icon(AntIcons.checkCircle),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }
