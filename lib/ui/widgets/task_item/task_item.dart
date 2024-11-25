@@ -9,7 +9,7 @@ import '../../../helpers.dart';
 import '../../../models/models.dart';
 import '../widgets.dart';
 import 'due_date_selector.dart';
-import 'task_options.dart';
+import 'task_menu.dart';
 
 class TaskItem extends StatefulWidget {
   const TaskItem({required this.task});
@@ -111,7 +111,7 @@ class _TaskItemState extends State<TaskItem> {
                 ),
                 const SizedBox(width: 8),
                 DueDateSelector(task: widget.task),
-                TaskOptions(task: widget.task),
+                TaskMenu(task: widget.task),
               ],
             ),
             if (settings.showDoneTime &&
