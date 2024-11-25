@@ -3,7 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../constants/constants.dart';
 
-class IconSelector extends StatelessWidget {
+class IconSelector extends StatefulWidget {
   const IconSelector({
     required this.selectedIcon,
     required this.onSelect,
@@ -13,14 +13,41 @@ class IconSelector extends StatelessWidget {
   final ValueChanged<int> onSelect;
 
   @override
+  State<IconSelector> createState() => _IconSelectorState();
+}
+
+class _IconSelectorState extends State<IconSelector> {
+  late ScrollController scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) => scrollController.animateTo(
+        78.0 * categoryIcons.indexOf(widget.selectedIcon) - 40,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
       child: ListView.builder(
+        controller: scrollController,
         scrollDirection: Axis.horizontal,
         itemCount: categoryIcons.length,
         itemBuilder: (context, index) {
           final icon = categoryIcons[index];
-          final isSelected = selectedIcon == icon;
+          final isSelected = widget.selectedIcon == icon;
           return AnimationConfiguration.staggeredList(
             position: index,
             duration: const Duration(milliseconds: 300),
@@ -37,8 +64,8 @@ class IconSelector extends StatelessWidget {
                       color: Colors.grey.shade300,
                       elevation: isSelected ? 6 : 1,
                       child: InkWell(
-                        onFocusChange: (value) => onSelect(icon),
-                        onTap: () => onSelect(icon),
+                        onFocusChange: (value) => widget.onSelect(icon),
+                        onTap: () => widget.onSelect(icon),
                         child: Icon(
                           IconData(
                             categoryIcons[index],

@@ -4,7 +4,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../constants/constants.dart';
 
-class ColorSelector extends StatelessWidget {
+class ColorSelector extends StatefulWidget {
   const ColorSelector({
     required this.selectedColor,
     required this.onSelect,
@@ -15,15 +15,42 @@ class ColorSelector extends StatelessWidget {
   final ValueChanged<Color> onSelect;
 
   @override
+  State<ColorSelector> createState() => _ColorSelectorState();
+}
+
+class _ColorSelectorState extends State<ColorSelector> {
+  late ScrollController scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) => scrollController.animateTo(
+        78.0 * categoryColors.indexOf(widget.selectedColor.value) - 40,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
       child: ListView.builder(
+        controller: scrollController,
         scrollDirection: Axis.horizontal,
         itemCount: categoryColors.length,
         itemBuilder: (context, index) {
           final color = Color(categoryColors[index]);
 
-          final isSelected = color == selectedColor;
+          final isSelected = color == widget.selectedColor;
           return AnimationConfiguration.staggeredList(
             position: index,
             duration: const Duration(milliseconds: 300),
@@ -40,8 +67,8 @@ class ColorSelector extends StatelessWidget {
                       color: color,
                       elevation: isSelected ? 6 : 1,
                       child: InkWell(
-                        onFocusChange: (_) => onSelect(color),
-                        onTap: () => onSelect(color),
+                        onFocusChange: (_) => widget.onSelect(color),
+                        onTap: () => widget.onSelect(color),
                         child: isSelected
                             ? const Icon(
                                 AntIcons.checkOutline,
