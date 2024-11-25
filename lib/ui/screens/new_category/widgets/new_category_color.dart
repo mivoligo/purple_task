@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/constants.dart';
 import '../../../../constants/strings/strings.dart' as s;
+import '../../../../controllers/controllers.dart';
 import '../../../widgets/widgets.dart';
 import 'new_category_base.dart';
 
-class CategoryColor extends StatelessWidget {
+class CategoryColor extends ConsumerWidget {
   CategoryColor({
     Key? key,
     required this.name,
     required this.color,
     required this.onNext,
-    required this.selectedColor,
     required this.focusNode,
   }) : super(key: key);
 
   final String name;
   final Color color;
   final VoidCallback onNext;
-  final Color selectedColor;
   final FocusNode focusNode;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return NewCategoryBase(
       focusNode: focusNode,
       color: color,
@@ -39,7 +39,9 @@ class CategoryColor extends StatelessWidget {
             ),
             Expanded(
               child: ColorSelector(
-                selectedColor: selectedColor,
+                selectedColor: color,
+                onSelect:
+                    ref.read(newCategoryNotifierProvider.notifier).changeColor,
               ),
             ),
             const Padding(

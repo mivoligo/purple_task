@@ -30,7 +30,6 @@ class NewCategoryScreen extends ConsumerWidget {
           focusNode: _focusNode,
           name: newCategoryState.name,
           color: newCategoryState.color,
-          selectedColor: newCategoryState.color,
           onNext: newCategoryController.progressToIcon,
         ),
       NewCategoryStatus.icon => CategoryIcon(

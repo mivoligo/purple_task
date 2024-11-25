@@ -14,11 +14,11 @@ class CategoryNotifier extends _$CategoryNotifier {
     state = category;
   }
 
-  void changeColor({required Color color}) {
+  void changeColor(Color color) {
     state = state?.copyWith(color: color);
   }
 
-  void changeIcon({required int icon}) {
+  void changeIcon(int icon) {
     state = state?.copyWith(icon: icon);
   }
 

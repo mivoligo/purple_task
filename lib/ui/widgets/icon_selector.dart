@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../constants/constants.dart';
-import '../../controllers/controllers.dart';
 
-class IconSelector extends ConsumerWidget {
+class IconSelector extends StatelessWidget {
   const IconSelector({
     required this.selectedIcon,
-    this.isInCreator = true,
+    required this.onSelect,
   });
 
   final int selectedIcon;
-  final bool isInCreator;
+  final ValueChanged<int> onSelect;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final category = ref.watch(categoryNotifierProvider);
-
+  Widget build(BuildContext context) {
     return AnimationLimiter(
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categoryIcons.length,
         itemBuilder: (context, index) {
-          final isSelected = category?.icon == categoryIcons[index];
+          final icon = categoryIcons[index];
+          final isSelected = selectedIcon == icon;
           return AnimationConfiguration.staggeredList(
             position: index,
             duration: const Duration(milliseconds: 300),
@@ -40,20 +37,8 @@ class IconSelector extends ConsumerWidget {
                       color: Colors.grey.shade300,
                       elevation: isSelected ? 6 : 1,
                       child: InkWell(
-                        onFocusChange: isInCreator
-                            ? (_) => ref
-                                .read(newCategoryNotifierProvider.notifier)
-                                .changeIcon(categoryIcons[index])
-                            : (_) => ref
-                                .read(categoryNotifierProvider.notifier)
-                                .changeIcon(icon: categoryIcons[index]),
-                        onTap: isInCreator
-                            ? () => ref
-                                .read(newCategoryNotifierProvider.notifier)
-                                .changeIcon(categoryIcons[index])
-                            : () => ref
-                                .read(categoryNotifierProvider.notifier)
-                                .changeIcon(icon: categoryIcons[index]),
+                        onFocusChange: (value) => onSelect(icon),
+                        onTap: () => onSelect(icon),
                         child: Icon(
                           IconData(
                             categoryIcons[index],

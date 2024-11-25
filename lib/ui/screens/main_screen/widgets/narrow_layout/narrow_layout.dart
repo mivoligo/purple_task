@@ -169,7 +169,9 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
                             if (!hideCategories)
                               AddCategoryButton(
                                 text: 'Add new',
-                                onPressed: () {},
+                                onPressed: () => Navigator.of(context).push(
+                                  _createRoute(NewCategoryScreen()),
+                                ),
                               ),
                           ],
                         ),

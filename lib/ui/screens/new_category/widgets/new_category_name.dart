@@ -41,7 +41,7 @@ class CategoryName extends StatelessWidget {
                 ),
                 onSubmitted: (_) => onSubmitted(),
                 onChanged: onNameChanged,
-                style: CustomStyle.textStyle24,
+                style: CustomStyle.textStyle20,
                 decoration: CustomStyle.inputDecoration,
               ),
             ),

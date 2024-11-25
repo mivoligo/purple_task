@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/constants.dart';
 import '../../../../constants/strings/strings.dart' as s;
+import '../../../../controllers/controllers.dart';
 import '../../../widgets/widgets.dart';
 import 'new_category_base.dart';
 
-class CategoryIcon extends StatelessWidget {
+class CategoryIcon extends ConsumerWidget {
   CategoryIcon({
     Key? key,
     required this.name,
@@ -21,7 +23,7 @@ class CategoryIcon extends StatelessWidget {
   final FocusNode focusNode;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return NewCategoryBase(
       focusNode: focusNode,
       color: color,
@@ -56,6 +58,8 @@ class CategoryIcon extends StatelessWidget {
             Expanded(
               child: IconSelector(
                 selectedIcon: selectedIcon,
+                onSelect:
+                    ref.read(newCategoryNotifierProvider.notifier).changeIcon,
               ),
             ),
             const Padding(

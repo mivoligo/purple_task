@@ -204,7 +204,9 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                     Expanded(
                       child: ColorSelector(
                         selectedColor: color,
-                        isInCreator: false,
+                        onSelect: ref
+                            .read(categoryNotifierProvider.notifier)
+                            .changeColor,
                       ),
                     ),
                   ],
@@ -249,7 +251,9 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                       child: Container(
                         child: IconSelector(
                           selectedIcon: icon,
-                          isInCreator: false,
+                          onSelect: ref
+                              .read(categoryNotifierProvider.notifier)
+                              .changeIcon,
                         ),
                       ),
                     ),

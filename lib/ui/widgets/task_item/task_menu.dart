@@ -19,6 +19,8 @@ class TaskMenu extends StatelessWidget {
     return Consumer(
       builder: (context, ref, _) {
         final categories = ref.watch(categoriesNotifierProvider);
+        final otherCategories =
+            categories.where((element) => element.id != task.categoryId);
 
         return MenuAnchor(
           consumeOutsideTap: true,
@@ -31,48 +33,47 @@ class TaskMenu extends StatelessWidget {
               onPressed: () =>
                   ref.read(tasksNotifierProvider.notifier).remove(task: task),
             ),
-            SubmenuButton(
-              menuChildren: [
-                ...categories
-                    .where((element) => element.id != task.categoryId)
-                    .map(
-                      (e) => MenuItemButton(
-                        leadingIcon: Icon(
-                          IconData(
-                            e.icon,
-                            fontFamily: 'AntIcons',
-                            fontPackage: 'ant_icons',
-                          ),
-                          // size: iconSize,
-                          color: e.color,
+            if (otherCategories.isNotEmpty)
+              SubmenuButton(
+                menuChildren: [
+                  ...otherCategories.map(
+                    (e) => MenuItemButton(
+                      leadingIcon: Icon(
+                        IconData(
+                          e.icon,
+                          fontFamily: 'AntIcons',
+                          fontPackage: 'ant_icons',
                         ),
-                        child: SizedBox(
-                          width: 200,
-                          child: Text(
-                            e.name,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        onPressed: () {
-                          ref
-                              .read(tasksNotifierProvider.notifier)
-                              .update(task: task.copyWith(categoryId: e.id));
-                        },
+                        // size: iconSize,
+                        color: e.color,
                       ),
+                      child: SizedBox(
+                        width: 200,
+                        child: Text(
+                          e.name,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      onPressed: () {
+                        ref
+                            .read(tasksNotifierProvider.notifier)
+                            .update(task: task.copyWith(categoryId: e.id));
+                      },
                     ),
-                if (task.categoryId != -1)
-                  MenuItemButton(
-                    leadingIcon: const SizedBox(width: 24),
-                    child: const Text(s.noCategory),
-                    onPressed: () {
-                      ref
-                          .read(tasksNotifierProvider.notifier)
-                          .update(task: task.copyWith(categoryId: -1));
-                    },
                   ),
-              ],
-              child: const Text(s.changeCategory),
-            ),
+                  if (task.categoryId != -1)
+                    MenuItemButton(
+                      leadingIcon: const SizedBox(width: 24),
+                      child: const Text(s.noCategory),
+                      onPressed: () {
+                        ref
+                            .read(tasksNotifierProvider.notifier)
+                            .update(task: task.copyWith(categoryId: -1));
+                      },
+                    ),
+                ],
+                child: const Text(s.changeCategory),
+              ),
           ],
           builder: (context, controller, child) {
             return IconButton(
