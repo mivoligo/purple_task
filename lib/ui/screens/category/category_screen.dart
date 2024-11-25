@@ -192,25 +192,24 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                             ),
                             AnimatedOpacityBuilder(
                               animation: _fadeAnimation,
-                              content: BottomNavigationBar(
-                                type: BottomNavigationBarType.fixed,
-                                unselectedFontSize: 14.0,
-                                currentIndex: _navigationIndex,
-                                onTap: (index) {
+                              content: NavigationBar(
+                                backgroundColor: Colors.transparent,
+                                selectedIndex: _navigationIndex,
+                                onDestinationSelected: (index) {
                                   setState(() {
                                     _navigationIndex = index;
                                   });
                                 },
-                                items: [
-                                  const BottomNavigationBarItem(
+                                destinations: [
+                                  const NavigationDestination(
                                     label: s.toDo,
                                     icon: Icon(AntIcons.edit),
                                   ),
-                                  const BottomNavigationBarItem(
+                                  const NavigationDestination(
                                     label: s.all,
                                     icon: Icon(AntIcons.profile),
                                   ),
-                                  const BottomNavigationBarItem(
+                                  const NavigationDestination(
                                     label: s.completed,
                                     icon: Icon(AntIcons.checkCircle),
                                   ),
