@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/constants.dart';
-import '../../../../constants/strings/strings.dart' as s;
 import '../../../../controllers/controllers.dart';
 import '../../../../helpers.dart';
 
@@ -11,44 +10,40 @@ class TimeFormatSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final state = ref.watch(settingsNotifierProvider);
+        final settingsState = ref.watch(settingsNotifierProvider);
         final controller = ref.watch(settingsNotifierProvider.notifier);
-        return Card(
-          elevation: 1,
-          child: PopupMenuButton(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                TimeConversion.formatDateNow(state.timeFormat),
-                style: CustomStyle.textStyleTaskName
-                    .copyWith(color: Theme.of(context).primaryColor),
+        return MenuAnchor(
+          menuChildren: [
+            ...timeFormats.map(
+              (timeFormat) => MenuItemButton(
+                onPressed: () {
+                  controller.setTimeFormat(
+                    timeFormat: timeFormat,
+                  );
+                },
+                child: Text(
+                  TimeConverter.formatDateNow(timeFormat),
+                  style: settingsState.timeFormat == timeFormat
+                      ? CustomStyle.textStyleTaskName
+                          .copyWith(color: Theme.of(context).primaryColor)
+                      : CustomStyle.textStyleTaskName,
+                ),
               ),
             ),
-            tooltip: s.changeFormat,
-            onSelected: (item) => controller.setTimeFormat(
-              timeFormat: item,
-            ),
-            itemBuilder: (context) {
-              var menuList = <PopupMenuEntry<String>>[];
-
-              for (var format in timeFormats) {
-                menuList.add(
-                  PopupMenuItem(
-                    child: Text(
-                      TimeConversion.formatDateNow(format),
-                      style: state.timeFormat == format
-                          ? CustomStyle.textStyleTaskName
-                              .copyWith(color: Theme.of(context).primaryColor)
-                          : CustomStyle.textStyleTaskName,
-                    ),
-                    value: format,
-                  ),
-                );
-              }
-
-              return menuList;
-            },
-          ),
+          ],
+          builder: (context, controller, child) {
+            return OutlinedButton(
+              onPressed: () {
+                if (controller.isOpen) {
+                  controller.close();
+                } else {
+                  controller.open();
+                }
+              },
+              child:
+                  Text(TimeConverter.formatDateNow(settingsState.timeFormat)),
+            );
+          },
         );
       },
     );

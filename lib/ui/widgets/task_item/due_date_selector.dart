@@ -78,7 +78,7 @@ class DueDateSelector extends StatelessWidget {
               },
               child: task.dueDate != null
                   ? Text(
-                      TimeConversion.formatDueDate(
+                      TimeConverter.formatDueDate(
                         task.dueDate,
                         dateFormatSetting,
                       ),

@@ -42,7 +42,7 @@ extension IntExtensions on int {
   }
 }
 
-mixin TimeConversion {
+mixin TimeConverter {
   static String millisToDateAndTime(
     int input, {
     required String dateFormat,
