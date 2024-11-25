@@ -2,7 +2,7 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../constants/custom_styles.dart';
-import '../../../../../constants/strings/strings.dart';
+import '../../../../../constants/strings/strings.dart' as s;
 import '../../../../../controllers/controllers.dart';
 import '../../../../../models/models.dart';
 import '../../../../widgets/add_task_field.dart';
@@ -112,7 +112,7 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
                                     const Padding(
                                       padding: EdgeInsets.all(4.0),
                                       child: Text(
-                                        noCategory,
+                                        s.noCategory,
                                         style: CustomStyle.textStyleTaskFilter,
                                       ),
                                     ),
