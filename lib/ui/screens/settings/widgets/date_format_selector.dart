@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/constants.dart';
 import '../../../../controllers/controllers.dart';
 import '../../../../helpers.dart';
+import '../../../widgets/widgets.dart';
 
 class DateFormatSelector extends StatelessWidget {
   @override
@@ -30,7 +31,9 @@ class DateFormatSelector extends StatelessWidget {
             ),
           ],
           builder: (context, controller, child) {
-            return OutlinedButton(
+            return SimpleButton(
+              foregroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Colors.white,
               onPressed: () {
                 if (controller.isOpen) {
                   controller.close();
@@ -38,8 +41,7 @@ class DateFormatSelector extends StatelessWidget {
                   controller.open();
                 }
               },
-              child:
-                  Text(TimeConverter.formatDateNow(settingsState.dateFormat)),
+              text: TimeConverter.formatDateNow(settingsState.dateFormat),
             );
           },
         );

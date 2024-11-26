@@ -1,6 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 
+import '../../../widgets/simple_button.dart';
+
 class AddCategoryButton extends StatelessWidget {
   const AddCategoryButton({
     Key? key,
@@ -13,30 +15,12 @@ class AddCategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(60.0),
-        ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(
-            AntIcons.folderAdd,
-            color: Colors.black,
-          ),
-          const SizedBox(width: 4.0),
-          Flexible(
-            child: Text(
-              text,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
+    return SimpleButton(
+      text: text,
       onPressed: onPressed,
+      icon: const Icon(AntIcons.folderAdd),
+      backgroundColor: Colors.white,
+      foregroundColor: Colors.black87,
     );
   }
 }

@@ -146,7 +146,7 @@ class _TaskItemState extends State<TaskItem> {
                         const Spacer(),
                         SimpleButton(
                           text: s.save,
-                          color: Colors.green,
+                          backgroundColor: Colors.green,
                           onPressed: _hasText
                               ? () {
                                   final updatedTask = widget.task.copyWith(

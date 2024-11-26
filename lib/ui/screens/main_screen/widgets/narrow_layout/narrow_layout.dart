@@ -8,6 +8,7 @@ import '../../../../../models/models.dart';
 import '../../../../widgets/add_task_field.dart';
 import '../../../../widgets/category_list.dart';
 import '../../../../widgets/icon_button.dart';
+import '../../../../widgets/simple_button.dart';
 import '../../../screens.dart';
 import '../add_category_button.dart';
 import '../animated_background.dart';
@@ -67,15 +68,10 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
                   children: [
                     const Greetings(),
                     const SizedBox(height: 8),
-                    OutlinedButton(
+                    SimpleButton(
+                      isOutlined: true,
+                      text: 'More statistics',
                       onPressed: () {},
-                      style: const ButtonStyle(
-                        foregroundColor: WidgetStatePropertyAll(Colors.white),
-                        side: WidgetStatePropertyAll(
-                          BorderSide(color: Colors.white),
-                        ),
-                      ),
-                      child: const Text('More statistics'),
                     ),
                   ],
                 ),
@@ -143,28 +139,19 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
                               ? MainAxisAlignment.center
                               : MainAxisAlignment.spaceBetween,
                           children: [
-                            OutlinedButton(
-                              style: const ButtonStyle(
-                                foregroundColor:
-                                    WidgetStatePropertyAll(Colors.white),
-                                side: WidgetStatePropertyAll(
-                                  BorderSide(color: Colors.white),
-                                ),
-                              ),
+                            SimpleButton(
+                              isOutlined: true,
+                              text: hideCategories
+                                  ? 'Show categories'
+                                  : 'Hide categories',
                               onPressed: () {
                                 ref
                                     .read(categoryNotifierProvider.notifier)
                                     .setCurrentCategory(null);
-
                                 setState(() {
                                   hideCategories = !hideCategories;
                                 });
                               },
-                              child: Text(
-                                hideCategories
-                                    ? 'Show Categories'
-                                    : 'Hide Categories',
-                              ),
                             ),
                             if (!hideCategories)
                               AddCategoryButton(

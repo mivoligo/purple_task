@@ -49,7 +49,7 @@ class ConfirmationDialog extends StatelessWidget {
             onConfirm();
             Navigator.of(context).pop();
           },
-          color: confirmationColor,
+          backgroundColor: confirmationColor,
         ),
       ],
     );

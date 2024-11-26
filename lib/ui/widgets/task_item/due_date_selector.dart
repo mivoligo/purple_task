@@ -2,11 +2,11 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../constants/constants.dart';
 import '../../../constants/strings/strings.dart' as s;
 import '../../../controllers/controllers.dart';
 import '../../../helpers.dart';
 import '../../../models/models.dart';
+import '../widgets.dart';
 
 class DueDateSelector extends StatelessWidget {
   const DueDateSelector({
@@ -65,10 +65,9 @@ class DueDateSelector extends StatelessWidget {
             ),
           ],
           builder: (context, controller, child) {
-            return OutlinedButton(
-              style: const ButtonStyle().copyWith(
-                padding: const WidgetStatePropertyAll(EdgeInsets.all(8)),
-              ),
+            return SimpleButton(
+              foregroundColor: Colors.black87,
+              backgroundColor: Colors.white,
               onPressed: () {
                 if (controller.isOpen) {
                   controller.close();
@@ -76,19 +75,18 @@ class DueDateSelector extends StatelessWidget {
                   controller.open();
                 }
               },
-              child: task.dueDate != null
-                  ? Text(
-                      TimeConverter.formatDueDate(
-                        task.dueDate,
-                        dateFormatSetting,
-                      ),
-                      // todo same letter width
-                      style: CustomStyle.textStyleTaskFilter,
+              text: task.dueDate != null
+                  ? TimeConverter.formatDueDate(
+                      task.dueDate,
+                      dateFormatSetting,
                     )
-                  : const Icon(
+                  : null,
+              icon: task.dueDate == null
+                  ? const Icon(
                       AntIcons.calendarOutline,
                       size: 16,
-                    ),
+                    )
+                  : null,
             );
           },
         );

@@ -77,7 +77,7 @@ class NewCategoryBase extends StatelessWidget {
                             ),
                             SimpleButton(
                               text: okButtonText,
-                              color: Colors.green,
+                              backgroundColor: Colors.green,
                               onPressed: onNext,
                               focusNode: focusNode,
                             ),
