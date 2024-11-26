@@ -55,7 +55,10 @@ class CategoryElementBase extends StatelessWidget {
           children: [
             Expanded(child: AnimatedProgressBar(color: color, value: progress)),
             const SizedBox(width: 8),
-            Text('${(progress * 100).toInt()}%'),
+            Text(
+              '${(progress * 100).toInt()}%',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
           ],
         ),
       ],

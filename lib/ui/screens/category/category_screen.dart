@@ -70,92 +70,68 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
       child: Scaffold(
         body: LayoutBuilder(
           builder: (context, constrains) {
-            var _isWide = constrains.maxWidth > 600;
             return Stack(
               alignment: Alignment.center,
               children: [
-                if (_isWide)
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          const Color(0xFF303030),
-                          categoryColor,
-                          categoryColor,
-                        ],
-                      ),
-                    ),
-                  ),
-                Positioned(
-                  width: _isWide
-                      ? math.min((constrains.maxWidth - 80), 600)
-                      : constrains.maxWidth,
-                  top: _isWide ? 40 : 0,
-                  bottom: _isWide ? 40 : 0,
-                  child: Hero(
-                    tag: 'main${widget.heroId}',
-                    child: Container(
-                      decoration: _isWide
-                          ? CustomStyle.dialogDecoration
-                          : const BoxDecoration(color: Color(0xFFEEEEEE)),
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        const Color(0xFF303030),
+                        categoryColor,
+                        categoryColor,
+                      ],
                     ),
                   ),
                 ),
                 Positioned(
-                  width: _isWide
-                      ? math.min((constrains.maxWidth - 80), 600)
-                      : constrains.maxWidth,
-                  top: _isWide ? 40 : 0,
-                  bottom: _isWide ? 40 : 0,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 8.0,
-                          top: 8.0,
-                          right: 8.0,
-                        ),
-                        child: AnimatedOpacityBuilder(
-                          animation: _fadeAnimation,
-                          content: CategoryTopBar(
+                  width: math.min((constrains.maxWidth - 40), 600),
+                  top: 20,
+                  bottom: 20,
+                  child: Hero(
+                    tag: 'main${widget.heroId}',
+                    child: Container(
+                      decoration: CustomStyle.dialogDecoration,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  width: math.min((constrains.maxWidth - 40), 600),
+                  top: 20,
+                  bottom: 20,
+                  child: AnimatedOpacityBuilder(
+                    animation: _fadeAnimation,
+                    content: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 8.0,
+                            top: 8.0,
+                            right: 8.0,
+                          ),
+                          child: CategoryTopBar(
                             onClose: () => _animationController.reverse(),
                             category: currentCategory,
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 12.0,
-                            horizontal: 32.0,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 4.0,
-                                  top: 20.0,
-                                  right: 4.0,
-                                  bottom: 12.0,
-                                ),
-                                child: Hero(
-                                  tag: 'header${widget.heroId}',
-                                  // get rid of overflow error
-                                  // https://github.com/flutter/flutter/issues/27320
-                                  flightShuttleBuilder: (
-                                    flightContext,
-                                    animation,
-                                    flightDirection,
-                                    fromHeroContext,
-                                    toHeroContext,
-                                  ) {
-                                    return SingleChildScrollView(
-                                      child: fromHeroContext.widget,
-                                    );
-                                  },
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              // vertical: 12.0,
+                              horizontal: 8.0,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 6.0,
+                                    top: 16.0,
+                                    right: 6.0,
+                                    bottom: 12.0,
+                                  ),
                                   child: CategoryElementBase(
                                     icon: currentCategory.icon,
                                     name: currentCategory.name,
@@ -167,12 +143,13 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                                         Theme.of(context).textTheme.titleLarge,
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: AnimatedOpacityBuilder(
-                                  animation: _fadeAnimation,
-                                  content: AddTaskField(
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 6.0,
+                                    right: 6.0,
+                                    bottom: 8.0,
+                                  ),
+                                  child: AddTaskField(
                                     onAddTask: (value) {
                                       final task = Task(
                                         name: value,
@@ -184,18 +161,13 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                                     },
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: AnimatedOpacityBuilder(
-                                  animation: _fadeAnimation,
-                                  content: _buildTasksList(currentCategory),
+                                Expanded(
+                                  child: _buildTasksList(currentCategory),
                                 ),
-                              ),
-                              AnimatedOpacityBuilder(
-                                animation: _fadeAnimation,
-                                content: NavigationBar(
+                                NavigationBar(
                                   backgroundColor: Colors.transparent,
                                   selectedIndex: _navigationIndex,
+                                  height: 64,
                                   onDestinationSelected: (index) {
                                     setState(() {
                                       _navigationIndex = index;
@@ -216,12 +188,12 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

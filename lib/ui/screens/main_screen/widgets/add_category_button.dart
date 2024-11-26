@@ -15,12 +15,15 @@ class AddCategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleButton(
-      text: text,
-      onPressed: onPressed,
-      icon: const Icon(AntIcons.folderAdd),
-      backgroundColor: Colors.white,
-      foregroundColor: Colors.black87,
+    return Hero(
+      tag: 'new_category',
+      child: SimpleButton(
+        text: text,
+        onPressed: onPressed,
+        icon: const Icon(AntIcons.folderAdd),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black87,
+      ),
     );
   }
 }

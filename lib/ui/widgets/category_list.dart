@@ -71,33 +71,36 @@ class CategoryList extends ConsumerWidget {
                 // MaterialPageRoute(builder: (context) => AboutDialog(),)
               );
             },
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: IntrinsicHeight(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: CategoryElement(category),
-                      ),
-                      ReorderableDragStartListener(
-                        index: index,
-                        child: MetaData(
-                          behavior: HitTestBehavior.opaque,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const VerticalDivider(),
-                              CategoryMenu(
-                                category: category,
-                                canDeleteCategory: true,
-                                iconSize: 16,
-                              ),
-                            ],
+            child: Hero(
+              tag: 'main${category.id}',
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IntrinsicHeight(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: CategoryElement(category),
+                        ),
+                        ReorderableDragStartListener(
+                          index: index,
+                          child: MetaData(
+                            behavior: HitTestBehavior.opaque,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const VerticalDivider(),
+                                CategoryMenu(
+                                  category: category,
+                                  canDeleteCategory: true,
+                                  iconSize: 16,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
