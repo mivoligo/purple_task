@@ -13,10 +13,15 @@ class SliverTaskListHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.only(left: 16.0, top: 8.0, bottom: 4.0),
-        child: Text(
-          title,
-          style: CustomStyle.textStyleTaskFilter,
+        padding: const EdgeInsets.fromLTRB(8, 12, 8, 6),
+        child: Column(
+          children: [
+            const Divider(),
+            Text(
+              title,
+              style: CustomStyle.textStyleTaskFilter,
+            ),
+          ],
         ),
       ),
     );

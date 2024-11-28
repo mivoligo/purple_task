@@ -46,14 +46,14 @@ class CategoryList extends ConsumerWidget {
     }
 
     return ReorderableListView.builder(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(16),
       itemCount: categories.length,
       buildDefaultDragHandles: false,
       itemBuilder: (context, index) {
         final category = categories[index];
         return Padding(
           key: Key(index.toString()),
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: InkWell(
             onTap: () {
               currentCategoryNotifier.setCurrentCategory(category);

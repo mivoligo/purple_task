@@ -56,13 +56,13 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
           return Column(
             children: [
               const Padding(
-                padding: EdgeInsets.all(12.0),
+                padding: EdgeInsets.all(16.0),
                 child: TopBar(),
               ),
               Expanded(
                 flex: 1000 - flex.value + 1,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: DecoratedBox(
                     decoration: CustomStyle.uncategorizedTasksDecoration,
                     child: isUncategorizedVisible
@@ -78,7 +78,7 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
                     : const CategoryList(),
               ),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

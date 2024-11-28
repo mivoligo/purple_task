@@ -1,6 +1,5 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-
 import '../../../widgets/simple_button.dart';
 
 class AddCategoryButton extends StatelessWidget {

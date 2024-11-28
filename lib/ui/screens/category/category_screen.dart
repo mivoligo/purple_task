@@ -117,79 +117,64 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                           ),
                         ),
                         Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              // vertical: 12.0,
-                              horizontal: 8.0,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 6.0,
-                                    top: 16.0,
-                                    right: 6.0,
-                                    bottom: 12.0,
-                                  ),
-                                  child: CategoryElementBase(
-                                    icon: currentCategory.icon,
-                                    name: currentCategory.name,
-                                    description: description,
-                                    progress: progress,
-                                    color: categoryColor,
-                                    iconSize: 28,
-                                    titleTextStyle:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: CategoryElementBase(
+                                  icon: currentCategory.icon,
+                                  name: currentCategory.name,
+                                  description: description,
+                                  progress: progress,
+                                  color: categoryColor,
+                                  iconSize: 28,
+                                  titleTextStyle:
+                                      Theme.of(context).textTheme.titleLarge,
                                 ),
-                                NavigationBar(
-                                  backgroundColor: Colors.transparent,
-                                  selectedIndex: _navigationIndex,
-                                  height: 64,
-                                  onDestinationSelected: (index) {
-                                    setState(() {
-                                      _navigationIndex = index;
-                                    });
+                              ),
+                              NavigationBar(
+                                backgroundColor: Colors.transparent,
+                                selectedIndex: _navigationIndex,
+                                height: 64,
+                                onDestinationSelected: (index) {
+                                  setState(() {
+                                    _navigationIndex = index;
+                                  });
+                                },
+                                destinations: [
+                                  const NavigationDestination(
+                                    label: s.toDo,
+                                    icon: Icon(AntIcons.edit),
+                                  ),
+                                  const NavigationDestination(
+                                    label: s.all,
+                                    icon: Icon(AntIcons.profile),
+                                  ),
+                                  const NavigationDestination(
+                                    label: s.completed,
+                                    icon: Icon(AntIcons.checkCircle),
+                                  ),
+                                ],
+                              ),
+                              Expanded(
+                                child: _buildTasksList(currentCategory),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: AddTaskField(
+                                  onAddTask: (value) {
+                                    final task = Task(
+                                      name: value,
+                                      categoryId: currentCategory.id,
+                                    );
+                                    ref
+                                        .read(tasksNotifierProvider.notifier)
+                                        .add(task: task);
                                   },
-                                  destinations: [
-                                    const NavigationDestination(
-                                      label: s.toDo,
-                                      icon: Icon(AntIcons.edit),
-                                    ),
-                                    const NavigationDestination(
-                                      label: s.all,
-                                      icon: Icon(AntIcons.profile),
-                                    ),
-                                    const NavigationDestination(
-                                      label: s.completed,
-                                      icon: Icon(AntIcons.checkCircle),
-                                    ),
-                                  ],
                                 ),
-                                Expanded(
-                                  child: _buildTasksList(currentCategory),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 6.0,
-                                    right: 6.0,
-                                    bottom: 16.0,
-                                  ),
-                                  child: AddTaskField(
-                                    onAddTask: (value) {
-                                      final task = Task(
-                                        name: value,
-                                        categoryId: currentCategory.id,
-                                      );
-                                      ref
-                                          .read(tasksNotifierProvider.notifier)
-                                          .add(task: task);
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

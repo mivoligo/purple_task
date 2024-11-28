@@ -27,6 +27,7 @@ class DueDateIndicator extends StatelessWidget {
               AntIcons.calendarOutline,
               size: 14,
             ),
+            const SizedBox(width: 2),
             Text(
               TimeConverter.formatDueDate(
                 task.dueDate,

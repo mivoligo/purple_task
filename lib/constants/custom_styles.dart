@@ -35,7 +35,7 @@ class CustomStyle {
 
   static const dialogDecoration = BoxDecoration(
     color: Color(0xFFEEEEEE),
-    borderRadius: BorderRadius.all(Radius.circular(24.0)),
+    borderRadius: BorderRadius.all(Radius.circular(12.0)),
     boxShadow: [
       BoxShadow(
         color: Color(0xff45000000),
@@ -80,7 +80,7 @@ class CustomStyle {
 
   static const textStyleTaskFilter = TextStyle(
     color: Colors.black,
-    fontSize: 14.0,
+    fontSize: 16.0,
   );
 
   static const textStyleWarning = TextStyle(
