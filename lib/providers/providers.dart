@@ -28,7 +28,7 @@ class NoDueDateTasksInCategory extends _$NoDueDateTasksInCategory {
               task.dueDate == null,
         )
         .toList();
-    return tasks.reversed.toList();
+    return tasks;
   }
 }
 

@@ -143,27 +143,6 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                                         Theme.of(context).textTheme.titleLarge,
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 6.0,
-                                    right: 6.0,
-                                    bottom: 8.0,
-                                  ),
-                                  child: AddTaskField(
-                                    onAddTask: (value) {
-                                      final task = Task(
-                                        name: value,
-                                        categoryId: currentCategory.id,
-                                      );
-                                      ref
-                                          .read(tasksNotifierProvider.notifier)
-                                          .add(task: task);
-                                    },
-                                  ),
-                                ),
-                                Expanded(
-                                  child: _buildTasksList(currentCategory),
-                                ),
                                 NavigationBar(
                                   backgroundColor: Colors.transparent,
                                   selectedIndex: _navigationIndex,
@@ -187,6 +166,27 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                                       icon: Icon(AntIcons.checkCircle),
                                     ),
                                   ],
+                                ),
+                                Expanded(
+                                  child: _buildTasksList(currentCategory),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 6.0,
+                                    right: 6.0,
+                                    bottom: 16.0,
+                                  ),
+                                  child: AddTaskField(
+                                    onAddTask: (value) {
+                                      final task = Task(
+                                        name: value,
+                                        categoryId: currentCategory.id,
+                                      );
+                                      ref
+                                          .read(tasksNotifierProvider.notifier)
+                                          .add(task: task);
+                                    },
+                                  ),
                                 ),
                               ],
                             ),

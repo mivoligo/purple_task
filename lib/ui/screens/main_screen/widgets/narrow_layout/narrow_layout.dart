@@ -88,20 +88,6 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
                           decoration: CustomStyle.uncategorizedTasksDecoration,
                           child: Column(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: AddTaskField(
-                                  onAddTask: (value) {
-                                    final task = Task(
-                                      name: value,
-                                      categoryId: -1,
-                                    );
-                                    ref
-                                        .read(tasksNotifierProvider.notifier)
-                                        .add(task: task);
-                                  },
-                                ),
-                              ),
                               Flexible(
                                 child: Column(
                                   children: [
@@ -114,6 +100,20 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
                                     ),
                                     Flexible(child: UncategorizedTasks()),
                                   ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: AddTaskField(
+                                  onAddTask: (value) {
+                                    final task = Task(
+                                      name: value,
+                                      categoryId: -1,
+                                    );
+                                    ref
+                                        .read(tasksNotifierProvider.notifier)
+                                        .add(task: task);
+                                  },
                                 ),
                               ),
                             ],

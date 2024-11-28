@@ -48,6 +48,7 @@ class _UncategorizedTasksState extends ConsumerState<UncategorizedTasks> {
                   ),
                 ],
               ),
+              Expanded(child: _buildTasksList()),
             ],
           )
         : const SizedBox();
