@@ -46,7 +46,7 @@ class CategoryList extends ConsumerWidget {
     }
 
     return ReorderableListView.builder(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(12),
       itemCount: categories.length,
       buildDefaultDragHandles: false,
       itemBuilder: (context, index) {
@@ -74,6 +74,7 @@ class CategoryList extends ConsumerWidget {
             child: Hero(
               tag: 'main${category.id}',
               child: Card(
+                margin: EdgeInsets.zero,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IntrinsicHeight(

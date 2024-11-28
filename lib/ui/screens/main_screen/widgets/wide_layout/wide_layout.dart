@@ -135,7 +135,7 @@ class WideLayout extends StatelessWidget {
                               builder: (context, ref, _) {
                                 return ref.watch(categoryNotifierProvider) ==
                                         null
-                                    ? UncategorizedTasks()
+                                    ? const UncategorizedTasks()
                                     : SelectedCategoryTasks(
                                         category: ref
                                             .watch(categoryNotifierProvider)!,

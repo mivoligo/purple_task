@@ -51,6 +51,7 @@ class SliverTasksList extends StatelessWidget {
         final task = list[index];
         return Container(
           key: Key(index.toString()),
+          padding: const EdgeInsets.symmetric(vertical: 4),
           child: Row(
             children: [
               Expanded(child: TaskItem(task: task)),

@@ -1,18 +1,13 @@
-import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../../constants/custom_styles.dart';
-import '../../../../../constants/strings/strings.dart' as s;
+import '../../../../../constants/constants.dart';
 import '../../../../../controllers/controllers.dart';
-import '../../../../../models/models.dart';
-import '../../../../widgets/add_task_field.dart';
 import '../../../../widgets/category_list.dart';
-import '../../../../widgets/icon_button.dart';
 import '../../../../widgets/simple_button.dart';
 import '../../../screens.dart';
 import '../add_category_button.dart';
 import '../animated_background.dart';
-import '../greetings.dart';
+import '../top_bar.dart';
 import '../uncategorized_tasks.dart';
 
 class NarrowLayout extends ConsumerStatefulWidget {
@@ -22,157 +17,106 @@ class NarrowLayout extends ConsumerStatefulWidget {
   _NarrowLayoutState createState() => _NarrowLayoutState();
 }
 
-class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
-  bool hideCategories = false;
+class _NarrowLayoutState extends ConsumerState<NarrowLayout>
+    with SingleTickerProviderStateMixin {
+  bool isUncategorizedVisible = true;
+
+  late final AnimationController animationController;
+  late final Animation<int> flex;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+
+    flex = IntTween(
+      begin: 1000,
+      end: 0,
+    ).animate(
+      CurvedAnimation(parent: animationController, curve: Curves.easeOut),
+    );
+    animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return AnimatedBackground(
-          child: Stack(
+    return AnimatedBackground(
+      child: AnimatedBuilder(
+        animation: animationController,
+        builder: (context, child) {
+          return Column(
             children: [
-              Positioned(
-                top: 8,
-                right: 16,
-                child: Row(
-                  children: [
-                    Hero(
-                      tag: 'about',
-                      child: CustomIconButton(
-                        icon: const Icon(AntIcons.infoCircle),
-                        onPressed: () => Navigator.of(context).push(
-                          _createRoute(AboutScreen()),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Hero(
-                      tag: 'settings',
-                      child: CustomIconButton(
-                        icon: const Icon(AntIcons.setting),
-                        onPressed: () => Navigator.of(context).push(
-                          _createRoute(Settings()),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              const Padding(
+                padding: EdgeInsets.all(12.0),
+                child: TopBar(),
               ),
-              Positioned(
-                top: 16,
-                left: 12,
-                right: 12,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Greetings(),
-                    const SizedBox(height: 8),
-                    SimpleButton(
-                      isOutlined: true,
-                      text: 'More statistics',
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ),
-              AnimatedPositioned(
-                top: 128,
-                bottom: hideCategories ? 64 : constraints.maxHeight,
-                width: constraints.maxWidth,
-                duration: Duration(milliseconds: hideCategories ? 300 : 300),
-                child: hideCategories
-                    ? Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: DecoratedBox(
-                          decoration: CustomStyle.uncategorizedTasksDecoration,
-                          child: Column(
-                            children: [
-                              Flexible(
-                                child: Column(
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.all(4.0),
-                                      child: Text(
-                                        s.noCategory,
-                                        style: CustomStyle.textStyleTaskFilter,
-                                      ),
-                                    ),
-                                    Flexible(child: UncategorizedTasks()),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: AddTaskField(
-                                  onAddTask: (value) {
-                                    final task = Task(
-                                      name: value,
-                                      categoryId: -1,
-                                    );
-                                    ref
-                                        .read(tasksNotifierProvider.notifier)
-                                        .add(task: task);
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    : const SizedBox(),
-              ),
-              AnimatedPositioned(
-                top: hideCategories ? constraints.maxHeight - 80 : 128,
-                height: hideCategories ? 84 : constraints.maxHeight - 128,
-                width: constraints.maxWidth,
-                duration: Duration(milliseconds: hideCategories ? 300 : 300),
-                curve: Curves.easeInOut,
+              Expanded(
+                flex: 1000 - flex.value + 1,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Row(
-                          mainAxisAlignment: hideCategories
-                              ? MainAxisAlignment.center
-                              : MainAxisAlignment.spaceBetween,
-                          children: [
-                            SimpleButton(
-                              isOutlined: true,
-                              text: hideCategories
-                                  ? 'Show categories'
-                                  : 'Hide categories',
-                              onPressed: () {
-                                ref
-                                    .read(categoryNotifierProvider.notifier)
-                                    .setCurrentCategory(null);
-                                setState(() {
-                                  hideCategories = !hideCategories;
-                                });
-                              },
-                            ),
-                            if (!hideCategories)
-                              AddCategoryButton(
-                                text: 'Add new',
-                                onPressed: () => Navigator.of(context).push(
-                                  _createRoute(NewCategoryScreen()),
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                      if (!hideCategories)
-                        const Expanded(child: CategoryList()),
-                    ],
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: DecoratedBox(
+                    decoration: CustomStyle.uncategorizedTasksDecoration,
+                    child: isUncategorizedVisible
+                        ? const UncategorizedTasks()
+                        : const SizedBox.expand(),
                   ),
                 ),
               ),
+              Expanded(
+                flex: flex.value + 1,
+                child: isUncategorizedVisible
+                    ? const SizedBox()
+                    : const CategoryList(),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SimpleButton(
+                      isOutlined: true,
+                      text: isUncategorizedVisible
+                          ? 'Show categories'
+                          : 'Hide categories',
+                      onPressed: () {
+                        ref
+                            .read(categoryNotifierProvider.notifier)
+                            .setCurrentCategory(null);
+                        setState(() {
+                          if (isUncategorizedVisible) {
+                            isUncategorizedVisible = false;
+                            animationController.reverse();
+                          } else {
+                            animationController.forward().whenComplete(
+                                  () => isUncategorizedVisible = true,
+                                );
+                          }
+                        });
+                      },
+                    ),
+                    if (!isUncategorizedVisible)
+                      AddCategoryButton(
+                        text: 'Add new',
+                        onPressed: () => Navigator.of(context).push(
+                          _createRoute(NewCategoryScreen()),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

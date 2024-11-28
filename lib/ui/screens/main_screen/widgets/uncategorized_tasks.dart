@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../constants/strings/strings.dart' as s;
 
+import '../../../../constants/constants.dart';
+import '../../../../controllers/controllers.dart';
+import '../../../../models/models.dart';
 import '../../../../providers/providers.dart';
+import '../../../widgets/widgets.dart';
 import '../../category/widgets/widgets.dart';
 
 class UncategorizedTasks extends ConsumerStatefulWidget {
-  UncategorizedTasks();
+  const UncategorizedTasks();
 
   @override
   ConsumerState<UncategorizedTasks> createState() => _UncategorizedTasksState();
@@ -23,7 +27,6 @@ class _UncategorizedTasksState extends ConsumerState<UncategorizedTasks> {
     return uncategorizedTasks.isNotEmpty
         ? Column(
             children: [
-              Expanded(child: _buildTasksList()),
               NavigationBar(
                 height: 64,
                 backgroundColor: Colors.transparent,
@@ -48,7 +51,26 @@ class _UncategorizedTasksState extends ConsumerState<UncategorizedTasks> {
                   ),
                 ],
               ),
+              const Padding(
+                padding: EdgeInsets.all(4.0),
+                child: Text(
+                  s.noCategory,
+                  style: CustomStyle.textStyleTaskFilter,
+                ),
+              ),
               Expanded(child: _buildTasksList()),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AddTaskField(
+                  onAddTask: (value) {
+                    final task = Task(
+                      name: value,
+                      categoryId: -1,
+                    );
+                    ref.read(tasksNotifierProvider.notifier).add(task: task);
+                  },
+                ),
+              ),
             ],
           )
         : const SizedBox();

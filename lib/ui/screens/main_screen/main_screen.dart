@@ -45,7 +45,6 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // resizeToAvoidBottomInset: false,
         body: Consumer(
           builder: (context, ref, _) {
             final isCategoryListEmpty =

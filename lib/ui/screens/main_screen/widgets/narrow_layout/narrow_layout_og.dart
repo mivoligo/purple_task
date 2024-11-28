@@ -77,7 +77,7 @@ class NarrowLayoutOg extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(height: 1.0),
-                        UncategorizedTasks(),
+                        const UncategorizedTasks(),
                       ],
                     ),
                   ),
