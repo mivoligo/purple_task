@@ -87,9 +87,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                   ),
                 ),
                 Positioned(
-                  width: math.min((constrains.maxWidth - 40), 600),
-                  top: 20,
-                  bottom: 20,
+                  width: math.min((constrains.maxWidth - 24), 600),
+                  top: 12,
+                  bottom: 12,
                   child: Hero(
                     tag: 'main${widget.heroId}',
                     child: Container(
@@ -98,9 +98,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                   ),
                 ),
                 Positioned(
-                  width: math.min((constrains.maxWidth - 40), 600),
-                  top: 20,
-                  bottom: 20,
+                  width: math.min((constrains.maxWidth - 24), 600),
+                  top: 12,
+                  bottom: 12,
                   child: AnimatedOpacityBuilder(
                     animation: _fadeAnimation,
                     content: Column(

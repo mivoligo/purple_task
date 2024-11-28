@@ -25,6 +25,7 @@ class _UncategorizedTasksState extends ConsumerState<UncategorizedTasks> {
             children: [
               Expanded(child: _buildTasksList()),
               NavigationBar(
+                height: 64,
                 backgroundColor: Colors.transparent,
                 selectedIndex: navigationIndex,
                 onDestinationSelected: (index) {

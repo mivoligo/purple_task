@@ -1,8 +1,10 @@
 import 'dart:ui';
 
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import '../../../models/task.dart';
 import '../task_item/task_item.dart';
+import '../task_item/task_menu.dart';
 
 class SliverTasksList extends StatelessWidget {
   const SliverTasksList({
@@ -29,11 +31,13 @@ class SliverTasksList extends StatelessWidget {
             scale: scale,
             child: Card(
               elevation: elevation,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  list[index].name,
-                ),
+              shape: const RoundedRectangleBorder(),
+              child: Row(
+                children: [
+                  Expanded(child: TaskItem(task: list[index])),
+                  const Icon(AntIcons.menu, size: 16),
+                  const SizedBox(width: 16),
+                ],
               ),
             ),
           );
@@ -47,11 +51,14 @@ class SliverTasksList extends StatelessWidget {
         final task = list[index];
         return Container(
           key: Key(index.toString()),
-          child: ReorderableDragStartListener(
-            index: index,
-            child: TaskItem(
-              task: task,
-            ),
+          child: Row(
+            children: [
+              Expanded(child: TaskItem(task: task)),
+              ReorderableDragStartListener(
+                index: index,
+                child: TaskMenu(task: task),
+              ),
+            ],
           ),
         );
       },

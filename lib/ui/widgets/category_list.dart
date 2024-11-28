@@ -46,7 +46,7 @@ class CategoryList extends ConsumerWidget {
     }
 
     return ReorderableListView.builder(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(8),
       itemCount: categories.length,
       buildDefaultDragHandles: false,
       itemBuilder: (context, index) {

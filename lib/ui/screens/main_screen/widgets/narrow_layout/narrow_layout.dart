@@ -61,8 +61,8 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
               ),
               Positioned(
                 top: 16,
-                left: 20,
-                right: 16,
+                left: 12,
+                right: 12,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -83,7 +83,7 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
                 duration: Duration(milliseconds: hideCategories ? 300 : 300),
                 child: hideCategories
                     ? Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(12.0),
                         child: DecoratedBox(
                           decoration: CustomStyle.uncategorizedTasksDecoration,
                           child: Column(
@@ -129,11 +129,11 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout> {
                 duration: Duration(milliseconds: hideCategories ? 300 : 300),
                 curve: Curves.easeInOut,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         child: Row(
                           mainAxisAlignment: hideCategories
                               ? MainAxisAlignment.center
