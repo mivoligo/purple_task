@@ -66,15 +66,19 @@ mixin TimeConverter {
   static String formatDueDate(int? dateInMillis, String? dateFormat) {
     if (dateInMillis != null) {
       final now = DateTime.now();
+      final yesterdayDate = DateTime(now.year, now.month, now.day - 1);
       final todayDate = DateTime(now.year, now.month, now.day);
       final tomorrowDate = DateTime(now.year, now.month, now.day + 1);
       final dueDateTime = DateTime.fromMillisecondsSinceEpoch(dateInMillis);
       final dueDate =
           DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+
       if (dueDate == todayDate) {
         return s.today;
       } else if (dueDate == tomorrowDate) {
         return s.tomorrow;
+      } else if (dueDate == yesterdayDate) {
+        return s.yesterday;
       } else {
         return DateFormat(dateFormat).format(dueDate);
       }

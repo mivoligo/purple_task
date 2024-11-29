@@ -8,7 +8,7 @@ import '../../../controllers/controllers.dart';
 import '../../../helpers.dart';
 import '../../../models/models.dart';
 import '../widgets.dart';
-import 'due_date_selector.dart';
+import 'due_date_indicator.dart';
 
 class TaskItem extends StatefulWidget {
   const TaskItem({required this.task});
