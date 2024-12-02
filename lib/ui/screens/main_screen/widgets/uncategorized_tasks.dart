@@ -24,56 +24,55 @@ class _UncategorizedTasksState extends ConsumerState<UncategorizedTasks> {
   Widget build(BuildContext context) {
     final uncategorizedTasks = ref.watch(uncategorizedTasksProvider);
 
-    return uncategorizedTasks.isNotEmpty
-        ? Column(
-            children: [
-              NavigationBar(
-                height: 64,
-                backgroundColor: Colors.transparent,
-                selectedIndex: navigationIndex,
-                onDestinationSelected: (index) {
-                  setState(() {
-                    navigationIndex = index;
-                  });
-                },
-                destinations: [
-                  const NavigationDestination(
-                    label: s.toDo,
-                    icon: Icon(AntIcons.edit),
-                  ),
-                  const NavigationDestination(
-                    label: s.all,
-                    icon: Icon(AntIcons.profile),
-                  ),
-                  const NavigationDestination(
-                    label: s.completed,
-                    icon: Icon(AntIcons.checkCircle),
-                  ),
-                ],
+    return Column(
+      children: [
+        if (uncategorizedTasks.isNotEmpty)
+          NavigationBar(
+            height: 64,
+            backgroundColor: Colors.transparent,
+            selectedIndex: navigationIndex,
+            onDestinationSelected: (index) {
+              setState(() {
+                navigationIndex = index;
+              });
+            },
+            destinations: [
+              const NavigationDestination(
+                label: s.toDo,
+                icon: Icon(AntIcons.edit),
               ),
-              const Padding(
-                padding: EdgeInsets.all(4.0),
-                child: Text(
-                  s.noCategory,
-                  style: CustomStyle.textStyleTaskFilter,
-                ),
+              const NavigationDestination(
+                label: s.all,
+                icon: Icon(AntIcons.profile),
               ),
-              Expanded(child: _buildTasksList()),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: AddTaskField(
-                  onAddTask: (value) {
-                    final task = Task(
-                      name: value,
-                      categoryId: -1,
-                    );
-                    ref.read(tasksNotifierProvider.notifier).add(task: task);
-                  },
-                ),
+              const NavigationDestination(
+                label: s.completed,
+                icon: Icon(AntIcons.checkCircle),
               ),
             ],
-          )
-        : const SizedBox();
+          ),
+        const Padding(
+          padding: EdgeInsets.all(4.0),
+          child: Text(
+            s.noCategory,
+            style: CustomStyle.textStyleTaskFilter,
+          ),
+        ),
+        Expanded(child: _buildTasksList()),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: AddTaskField(
+            onAddTask: (value) {
+              final task = Task(
+                name: value,
+                categoryId: -1,
+              );
+              ref.read(tasksNotifierProvider.notifier).add(task: task);
+            },
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildTasksList() {
