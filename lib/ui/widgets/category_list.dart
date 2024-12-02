@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -28,15 +29,28 @@ class CategoryList extends ConsumerWidget {
         builder: (context, child) {
           final animValue = Curves.easeInOut.transform(animation.value);
           final elevation = lerpDouble(1, 6, animValue);
-          final scale = lerpDouble(1, 1.02, animValue);
+          final scale = lerpDouble(1, 1.04, animValue);
           return Transform.scale(
             scale: scale,
             child: Card(
               elevation: elevation,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: CategoryElement(
-                  categories[index],
+                child: IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: CategoryElement(categories[index])),
+                      const VerticalDivider(),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          AntIcons.menu,
+                          size: 16,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -68,7 +82,6 @@ class CategoryList extends ConsumerWidget {
                     );
                   },
                 ),
-                // MaterialPageRoute(builder: (context) => AboutDialog(),)
               );
             },
             child: Hero(
