@@ -56,10 +56,10 @@ class CategoryRepository extends BaseCategoryRepository {
   }
 
   @override
-  Future<List<Category>> reorder({
+  void reorder({
     required int oldIndex,
     required int newIndex,
-  }) async {
+  }) {
     final categoryListOrder =
         _categoriesOrderBox.get(categoriesListOrderKey, defaultValue: []);
     if (oldIndex < newIndex) {
@@ -70,12 +70,5 @@ class CategoryRepository extends BaseCategoryRepository {
     categoryListOrder.insert(newIndex, item);
 
     _categoriesOrderBox.put(categoriesListOrderKey, categoryListOrder);
-
-    return _categoryBox.values.map(Category.fromEntity).toList()
-      ..sort(
-        (a, b) => categoryListOrder
-            .indexOf(a.id.toString())
-            .compareTo(categoryListOrder.indexOf(b.id.toString())),
-      );
   }
 }

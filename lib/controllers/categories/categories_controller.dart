@@ -13,26 +13,23 @@ class CategoriesNotifier extends _$CategoriesNotifier {
 
   Future<void> add({required Category category}) async {
     await ref.read(categoryRepositoryProvider).add(category: category);
-    state = [...state, category];
+    state = ref.read(categoryRepositoryProvider).getCategories();
   }
 
   Future<void> remove({required Category category}) async {
     await ref.read(categoryRepositoryProvider).remove(category: category);
-    state = state.where((element) => element.id != category.id).toList();
+    state = ref.read(categoryRepositoryProvider).getCategories();
   }
 
   Future<void> update({required Category category}) async {
     await ref.read(categoryRepositoryProvider).update(category: category);
-    state = [
-      for (final element in state)
-        if (element.id == category.id) category else element,
-    ];
+    state = ref.read(categoryRepositoryProvider).getCategories();
   }
 
-  Future<void> reorder(int oldIndex, int newIndex) async {
-    final newState = await ref
+  void reorder(int oldIndex, int newIndex) {
+    ref
         .read(categoryRepositoryProvider)
         .reorder(oldIndex: oldIndex, newIndex: newIndex);
-    state = newState;
+    state = ref.read(categoryRepositoryProvider).getCategories();
   }
 }
