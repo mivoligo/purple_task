@@ -7,5 +7,10 @@ abstract class BaseCategoryRepository {
 
   Future<Category> remove({required Category category});
 
+  Future<List<Category>> reorder({
+    required int oldIndex,
+    required int newIndex,
+  });
+
   List<Category> getCategories();
 }

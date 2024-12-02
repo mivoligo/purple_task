@@ -109,9 +109,7 @@ class CategoryList extends ConsumerWidget {
           ),
         );
       },
-      onReorder: (oldIndex, newIndex) {
-        print('new index: $newIndex');
-      },
+      onReorder: ref.read(categoriesNotifierProvider.notifier).reorder,
       proxyDecorator: proxyDecorator,
     );
   }

@@ -28,4 +28,11 @@ class CategoriesNotifier extends _$CategoriesNotifier {
         if (element.id == category.id) category else element,
     ];
   }
+
+  Future<void> reorder(int oldIndex, int newIndex) async {
+    final newState = await ref
+        .read(categoryRepositoryProvider)
+        .reorder(oldIndex: oldIndex, newIndex: newIndex);
+    state = newState;
+  }
 }

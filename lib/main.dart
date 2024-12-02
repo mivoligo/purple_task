@@ -19,6 +19,7 @@ void main() async {
   await Hive.openBox(settingsBox);
   await Hive.openBox<CategoryEntity>(categoryBox);
   await Hive.openBox<TaskEntity>(taskBox);
+  await Hive.openBox<List<String>>(categoriesListOrderBox);
 
   // todo: Set app window size
 
