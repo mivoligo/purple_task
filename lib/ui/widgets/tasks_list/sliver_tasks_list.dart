@@ -2,11 +2,13 @@ import 'dart:ui';
 
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../controllers/controllers.dart';
 import '../../../models/task.dart';
 import '../task_item/task_item.dart';
 import '../task_item/task_menu.dart';
 
-class SliverTasksList extends StatelessWidget {
+class SliverTasksList extends ConsumerWidget {
   const SliverTasksList({
     Key? key,
     required this.list,
@@ -15,7 +17,7 @@ class SliverTasksList extends StatelessWidget {
   final List<Task> list;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Widget proxyDecorator(
       Widget child,
       int index,
@@ -65,7 +67,41 @@ class SliverTasksList extends StatelessWidget {
       },
       proxyDecorator: proxyDecorator,
       onReorder: (oldIndex, newIndex) {
-        print(newIndex);
+        final currentItem = list[oldIndex];
+        final affectedTasksKeyList = <String>[];
+
+        if (oldIndex < newIndex) {
+          newIndex -= 1;
+          if (oldIndex == newIndex) {
+            // todo do sprawdzenia
+            return;
+          }
+          affectedTasksKeyList.addAll(
+            list
+                .sublist(oldIndex, newIndex + 1)
+                .where(
+                  (element) => element != currentItem,
+                )
+                .map((e) => e.key.toString()),
+          );
+        } else {
+          affectedTasksKeyList.addAll(
+            list
+                .sublist(newIndex, oldIndex + 1)
+                .where(
+                  (element) => element != currentItem,
+                )
+                .map((e) => e.key.toString()),
+          );
+        }
+
+        ref.read(tasksNotifierProvider.notifier).reorder(
+          affectedTasksKeyList: [
+            currentItem.key.toString(),
+            ...affectedTasksKeyList,
+          ],
+          indexIncrease: oldIndex < newIndex,
+        );
       },
     );
   }

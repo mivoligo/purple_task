@@ -12,4 +12,9 @@ abstract class BaseTaskRepository {
   Future<void> removeAllTasksForCategory(int categoryId);
 
   Future<void> removeCompletedTasksForCategory(int categoryId);
+
+  void reorder({
+    required List<String> affectedTasksKeyList,
+    required bool indexIncrease,
+  });
 }

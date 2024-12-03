@@ -48,4 +48,15 @@ class TasksNotifier extends _$TasksNotifier {
         )
         .toList();
   }
+
+  void reorder({
+    required List<String> affectedTasksKeyList,
+    required bool indexIncrease,
+  }) {
+    ref.read(taskRepositoryProvider).reorder(
+          affectedTasksKeyList: affectedTasksKeyList,
+          indexIncrease: indexIncrease,
+        );
+    state = ref.read(taskRepositoryProvider).getTasks();
+  }
 }

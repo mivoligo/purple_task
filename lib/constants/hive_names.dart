@@ -1,6 +1,8 @@
 const String categoryBox = 'category_box';
 const String categoriesListOrderBox = 'categories_list_order_box';
 const String categoriesListOrderKey = 'categories_list_order_key';
+const String tasksListOrderBox = 'tasks_list_order_box';
+const String tasksListOrderKey = 'tasks_list_order_key';
 const String taskBox = 'task_box';
 const String settingsBox = 'settings_box';
 const String timeFormatKey = 'time_format';

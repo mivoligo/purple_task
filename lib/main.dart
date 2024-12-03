@@ -20,6 +20,7 @@ void main() async {
   await Hive.openBox<CategoryEntity>(categoryBox);
   await Hive.openBox<TaskEntity>(taskBox);
   await Hive.openBox<List<String>>(categoriesListOrderBox);
+  await Hive.openBox<Map<dynamic, dynamic>>(tasksListOrderBox);
 
   // todo: Set app window size
 
@@ -40,7 +41,7 @@ class MyObserver extends ProviderObserver {
     Object? value,
     ProviderContainer container,
   ) {
-    print('Provider $provider was initialized with $value');
+    // print('Provider $provider was initialized with $value');
   }
 
   @override
@@ -48,7 +49,7 @@ class MyObserver extends ProviderObserver {
     ProviderBase<Object?> provider,
     ProviderContainer container,
   ) {
-    print('Provider $provider was disposed');
+    // print('Provider $provider was disposed');
   }
 
   @override
@@ -58,7 +59,7 @@ class MyObserver extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    print('Provider $provider updated from $previousValue to $newValue');
+    // print('Provider $provider updated from $previousValue to $newValue');
   }
 
   @override

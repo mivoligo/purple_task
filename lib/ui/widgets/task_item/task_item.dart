@@ -103,7 +103,7 @@ class _TaskItemState extends State<TaskItem> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(0.0),
                                     child: Text(
-                                      widget.task.name,
+                                      '${widget.task.name}, key: ${widget.task.key}',
                                       style: widget.task.isDone
                                           ? CustomStyle.textStyleTaskName
                                               .copyWith(

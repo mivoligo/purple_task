@@ -60,15 +60,16 @@ class CategoryRepository extends BaseCategoryRepository {
     required int oldIndex,
     required int newIndex,
   }) {
-    final categoryListOrder =
+    final categoriesOrder =
         _categoriesOrderBox.get(categoriesListOrderKey, defaultValue: []);
+
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
 
-    final item = categoryListOrder!.removeAt(oldIndex);
-    categoryListOrder.insert(newIndex, item);
+    final item = categoriesOrder!.removeAt(oldIndex);
+    categoriesOrder.insert(newIndex, item);
 
-    _categoriesOrderBox.put(categoriesListOrderKey, categoryListOrder);
+    _categoriesOrderBox.put(categoriesListOrderKey, categoriesOrder);
   }
 }
