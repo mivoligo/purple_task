@@ -12,28 +12,25 @@ class TasksNotifier extends _$TasksNotifier {
   }
 
   Future<void> add({required Task task}) async {
-    final newTask = await ref.read(taskRepositoryProvider).add(task: task);
-    state = [...state, newTask];
+    await ref.read(taskRepositoryProvider).add(task: task);
+    state = ref.read(taskRepositoryProvider).getTasks();
   }
 
   Future<void> remove({required Task task}) async {
     await ref.read(taskRepositoryProvider).remove(task: task);
-    state = state.where((element) => element.key != task.key).toList();
+    state = ref.read(taskRepositoryProvider).getTasks();
   }
 
   Future<void> update({required Task task}) async {
     await ref.read(taskRepositoryProvider).update(task: task);
-    state = [
-      for (final element in state)
-        if (element.key == task.key) task else element,
-    ];
+    state = ref.read(taskRepositoryProvider).getTasks();
   }
 
   Future<void> removeAllTasksForCategory({required int categoryId}) async {
     await ref
         .read(taskRepositoryProvider)
         .removeAllTasksForCategory(categoryId);
-    state = state.where((element) => element.categoryId != categoryId).toList();
+    state = ref.read(taskRepositoryProvider).getTasks();
   }
 
   Future<void> removeCompletedTasksForCategory({
@@ -42,11 +39,7 @@ class TasksNotifier extends _$TasksNotifier {
     await ref
         .read(taskRepositoryProvider)
         .removeCompletedTasksForCategory(categoryId);
-    state = state
-        .where(
-          (element) => !(element.categoryId == categoryId && element.isDone),
-        )
-        .toList();
+    state = ref.read(taskRepositoryProvider).getTasks();
   }
 
   void reorder({
