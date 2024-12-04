@@ -11,7 +11,12 @@ import 'category_element.dart';
 import 'category_menu.dart';
 
 class CategoryList extends ConsumerWidget {
-  const CategoryList({super.key});
+  const CategoryList({
+    required this.shouldPushDetails,
+    super.key,
+  });
+
+  final bool shouldPushDetails;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -60,7 +65,7 @@ class CategoryList extends ConsumerWidget {
     }
 
     return ReorderableListView.builder(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       itemCount: categories.length,
       buildDefaultDragHandles: false,
       itemBuilder: (context, index) {
@@ -71,18 +76,20 @@ class CategoryList extends ConsumerWidget {
           child: InkWell(
             onTap: () {
               currentCategoryNotifier.setCurrentCategory(category);
-              Navigator.of(context).push(
-                PageRouteBuilder(
-                  pageBuilder: (context, anim1, anim2) =>
-                      CategoryScreen(category: category, heroId: category.id),
-                  transitionsBuilder: (context, anim1, anim2, child) {
-                    return FadeTransition(
-                      opacity: anim1,
-                      child: child,
-                    );
-                  },
-                ),
-              );
+              if (shouldPushDetails) {
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    pageBuilder: (context, anim1, anim2) =>
+                        CategoryScreen(category: category, heroId: category.id),
+                    transitionsBuilder: (context, anim1, anim2, child) {
+                      return FadeTransition(
+                        opacity: anim1,
+                        child: child,
+                      );
+                    },
+                  ),
+                );
+              }
             },
             child: Hero(
               tag: 'main${category.id}',

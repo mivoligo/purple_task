@@ -25,6 +25,7 @@ class SimpleButton extends StatelessWidget {
     Widget child() {
       if (icon != null && text != null) {
         return Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             icon!,
             const SizedBox(width: 4),

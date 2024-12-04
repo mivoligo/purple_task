@@ -28,11 +28,12 @@ class CategoryRepository extends BaseCategoryRepository {
 
   @override
   Future<Category> remove({required Category category}) async {
+    _categoriesOrderBox
+        .get(categoriesListOrderKey)
+        ?.remove(category.id.toString());
     await _categoryBox.values
         .firstWhere((element) => element.id == category.id)
         .delete();
-    final categoryListOrder = _categoriesOrderBox.get(categoriesListOrderKey);
-    categoryListOrder?.remove(category.id.toString());
     return category;
   }
 
@@ -49,9 +50,17 @@ class CategoryRepository extends BaseCategoryRepository {
 
     return _categoryBox.values.map(Category.fromEntity).toList()
       ..sort(
-        (a, b) => categoriesOrder!
-            .indexOf(a.id.toString())
-            .compareTo(categoriesOrder.indexOf(b.id.toString())),
+        (a, b) {
+          final order = _categoriesOrderBox.get(categoriesListOrderKey);
+
+          if (order == null) {
+            return a.id.compareTo(b.id);
+          }
+
+          return order
+              .indexOf(a.id.toString())
+              .compareTo(order.indexOf(b.id.toString()));
+        },
       );
   }
 

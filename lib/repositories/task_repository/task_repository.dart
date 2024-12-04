@@ -33,7 +33,7 @@ class TaskRepository extends BaseTaskRepository {
 
   @override
   List<Task> getTasks() {
-    var tasksOrder = _tasksOrderBox.get(tasksListOrderKey);
+    final tasksOrder = _tasksOrderBox.get(tasksListOrderKey);
 
     if (tasksOrder == null || tasksOrder.isEmpty) {
       _tasksOrderBox.put(
@@ -50,10 +50,17 @@ class TaskRepository extends BaseTaskRepository {
     final values = _taskBox.values.map(Task.fromEntity).toList()
       ..sort(
         (a, b) {
-          var order = _tasksOrderBox.get(tasksListOrderKey);
-          return order![a.key.toString()]!.compareTo(
+          final order = _tasksOrderBox.get(tasksListOrderKey);
+
+          if (order == null ||
+              !order.containsKey(a.key.toString()) ||
+              !order.containsKey(b.key.toString())) {
+            return a.name.compareTo(b.name);
+          }
+
+          return order[a.key.toString()]!.compareTo(
             order[b.key.toString()]!,
-          ); // todo zabezpieczyć przed nullami
+          );
         },
       );
     return values;

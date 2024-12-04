@@ -1,172 +1,122 @@
-import 'dart:math';
-
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../constants/strings/strings.dart' as s;
-import '../../../../../controllers/controllers.dart';
+import '../../../../../constants/constants.dart';
+import '../../../../../constants/strings/strings.dart';
+import '../../../../../controllers/category/category_controller.dart';
 import '../../../../../models/models.dart';
-import '../../../../widgets/widgets.dart';
-import '../../../screens.dart';
-import '../widgets.dart';
-import 'selected_category_tasks.dart';
-import 'vertical_categories.dart';
+import '../../../../widgets/category_element.dart';
+import '../../../../widgets/category_list.dart';
+import '../../../../widgets/uncategorized_menu.dart';
+import '../add_category_button.dart';
+import '../animated_background.dart';
+import '../category_details.dart';
+import '../top_bar.dart';
+import '../uncategorized_tasks.dart';
 
-class WideLayout extends StatelessWidget {
-  const WideLayout({
-    Key? key,
-  }) : super(key: key);
+class WideLayout extends ConsumerWidget {
+  const WideLayout({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final appHeight = MediaQuery.of(context).size.height;
-    final appWidth = MediaQuery.of(context).size.width;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final category = ref.watch(categoryNotifierProvider);
 
-    return Stack(
-      children: [
-        const AnimatedBackground(),
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+    final uncategorizedCategory = const Category.empty()
+        .copyWith(id: -1, name: noCategory, icon: AntIcons.appstore.codePoint);
+
+    return AnimatedBackground(
+      child: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: TopBar(),
+          ),
+          Expanded(
+            child: Row(
               children: [
-                const Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-                  child: Greetings(),
+                SizedBox(
+                  width: 360,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 8,
+                        ),
+                        child: InkWell(
+                          onTap: () => ref
+                              .read(categoryNotifierProvider.notifier)
+                              .setCurrentCategory(null),
+                          child: Card(
+                            margin: EdgeInsets.zero,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: IntrinsicHeight(
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: CategoryElement(
+                                        uncategorizedCategory,
+                                      ),
+                                    ),
+                                    const Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        VerticalDivider(),
+                                        UncategorizedMenu(iconSize: 16),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        height: 16,
+                        indent: 16,
+                        endIndent: 16,
+                      ),
+                      const Expanded(
+                        child: CategoryList(shouldPushDetails: false),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          top: 16,
+                          bottom: 16,
+                          left: 16,
+                          right: 16,
+                        ),
+                        child: Center(child: AddCategoryButton()),
+                      ),
+                    ],
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Hero(
-                      tag: 'about',
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 16.0, right: 16.0),
-                        child: CustomIconButton(
-                          color: Colors.white,
-                          icon: const Icon(AntIcons.infoCircle),
-                          tooltip: s.about,
-                          onPressed: () => Navigator.of(context)
-                              .push(_createRoute(AboutScreen())),
+                Expanded(
+                  child: Center(
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 8, bottom: 16, right: 16),
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 500),
+                        child: DecoratedBox(
+                          decoration: CustomStyle.uncategorizedTasksDecoration,
+                          child: category != null
+                              ? CategoryDetails(category: category)
+                              : const UncategorizedTasks(),
                         ),
                       ),
                     ),
-                    Hero(
-                      tag: 'settings',
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 16.0, right: 16.0),
-                        child: CustomIconButton(
-                          color: Colors.white,
-                          icon: const Icon(AntIcons.setting),
-                          tooltip: s.settings,
-                          onPressed: () => Navigator.of(context)
-                              .push(_createRoute(Settings())),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),
-            Expanded(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: min(appWidth * 0.4, 450.0),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: Consumer(
-                            builder: (context, ref, _) {
-                              final categories =
-                                  ref.watch(categoriesNotifierProvider);
-                              return VerticalList(
-                                categories: categories,
-                              );
-                            },
-                          ),
-                        ),
-                        Hero(
-                          tag: 'new_category',
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: AddCategoryButton(
-                              text: s.addCategory,
-                              onPressed: () => Navigator.of(context).push(
-                                _createRoute(NewCategoryScreen()),
-                                // _openNewCategoryCreator(context);
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 6.0, right: 16.0),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: 500,
-                            child: Consumer(
-                              builder: (context, ref, _) => AddTaskField(
-                                onAddTask: (value) {
-                                  final task = Task(
-                                    name: value,
-                                    categoryId: ref
-                                            .watch(categoryNotifierProvider)
-                                            ?.id ??
-                                        -1,
-                                  );
-                                  ref
-                                      .read(tasksNotifierProvider.notifier)
-                                      .add(task: task);
-                                },
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Consumer(
-                              builder: (context, ref, _) {
-                                return ref.watch(categoryNotifierProvider) ==
-                                        null
-                                    ? const UncategorizedTasks()
-                                    : SelectedCategoryTasks(
-                                        category: ref
-                                            .watch(categoryNotifierProvider)!,
-                                        width: 460,
-                                        height: appHeight - 152,
-                                      );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Route _createRoute(Widget target) {
-    return PageRouteBuilder(
-      pageBuilder: (context, anim1, anim2) => target,
-      transitionsBuilder: (context, anim1, anim2, child) {
-        return FadeTransition(
-          opacity: anim1,
-          child: child,
-        );
-      },
+          ),
+        ],
+      ),
     );
   }
 }

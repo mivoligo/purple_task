@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../controllers/categories/categories_controller.dart';
 import '../../../models/models.dart';
 import 'widgets/narrow_layout/narrow_layout.dart';
-import 'widgets/widgets.dart';
+import 'widgets/wide_layout/wide_layout.dart';
 
 class MainScreen extends StatefulWidget {
   @override

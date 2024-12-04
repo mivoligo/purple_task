@@ -88,16 +88,11 @@ class NarrowLayoutOg extends ConsumerWidget {
               height: 260,
               child: CategoryList(),
             ),
-            Hero(
+            const Hero(
               tag: 'new_category',
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: AddCategoryButton(
-                  text: s.addCategory,
-                  onPressed: () => Navigator.of(context).push(
-                    _createRoute(NewCategoryScreen()),
-                  ),
-                ),
+                padding: EdgeInsets.all(16.0),
+                child: AddCategoryButton(),
               ),
             ),
           ],

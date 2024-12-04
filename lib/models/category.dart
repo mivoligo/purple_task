@@ -19,7 +19,8 @@ class Category extends Equatable {
     );
   }
 
-  const Category.empty() : this(id: 0, name: '', color: Colors.black, icon: 0);
+  const Category.empty()
+      : this(id: 0, name: '', color: Colors.deepPurple, icon: 0);
 
   final int id;
   final String name;

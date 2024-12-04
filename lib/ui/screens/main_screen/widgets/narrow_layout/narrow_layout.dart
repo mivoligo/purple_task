@@ -4,7 +4,6 @@ import '../../../../../constants/constants.dart';
 import '../../../../../controllers/controllers.dart';
 import '../../../../widgets/category_list.dart';
 import '../../../../widgets/simple_button.dart';
-import '../../../screens.dart';
 import '../add_category_button.dart';
 import '../animated_background.dart';
 import '../top_bar.dart';
@@ -75,7 +74,7 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
                 flex: flex.value + 1,
                 child: isUncategorizedVisible
                     ? const SizedBox()
-                    : const CategoryList(),
+                    : const CategoryList(shouldPushDetails: true),
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -103,13 +102,7 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
                         });
                       },
                     ),
-                    if (!isUncategorizedVisible)
-                      AddCategoryButton(
-                        text: 'Add new',
-                        onPressed: () => Navigator.of(context).push(
-                          _createRoute(NewCategoryScreen()),
-                        ),
-                      ),
+                    if (!isUncategorizedVisible) const AddCategoryButton(),
                   ],
                 ),
               ),
@@ -117,18 +110,6 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
           );
         },
       ),
-    );
-  }
-
-  Route _createRoute(Widget target) {
-    return PageRouteBuilder(
-      pageBuilder: (context, anim1, anim2) => target,
-      transitionsBuilder: (context, anim1, anim2, child) {
-        return FadeTransition(
-          opacity: anim1,
-          child: child,
-        );
-      },
     );
   }
 }
