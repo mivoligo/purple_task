@@ -42,7 +42,7 @@ class Task extends Equatable {
     String? name,
     bool? isDone,
     int? categoryId,
-    int? dueDate,
+    int? Function()? dueDate,
     int? doneTime,
     dynamic key,
   }) {
@@ -50,7 +50,7 @@ class Task extends Equatable {
       name: name ?? this.name,
       isDone: isDone ?? this.isDone,
       categoryId: categoryId ?? this.categoryId,
-      dueDate: dueDate,
+      dueDate: dueDate != null ? dueDate() : this.dueDate,
       doneTime: doneTime ?? this.doneTime,
       key: key ?? this.key,
     );

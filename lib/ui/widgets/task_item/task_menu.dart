@@ -42,7 +42,7 @@ class TaskMenu extends StatelessWidget {
                     final today = DateTime(now.year, now.month, now.day);
                     ref.read(tasksNotifierProvider.notifier).update(
                           task: task.copyWith(
-                            dueDate: today.millisecondsSinceEpoch,
+                            dueDate: () => today.millisecondsSinceEpoch,
                           ),
                         );
                   },
@@ -54,7 +54,7 @@ class TaskMenu extends StatelessWidget {
                     final tomorrow = DateTime(now.year, now.month, now.day + 1);
                     ref.read(tasksNotifierProvider.notifier).update(
                           task: task.copyWith(
-                            dueDate: tomorrow.millisecondsSinceEpoch,
+                            dueDate: () => tomorrow.millisecondsSinceEpoch,
                           ),
                         );
                   },
@@ -70,7 +70,7 @@ class TaskMenu extends StatelessWidget {
                   onPressed: () {
                     ref
                         .read(tasksNotifierProvider.notifier)
-                        .update(task: task.copyWith(dueDate: null));
+                        .update(task: task.copyWith(dueDate: () => null));
                   },
                   child: const Text(s.noDate),
                 ),
@@ -154,7 +154,7 @@ class TaskMenu extends StatelessWidget {
     );
     if (selectedDate != null) {
       final updatedTask =
-          task.copyWith(dueDate: selectedDate.millisecondsSinceEpoch);
+          task.copyWith(dueDate: () => selectedDate.millisecondsSinceEpoch);
       ref.read(tasksNotifierProvider.notifier).update(task: updatedTask);
     }
   }
