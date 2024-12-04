@@ -43,13 +43,14 @@ class _CompletedTasksState extends State<CompletedTasks> {
             slivers: [
               if (todayCompletedTasks.isNotEmpty)
                 const SliverTaskListHeader(title: s.completedToday),
-              SliverTasksList(list: todayCompletedTasks),
+              SliverTasksList(list: todayCompletedTasks, isOrderFixed: true),
               if (yesterdayCompletedTasks.isNotEmpty)
                 const SliverTaskListHeader(title: s.completedYesterday),
-              SliverTasksList(list: yesterdayCompletedTasks),
+              SliverTasksList(
+                  list: yesterdayCompletedTasks, isOrderFixed: true),
               if (pastCompletedTasks.isNotEmpty)
                 const SliverTaskListHeader(title: s.completedEarlier),
-              SliverTasksList(list: pastCompletedTasks),
+              SliverTasksList(list: pastCompletedTasks, isOrderFixed: true),
             ],
           );
         },

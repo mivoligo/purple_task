@@ -46,7 +46,7 @@ class _PlannedTasksState extends State<PlannedTasks> {
             SliverTasksList(list: noDueDateTasks),
             if (overdueTasks.isNotEmpty)
               const SliverTaskListHeader(title: s.overdue),
-            SliverTasksList(list: overdueTasks),
+            SliverTasksList(list: overdueTasks, isOrderFixed: true),
             if (todayTasks.isNotEmpty)
               const SliverTaskListHeader(title: s.today),
             SliverTasksList(list: todayTasks),
@@ -55,7 +55,7 @@ class _PlannedTasksState extends State<PlannedTasks> {
             SliverTasksList(list: tomorrowTasks),
             if (futureTasks.isNotEmpty)
               const SliverTaskListHeader(title: s.later),
-            SliverTasksList(list: futureTasks),
+            SliverTasksList(list: futureTasks, isOrderFixed: true),
           ],
         );
       },

@@ -56,7 +56,7 @@ class _AllTasksState extends State<AllTasks> {
             SliverTasksList(list: noDueDateTasks),
             if (overdueTasks.isNotEmpty)
               const SliverTaskListHeader(title: s.overdue),
-            SliverTasksList(list: overdueTasks),
+            SliverTasksList(list: overdueTasks, isOrderFixed: true),
             if (todayTasks.isNotEmpty)
               const SliverTaskListHeader(title: s.today),
             SliverTasksList(list: todayTasks),
@@ -65,16 +65,16 @@ class _AllTasksState extends State<AllTasks> {
             SliverTasksList(list: tomorrowTasks),
             if (futureTasks.isNotEmpty)
               const SliverTaskListHeader(title: s.later),
-            SliverTasksList(list: futureTasks),
+            SliverTasksList(list: futureTasks, isOrderFixed: true),
             if (todayCompletedTasks.isNotEmpty)
               const SliverTaskListHeader(title: s.completedToday),
-            SliverTasksList(list: todayCompletedTasks),
+            SliverTasksList(list: todayCompletedTasks, isOrderFixed: true),
             if (yesterdayCompletedTasks.isNotEmpty)
               const SliverTaskListHeader(title: s.completedYesterday),
-            SliverTasksList(list: yesterdayCompletedTasks),
+            SliverTasksList(list: yesterdayCompletedTasks, isOrderFixed: true),
             if (pastCompletedTasks.isNotEmpty)
               const SliverTaskListHeader(title: s.completedEarlier),
-            SliverTasksList(list: pastCompletedTasks),
+            SliverTasksList(list: pastCompletedTasks, isOrderFixed: true),
           ],
         );
       },

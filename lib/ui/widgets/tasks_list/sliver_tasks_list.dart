@@ -12,9 +12,11 @@ class SliverTasksList extends ConsumerWidget {
   const SliverTasksList({
     Key? key,
     required this.list,
+    this.isOrderFixed = false,
   }) : super(key: key);
 
   final List<Task> list;
+  final bool isOrderFixed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -44,6 +46,26 @@ class SliverTasksList extends ConsumerWidget {
             ),
           );
         },
+      );
+    }
+
+    if (isOrderFixed) {
+      return SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            final task = list[index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                children: [
+                  Expanded(child: TaskItem(task: task)),
+                  TaskMenu(task: task),
+                ],
+              ),
+            );
+          },
+          childCount: list.length,
+        ),
       );
     }
 
