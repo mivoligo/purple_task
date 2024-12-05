@@ -48,27 +48,45 @@ class WideLayout extends ConsumerWidget {
                           onTap: () => ref
                               .read(categoryNotifierProvider.notifier)
                               .setCurrentCategory(null),
-                          child: Card(
-                            margin: EdgeInsets.zero,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: IntrinsicHeight(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: CategoryElement(
-                                        uncategorizedCategory,
+                          child: Transform.scale(
+                            scale: category == null ? 1.03 : 1,
+                            child: Card(
+                              margin: EdgeInsets.zero,
+                              shape: category == null
+                                  ? RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                      side: const BorderSide(
+                                        color: Colors.deepPurple,
+                                        width: 4,
+                                        strokeAlign: -4,
                                       ),
-                                    ),
-                                    const Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        VerticalDivider(),
-                                        UncategorizedMenu(iconSize: 16),
-                                      ],
-                                    ),
-                                  ],
+                                    )
+                                  : null,
+                              child: Padding(
+                                padding: category == null
+                                    ? const EdgeInsets.symmetric(
+                                        vertical: 16.0,
+                                        horizontal: 16,
+                                      )
+                                    : const EdgeInsets.all(8.0),
+                                child: IntrinsicHeight(
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: CategoryElement(
+                                          uncategorizedCategory,
+                                        ),
+                                      ),
+                                      const Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          VerticalDivider(),
+                                          UncategorizedMenu(iconSize: 16),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

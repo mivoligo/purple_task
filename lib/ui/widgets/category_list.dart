@@ -23,6 +23,7 @@ class CategoryList extends ConsumerWidget {
     final categories = ref.watch(categoriesNotifierProvider);
     final currentCategoryNotifier =
         ref.watch(categoryNotifierProvider.notifier);
+    final currentCategory = ref.watch(categoryNotifierProvider);
 
     Widget proxyDecorator(
       Widget child,
@@ -70,6 +71,8 @@ class CategoryList extends ConsumerWidget {
       buildDefaultDragHandles: false,
       itemBuilder: (context, index) {
         final category = categories[index];
+        final needsDecoration =
+            !shouldPushDetails && currentCategory == category;
         return Padding(
           key: Key(index.toString()),
           padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -93,34 +96,53 @@ class CategoryList extends ConsumerWidget {
             },
             child: Hero(
               tag: 'main${category.id}',
-              child: Card(
-                margin: EdgeInsets.zero,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IntrinsicHeight(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: CategoryElement(category),
-                        ),
-                        ReorderableDragStartListener(
-                          index: index,
-                          child: MetaData(
-                            behavior: HitTestBehavior.opaque,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const VerticalDivider(),
-                                CategoryMenu(
-                                  category: category,
-                                  canDeleteCategory: true,
-                                  iconSize: 16,
-                                ),
-                              ],
+              child: Transform.scale(
+                scale: needsDecoration ? 1.03 : 1,
+                child: Card(
+                  elevation: needsDecoration ? 1 : 1,
+                  margin: EdgeInsets.zero,
+                  shape: needsDecoration
+                      ? RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          side: BorderSide(
+                            color: category.color,
+                            width: 4,
+                            strokeAlign: -4,
+                          ),
+                        )
+                      : null,
+                  child: Padding(
+                    padding: needsDecoration
+                        ? const EdgeInsets.symmetric(
+                            vertical: 16.0,
+                            horizontal: 16,
+                          )
+                        : const EdgeInsets.all(8.0),
+                    child: IntrinsicHeight(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: CategoryElement(category),
+                          ),
+                          ReorderableDragStartListener(
+                            index: index,
+                            child: MetaData(
+                              behavior: HitTestBehavior.opaque,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const VerticalDivider(),
+                                  CategoryMenu(
+                                    category: category,
+                                    canDeleteCategory: true,
+                                    iconSize: 16,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
