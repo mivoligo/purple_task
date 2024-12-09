@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../models/models.dart';
-import '../categories/categories_controller.dart';
+import '../controllers.dart';
 
 part 'category_controller.g.dart';
 
@@ -12,6 +12,9 @@ class CategoryNotifier extends _$CategoryNotifier {
 
   void setCurrentCategory(Category? category) {
     state = category;
+    ref
+        .read(settingsNotifierProvider.notifier)
+        .setUncategorizedViewPreference(value: category == null ? true : false);
   }
 
   void changeColor(Color color) {

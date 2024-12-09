@@ -8,5 +8,6 @@ const String settingsBox = 'settings_box';
 const String timeFormatKey = 'time_format';
 const String dateFormatKey = 'date_format';
 const String displayTaskDonePrefKey = 'display_task_done_pref';
+const String uncategorizedViewPreferenceKey = 'uncategorized_view_pref_key';
 const String appWidthKey = 'app_width';
 const String appHeightKey = 'app_height';

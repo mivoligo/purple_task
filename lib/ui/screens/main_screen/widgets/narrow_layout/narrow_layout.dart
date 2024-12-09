@@ -17,8 +17,6 @@ class NarrowLayout extends ConsumerStatefulWidget {
 
 class _NarrowLayoutState extends ConsumerState<NarrowLayout>
     with SingleTickerProviderStateMixin {
-  bool isUncategorizedVisible = true;
-
   late final AnimationController animationController;
   late final Animation<int> flex;
 
@@ -36,7 +34,9 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
     ).animate(
       CurvedAnimation(parent: animationController, curve: Curves.easeOut),
     );
-    animationController.forward();
+    if (ref.read(settingsNotifierProvider).isUncategorizedViewPreferred) {
+      animationController.forward();
+    }
   }
 
   @override
@@ -47,6 +47,9 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
 
   @override
   Widget build(BuildContext context) {
+    var isUncategorizedViewPreferred =
+        ref.watch(settingsNotifierProvider).isUncategorizedViewPreferred;
+
     return AnimatedBuilder(
       animation: animationController,
       builder: (context, child) {
@@ -62,7 +65,7 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: DecoratedBox(
                   decoration: CustomStyle.uncategorizedTasksDecoration,
-                  child: isUncategorizedVisible
+                  child: isUncategorizedViewPreferred
                       ? const UncategorizedTasks()
                       : const SizedBox.expand(),
                 ),
@@ -70,7 +73,7 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
             ),
             Expanded(
               flex: flex.value + 1,
-              child: isUncategorizedVisible
+              child: isUncategorizedViewPreferred
                   ? const SizedBox()
                   : const CategoryList(shouldPushDetails: true),
             ),
@@ -81,26 +84,30 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
                 children: [
                   SimpleButton(
                     isOutlined: true,
-                    text: isUncategorizedVisible
+                    text: isUncategorizedViewPreferred
                         ? 'Show categories'
                         : 'Hide categories',
                     onPressed: () {
-                      ref
-                          .read(categoryNotifierProvider.notifier)
-                          .setCurrentCategory(null);
-                      setState(() {
-                        if (isUncategorizedVisible) {
-                          isUncategorizedVisible = false;
-                          animationController.reverse();
-                        } else {
-                          animationController.forward().whenComplete(
-                                () => isUncategorizedVisible = true,
-                              );
-                        }
-                      });
+                      if (isUncategorizedViewPreferred) {
+                        ref
+                            .read(settingsNotifierProvider.notifier)
+                            .setUncategorizedViewPreference(value: false);
+                        animationController.reverse();
+                      } else {
+                        animationController.forward().whenComplete(
+                          () {
+                            ref
+                                .read(settingsNotifierProvider.notifier)
+                                .setUncategorizedViewPreference(value: true);
+                            ref
+                                .read(categoryNotifierProvider.notifier)
+                                .setCurrentCategory(null);
+                          },
+                        );
+                      }
                     },
                   ),
-                  if (!isUncategorizedVisible) const AddCategoryButton(),
+                  if (!isUncategorizedViewPreferred) const AddCategoryButton(),
                 ],
               ),
             ),

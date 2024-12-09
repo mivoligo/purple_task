@@ -14,6 +14,8 @@ class SettingsNotifier extends _$SettingsNotifier {
       timeFormat: settingsRepository.getTimeFormat(),
       dateFormat: settingsRepository.getDateFormat(),
       showDoneTime: settingsRepository.getDisplayTaskDoneTimePref(),
+      isUncategorizedViewPreferred:
+          settingsRepository.getUncategorizedViewPreference(),
     );
   }
 
@@ -32,5 +34,12 @@ class SettingsNotifier extends _$SettingsNotifier {
     ref
         .read(settingsRepositoryProvider)
         .setDisplayTaskDoneTimePref(value: showDoneTime);
+  }
+
+  void setUncategorizedViewPreference({required bool value}) {
+    state = state.copyWith(isUncategorizedViewPreferred: value);
+    ref
+        .read(settingsRepositoryProvider)
+        .setUncategorizedViewPreference(value: value);
   }
 }

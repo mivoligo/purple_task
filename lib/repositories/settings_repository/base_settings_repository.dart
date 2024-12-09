@@ -10,4 +10,8 @@ abstract class BaseSettingsRepository {
   void setDisplayTaskDoneTimePref({required bool value});
 
   bool getDisplayTaskDoneTimePref();
+
+  void setUncategorizedViewPreference({required bool value});
+
+  bool getUncategorizedViewPreference();
 }
