@@ -385,44 +385,26 @@ final settingsRepositoryProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef SettingsRepositoryRef = AutoDisposeProviderRef<BaseSettingsRepository>;
-String _$backgroundColorNarrowLayoutHash() =>
-    r'ae254f98f0d1f1da95f4b9a518830a53d5d2573c';
+String _$appBackgroundColorHash() =>
+    r'd6581ee399de1f9d60bab4246e4e34ccedf9e59b';
 
-/// See also [backgroundColorNarrowLayout].
-@ProviderFor(backgroundColorNarrowLayout)
-final backgroundColorNarrowLayoutProvider = AutoDisposeProvider<Color>.internal(
-  backgroundColorNarrowLayout,
-  name: r'backgroundColorNarrowLayoutProvider',
+/// See also [appBackgroundColor].
+@ProviderFor(appBackgroundColor)
+final appBackgroundColorProvider = AutoDisposeProvider<Color>.internal(
+  appBackgroundColor,
+  name: r'appBackgroundColorProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$backgroundColorNarrowLayoutHash,
+      : _$appBackgroundColorHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef BackgroundColorNarrowLayoutRef = AutoDisposeProviderRef<Color>;
-String _$backgroundColorWideLayoutHash() =>
-    r'9327da49fe85256cfc438539888bbd252657bcb9';
-
-/// See also [backgroundColorWideLayout].
-@ProviderFor(backgroundColorWideLayout)
-final backgroundColorWideLayoutProvider = AutoDisposeProvider<Color>.internal(
-  backgroundColorWideLayout,
-  name: r'backgroundColorWideLayoutProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$backgroundColorWideLayoutHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef BackgroundColorWideLayoutRef = AutoDisposeProviderRef<Color>;
+typedef AppBackgroundColorRef = AutoDisposeProviderRef<Color>;
 String _$noDueDateTasksInCategoryHash() =>
-    r'45e5f8629d543e6e308c40dc61eaf58f8c49721c';
+    r'bc8c0ffd117837f77c75f5ecc0c810a4eceae5a5';
 
 abstract class _$NoDueDateTasksInCategory
     extends BuildlessAutoDisposeNotifier<List<Task>> {
@@ -1618,42 +1600,5 @@ class _PastCompletedTasksInCategoryProviderElement
   int get categoryId =>
       (origin as PastCompletedTasksInCategoryProvider).categoryId;
 }
-
-String _$categoryCreatorCurrentStatusHash() =>
-    r'd9eb744f03d9b43e036928d94280a4ea9cd11909';
-
-/// See also [CategoryCreatorCurrentStatus].
-@ProviderFor(CategoryCreatorCurrentStatus)
-final categoryCreatorCurrentStatusProvider = AutoDisposeNotifierProvider<
-    CategoryCreatorCurrentStatus, CategoryCreatorStatus>.internal(
-  CategoryCreatorCurrentStatus.new,
-  name: r'categoryCreatorCurrentStatusProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$categoryCreatorCurrentStatusHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$CategoryCreatorCurrentStatus
-    = AutoDisposeNotifier<CategoryCreatorStatus>;
-String _$categoryScreenCurrentStatusHash() =>
-    r'fbf778aa02a74a799a5658d3976df5f70c8cd1c8';
-
-/// See also [CategoryScreenCurrentStatus].
-@ProviderFor(CategoryScreenCurrentStatus)
-final categoryScreenCurrentStatusProvider = AutoDisposeNotifierProvider<
-    CategoryScreenCurrentStatus, CategoryScreenStatus>.internal(
-  CategoryScreenCurrentStatus.new,
-  name: r'categoryScreenCurrentStatusProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$categoryScreenCurrentStatusHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$CategoryScreenCurrentStatus
-    = AutoDisposeNotifier<CategoryScreenStatus>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:ant_icons/ant_icons.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,6 +25,10 @@ class CategoryList extends ConsumerWidget {
     final currentCategoryNotifier =
         ref.watch(categoryNotifierProvider.notifier);
     final currentCategory = ref.watch(categoryNotifierProvider);
+
+    final currentCategoryInList = ref
+        .watch(categoriesNotifierProvider)
+        .firstWhereOrNull((element) => element.id == currentCategory?.id);
 
     Widget proxyDecorator(
       Widget child,
@@ -72,7 +77,7 @@ class CategoryList extends ConsumerWidget {
       itemBuilder: (context, index) {
         final category = categories[index];
         final needsDecoration =
-            !shouldPushDetails && currentCategory == category;
+            !shouldPushDetails && currentCategoryInList == category;
         return Padding(
           key: Key(index.toString()),
           padding: const EdgeInsets.symmetric(vertical: 8.0),

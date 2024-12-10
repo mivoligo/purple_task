@@ -171,7 +171,10 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
             child: CupertinoTextField(
               controller: textController,
               autofocus: true,
-              onSubmitted: (_) => updateName(),
+              onSubmitted: (_) {
+                updateName();
+                Navigator.of(context).pop();
+              },
             ),
           ),
           confirmationText: s.save,

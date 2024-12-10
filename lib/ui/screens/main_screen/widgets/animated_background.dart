@@ -11,7 +11,7 @@ class AnimatedBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final backgroundColor = ref.watch(backgroundColorNarrowLayoutProvider);
+        final backgroundColor = ref.watch(appBackgroundColorProvider);
 
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),

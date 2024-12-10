@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -233,31 +234,10 @@ double completionProgress(Ref ref, int categoryId) {
 BaseSettingsRepository settingsRepository(Ref ref) => SettingsRepository();
 
 @riverpod
-Color backgroundColorNarrowLayout(Ref ref) {
+Color appBackgroundColor(Ref ref) {
   final currentCategory = ref.watch(categoryNotifierProvider);
-  return currentCategory?.color ?? Colors.deepPurple;
+  final currentCategoryInList = ref
+      .watch(categoriesNotifierProvider)
+      .firstWhereOrNull((element) => element.id == currentCategory?.id);
+  return currentCategoryInList?.color ?? Colors.deepPurple;
 }
-
-@riverpod
-Color backgroundColorWideLayout(Ref ref) =>
-    ref.watch(categoryNotifierProvider)?.color ?? Colors.deepPurple;
-
-@riverpod
-class CategoryCreatorCurrentStatus extends _$CategoryCreatorCurrentStatus {
-  @override
-  CategoryCreatorStatus build() => CategoryCreatorStatus.normal;
-
-  void setStatus(CategoryCreatorStatus status) => state = status;
-}
-
-@riverpod
-class CategoryScreenCurrentStatus extends _$CategoryScreenCurrentStatus {
-  @override
-  CategoryScreenStatus build() => CategoryScreenStatus.data;
-
-  void setStatus(CategoryScreenStatus status) => state = status;
-}
-
-enum CategoryCreatorStatus { normal, success }
-
-enum CategoryScreenStatus { data, remove }

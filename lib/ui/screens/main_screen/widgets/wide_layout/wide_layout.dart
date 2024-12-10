@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/constants.dart';
 import '../../../../../constants/strings/strings.dart';
-import '../../../../../controllers/category/category_controller.dart';
+import '../../../../../controllers/controllers.dart';
 import '../../../../../models/models.dart';
 import '../../../../widgets/category_element.dart';
 import '../../../../widgets/category_list.dart';
@@ -19,10 +19,7 @@ class WideLayout extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final category = ref.watch(categoryNotifierProvider);
-
-    final uncategorizedCategory = const Category.empty()
-        .copyWith(id: -1, name: noCategory, icon: AntIcons.appstore.codePoint);
+    final currentCategory = ref.watch(categoryNotifierProvider);
 
     return Column(
       children: [
@@ -42,53 +39,8 @@ class WideLayout extends ConsumerWidget {
                         horizontal: 16.0,
                         vertical: 8,
                       ),
-                      child: InkWell(
-                        onTap: () => ref
-                            .read(categoryNotifierProvider.notifier)
-                            .setCurrentCategory(null),
-                        child: Transform.scale(
-                          scale: category == null ? 1.03 : 1,
-                          child: Card(
-                            margin: EdgeInsets.zero,
-                            shape: category == null
-                                ? RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                    side: const BorderSide(
-                                      color: Colors.deepPurple,
-                                      width: 4,
-                                      strokeAlign: -4,
-                                    ),
-                                  )
-                                : null,
-                            child: Padding(
-                              padding: category == null
-                                  ? const EdgeInsets.symmetric(
-                                      vertical: 16.0,
-                                      horizontal: 16,
-                                    )
-                                  : const EdgeInsets.all(8.0),
-                              child: IntrinsicHeight(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: CategoryElement(
-                                        uncategorizedCategory,
-                                      ),
-                                    ),
-                                    const Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        VerticalDivider(),
-                                        UncategorizedMenu(iconSize: 16),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                      child: _UncategorizedCard(
+                        isSelected: currentCategory == null,
                       ),
                     ),
                     const Divider(
@@ -120,8 +72,8 @@ class WideLayout extends ConsumerWidget {
                       constraints: const BoxConstraints(maxWidth: 500),
                       child: DecoratedBox(
                         decoration: CustomStyle.uncategorizedTasksDecoration,
-                        child: category != null
-                            ? CategoryDetails(category: category)
+                        child: currentCategory != null
+                            ? CategoryDetails(category: currentCategory)
                             : const UncategorizedTasks(),
                       ),
                     ),
@@ -132,6 +84,66 @@ class WideLayout extends ConsumerWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _UncategorizedCard extends ConsumerWidget {
+  const _UncategorizedCard({
+    required this.isSelected,
+  });
+
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final uncategorizedCategory = const Category.empty()
+        .copyWith(id: -1, name: noCategory, icon: AntIcons.appstore.codePoint);
+    return InkWell(
+      onTap: () =>
+          ref.read(categoryNotifierProvider.notifier).setCurrentCategory(null),
+      child: Transform.scale(
+        scale: isSelected ? 1.03 : 1,
+        child: Card(
+          margin: EdgeInsets.zero,
+          shape: isSelected
+              ? RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  side: const BorderSide(
+                    color: Colors.deepPurple,
+                    width: 4,
+                    strokeAlign: -4,
+                  ),
+                )
+              : null,
+          child: Padding(
+            padding: isSelected
+                ? const EdgeInsets.symmetric(
+                    vertical: 16.0,
+                    horizontal: 16,
+                  )
+                : const EdgeInsets.all(8.0),
+            child: IntrinsicHeight(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CategoryElement(
+                      uncategorizedCategory,
+                    ),
+                  ),
+                  const Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      VerticalDivider(),
+                      UncategorizedMenu(iconSize: 16),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
