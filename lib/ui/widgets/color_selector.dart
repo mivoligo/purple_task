@@ -43,46 +43,56 @@ class _ColorSelectorState extends State<ColorSelector> {
   @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
-      child: ListView.builder(
+      child: Scrollbar(
         controller: scrollController,
-        scrollDirection: Axis.horizontal,
-        itemCount: categoryColors.length,
-        itemBuilder: (context, index) {
-          final color = Color(categoryColors[index]);
+        thumbVisibility: true,
+        child: ListView.builder(
+          controller: scrollController,
+          scrollDirection: Axis.horizontal,
+          itemCount: categoryColors.length,
+          itemBuilder: (context, index) {
+            final color = Color(categoryColors[index]);
 
-          final isSelected = color == widget.selectedColor;
-          return AnimationConfiguration.staggeredList(
-            position: index,
-            duration: const Duration(milliseconds: 300),
-            child: SlideAnimation(
-              horizontalOffset: 100,
-              child: FadeInAnimation(
-                child: Padding(
-                  padding: isSelected
-                      ? const EdgeInsets.symmetric(vertical: 10, horizontal: 4)
-                      : const EdgeInsets.symmetric(vertical: 20, horizontal: 4),
-                  child: SizedBox(
-                    width: 70,
-                    child: Card(
-                      color: color,
-                      elevation: isSelected ? 6 : 1,
-                      child: InkWell(
-                        onFocusChange: (_) => widget.onSelect(color),
-                        onTap: () => widget.onSelect(color),
-                        child: isSelected
-                            ? const Icon(
-                                AntIcons.checkOutline,
-                                color: Colors.white,
-                              )
-                            : null,
+            final isSelected = color == widget.selectedColor;
+            return AnimationConfiguration.staggeredList(
+              position: index,
+              duration: const Duration(milliseconds: 300),
+              child: SlideAnimation(
+                horizontalOffset: 100,
+                child: FadeInAnimation(
+                  child: Padding(
+                    padding: isSelected
+                        ? const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 4,
+                          )
+                        : const EdgeInsets.symmetric(
+                            vertical: 20,
+                            horizontal: 4,
+                          ),
+                    child: SizedBox(
+                      width: 70,
+                      child: Card(
+                        color: color,
+                        elevation: isSelected ? 6 : 1,
+                        child: InkWell(
+                          onFocusChange: (_) => widget.onSelect(color),
+                          onTap: () => widget.onSelect(color),
+                          child: isSelected
+                              ? const Icon(
+                                  AntIcons.checkOutline,
+                                  color: Colors.white,
+                                )
+                              : null,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

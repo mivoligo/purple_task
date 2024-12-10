@@ -41,48 +41,58 @@ class _IconSelectorState extends State<IconSelector> {
   @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
-      child: ListView.builder(
+      child: Scrollbar(
         controller: scrollController,
-        scrollDirection: Axis.horizontal,
-        itemCount: categoryIcons.length,
-        itemBuilder: (context, index) {
-          final icon = categoryIcons[index];
-          final isSelected = widget.selectedIcon == icon;
-          return AnimationConfiguration.staggeredList(
-            position: index,
-            duration: const Duration(milliseconds: 300),
-            child: SlideAnimation(
-              horizontalOffset: 100,
-              child: FadeInAnimation(
-                child: Padding(
-                  padding: isSelected
-                      ? const EdgeInsets.symmetric(vertical: 10, horizontal: 4)
-                      : const EdgeInsets.symmetric(vertical: 20, horizontal: 4),
-                  child: SizedBox(
-                    width: 70,
-                    child: Card(
-                      color: Colors.grey.shade300,
-                      elevation: isSelected ? 6 : 1,
-                      child: InkWell(
-                        onFocusChange: (value) => widget.onSelect(icon),
-                        onTap: () => widget.onSelect(icon),
-                        child: Icon(
-                          IconData(
-                            categoryIcons[index],
-                            fontFamily: 'AntIcons',
-                            fontPackage: 'ant_icons',
+        thumbVisibility: true,
+        child: ListView.builder(
+          controller: scrollController,
+          scrollDirection: Axis.horizontal,
+          itemCount: categoryIcons.length,
+          itemBuilder: (context, index) {
+            final icon = categoryIcons[index];
+            final isSelected = widget.selectedIcon == icon;
+            return AnimationConfiguration.staggeredList(
+              position: index,
+              duration: const Duration(milliseconds: 300),
+              child: SlideAnimation(
+                horizontalOffset: 100,
+                child: FadeInAnimation(
+                  child: Padding(
+                    padding: isSelected
+                        ? const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 4,
+                          )
+                        : const EdgeInsets.symmetric(
+                            vertical: 20,
+                            horizontal: 4,
                           ),
-                          color: Colors.grey.shade800,
-                          size: isSelected ? 30 : 24,
+                    child: SizedBox(
+                      width: 70,
+                      child: Card(
+                        color: Colors.grey.shade300,
+                        elevation: isSelected ? 6 : 1,
+                        child: InkWell(
+                          onFocusChange: (value) => widget.onSelect(icon),
+                          onTap: () => widget.onSelect(icon),
+                          child: Icon(
+                            IconData(
+                              categoryIcons[index],
+                              fontFamily: 'AntIcons',
+                              fontPackage: 'ant_icons',
+                            ),
+                            color: Colors.grey.shade800,
+                            size: isSelected ? 30 : 24,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
