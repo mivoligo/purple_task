@@ -6,8 +6,8 @@ import '../../../../models/models.dart';
 import '../../../widgets/widgets.dart';
 import 'widgets.dart';
 
-class CategoryTasks extends StatefulWidget {
-  CategoryTasks({
+class NewCategoryTasks extends StatefulWidget {
+  NewCategoryTasks({
     Key? key,
     required this.tasks,
     required this.name,
@@ -27,10 +27,10 @@ class CategoryTasks extends StatefulWidget {
   final FocusNode focusNode;
 
   @override
-  _CategoryTasksState createState() => _CategoryTasksState();
+  _NewCategoryTasksState createState() => _NewCategoryTasksState();
 }
 
-class _CategoryTasksState extends State<CategoryTasks> {
+class _NewCategoryTasksState extends State<NewCategoryTasks> {
   late final _scrollController = ScrollController();
 
   @override
@@ -80,9 +80,9 @@ class _CategoryTasksState extends State<CategoryTasks> {
                   widget.onAddTask(value);
                   setState(() {
                     _scrollController.animateTo(
-                      _scrollController.position.minScrollExtent,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.ease,
+                      _scrollController.position.maxScrollExtent + 100,
+                      duration: const Duration(milliseconds: 100),
+                      curve: Curves.linear,
                     );
                   });
                 },
@@ -100,13 +100,14 @@ class _CategoryTasksState extends State<CategoryTasks> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 36.0, vertical: 8.0),
                 child: Scrollbar(
+                  controller: _scrollController,
                   child: ListView.separated(
                     controller: _scrollController,
                     itemCount: widget.tasks.length,
                     separatorBuilder: (context, index) =>
                         const Divider(height: 6.0),
                     itemBuilder: (context, index) {
-                      final reversedList = widget.tasks.reversed.toList();
+                      final reversedList = widget.tasks.toList();
                       return ListTile(
                         contentPadding:
                             const EdgeInsets.symmetric(horizontal: 0),

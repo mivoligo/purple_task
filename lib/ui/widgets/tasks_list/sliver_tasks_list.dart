@@ -104,7 +104,7 @@ class SliverTasksList extends ConsumerWidget {
                 .where(
                   (element) => element != currentItem,
                 )
-                .map((e) => e.key.toString()),
+                .map((e) => e.id.toString()),
           );
         } else {
           affectedTasksKeyList.addAll(
@@ -113,13 +113,13 @@ class SliverTasksList extends ConsumerWidget {
                 .where(
                   (element) => element != currentItem,
                 )
-                .map((e) => e.key.toString()),
+                .map((e) => e.id.toString()),
           );
         }
 
         ref.read(tasksNotifierProvider.notifier).reorder(
           affectedTasksKeyList: [
-            currentItem.key.toString(),
+            currentItem.id.toString(),
             ...affectedTasksKeyList,
           ],
           indexIncrease: oldIndex < newIndex,

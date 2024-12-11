@@ -10,24 +10,25 @@ class TaskRepository extends BaseTaskRepository {
 
   @override
   Future<Task> add({required Task task}) async {
-    final key = await _taskBox.add(task.toEntity());
-    task = task.copyWith(key: key);
-    _tasksOrderBox.get(tasksListOrderKey)?[key.toString()] = key;
+    final autoincrementKey = await _taskBox.add(task.toEntity());
+    task = task.copyWith(id: autoincrementKey.toString());
+    final taskOrder = _tasksOrderBox.get(tasksListOrderKey);
+    taskOrder?[autoincrementKey.toString()] = autoincrementKey;
     return task;
   }
 
   @override
   Future<Task> update({required Task task}) async {
-    await _taskBox.put(task.key, task.toEntity());
+    await _taskBox.put(task.id, task.toEntity());
     return task;
   }
 
   @override
   Future<Task> remove({required Task task}) async {
     await _taskBox.values
-        .firstWhere((element) => element.key == task.key)
+        .firstWhere((element) => element.key == task.id)
         .delete();
-    _tasksOrderBox.get(tasksListOrderKey)?.remove(task.key.toString());
+    _tasksOrderBox.get(tasksListOrderKey)?.remove(task.id.toString());
     return task;
   }
 
@@ -53,13 +54,13 @@ class TaskRepository extends BaseTaskRepository {
           final order = _tasksOrderBox.get(tasksListOrderKey);
 
           if (order == null ||
-              !order.containsKey(a.key.toString()) ||
-              !order.containsKey(b.key.toString())) {
+              !order.containsKey(a.id.toString()) ||
+              !order.containsKey(b.id.toString())) {
             return a.name.compareTo(b.name);
           }
 
-          return order[a.key.toString()]!.compareTo(
-            order[b.key.toString()]!,
+          return order[a.id.toString()]!.compareTo(
+            order[b.id.toString()]!,
           );
         },
       );

@@ -8,7 +8,7 @@ class Task extends Equatable {
     required this.categoryId,
     this.dueDate,
     this.doneTime,
-    this.key,
+    this.id,
   });
 
   Task.fromEntity(TaskEntity entity)
@@ -18,15 +18,15 @@ class Task extends Equatable {
           categoryId: entity.categoryId,
           dueDate: entity.dueDate,
           doneTime: entity.doneTime,
-          key: entity.key,
+          id: entity.key.toString(),
         );
 
+  final String? id;
   final String name;
   final bool isDone;
   final int categoryId;
   final int? dueDate;
   final int? doneTime;
-  final dynamic key;
 
   TaskEntity toEntity() {
     return TaskEntity(
@@ -44,7 +44,7 @@ class Task extends Equatable {
     int? categoryId,
     int? Function()? dueDate,
     int? doneTime,
-    dynamic key,
+    String? id,
   }) {
     return Task(
       name: name ?? this.name,
@@ -52,10 +52,10 @@ class Task extends Equatable {
       categoryId: categoryId ?? this.categoryId,
       dueDate: dueDate != null ? dueDate() : this.dueDate,
       doneTime: doneTime ?? this.doneTime,
-      key: key ?? this.key,
+      id: id ?? this.id,
     );
   }
 
   @override
-  List<Object?> get props => [name, isDone, categoryId, dueDate, doneTime, key];
+  List<Object?> get props => [name, isDone, categoryId, dueDate, doneTime, id];
 }

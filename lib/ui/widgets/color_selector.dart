@@ -74,8 +74,10 @@ class _ColorSelectorState extends State<ColorSelector> {
                       width: 70,
                       child: Card(
                         color: color,
-                        elevation: isSelected ? 6 : 1,
+                        elevation: isSelected ? 4 : 1,
+                        clipBehavior: Clip.antiAlias,
                         child: InkWell(
+                          autofocus: isSelected,
                           onFocusChange: (_) => widget.onSelect(color),
                           onTap: () => widget.onSelect(color),
                           child: isSelected

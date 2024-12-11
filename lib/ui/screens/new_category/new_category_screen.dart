@@ -39,7 +39,7 @@ class NewCategoryScreen extends ConsumerWidget {
           onNext: newCategoryController.progressToTasks,
           selectedIcon: newCategoryState.icon,
         ),
-      NewCategoryStatus.tasks => CategoryTasks(
+      NewCategoryStatus.tasks => NewCategoryTasks(
           tasks: newCategoryState.tasks,
           onAddTask: newCategoryController.changeTasks,
           focusNode: _focusNode,

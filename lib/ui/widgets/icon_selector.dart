@@ -71,8 +71,10 @@ class _IconSelectorState extends State<IconSelector> {
                       width: 70,
                       child: Card(
                         color: Colors.grey.shade300,
-                        elevation: isSelected ? 6 : 1,
+                        elevation: isSelected ? 4 : 1,
+                        clipBehavior: Clip.antiAlias,
                         child: InkWell(
+                          autofocus: isSelected,
                           onFocusChange: (value) => widget.onSelect(icon),
                           onTap: () => widget.onSelect(icon),
                           child: Icon(
