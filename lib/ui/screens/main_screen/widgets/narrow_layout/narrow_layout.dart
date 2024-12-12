@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../constants/constants.dart';
 import '../../../../../controllers/controllers.dart';
+import '../../../../../providers/providers.dart';
 import '../../../../widgets/category_list.dart';
 import '../../../../widgets/simple_button.dart';
 import '../add_category_button.dart';
@@ -34,9 +35,6 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
     ).animate(
       CurvedAnimation(parent: animationController, curve: Curves.easeOut),
     );
-    if (ref.read(settingsNotifierProvider).isUncategorizedViewPreferred) {
-      animationController.forward();
-    }
   }
 
   @override
@@ -47,9 +45,11 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
 
   @override
   Widget build(BuildContext context) {
-    var isUncategorizedViewPreferred =
-        ref.watch(settingsNotifierProvider).isUncategorizedViewPreferred;
-
+    final isUncategorizedViewPreferred =
+        ref.watch(isUncategorizedViewPreferredProvider);
+    if (isUncategorizedViewPreferred) {
+      animationController.forward();
+    }
     return AnimatedBuilder(
       animation: animationController,
       builder: (context, child) {

@@ -367,7 +367,7 @@ class _CompletionProgressProviderElement
 }
 
 String _$settingsRepositoryHash() =>
-    r'b2e7ca2d76eb2b2d5ce9a22a84597b76b31b2744';
+    r'470cd4a2d8634df9371d08edfd3efb598d0eb092';
 
 /// See also [settingsRepository].
 @ProviderFor(settingsRepository)
@@ -385,6 +385,24 @@ final settingsRepositoryProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef SettingsRepositoryRef = AutoDisposeProviderRef<BaseSettingsRepository>;
+String _$isUncategorizedViewPreferredHash() =>
+    r'a7c8de636ff021af75ee132d282b77b8ce1d2abb';
+
+/// See also [isUncategorizedViewPreferred].
+@ProviderFor(isUncategorizedViewPreferred)
+final isUncategorizedViewPreferredProvider = AutoDisposeProvider<bool>.internal(
+  isUncategorizedViewPreferred,
+  name: r'isUncategorizedViewPreferredProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$isUncategorizedViewPreferredHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef IsUncategorizedViewPreferredRef = AutoDisposeProviderRef<bool>;
 String _$appBackgroundColorHash() =>
     r'd6581ee399de1f9d60bab4246e4e34ccedf9e59b';
 

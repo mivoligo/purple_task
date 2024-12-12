@@ -22,7 +22,7 @@ class DateFormatSelector extends StatelessWidget {
                 },
                 child: Text(
                   TimeConverter.formatDateNow(dateFormat),
-                  style: settingsState.dateFormat == dateFormat
+                  style: settingsState.value?.dateFormat == dateFormat
                       ? CustomStyle.textStyleTaskName
                           .copyWith(color: Theme.of(context).primaryColor)
                       : CustomStyle.textStyleTaskName,
@@ -41,7 +41,8 @@ class DateFormatSelector extends StatelessWidget {
                   controller.open();
                 }
               },
-              text: TimeConverter.formatDateNow(settingsState.dateFormat),
+              text: TimeConverter.formatDateNow(
+                  settingsState.value?.dateFormat ?? 'd MMM y'),
             );
           },
         );

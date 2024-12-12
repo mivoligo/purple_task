@@ -123,7 +123,8 @@ class _TaskItemState extends State<TaskItem> {
                     Row(
                       children: [DueDateIndicator(task: widget.task)],
                     ),
-                  if (settings.showDoneTime &&
+                  if (settings.value != null &&
+                      settings.value!.showDoneTime &&
                       widget.task.isDone &&
                       widget.task.doneTime != null)
                     Row(
@@ -133,8 +134,9 @@ class _TaskItemState extends State<TaskItem> {
                           child: Text(
                             '${s.completed}: ${TimeConverter.millisToDateAndTime(
                               widget.task.doneTime!,
-                              dateFormat: settings.dateFormat,
-                              timeFormat: settings.timeFormat,
+                              dateFormat:
+                                  settings.value?.dateFormat ?? 'd MMM y',
+                              timeFormat: settings.value?.timeFormat ?? 'Hm',
                             )}',
                             style: CustomStyle.textStyleLabelSmall,
                           ),

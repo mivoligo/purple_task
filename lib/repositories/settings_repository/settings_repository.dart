@@ -10,20 +10,22 @@ class SettingsRepository extends BaseSettingsRepository {
   void setTimeFormat({required String value}) => _box.put(timeFormatKey, value);
 
   @override
-  String getTimeFormat() => _box.get(timeFormatKey, defaultValue: 'Hm');
+  Future<String> getTimeFormat() async =>
+      _box.get(timeFormatKey, defaultValue: 'Hm');
 
   @override
   void setDateFormat({required String value}) => _box.put(dateFormatKey, value);
 
   @override
-  String getDateFormat() => _box.get(dateFormatKey, defaultValue: 'd MMM y');
+  Future<String> getDateFormat() async =>
+      _box.get(dateFormatKey, defaultValue: 'd MMM y');
 
   @override
   void setDisplayTaskDoneTimePref({required bool value}) =>
       _box.put(displayTaskDonePrefKey, value);
 
   @override
-  bool getDisplayTaskDoneTimePref() =>
+  Future<bool> getDisplayTaskDoneTimePref() async =>
       _box.get(displayTaskDonePrefKey, defaultValue: false);
 
   @override
@@ -31,6 +33,6 @@ class SettingsRepository extends BaseSettingsRepository {
       _box.put(uncategorizedViewPreferenceKey, value);
 
   @override
-  bool getUncategorizedViewPreference() =>
+  Future<bool> getUncategorizedViewPreference() async =>
       _box.get(uncategorizedViewPreferenceKey, defaultValue: true);
 }

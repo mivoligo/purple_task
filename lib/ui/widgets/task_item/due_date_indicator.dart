@@ -19,7 +19,7 @@ class DueDateIndicator extends StatelessWidget {
     return Consumer(
       builder: (context, ref, _) {
         final dateFormatSetting =
-            ref.watch(settingsNotifierProvider).dateFormat;
+            ref.watch(settingsNotifierProvider).value?.dateFormat;
 
         return Row(
           children: [

@@ -2,11 +2,13 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/controllers.dart';
 import '../helpers.dart';
 import '../models/models.dart';
 import '../repositories/repositories.dart';
+import '../repositories/settings_repository/shared_pref_settings_repository.dart';
 
 part 'providers.g.dart';
 
@@ -231,7 +233,15 @@ double completionProgress(Ref ref, int categoryId) {
 }
 
 @riverpod
-BaseSettingsRepository settingsRepository(Ref ref) => SettingsRepository();
+BaseSettingsRepository settingsRepository(Ref ref) =>
+    SharedPrefSettingsRepository(asyncPrefs: SharedPreferencesAsync());
+
+@riverpod
+bool isUncategorizedViewPreferred(Ref ref) {
+  final settings = ref.watch(settingsNotifierProvider);
+
+  return settings.value?.isUncategorizedViewPreferred ?? true;
+}
 
 @riverpod
 Color appBackgroundColor(Ref ref) {

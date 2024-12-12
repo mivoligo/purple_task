@@ -1,17 +1,19 @@
+import 'dart:async';
+
 abstract class BaseSettingsRepository {
   void setTimeFormat({required String value});
 
-  String getTimeFormat();
+  Future<String> getTimeFormat();
 
   void setDateFormat({required String value});
 
-  String getDateFormat();
+  Future<String> getDateFormat();
 
   void setDisplayTaskDoneTimePref({required bool value});
 
-  bool getDisplayTaskDoneTimePref();
+  Future<bool> getDisplayTaskDoneTimePref();
 
   void setUncategorizedViewPreference({required bool value});
 
-  bool getUncategorizedViewPreference();
+  Future<bool> getUncategorizedViewPreference();
 }

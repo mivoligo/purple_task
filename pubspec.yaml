@@ -25,6 +25,7 @@ dependencies:
   flutter_staggered_animations: ^1.0.0
   path_provider: any
   riverpod_annotation: ^2.6.1
+  shared_preferences: ^2.3.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

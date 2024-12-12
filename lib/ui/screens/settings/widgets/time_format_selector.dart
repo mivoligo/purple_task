@@ -24,7 +24,7 @@ class TimeFormatSelector extends StatelessWidget {
                 },
                 child: Text(
                   TimeConverter.formatDateNow(timeFormat),
-                  style: settingsState.timeFormat == timeFormat
+                  style: settingsState.value?.timeFormat == timeFormat
                       ? CustomStyle.textStyleTaskName
                           .copyWith(color: Theme.of(context).primaryColor)
                       : CustomStyle.textStyleTaskName,
@@ -43,7 +43,8 @@ class TimeFormatSelector extends StatelessWidget {
                   controller.open();
                 }
               },
-              text: TimeConverter.formatDateNow(settingsState.timeFormat),
+              text: TimeConverter.formatDateNow(
+                  settingsState.value?.timeFormat ?? 'Hm'),
             );
           },
         );

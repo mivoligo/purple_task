@@ -34,7 +34,7 @@ class Settings extends StatelessWidget {
                   title: const Text(s.displayTimeCompleted),
                   trailing: Switch(
                     activeColor: Theme.of(context).primaryColor,
-                    value: state.showDoneTime,
+                    value: state.value?.showDoneTime ?? false,
                     onChanged: (value) => controller.setDisplayTaskDoneTimePref(
                       showDoneTime: value,
                     ),
