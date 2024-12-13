@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import '../entities/entities.dart';
+import '../helpers.dart';
 
 class Category extends Equatable {
   const Category({
@@ -33,7 +34,7 @@ class Category extends Equatable {
   CategoryEntity toEntity() {
     return CategoryEntity(
       name: name,
-      color: color.value,
+      color: color.intValue,
       icon: icon,
       id: id,
     );

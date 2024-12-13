@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../constants/constants.dart';
+import '../../helpers.dart';
 
 class ColorSelector extends StatefulWidget {
   const ColorSelector({
@@ -27,7 +28,7 @@ class _ColorSelectorState extends State<ColorSelector> {
     scrollController = ScrollController();
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) => scrollController.animateTo(
-        78.0 * categoryColors.indexOf(widget.selectedColor.value) - 40,
+        78.0 * categoryColors.indexOf(widget.selectedColor.intValue) - 40,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       ),
