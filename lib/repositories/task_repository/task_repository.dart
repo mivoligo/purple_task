@@ -6,14 +6,14 @@ import 'base_task_repository.dart';
 
 class TaskRepository extends BaseTaskRepository {
   final _taskBox = Hive.box<TaskEntity>(taskBox);
-  final _tasksOrderBox = Hive.box<Map<dynamic, dynamic>>(tasksListOrderBox);
+  // final _tasksOrderBox = Hive.box<Map<dynamic, dynamic>>(tasksListOrderBox);
 
   @override
   Future<Task> add({required Task task}) async {
     final autoincrementKey = await _taskBox.add(task.toEntity());
     task = task.copyWith(id: autoincrementKey.toString());
-    final taskOrder = _tasksOrderBox.get(tasksListOrderKey);
-    taskOrder?[autoincrementKey.toString()] = autoincrementKey;
+    // final taskOrder = _tasksOrderBox.get(tasksListOrderKey);
+    // taskOrder?[autoincrementKey.toString()] = autoincrementKey;
     return task;
   }
 
@@ -28,42 +28,42 @@ class TaskRepository extends BaseTaskRepository {
     await _taskBox.values
         .firstWhere((element) => element.key == task.id)
         .delete();
-    _tasksOrderBox.get(tasksListOrderKey)?.remove(task.id.toString());
+    // _tasksOrderBox.get(tasksListOrderKey)?.remove(task.id.toString());
     return task;
   }
 
   @override
   List<Task> getTasks() {
-    final tasksOrder = _tasksOrderBox.get(tasksListOrderKey);
+    // final tasksOrder = _tasksOrderBox.get(tasksListOrderKey);
 
-    if (tasksOrder == null || tasksOrder.isEmpty) {
-      _tasksOrderBox.put(
-        tasksListOrderKey,
-        Map.fromIterable(
-          _taskBox.values.indexed,
-          key: (element) => element.$2.key.toString(),
-          value: (element) => element.$1,
-        ),
-      );
-      ;
-    }
+    // if (tasksOrder == null || tasksOrder.isEmpty) {
+    //   _tasksOrderBox.put(
+    //     tasksListOrderKey,
+    //     Map.fromIterable(
+    //       _taskBox.values.indexed,
+    //       key: (element) => element.$2.key.toString(),
+    //       value: (element) => element.$1,
+    //     ),
+    //   );
+    //   ;
+    // }
 
-    final values = _taskBox.values.map(Task.fromEntity).toList()
-      ..sort(
-        (a, b) {
-          final order = _tasksOrderBox.get(tasksListOrderKey);
-
-          if (order == null ||
-              !order.containsKey(a.id.toString()) ||
-              !order.containsKey(b.id.toString())) {
-            return a.name.compareTo(b.name);
-          }
-
-          return order[a.id.toString()]!.compareTo(
-            order[b.id.toString()]!,
-          );
-        },
-      );
+    final values = _taskBox.values.map(Task.fromEntity).toList();
+    // ..sort(
+    //   (a, b) {
+    //     final order = _tasksOrderBox.get(tasksListOrderKey);
+    //
+    //     if (order == null ||
+    //         !order.containsKey(a.id.toString()) ||
+    //         !order.containsKey(b.id.toString())) {
+    //       return a.name.compareTo(b.name);
+    //     }
+    //
+    //     return order[a.id.toString()]!.compareTo(
+    //       order[b.id.toString()]!,
+    //     );
+    //   },
+    // );
     return values;
   }
 
@@ -72,7 +72,7 @@ class TaskRepository extends BaseTaskRepository {
     final matches =
         _taskBox.values.where((task) => task.categoryId == categoryId);
     for (var task in matches) {
-      _tasksOrderBox.get(tasksListOrderKey)?.remove(task.key.toString());
+      // _tasksOrderBox.get(tasksListOrderKey)?.remove(task.key.toString());
       await task.delete();
     }
   }
@@ -82,7 +82,7 @@ class TaskRepository extends BaseTaskRepository {
     final matches = _taskBox.values
         .where((task) => task.categoryId == categoryId && task.isDone == true);
     for (var task in matches) {
-      _tasksOrderBox.get(tasksListOrderKey)?.remove(task.key.toString());
+      // _tasksOrderBox.get(tasksListOrderKey)?.remove(task.key.toString());
       await task.delete();
     }
   }
@@ -92,44 +92,44 @@ class TaskRepository extends BaseTaskRepository {
     required List<String> affectedTasksKeyList,
     required bool indexIncrease,
   }) {
-    final tasksOrder = _tasksOrderBox.get(tasksListOrderKey, defaultValue: {});
+    // final tasksOrder = _tasksOrderBox.get(tasksListOrderKey, defaultValue: {});
 
-    if (tasksOrder == null) {
-      return;
-    }
-
-    final originalOrder = Map.unmodifiable(tasksOrder);
-
-    if (indexIncrease) {
-      for (var i = 0; i < affectedTasksKeyList.length; i++) {
-        if (i == 0) {
-          tasksOrder.update(
-            affectedTasksKeyList[i],
-            (value) => originalOrder[affectedTasksKeyList.last],
-          );
-        } else {
-          tasksOrder.update(
-            affectedTasksKeyList[i],
-            (value) => originalOrder[affectedTasksKeyList[i - 1]],
-          );
-        }
-      }
-    } else {
-      for (var i = 0; i < affectedTasksKeyList.length; i++) {
-        if (i == affectedTasksKeyList.length - 1) {
-          tasksOrder.update(
-            affectedTasksKeyList[i],
-            (value) => originalOrder[affectedTasksKeyList.first],
-          );
-        } else {
-          tasksOrder.update(
-            affectedTasksKeyList[i],
-            (value) => originalOrder[affectedTasksKeyList[i + 1]],
-          );
-        }
-      }
-    }
-
-    _tasksOrderBox.put(tasksListOrderKey, tasksOrder);
+    // if (tasksOrder == null) {
+    //   return;
+    // }
+    //
+    // final originalOrder = Map.unmodifiable(tasksOrder);
+    //
+    // if (indexIncrease) {
+    //   for (var i = 0; i < affectedTasksKeyList.length; i++) {
+    //     if (i == 0) {
+    //       tasksOrder.update(
+    //         affectedTasksKeyList[i],
+    //         (value) => originalOrder[affectedTasksKeyList.last],
+    //       );
+    //     } else {
+    //       tasksOrder.update(
+    //         affectedTasksKeyList[i],
+    //         (value) => originalOrder[affectedTasksKeyList[i - 1]],
+    //       );
+    //     }
+    //   }
+    // } else {
+    //   for (var i = 0; i < affectedTasksKeyList.length; i++) {
+    //     if (i == affectedTasksKeyList.length - 1) {
+    //       tasksOrder.update(
+    //         affectedTasksKeyList[i],
+    //         (value) => originalOrder[affectedTasksKeyList.first],
+    //       );
+    //     } else {
+    //       tasksOrder.update(
+    //         affectedTasksKeyList[i],
+    //         (value) => originalOrder[affectedTasksKeyList[i + 1]],
+    //       );
+    //     }
+    //   }
+    // }
+    //
+    // _tasksOrderBox.put(tasksListOrderKey, tasksOrder);
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'constants/constants.dart';
 
+import 'constants/constants.dart';
 import 'constants/strings/strings.dart' as s;
-import 'ui/screens/screens.dart';
+import 'ui/screens/redirect_screen.dart';
 
 class App extends StatelessWidget {
   @override
@@ -25,7 +25,7 @@ class App extends StatelessWidget {
           ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: MainScreen(),
+        home: const RedirectScreen(),
       ),
     );
   }

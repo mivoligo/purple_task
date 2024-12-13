@@ -44,7 +44,8 @@ class TimeFormatSelector extends StatelessWidget {
                 }
               },
               text: TimeConverter.formatDateNow(
-                  settingsState.value?.timeFormat ?? 'Hm'),
+                settingsState.value?.timeFormat ?? 'Hm',
+              ),
             );
           },
         );

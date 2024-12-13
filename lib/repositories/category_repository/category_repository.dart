@@ -7,13 +7,13 @@ import 'base_category_repository.dart';
 
 class CategoryRepository extends BaseCategoryRepository {
   final _categoryBox = Hive.box<CategoryEntity>(categoryBox);
-  final _categoriesOrderBox = Hive.box<List<String>>(categoriesListOrderBox);
+  // final _categoriesOrderBox = Hive.box<List<String>>(categoriesListOrderBox);
 
   @override
   Future<Category> add({required Category category}) async {
     await _categoryBox.add(category.toEntity());
-    final categoryListOrder = _categoriesOrderBox.get(categoriesListOrderKey);
-    categoryListOrder?.add(category.id.toString());
+    // final categoryListOrder = _categoriesOrderBox.get(categoriesListOrderKey);
+    // categoryListOrder?.add(category.id.toString());
     return category;
   }
 
@@ -28,9 +28,9 @@ class CategoryRepository extends BaseCategoryRepository {
 
   @override
   Future<Category> remove({required Category category}) async {
-    _categoriesOrderBox
-        .get(categoriesListOrderKey)
-        ?.remove(category.id.toString());
+    // _categoriesOrderBox
+    //     .get(categoriesListOrderKey)
+    //     ?.remove(category.id.toString());
     await _categoryBox.values
         .firstWhere((element) => element.id == category.id)
         .delete();
@@ -39,29 +39,29 @@ class CategoryRepository extends BaseCategoryRepository {
 
   @override
   List<Category> getCategories() {
-    final categoriesOrder = _categoriesOrderBox.get(categoriesListOrderKey);
+    // final categoriesOrder = _categoriesOrderBox.get(categoriesListOrderKey);
 
-    if (categoriesOrder == null || categoriesOrder.isEmpty) {
-      _categoriesOrderBox.put(
-        categoriesListOrderKey,
-        _categoryBox.values.map((e) => e.id.toString()).toList(),
-      );
-    }
+    // if (categoriesOrder == null || categoriesOrder.isEmpty) {
+    //   _categoriesOrderBox.put(
+    //     categoriesListOrderKey,
+    //     _categoryBox.values.map((e) => e.id.toString()).toList(),
+    //   );
+    // }
 
-    return _categoryBox.values.map(Category.fromEntity).toList()
-      ..sort(
-        (a, b) {
-          final order = _categoriesOrderBox.get(categoriesListOrderKey);
-
-          if (order == null) {
-            return a.id.compareTo(b.id);
-          }
-
-          return order
-              .indexOf(a.id.toString())
-              .compareTo(order.indexOf(b.id.toString()));
-        },
-      );
+    return _categoryBox.values.map(Category.fromEntity).toList();
+    // ..sort(
+    //   (a, b) {
+    //     final order = _categoriesOrderBox.get(categoriesListOrderKey);
+    //
+    //     if (order == null) {
+    //       return a.id.compareTo(b.id);
+    //     }
+    //
+    //     return order
+    //         .indexOf(a.id.toString())
+    //         .compareTo(order.indexOf(b.id.toString()));
+    //   },
+    // );
   }
 
   @override
@@ -69,16 +69,16 @@ class CategoryRepository extends BaseCategoryRepository {
     required int oldIndex,
     required int newIndex,
   }) {
-    final categoriesOrder =
-        _categoriesOrderBox.get(categoriesListOrderKey, defaultValue: []);
+    // final categoriesOrder =
+    //     _categoriesOrderBox.get(categoriesListOrderKey, defaultValue: []);
 
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
 
-    final item = categoriesOrder!.removeAt(oldIndex);
-    categoriesOrder.insert(newIndex, item);
-
-    _categoriesOrderBox.put(categoriesListOrderKey, categoriesOrder);
+    // final item = categoriesOrder!.removeAt(oldIndex);
+    // categoriesOrder.insert(newIndex, item);
+    //
+    // _categoriesOrderBox.put(categoriesListOrderKey, categoriesOrder);
   }
 }

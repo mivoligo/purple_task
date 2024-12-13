@@ -56,7 +56,8 @@ class SettingsNotifier extends _$SettingsNotifier {
 
     await update(
       (currentState) => currentState.copyWith(
-          showDoneTime: updatedDisplayTaskDoneTimePreference),
+        showDoneTime: updatedDisplayTaskDoneTimePreference,
+      ),
     );
   }
 
@@ -71,7 +72,8 @@ class SettingsNotifier extends _$SettingsNotifier {
 
     await update(
       (currentState) => currentState.copyWith(
-          isUncategorizedViewPreferred: updatedUncategorizedViewPreference),
+        isUncategorizedViewPreferred: updatedUncategorizedViewPreference,
+      ),
     );
   }
 }

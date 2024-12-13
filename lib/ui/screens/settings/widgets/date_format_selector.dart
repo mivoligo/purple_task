@@ -42,7 +42,8 @@ class DateFormatSelector extends StatelessWidget {
                 }
               },
               text: TimeConverter.formatDateNow(
-                  settingsState.value?.dateFormat ?? 'd MMM y'),
+                settingsState.value?.dateFormat ?? 'd MMM y',
+              ),
             );
           },
         );

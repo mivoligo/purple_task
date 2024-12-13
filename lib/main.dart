@@ -10,17 +10,7 @@ import 'entities/entities.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final dir = await path_provider.getApplicationSupportDirectory();
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(CategoryEntityAdapter())
-    ..registerAdapter(TaskEntityAdapter());
-  // make sure hive boxes are opened before showing UI
-  await Hive.openBox(settingsBox);
-  await Hive.openBox<CategoryEntity>(categoryBox);
-  await Hive.openBox<TaskEntity>(taskBox);
-  await Hive.openBox<List<String>>(categoriesListOrderBox);
-  await Hive.openBox<Map<dynamic, dynamic>>(tasksListOrderBox);
+  await _initHive();
 
   // todo: Set app window size
 
@@ -32,6 +22,24 @@ void main() async {
       child: App(),
     ),
   );
+}
+
+Future<void> _initHive() async {
+  final dir = await path_provider.getApplicationSupportDirectory();
+  Hive
+    ..init(dir.path)
+    ..registerAdapter(CategoryEntityAdapter())
+    ..registerAdapter(TaskEntityAdapter());
+
+  if (await Hive.boxExists(settingsBox)) {
+    await Hive.openBox(settingsBox);
+  }
+  if (await Hive.boxExists(categoryBox)) {
+    await Hive.openBox<CategoryEntity>(categoryBox);
+  }
+  if (await Hive.boxExists(taskBox)) {
+    await Hive.openBox<TaskEntity>(taskBox);
+  }
 }
 
 class MyObserver extends ProviderObserver {

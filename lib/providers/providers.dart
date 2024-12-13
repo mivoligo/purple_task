@@ -1,12 +1,16 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../constants/constants.dart';
 import '../controllers/controllers.dart';
 import '../helpers.dart';
+import '../migrator.dart';
 import '../models/models.dart';
+import '../repositories/app_version_repository/app_version_repository.dart';
 import '../repositories/repositories.dart';
 import '../repositories/settings_repository/shared_pref_settings_repository.dart';
 
@@ -251,3 +255,27 @@ Color appBackgroundColor(Ref ref) {
       .firstWhereOrNull((element) => element.id == currentCategory?.id);
   return currentCategoryInList?.color ?? Colors.deepPurple;
 }
+
+@riverpod
+AppVersionRepository appVersionRepository(Ref ref) =>
+    AppVersionRepository(asyncPrefs: SharedPreferencesAsync());
+
+@riverpod
+class AppVersion extends _$AppVersion {
+  @override
+  Future<int?> build() async {
+    final appVersionRepository = ref.watch(appVersionRepositoryProvider);
+
+    return appVersionRepository.getAppVersion();
+  }
+
+  void setAppVersion() {
+    ref.read(appVersionRepositoryProvider).setAppVersion();
+  }
+}
+
+@riverpod
+SettingsMigrator settingsMigrator(Ref ref) => SettingsMigrator(
+      asyncPrefs: SharedPreferencesAsync(),
+      settingsBox: Hive.box(settingsBox),
+    );
