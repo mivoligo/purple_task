@@ -6,42 +6,6 @@ part of 'providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$categoryRepositoryHash() =>
-    r'9a84ebfc74018601efe3dad32423c5669ae07c6a';
-
-/// See also [categoryRepository].
-@ProviderFor(categoryRepository)
-final categoryRepositoryProvider =
-    AutoDisposeProvider<BaseCategoryRepository>.internal(
-  categoryRepository,
-  name: r'categoryRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$categoryRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef CategoryRepositoryRef = AutoDisposeProviderRef<BaseCategoryRepository>;
-String _$taskRepositoryHash() => r'65514bfc7d75b95dfc9f18bd35b0718cb0ecd377';
-
-/// See also [taskRepository].
-@ProviderFor(taskRepository)
-final taskRepositoryProvider = AutoDisposeProvider<BaseTaskRepository>.internal(
-  taskRepository,
-  name: r'taskRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$taskRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef TaskRepositoryRef = AutoDisposeProviderRef<BaseTaskRepository>;
 String _$numberOfAllActiveTasksHash() =>
     r'5b4c2ac1e0c98b2d5462f70b1bdafdf6708a0493';
 

@@ -4,13 +4,13 @@ import 'package:hive/hive.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'categories/database/category_dao.dart';
+import 'categories/models/category.dart';
+import 'categories/models/category_entity.dart';
+import 'categories/repositories/drift_category_repository.dart';
 import 'constants/constants.dart';
 import 'database/app_database.dart' as db;
-import 'database/category_dao.dart';
-import 'entities/entities.dart';
 import 'helpers.dart';
-import 'models/category.dart';
-import 'repositories/category_repository/dirt_category_repository.dart';
 
 part 'migrator.g.dart';
 

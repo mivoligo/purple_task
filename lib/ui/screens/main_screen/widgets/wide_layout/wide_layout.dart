@@ -2,17 +2,17 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../../categories/controllers/category_controller.dart';
+import '../../../../../categories/models/category.dart';
+import '../../../../../categories/views/add_category_button.dart';
+import '../../../../../categories/views/category_details.dart';
+import '../../../../../categories/views/category_element.dart';
+import '../../../../../categories/views/category_list.dart';
+import '../../../../../categories/views/uncategorized_menu.dart';
 import '../../../../../constants/constants.dart';
 import '../../../../../constants/strings/strings.dart';
-import '../../../../../controllers/controllers.dart';
-import '../../../../../models/models.dart';
-import '../../../../widgets/category_element.dart';
-import '../../../../widgets/category_list.dart';
-import '../../../../widgets/uncategorized_menu.dart';
-import '../add_category_button.dart';
-import '../category_details.dart';
+import '../../../../../tasks/views/uncategorized_tasks.dart';
 import '../top_bar.dart';
-import '../uncategorized_tasks.dart';
 
 class WideLayout extends ConsumerWidget {
   const WideLayout({super.key});

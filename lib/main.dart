@@ -4,8 +4,9 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 import 'app.dart';
+import 'categories/models/category_entity.dart';
 import 'constants/constants.dart';
-import 'entities/entities.dart';
+import 'tasks/models/task_entity.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

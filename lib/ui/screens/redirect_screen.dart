@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../providers/providers.dart';
 import 'main_screen/main_screen.dart';
-import 'welcome_screen.dart';
 
 class RedirectScreen extends ConsumerWidget {
   const RedirectScreen({super.key});

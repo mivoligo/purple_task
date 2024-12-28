@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../../categories/controllers/category_controller.dart';
+import '../../../../../categories/views/add_category_button.dart';
+import '../../../../../categories/views/category_list.dart';
 import '../../../../../constants/constants.dart';
 import '../../../../../controllers/controllers.dart';
 import '../../../../../providers/providers.dart';
-import '../../../../widgets/category_list.dart';
+import '../../../../../tasks/views/uncategorized_tasks.dart';
 import '../../../../widgets/simple_button.dart';
-import '../add_category_button.dart';
 import '../top_bar.dart';
-import '../uncategorized_tasks.dart';
 
 class NarrowLayout extends ConsumerStatefulWidget {
   const NarrowLayout({super.key});

@@ -5,26 +5,19 @@ import 'package:hive/hive.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../categories/controllers/categories_controller.dart';
+import '../categories/controllers/category_controller.dart';
 import '../constants/constants.dart';
 import '../controllers/controllers.dart';
 import '../helpers.dart';
 import '../migrator.dart';
-import '../models/models.dart';
 import '../repositories/app_version_repository/app_version_repository.dart';
-import '../repositories/category_repository/dirt_category_repository.dart';
 import '../repositories/repositories.dart';
 import '../repositories/settings_repository/shared_pref_settings_repository.dart';
+import '../tasks/controllers/tasks_controller.dart';
+import '../tasks/models/task.dart';
 
 part 'providers.g.dart';
-
-@riverpod
-BaseCategoryRepository categoryRepository(Ref ref) {
-  final dao = ref.watch(categoryDaoProvider);
-  return DriftCategoryRepository(categoryDao: dao);
-}
-
-@riverpod
-BaseTaskRepository taskRepository(Ref ref) => TaskRepository();
 
 @riverpod
 class NoDueDateTasksInCategory extends _$NoDueDateTasksInCategory {
