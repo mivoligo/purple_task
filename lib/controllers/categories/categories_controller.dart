@@ -8,28 +8,34 @@ part 'categories_controller.g.dart';
 @riverpod
 class CategoriesNotifier extends _$CategoriesNotifier {
   @override
-  List<Category> build() =>
+  Future<List<Category>> build() async =>
       ref.watch(categoryRepositoryProvider).getCategories();
 
   Future<void> add({required Category category}) async {
     await ref.read(categoryRepositoryProvider).add(category: category);
-    state = ref.read(categoryRepositoryProvider).getCategories();
+
+    final updatedCategories =
+        await ref.read(categoryRepositoryProvider).getCategories();
+
+    await update((currentState) => [...updatedCategories]);
   }
 
-  Future<void> remove({required Category category}) async {
-    await ref.read(categoryRepositoryProvider).remove(category: category);
-    state = ref.read(categoryRepositoryProvider).getCategories();
+  Future<void> remove({required int categoryId}) async {
+    await ref.read(categoryRepositoryProvider).remove(categoryId: categoryId);
+    final updatedCategories =
+        await ref.read(categoryRepositoryProvider).getCategories();
+    await update((currentState) => [...updatedCategories]);
   }
-
-  Future<void> update({required Category category}) async {
-    await ref.read(categoryRepositoryProvider).update(category: category);
-    state = ref.read(categoryRepositoryProvider).getCategories();
-  }
-
-  void reorder(int oldIndex, int newIndex) {
-    ref
-        .read(categoryRepositoryProvider)
-        .reorder(oldIndex: oldIndex, newIndex: newIndex);
-    state = ref.read(categoryRepositoryProvider).getCategories();
-  }
+//
+// Future<void> update({required Category category}) async {
+//   await ref.read(categoryRepositoryProvider).update(category: category);
+//   state = ref.read(categoryRepositoryProvider).getCategories();
+// }
+//
+// void reorder(int oldIndex, int newIndex) {
+//   ref
+//       .read(categoryRepositoryProvider)
+//       .reorder(oldIndex: oldIndex, newIndex: newIndex);
+//   state = ref.read(categoryRepositoryProvider).getCategories();
+// }
 }

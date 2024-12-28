@@ -149,7 +149,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
               .removeAllTasksForCategory(categoryId: category.id);
           ref
               .read(categoriesNotifierProvider.notifier)
-              .remove(category: category);
+              .remove(categoryId: category.id);
           // remove category from current category state
           ref.read(categoryNotifierProvider.notifier).setCurrentCategory(null);
         },

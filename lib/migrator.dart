@@ -1,7 +1,18 @@
+import 'package:drift/drift.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants/constants.dart';
+import 'database/app_database.dart' as db;
+import 'database/category_dao.dart';
+import 'entities/entities.dart';
+import 'helpers.dart';
+import 'models/category.dart';
+import 'repositories/category_repository/dirt_category_repository.dart';
+
+part 'migrator.g.dart';
 
 class SettingsMigrator {
   SettingsMigrator({
@@ -47,3 +58,37 @@ class SettingsMigrator {
     await asyncPrefs.setBool(displayTaskDonePrefKey, currentSetting);
   }
 }
+
+class CategoriesMigrator {
+  CategoriesMigrator({
+    required this.categoriesBox,
+    required this.categoryDao,
+  });
+
+  final Box<CategoryEntity> categoriesBox;
+  final CategoryDao categoryDao;
+
+  Future<void> migrateCategoriesFromHiveToDrift() async {
+    final currentCategories = categoriesBox.values
+        .map(Category.fromEntity)
+        .toList()
+      ..sort((a, b) => a.id.compareTo(b.id));
+
+    for (final category in currentCategories) {
+      categoryDao.addCategory(
+        db.CategoriesCompanion(
+          id: Value(category.id),
+          name: Value(category.name),
+          color: Value(category.color.intValue),
+          icon: Value(category.icon),
+        ),
+      );
+    }
+  }
+}
+
+@riverpod
+CategoriesMigrator categoriesMigrator(Ref ref) => CategoriesMigrator(
+      categoriesBox: Hive.box<CategoryEntity>(categoryBox),
+      categoryDao: ref.watch(categoryDaoProvider),
+    );

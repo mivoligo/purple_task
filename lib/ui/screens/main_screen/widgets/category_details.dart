@@ -24,7 +24,13 @@ class _CategoryDetailsState extends ConsumerState<CategoryDetails> {
   Widget build(BuildContext context) {
     final currentCategory = ref
         .watch(categoriesNotifierProvider)
-        .firstWhere((element) => element.id == widget.category.id);
+        .valueOrNull
+        ?.firstWhere((element) => element.id == widget.category.id);
+
+    if (currentCategory == null) {
+      return const CircularProgressIndicator();
+    }
+
     return Column(
       children: [
         NavigationBar(

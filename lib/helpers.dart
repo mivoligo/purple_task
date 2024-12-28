@@ -43,6 +43,7 @@ extension IntExtensions on int {
     return DateTime(timeInMillis.year, timeInMillis.month, timeInMillis.day);
   }
 }
+
 /// From the original code for `Color.value` in Flutter,
 /// which was deprecated in v 3.27
 ///

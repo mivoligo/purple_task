@@ -10,11 +10,11 @@ class CategoryRepository extends BaseCategoryRepository {
   // final _categoriesOrderBox = Hive.box<List<String>>(categoriesListOrderBox);
 
   @override
-  Future<Category> add({required Category category}) async {
+  Future<int> add({required Category category}) async {
     await _categoryBox.add(category.toEntity());
     // final categoryListOrder = _categoriesOrderBox.get(categoriesListOrderKey);
     // categoryListOrder?.add(category.id.toString());
-    return category;
+    return category.id;
   }
 
   @override
@@ -27,18 +27,17 @@ class CategoryRepository extends BaseCategoryRepository {
   }
 
   @override
-  Future<Category> remove({required Category category}) async {
+  Future<void> remove({required int categoryId}) async {
     // _categoriesOrderBox
     //     .get(categoriesListOrderKey)
     //     ?.remove(category.id.toString());
     await _categoryBox.values
-        .firstWhere((element) => element.id == category.id)
+        .firstWhere((element) => element.id == categoryId)
         .delete();
-    return category;
   }
 
   @override
-  List<Category> getCategories() {
+  Future<List<Category>> getCategories() {
     // final categoriesOrder = _categoriesOrderBox.get(categoriesListOrderKey);
 
     // if (categoriesOrder == null || categoriesOrder.isEmpty) {
@@ -48,7 +47,7 @@ class CategoryRepository extends BaseCategoryRepository {
     //   );
     // }
 
-    return _categoryBox.values.map(Category.fromEntity).toList();
+    return Future.value(_categoryBox.values.map(Category.fromEntity).toList());
     // ..sort(
     //   (a, b) {
     //     final order = _categoriesOrderBox.get(categoriesListOrderKey);

@@ -21,14 +21,15 @@ class CategoryList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final categories = ref.watch(categoriesNotifierProvider);
+    final categories = ref.watch(categoriesNotifierProvider).valueOrNull ?? [];
     final currentCategoryNotifier =
         ref.watch(categoryNotifierProvider.notifier);
     final currentCategory = ref.watch(categoryNotifierProvider);
 
     final currentCategoryInList = ref
         .watch(categoriesNotifierProvider)
-        .firstWhereOrNull((element) => element.id == currentCategory?.id);
+        .value
+        ?.firstWhereOrNull((element) => element.id == currentCategory?.id);
 
     Widget proxyDecorator(
       Widget child,
@@ -156,7 +157,7 @@ class CategoryList extends ConsumerWidget {
           ),
         );
       },
-      onReorder: ref.read(categoriesNotifierProvider.notifier).reorder,
+      onReorder: (oldIndex, newIndex) {},
       proxyDecorator: proxyDecorator,
     );
   }

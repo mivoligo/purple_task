@@ -11,13 +11,17 @@ import '../helpers.dart';
 import '../migrator.dart';
 import '../models/models.dart';
 import '../repositories/app_version_repository/app_version_repository.dart';
+import '../repositories/category_repository/dirt_category_repository.dart';
 import '../repositories/repositories.dart';
 import '../repositories/settings_repository/shared_pref_settings_repository.dart';
 
 part 'providers.g.dart';
 
 @riverpod
-BaseCategoryRepository categoryRepository(Ref ref) => CategoryRepository();
+BaseCategoryRepository categoryRepository(Ref ref) {
+  final dao = ref.watch(categoryDaoProvider);
+  return DriftCategoryRepository(categoryDao: dao);
+}
 
 @riverpod
 BaseTaskRepository taskRepository(Ref ref) => TaskRepository();
@@ -252,7 +256,8 @@ Color appBackgroundColor(Ref ref) {
   final currentCategory = ref.watch(categoryNotifierProvider);
   final currentCategoryInList = ref
       .watch(categoriesNotifierProvider)
-      .firstWhereOrNull((element) => element.id == currentCategory?.id);
+      .valueOrNull
+      ?.firstWhereOrNull((element) => element.id == currentCategory?.id);
   return currentCategoryInList?.color ?? Colors.deepPurple;
 }
 

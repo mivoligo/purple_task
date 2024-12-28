@@ -7,7 +7,7 @@ part of 'providers.dart';
 // **************************************************************************
 
 String _$categoryRepositoryHash() =>
-    r'4ea86972fe3575d4fa1597164c53747e2d274b49';
+    r'9a84ebfc74018601efe3dad32423c5669ae07c6a';
 
 /// See also [categoryRepository].
 @ProviderFor(categoryRepository)
@@ -404,7 +404,7 @@ final isUncategorizedViewPreferredProvider = AutoDisposeProvider<bool>.internal(
 // ignore: unused_element
 typedef IsUncategorizedViewPreferredRef = AutoDisposeProviderRef<bool>;
 String _$appBackgroundColorHash() =>
-    r'd6581ee399de1f9d60bab4246e4e34ccedf9e59b';
+    r'acbf96cc00128f489e688f83fea140e606ea9e00';
 
 /// See also [appBackgroundColor].
 @ProviderFor(appBackgroundColor)

@@ -51,11 +51,13 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
   Widget build(BuildContext context) {
     final currentCategory = ref
         .watch(categoriesNotifierProvider)
-        .firstWhere((element) => element.id == widget.category.id);
-    final categoryColor = currentCategory.color;
+        .valueOrNull
+        ?.firstWhere((element) => element.id == widget.category.id);
+    // final categoryColor = currentCategory?.color;
     final activeTasksNumber =
-        ref.watch(numberOfActiveTasksInCategoryProvider(currentCategory.id));
-    final progress = ref.watch(completionProgressProvider(currentCategory.id));
+        ref.watch(numberOfActiveTasksInCategoryProvider(currentCategory?.id));
+    final progress =
+        ref.watch(completionProgressProvider(currentCategory?.id ?? 0));
 
     final description = switch (activeTasksNumber) {
       0 => '$activeTasksNumber ${s.taskPlural}',
@@ -67,6 +69,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
       child: Scaffold(
         body: LayoutBuilder(
           builder: (context, constrains) {
+            if (currentCategory == null) {
+              return const CircularProgressIndicator();
+            }
             return Stack(
               alignment: Alignment.center,
               children: [
@@ -77,8 +82,8 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                       end: Alignment.bottomCenter,
                       colors: [
                         const Color(0xFF303030),
-                        categoryColor,
-                        categoryColor,
+                        currentCategory.color ?? Colors.deepPurple,
+                        currentCategory.color ?? Colors.deepPurple,
                       ],
                     ),
                   ),
@@ -124,7 +129,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                                   name: currentCategory.name,
                                   description: description,
                                   progress: progress,
-                                  color: categoryColor,
+                                  color: currentCategory.color,
                                   iconSize: 28,
                                   titleTextStyle:
                                       Theme.of(context).textTheme.titleLarge,

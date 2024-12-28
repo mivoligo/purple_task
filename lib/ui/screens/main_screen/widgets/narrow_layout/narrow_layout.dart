@@ -49,6 +49,8 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
         ref.watch(isUncategorizedViewPreferredProvider);
     if (isUncategorizedViewPreferred) {
       animationController.forward();
+    } else {
+      animationController.reverse();
     }
     return AnimatedBuilder(
       animation: animationController,

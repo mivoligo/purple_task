@@ -31,7 +31,7 @@ class CategoryNotifier extends _$CategoryNotifier {
 
   void update() {
     if (state != null) {
-      ref.read(categoriesNotifierProvider.notifier).update(category: state!);
+      // ref.read(categoriesNotifierProvider.notifier).update(category: state!);
     }
   }
 }

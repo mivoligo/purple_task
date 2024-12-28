@@ -20,8 +20,8 @@ class TaskMenu extends StatelessWidget {
     return Consumer(
       builder: (context, ref, _) {
         final categories = ref.watch(categoriesNotifierProvider);
-        final otherCategories =
-            categories.where((element) => element.id != task.categoryId);
+        final otherCategories = categories.valueOrNull
+            ?.where((element) => element.id != task.categoryId);
 
         return MenuAnchor(
           consumeOutsideTap: true,
@@ -77,7 +77,7 @@ class TaskMenu extends StatelessWidget {
               ],
               child: const Text('Set due date'),
             ),
-            if (otherCategories.isNotEmpty)
+            if (otherCategories != null && otherCategories.isNotEmpty)
               SubmenuButton(
                 menuChildren: [
                   ...otherCategories.map(
