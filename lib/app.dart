@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'constants/constants.dart';
-import 'constants/strings/strings.dart' as s;
-import 'ui/screens/redirect_screen.dart';
+import 'core/constants/custom_styles.dart';
+import 'core/constants/strings/strings.dart' as s;
+import 'core/ui/screens/redirect_screen.dart';
 
 class App extends StatelessWidget {
   @override

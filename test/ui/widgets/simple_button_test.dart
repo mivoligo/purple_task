@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:purple_task/ui/widgets/widgets.dart';
+import 'package:purple_task/core/ui/widgets/simple_button.dart';
 
 void main() {
   testWidgets('finds a FlatButton widget', (tester) async {
