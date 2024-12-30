@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-import '../../../core/constants/category_icons.dart';
-
+import 'package:purple_task/core/constants/category_icons.dart';
 
 class IconSelector extends StatefulWidget {
   const IconSelector({
     required this.selectedIcon,
     required this.onSelect,
+    super.key,
   });
 
   final int selectedIcon;

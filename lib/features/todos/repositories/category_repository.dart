@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
 
-import '../../../core/constants/hive_names.dart';
-import '../models/category.dart';
-import '../models/category_entity.dart';
-import 'base_category_repository.dart';
+import 'package:purple_task/core/constants/hive_names.dart';
+import 'package:purple_task/features/todos/models/category.dart';
+import 'package:purple_task/features/todos/models/category_entity.dart';
+import 'package:purple_task/features/todos/repositories/base_category_repository.dart';
 
 class CategoryRepository extends BaseCategoryRepository {
   final _categoryBox = Hive.box<CategoryEntity>(categoryBox);

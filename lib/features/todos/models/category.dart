@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import '../../../core/helpers.dart';
-import 'category_entity.dart';
+import 'package:purple_task/core/helpers.dart';
+import 'package:purple_task/features/todos/models/category_entity.dart';
 
 class Category extends Equatable {
   const Category({

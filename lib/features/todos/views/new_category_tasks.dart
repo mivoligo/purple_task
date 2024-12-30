@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/custom_styles.dart';
-import '../../../core/constants/strings/strings.dart' as s;
-import '../models/task.dart';
-import 'add_task_field.dart';
-import 'new_category_base.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/features/todos/models/task.dart';
+import 'package:purple_task/features/todos/views/add_task_field.dart';
+import 'package:purple_task/features/todos/views/new_category_base.dart';
 
 class NewCategoryTasks extends StatefulWidget {
-  NewCategoryTasks({
-    Key? key,
+  const NewCategoryTasks({
     required this.tasks,
     required this.name,
     required this.color,
@@ -16,12 +15,13 @@ class NewCategoryTasks extends StatefulWidget {
     required this.onNext,
     required this.selectedIcon,
     required this.focusNode,
-  }) : super(key: key);
+    super.key,
+  });
 
   final List<Task> tasks;
   final String name;
   final Color color;
-  final Function(String) onAddTask;
+  final void Function(String) onAddTask;
   final VoidCallback onNext;
   final int selectedIcon;
   final FocusNode focusNode;
@@ -51,7 +51,7 @@ class _NewCategoryTasksState extends State<NewCategoryTasks> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(8.0, 15.0, 32.0, 4.0),
+              padding: const EdgeInsets.fromLTRB(8, 15, 32, 4),
               child: Row(
                 children: [
                   Padding(
@@ -74,7 +74,7 @@ class _NewCategoryTasksState extends State<NewCategoryTasks> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 4.0),
+              padding: const EdgeInsets.fromLTRB(32, 16, 32, 4),
               child: AddTaskField(
                 onAddTask: (value) {
                   widget.onAddTask(value);
@@ -89,7 +89,7 @@ class _NewCategoryTasksState extends State<NewCategoryTasks> {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.all(2.0),
+              padding: EdgeInsets.all(2),
               child: Text(
                 s.taskSingularCapital,
                 textAlign: TextAlign.center,
@@ -98,19 +98,18 @@ class _NewCategoryTasksState extends State<NewCategoryTasks> {
             Expanded(
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 36.0, vertical: 8.0),
+                    const EdgeInsets.symmetric(horizontal: 36, vertical: 8),
                 child: Scrollbar(
                   controller: _scrollController,
                   child: ListView.separated(
                     controller: _scrollController,
                     itemCount: widget.tasks.length,
                     separatorBuilder: (context, index) =>
-                        const Divider(height: 6.0),
+                        const Divider(height: 6),
                     itemBuilder: (context, index) {
                       final reversedList = widget.tasks.toList();
                       return ListTile(
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 0),
+                        contentPadding: EdgeInsets.zero,
                         title: Text(reversedList[index].name),
                       );
                     },

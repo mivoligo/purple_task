@@ -1,8 +1,6 @@
+import 'package:purple_task/core/constants/hive_names.dart';
+import 'package:purple_task/features/settings/settings_repository/base_settings_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../core/constants/hive_names.dart';
-import 'base_settings_repository.dart';
-
 
 class SharedPrefSettingsRepository implements BaseSettingsRepository {
   SharedPrefSettingsRepository({required this.asyncPrefs});
@@ -10,7 +8,7 @@ class SharedPrefSettingsRepository implements BaseSettingsRepository {
   final SharedPreferencesAsync asyncPrefs;
 
   @override
-  void setDateFormat({required String value}) async {
+  Future<void> setDateFormat({required String value}) async {
     await asyncPrefs.setString(dateFormatKey, value);
   }
 
@@ -20,7 +18,7 @@ class SharedPrefSettingsRepository implements BaseSettingsRepository {
   }
 
   @override
-  void setTimeFormat({required String value}) async {
+  Future<void> setTimeFormat({required String value}) async {
     await asyncPrefs.setString(timeFormatKey, value);
   }
 
@@ -30,7 +28,7 @@ class SharedPrefSettingsRepository implements BaseSettingsRepository {
   }
 
   @override
-  void setDisplayTaskDoneTimePref({required bool value}) async {
+  Future<void> setDisplayTaskDoneTimePref({required bool value}) async {
     await asyncPrefs.setBool(displayTaskDonePrefKey, value);
   }
 
@@ -40,7 +38,7 @@ class SharedPrefSettingsRepository implements BaseSettingsRepository {
   }
 
   @override
-  void setUncategorizedViewPreference({required bool value}) async {
+  Future<void> setUncategorizedViewPreference({required bool value}) async {
     await asyncPrefs.setBool(uncategorizedViewPreferenceKey, value);
   }
 

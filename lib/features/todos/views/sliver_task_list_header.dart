@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
 
 class SliverTaskListHeader extends StatelessWidget {
   const SliverTaskListHeader({
-    Key? key,
     required this.title,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String title;
 

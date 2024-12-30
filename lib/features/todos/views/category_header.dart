@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/custom_styles.dart';
-import '../../../core/ui/widgets/animated_progress_bar.dart';
-import '../models/category.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/ui/widgets/animated_progress_bar.dart';
+import 'package:purple_task/features/todos/models/category.dart';
 
 class CategoryHeader extends StatelessWidget {
   const CategoryHeader({
-    Key? key,
     required this.title,
     required this.description,
     required this.progress,
     required this.color,
     required this.category,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String? title;
   final String description;
@@ -34,7 +34,7 @@ class CategoryHeader extends StatelessWidget {
                   fontFamily: 'AntIcons',
                   fontPackage: 'ant_icons',
                 ),
-                size: 42.0,
+                size: 42,
                 color: category.color,
               ),
             ),
@@ -49,7 +49,7 @@ class CategoryHeader extends StatelessWidget {
           description,
           style: CustomStyle.textStyleTaskName,
         ),
-        const SizedBox(height: 8.0),
+        const SizedBox(height: 8),
         Row(
           children: [
             Expanded(

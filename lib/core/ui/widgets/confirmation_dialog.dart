@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/custom_styles.dart';
-import '../../constants/strings/strings.dart' as s;
-import 'simple_button.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/core/ui/widgets/simple_button.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   const ConfirmationDialog({
-    Key? key,
     required this.title,
-    this.content,
     required this.confirmationText,
-    this.confirmationColor = Colors.green,
     required this.onConfirm,
+    super.key,
+    this.content,
+    this.confirmationColor = Colors.green,
     this.onCancel,
-  }) : super(key: key);
+  });
 
   final String title;
   final Widget? content;
@@ -27,20 +27,19 @@ class ConfirmationDialog extends StatelessWidget {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       contentPadding: const EdgeInsets.symmetric(
-        horizontal: 0.0,
-        vertical: 8.0,
+        vertical: 8,
       ),
       title: Text(
         title,
         style: CustomStyle.textStyle24,
       ),
       content: content,
-      buttonPadding: const EdgeInsets.all(16.0),
+      buttonPadding: const EdgeInsets.all(16),
       actions: [
         SimpleButton(
           text: s.cancel,
           onPressed: () {
-            if (onCancel != null) onCancel!();
+            onCancel?.call();
             Navigator.of(context).pop();
           },
         ),

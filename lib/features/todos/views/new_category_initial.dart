@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CategoryInitial extends StatelessWidget {
-  CategoryInitial({
-    Key? key,
+  const CategoryInitial({
     required this.color,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Color color;
 

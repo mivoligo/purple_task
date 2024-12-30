@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
+import 'package:purple_task/core/constants/hive_names.dart';
+import 'package:purple_task/features/todos/models/task.dart';
+import 'package:purple_task/features/todos/models/task_entity.dart';
+import 'package:purple_task/features/todos/repositories/base_task_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../../core/constants/hive_names.dart';
-import '../models/task.dart';
-import '../models/task_entity.dart';
-import 'base_task_repository.dart';
 
 part 'task_repository.g.dart';
 
@@ -15,10 +15,10 @@ class TaskRepository extends BaseTaskRepository {
   @override
   Future<Task> add({required Task task}) async {
     final autoincrementKey = await _taskBox.add(task.toEntity());
-    task = task.copyWith(id: autoincrementKey.toString());
+    return task.copyWith(id: autoincrementKey.toString());
     // final taskOrder = _tasksOrderBox.get(tasksListOrderKey);
     // taskOrder?[autoincrementKey.toString()] = autoincrementKey;
-    return task;
+    // return task;
   }
 
   @override
@@ -75,7 +75,7 @@ class TaskRepository extends BaseTaskRepository {
   Future<void> removeAllTasksForCategory(int categoryId) async {
     final matches =
         _taskBox.values.where((task) => task.categoryId == categoryId);
-    for (var task in matches) {
+    for (final task in matches) {
       // _tasksOrderBox.get(tasksListOrderKey)?.remove(task.key.toString());
       await task.delete();
     }
@@ -85,7 +85,7 @@ class TaskRepository extends BaseTaskRepository {
   Future<void> removeCompletedTasksForCategory(int categoryId) async {
     final matches = _taskBox.values
         .where((task) => task.categoryId == categoryId && task.isDone == true);
-    for (var task in matches) {
+    for (final task in matches) {
       // _tasksOrderBox.get(tasksListOrderKey)?.remove(task.key.toString());
       await task.delete();
     }

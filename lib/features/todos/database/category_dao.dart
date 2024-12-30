@@ -1,13 +1,13 @@
 import 'package:drift/drift.dart';
 
-import '../../../core/database/app_database.dart';
+import 'package:purple_task/core/database/app_database.dart';
 
 part 'category_dao.g.dart';
 
 @DriftAccessor(tables: [Categories])
 class CategoryDao extends DatabaseAccessor<AppDatabase>
     with _$CategoryDaoMixin {
-  CategoryDao(AppDatabase db) : super(db);
+  CategoryDao(super.db);
 
   Stream<List<Category>> watchAllCategories() => select(categories).watch();
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/constants/strings/strings.dart';
-import '../models/category.dart';
-import '../providers/providers.dart';
-import 'category_element_base.dart';
+import 'package:purple_task/core/constants/strings/strings.dart';
+import 'package:purple_task/features/todos/models/category.dart';
+import 'package:purple_task/features/todos/providers/providers.dart';
+import 'package:purple_task/features/todos/views/category_element_base.dart';
 
 class CategoryElement extends ConsumerWidget {
   const CategoryElement(this.category, {super.key});

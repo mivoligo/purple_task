@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../../features/todos/providers/providers.dart';
-import '../../../../constants/custom_styles.dart';
-import '../../../../constants/strings/strings.dart' as s;
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/features/todos/providers/providers.dart';
 
 class Greetings extends StatelessWidget {
-  const Greetings({Key? key}) : super(key: key);
+  const Greetings({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class Greetings extends StatelessWidget {
             fontWeight: FontWeight.w300,
           ),
         ),
-        const SizedBox(height: 8.0),
+        const SizedBox(height: 8),
         Consumer(
           builder: (context, ref, child) {
             final tasksNumber = ref.watch(numberOfAllActiveTasksProvider);

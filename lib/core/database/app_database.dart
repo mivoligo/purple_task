@@ -3,10 +3,8 @@ import 'package:drift_flutter/drift_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:purple_task/features/todos/database/category_dao.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../features/todos/database/category_dao.dart';
-
 
 part 'app_database.g.dart';
 

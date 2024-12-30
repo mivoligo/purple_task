@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../features/app_version/controllers/app_version_controller.dart';
-import 'main_screen/main_screen.dart';
+import 'package:purple_task/core/ui/screens/main_screen/main_screen.dart';
+import 'package:purple_task/features/app_version/controllers/app_version_controller.dart';
 
 class RedirectScreen extends ConsumerWidget {
   const RedirectScreen({super.key});
@@ -24,12 +23,12 @@ class RedirectScreen extends ConsumerWidget {
     return Container();
   }
 
-  Route _createRoute(int? appVersion) {
+  Route<void> _createRoute(int? appVersion) {
     Widget target() {
       if (appVersion == null) {
-        return MainScreen();
+        return const MainScreen();
       } else if (appVersion == 1) {
-        return MainScreen();
+        return const MainScreen();
       }
       return const Scaffold(
         body: Center(

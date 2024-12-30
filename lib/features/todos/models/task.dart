@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-import 'task_entity.dart';
+import 'package:purple_task/features/todos/models/task_entity.dart';
 
 class Task extends Equatable {
   const Task({
     required this.name,
-    this.isDone = false,
     required this.categoryId,
+    this.isDone = false,
     this.dueDate,
     this.doneTime,
     this.id,

@@ -1,14 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:purple_task/core/constants/category_colors.dart';
+import 'package:purple_task/features/todos/controllers/categories_controller.dart';
+import 'package:purple_task/features/todos/controllers/new_category_state.dart';
+import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
+import 'package:purple_task/features/todos/models/category.dart';
+import 'package:purple_task/features/todos/models/task.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../../core/constants/category_colors.dart';
-import '../models/category.dart';
-import '../models/task.dart';
-import 'categories_controller.dart';
-import 'new_category_state.dart';
-import 'tasks_controller.dart';
 
 part 'new_category_controller.g.dart';
 

@@ -1,6 +1,6 @@
+import 'package:purple_task/features/todos/models/category.dart';
+import 'package:purple_task/features/todos/repositories/drift_category_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../models/category.dart';
-import '../repositories/drift_category_repository.dart';
 
 part 'categories_controller.g.dart';
 

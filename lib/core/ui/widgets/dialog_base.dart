@@ -1,17 +1,17 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants/custom_styles.dart';
-import '../../constants/strings/strings.dart' as s;
-import 'icon_button.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/core/ui/widgets/icon_button.dart';
 
 class DialogBase extends StatefulWidget {
   const DialogBase({
-    Key? key,
     required this.title,
     required this.heroTag,
     required this.content,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String title;
   final String heroTag;
@@ -24,7 +24,7 @@ class DialogBase extends StatefulWidget {
 class _DialogBaseState extends State<DialogBase>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  late Animation _fadeAnimation;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
@@ -48,74 +48,72 @@ class _DialogBaseState extends State<DialogBase>
 
   @override
   Widget build(BuildContext context) {
-    final _appWidth = MediaQuery.sizeOf(context).width;
-    final _isWide = _appWidth > 600;
+    final appWidth = MediaQuery.sizeOf(context).width;
+    final isWide = appWidth > 600;
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                decoration: CustomStyle.standardBackground,
-              ),
-              Positioned(
-                width: _isWide ? 550 : _appWidth,
-                top: _isWide ? 50 : 0,
-                bottom: _isWide ? 50 : 0,
-                child: Hero(
-                  tag: widget.heroTag,
-                  child: Container(
-                    decoration: _isWide
-                        ? CustomStyle.dialogDecoration
-                        : const BoxDecoration(color: Color(0xFFEEEEEE)),
-                  ),
+        body: Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              decoration: CustomStyle.standardBackground,
+            ),
+            Positioned(
+              width: isWide ? 550 : appWidth,
+              top: isWide ? 50 : 0,
+              bottom: isWide ? 50 : 0,
+              child: Hero(
+                tag: widget.heroTag,
+                child: Container(
+                  decoration: isWide
+                      ? CustomStyle.dialogDecoration
+                      : const BoxDecoration(color: Color(0xFFEEEEEE)),
                 ),
               ),
-              Positioned(
-                width: _isWide ? 550 : _appWidth,
-                top: _isWide ? 50 : 0,
-                bottom: _isWide ? 50 : 0,
-                child: AnimatedBuilder(
-                  animation: _fadeAnimation,
-                  builder: (context, child) {
-                    return Opacity(
-                      opacity: _fadeAnimation.value,
-                      child: child,
-                    );
-                  },
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CustomIconButton(
-                              icon: const Icon(AntIcons.close),
-                              color: Colors.black,
-                              tooltip: s.close,
-                              onPressed: () {
-                                _animationController.reverse();
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            Text(
-                              widget.title,
-                              style: CustomStyle.textStyle24,
-                            ),
-                            const SizedBox(width: 40.0),
-                          ],
-                        ),
+            ),
+            Positioned(
+              width: isWide ? 550 : appWidth,
+              top: isWide ? 50 : 0,
+              bottom: isWide ? 50 : 0,
+              child: AnimatedBuilder(
+                animation: _fadeAnimation,
+                builder: (context, child) {
+                  return Opacity(
+                    opacity: _fadeAnimation.value,
+                    child: child,
+                  );
+                },
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomIconButton(
+                            icon: const Icon(AntIcons.close),
+                            color: Colors.black,
+                            tooltip: s.close,
+                            onPressed: () {
+                              _animationController.reverse();
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          Text(
+                            widget.title,
+                            style: CustomStyle.textStyle24,
+                          ),
+                          const SizedBox(width: 40),
+                        ],
                       ),
-                      const SizedBox(height: 32.0),
-                      widget.content,
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 32),
+                    widget.content,
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

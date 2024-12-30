@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/constants/strings/strings.dart' as s;
-import '../providers/providers.dart';
-import 'sliver_task_list_header.dart';
-import 'sliver_tasks_list.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/features/todos/providers/providers.dart';
+import 'package:purple_task/features/todos/views/sliver_task_list_header.dart';
+import 'package:purple_task/features/todos/views/sliver_tasks_list.dart';
 
 class AllTasks extends StatefulWidget {
   const AllTasks({
     required this.categoryId,
+    super.key,
     this.shrinkWrap = false,
   });
 

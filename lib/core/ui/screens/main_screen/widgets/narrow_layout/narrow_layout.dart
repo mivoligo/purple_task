@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../../../features/settings/controllers/settings/settings_controller.dart';
-import '../../../../../../features/settings/providers/providers.dart';
-import '../../../../../../features/todos/controllers/category_controller.dart';
-import '../../../../../../features/todos/views/add_category_button.dart';
-import '../../../../../../features/todos/views/category_list.dart';
-import '../../../../../../features/todos/views/uncategorized_tasks.dart';
-import '../../../../../constants/custom_styles.dart';
-import '../../../../widgets/simple_button.dart';
-import '../top_bar.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/ui/screens/main_screen/widgets/top_bar.dart';
+import 'package:purple_task/core/ui/widgets/simple_button.dart';
+import 'package:purple_task/features/settings/controllers/settings/settings_controller.dart';
+import 'package:purple_task/features/settings/providers/providers.dart';
+import 'package:purple_task/features/todos/controllers/category_controller.dart';
+import 'package:purple_task/features/todos/views/add_category_button.dart';
+import 'package:purple_task/features/todos/views/category_list.dart';
+import 'package:purple_task/features/todos/views/uncategorized_tasks.dart';
 
 class NarrowLayout extends ConsumerStatefulWidget {
   const NarrowLayout({super.key});
@@ -60,13 +59,13 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
         return Column(
           children: [
             const Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16),
               child: TopBar(),
             ),
             Expanded(
               flex: 1000 - flex.value + 1,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: DecoratedBox(
                   decoration: CustomStyle.uncategorizedTasksDecoration,
                   child: isUncategorizedViewPreferred
@@ -82,7 +81,7 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
                   : const CategoryList(shouldPushDetails: true),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

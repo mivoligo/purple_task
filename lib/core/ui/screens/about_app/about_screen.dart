@@ -1,13 +1,15 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants/custom_styles.dart';
-import '../../../constants/strings/strings.dart' as s;
-import '../../../helpers.dart';
-import '../../widgets/dialog_base.dart';
-import '../../widgets/simple_button.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/core/helpers.dart';
+import 'package:purple_task/core/ui/widgets/dialog_base.dart';
+import 'package:purple_task/core/ui/widgets/simple_button.dart';
 
 class AboutScreen extends StatelessWidget {
+  const AboutScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DialogBase(
@@ -15,7 +17,7 @@ class AboutScreen extends StatelessWidget {
       heroTag: 'about',
       content: Expanded(
         child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
           children: [
             Image.asset('assets/images/icon.png', height: 100),
             Text(
@@ -26,7 +28,7 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16),
               child: Text(
                 s.appDescription,
                 textAlign: TextAlign.center,
@@ -67,7 +69,7 @@ class AboutScreen extends StatelessWidget {
     );
   }
 
-  Future _showLicenseDialog(BuildContext context) {
+  Future<void> _showLicenseDialog(BuildContext context) {
     return showDialog(
       context: context,
       builder: (_) {

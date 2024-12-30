@@ -2,16 +2,16 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/custom_styles.dart';
-import '../../../core/constants/strings/strings.dart' as s;
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
 
 class AddTaskField extends StatefulWidget {
   const AddTaskField({
-    Key? key,
     required this.onAddTask,
-  }) : super(key: key);
+    super.key,
+  });
 
-  final Function(String) onAddTask;
+  final void Function(String) onAddTask;
 
   @override
   _AddTaskFieldState createState() => _AddTaskFieldState();
@@ -49,7 +49,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
       controller: _controller,
       focusNode: _focusNode,
       placeholder: s.addNewTask,
-      padding: const EdgeInsets.only(left: 20.0),
+      padding: const EdgeInsets.only(left: 20),
       style: CustomStyle.textStyleTaskName,
       suffix: IconButton(
         color: _hasText ? Colors.blue : Colors.grey,

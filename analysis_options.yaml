@@ -1,9 +1,5 @@
-include: package:effective_dart/analysis_options.yaml
-
+include: package:very_good_analysis/analysis_options.yaml
 linter:
   rules:
     public_member_api_docs: false
-    sort_constructors_first: true
-    prefer_const_constructors: true
-    require_trailing_commas: true
-    always_declare_return_types: true
+    library_private_types_in_public_api: false

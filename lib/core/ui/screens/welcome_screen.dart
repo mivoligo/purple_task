@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
-import '../../constants/hive_names.dart';
-import '../../migrator/migrator.dart';
-import '../../migrator/providers/providers.dart';
-import '../widgets/simple_button.dart';
-import 'main_screen/widgets/animated_background.dart';
+import 'package:purple_task/core/constants/hive_names.dart';
+import 'package:purple_task/core/migrator/migrator.dart';
+import 'package:purple_task/core/migrator/providers/providers.dart';
+import 'package:purple_task/core/ui/screens/main_screen/widgets/animated_background.dart';
+import 'package:purple_task/core/ui/widgets/simple_button.dart';
 
 class WelcomeScreen extends ConsumerWidget {
   const WelcomeScreen({this.appVersion, super.key});
@@ -22,7 +21,7 @@ class WelcomeScreen extends ConsumerWidget {
             SimpleButton(
               onPressed: () async {
                 if (await Hive.boxExists(settingsBox)) {
-                  ref
+                  await ref
                       .read(settingsMigratorProvider)
                       .migrateSettingsFromHiveToSharedPreferences();
                 }
@@ -32,7 +31,7 @@ class WelcomeScreen extends ConsumerWidget {
             SimpleButton(
               onPressed: () async {
                 if (await Hive.boxExists(categoryBox)) {
-                  ref
+                  await ref
                       .read(categoriesMigratorProvider)
                       .migrateCategoriesFromHiveToDrift();
                 }

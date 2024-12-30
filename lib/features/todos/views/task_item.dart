@@ -1,20 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../core/constants/strings/strings.dart' as s;
-import '../../../core/constants/custom_styles.dart';
-import '../../../core/helpers.dart';
-import '../../../core/ui/widgets/simple_button.dart';
-import '../../settings/controllers/settings/settings_controller.dart';
-import '../controllers/task_tile_controller.dart';
-import '../controllers/task_tile_state.dart';
-import '../controllers/tasks_controller.dart';
-import '../models/task.dart';
-import 'due_date_indicator.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/core/helpers.dart';
+import 'package:purple_task/core/ui/widgets/simple_button.dart';
+import 'package:purple_task/features/settings/controllers/settings/settings_controller.dart';
+import 'package:purple_task/features/todos/controllers/task_tile_controller.dart';
+import 'package:purple_task/features/todos/controllers/task_tile_state.dart';
+import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
+import 'package:purple_task/features/todos/models/task.dart';
+import 'package:purple_task/features/todos/views/due_date_indicator.dart';
 
 class TaskItem extends StatefulWidget {
-  const TaskItem({required this.task});
+  const TaskItem({required this.task, super.key});
 
   final Task task;
 
@@ -57,7 +56,7 @@ class _TaskItemState extends State<TaskItem> {
         return Row(
           children: [
             Padding(
-              padding: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.all(4),
               child: Checkbox(
                 value: widget.task.isDone,
                 activeColor: Colors.grey,
@@ -104,7 +103,7 @@ class _TaskItemState extends State<TaskItem> {
                                     tileController.showNameEditing();
                                   },
                                   child: Padding(
-                                    padding: const EdgeInsets.all(0.0),
+                                    padding: EdgeInsets.zero,
                                     child: Text(
                                       widget.task.name,
                                       style: widget.task.isDone
@@ -133,7 +132,7 @@ class _TaskItemState extends State<TaskItem> {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 4.0),
+                          padding: const EdgeInsets.only(bottom: 4),
                           child: Text(
                             '${s.completed}: ${TimeConverter.millisToDateAndTime(
                               widget.task.doneTime!,

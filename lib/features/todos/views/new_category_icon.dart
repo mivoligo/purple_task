@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/constants/custom_styles.dart';
-import '../../../core/constants/strings/strings.dart' as s;
-import '../controllers/new_category_controller.dart';
-import 'icon_selector.dart';
-import 'new_category_base.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/features/todos/controllers/new_category_controller.dart';
+import 'package:purple_task/features/todos/views/icon_selector.dart';
+import 'package:purple_task/features/todos/views/new_category_base.dart';
 
 class CategoryIcon extends ConsumerWidget {
-  CategoryIcon({
-    Key? key,
+  const CategoryIcon({
     required this.name,
     required this.color,
     required this.onNext,
     required this.selectedIcon,
     required this.focusNode,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String name;
   final Color color;
@@ -33,7 +33,7 @@ class CategoryIcon extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(8.0, 15.0, 32.0, 4.0),
+              padding: const EdgeInsets.fromLTRB(8, 15, 32, 4),
               child: Row(
                 children: [
                   Padding(
@@ -63,7 +63,7 @@ class CategoryIcon extends ConsumerWidget {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.all(2.0),
+              padding: EdgeInsets.all(2),
               child: Text(
                 s.icon,
                 textAlign: TextAlign.center,

@@ -1,5 +1,5 @@
+import 'package:ant_icons/icon_data.dart';
 import 'package:flutter/widgets.dart';
-import 'icon_data.dart';
 
 class AntIcons {
   static const IconData accountBook = AntIconData(0xe84b);

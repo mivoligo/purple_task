@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../../features/settings/controllers/settings/settings_controller.dart';
-import '../../../../constants/custom_styles.dart';
-import '../../../../constants/time_and_date_formats.dart';
-import '../../../../helpers.dart';
-import '../../../widgets/simple_button.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/time_and_date_formats.dart';
+import 'package:purple_task/core/helpers.dart';
+import 'package:purple_task/core/ui/widgets/simple_button.dart';
+import 'package:purple_task/features/settings/controllers/settings/settings_controller.dart';
 
 class DateFormatSelector extends StatelessWidget {
+  const DateFormatSelector({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer(

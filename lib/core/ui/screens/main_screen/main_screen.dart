@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-
-import '../../../../features/settings/models/app_window_size.dart';
-import '../../../../features/settings/models/app_window_size_plugin_based.dart';
-import 'widgets/animated_background.dart';
-import 'widgets/narrow_layout/narrow_layout.dart';
-import 'widgets/wide_layout/wide_layout.dart';
+import 'package:purple_task/core/ui/screens/main_screen/widgets/animated_background.dart';
+import 'package:purple_task/core/ui/screens/main_screen/widgets/narrow_layout/narrow_layout.dart';
+import 'package:purple_task/core/ui/screens/main_screen/widgets/wide_layout/wide_layout.dart';
+import 'package:purple_task/features/settings/models/app_window_size.dart';
+import 'package:purple_task/features/settings/models/app_window_size_plugin_based.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
-// ignore: prefer_mixin
 class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   final AppWindowSize _appWindowSize = AppWindowSizePluginBased();
   Size? _windowSize =

@@ -1,4 +1,4 @@
-import '../models/category.dart';
+import 'package:purple_task/features/todos/models/category.dart';
 
 abstract class BaseCategoryRepository {
   Future<int> add({required Category category});

@@ -1,18 +1,17 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../../../features/todos/controllers/category_controller.dart';
-import '../../../../../../features/todos/models/category.dart';
-import '../../../../../../features/todos/views/add_category_button.dart';
-import '../../../../../../features/todos/views/category_details.dart';
-import '../../../../../../features/todos/views/category_element.dart';
-import '../../../../../../features/todos/views/category_list.dart';
-import '../../../../../../features/todos/views/uncategorized_menu.dart';
-import '../../../../../../features/todos/views/uncategorized_tasks.dart';
-import '../../../../../constants/custom_styles.dart';
-import '../../../../../constants/strings/strings.dart';
-import '../top_bar.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart';
+import 'package:purple_task/core/ui/screens/main_screen/widgets/top_bar.dart';
+import 'package:purple_task/features/todos/controllers/category_controller.dart';
+import 'package:purple_task/features/todos/models/category.dart';
+import 'package:purple_task/features/todos/views/add_category_button.dart';
+import 'package:purple_task/features/todos/views/category_details.dart';
+import 'package:purple_task/features/todos/views/category_element.dart';
+import 'package:purple_task/features/todos/views/category_list.dart';
+import 'package:purple_task/features/todos/views/uncategorized_menu.dart';
+import 'package:purple_task/features/todos/views/uncategorized_tasks.dart';
 
 class WideLayout extends ConsumerWidget {
   const WideLayout({super.key});
@@ -24,7 +23,7 @@ class WideLayout extends ConsumerWidget {
     return Column(
       children: [
         const Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16),
           child: TopBar(),
         ),
         Expanded(
@@ -36,7 +35,7 @@ class WideLayout extends ConsumerWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
+                        horizontal: 16,
                         vertical: 8,
                       ),
                       child: _UncategorizedCard(
@@ -119,10 +118,10 @@ class _UncategorizedCard extends ConsumerWidget {
           child: Padding(
             padding: isSelected
                 ? const EdgeInsets.symmetric(
-                    vertical: 16.0,
+                    vertical: 16,
                     horizontal: 16,
                   )
-                : const EdgeInsets.all(8.0),
+                : const EdgeInsets.all(8),
             child: IntrinsicHeight(
               child: Row(
                 children: [

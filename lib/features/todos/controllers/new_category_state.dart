@@ -2,12 +2,12 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../models/task.dart';
+import 'package:purple_task/features/todos/models/task.dart';
 
 enum NewCategoryStatus { initial, name, color, icon, tasks }
 
 class NewCategoryState extends Equatable {
-  NewCategoryState({
+  const NewCategoryState({
     required this.id,
     required this.name,
     required this.color,
@@ -22,7 +22,7 @@ class NewCategoryState extends Equatable {
       name: '',
       color: Colors.purple,
       icon: AntIcons.folder.codePoint,
-      tasks: [],
+      tasks: const [],
       status: NewCategoryStatus.initial,
     );
   }

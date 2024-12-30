@@ -3,17 +3,17 @@ import 'dart:ui';
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../controllers/tasks_controller.dart';
-import '../models/task.dart';
-import 'task_item.dart';
-import 'task_menu.dart';
+import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
+import 'package:purple_task/features/todos/models/task.dart';
+import 'package:purple_task/features/todos/views/task_item.dart';
+import 'package:purple_task/features/todos/views/task_menu.dart';
 
 class SliverTasksList extends ConsumerWidget {
   const SliverTasksList({
-    Key? key,
     required this.list,
+    super.key,
     this.isOrderFixed = false,
-  }) : super(key: key);
+  });
 
   final List<Task> list;
   final bool isOrderFixed;
@@ -95,7 +95,7 @@ class SliverTasksList extends ConsumerWidget {
         if (oldIndex < newIndex) {
           newIndex -= 1;
           if (oldIndex == newIndex) {
-            // todo do sprawdzenia
+            // TODOdo sprawdzenia
             return;
           }
           affectedTasksKeyList.addAll(

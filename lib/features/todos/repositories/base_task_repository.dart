@@ -1,4 +1,4 @@
-import '../models/task.dart';
+import 'package:purple_task/features/todos/models/task.dart';
 
 abstract class BaseTaskRepository {
   Future<Task> add({required Task task});

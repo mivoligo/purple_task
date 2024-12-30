@@ -3,19 +3,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/constants/strings/strings.dart' as s;
-import '../../../core/ui/widgets/confirmation_dialog.dart';
-import '../controllers/categories_controller.dart';
-import '../controllers/category_controller.dart';
-import '../controllers/tasks_controller.dart';
-import '../models/category.dart';
-import 'color_selector.dart';
-import 'icon_selector.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/core/ui/widgets/confirmation_dialog.dart';
+import 'package:purple_task/features/todos/controllers/categories_controller.dart';
+import 'package:purple_task/features/todos/controllers/category_controller.dart';
+import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
+import 'package:purple_task/features/todos/models/category.dart';
+import 'package:purple_task/features/todos/views/color_selector.dart';
+import 'package:purple_task/features/todos/views/icon_selector.dart';
 
 class CategoryMenu extends ConsumerStatefulWidget {
   const CategoryMenu({
     required this.category,
     required this.canDeleteCategory,
+    super.key,
     this.iconSize,
   });
 
@@ -42,32 +43,32 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
       consumeOutsideTap: true,
       menuChildren: [
         MenuItemButton(
-          child: const Text(s.deleteCompleted),
           onPressed: onDeleteCompletedTasks,
+          child: const Text(s.deleteCompleted),
         ),
         MenuItemButton(
-          child: const Text(s.deleteAllTasks),
           onPressed: onDeleteAllTasks,
+          child: const Text(s.deleteAllTasks),
         ),
         const PopupMenuDivider(),
         if (widget.canDeleteCategory) ...[
           MenuItemButton(
-            child: const Text(s.deleteCategory),
             onPressed: onDeleteCategory,
+            child: const Text(s.deleteCategory),
           ),
           const PopupMenuDivider(),
         ],
         MenuItemButton(
-          child: const Text(s.changeName),
           onPressed: onChangeName,
+          child: const Text(s.changeName),
         ),
         MenuItemButton(
-          child: const Text(s.changeColor),
           onPressed: onChangeColor,
+          child: const Text(s.changeColor),
         ),
         MenuItemButton(
-          child: const Text(s.changeIcon),
           onPressed: onChangeIcon,
+          child: const Text(s.changeIcon),
         ),
       ],
       builder: (context, controller, child) {
@@ -94,13 +95,13 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
 
   void onDeleteCompletedTasks() {
     final category = ref.watch(categoryNotifierProvider)!;
-    showDialog(
+    showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (_) => ConfirmationDialog(
         title: s.questionDeleteCompleted,
         content: const Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: EdgeInsets.all(24),
           child: Text(s.infoDeleteCompleted),
         ),
         confirmationText: s.delete,
@@ -116,13 +117,13 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
 
   void onDeleteAllTasks() {
     final category = ref.watch(categoryNotifierProvider)!;
-    showDialog(
+    showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (_) => ConfirmationDialog(
         title: s.questionDeleteAll,
         content: const Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: EdgeInsets.all(24),
           child: Text(s.infoDeleteAll),
         ),
         confirmationText: s.delete,
@@ -136,13 +137,13 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
 
   void onDeleteCategory() {
     final category = ref.watch(categoryNotifierProvider)!;
-    showDialog(
+    showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (_) => ConfirmationDialog(
         title: s.questionDeleteCategory,
         content: const Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: EdgeInsets.all(24),
           child: Text(s.infoDeleteCategory),
         ),
         confirmationText: s.delete,
@@ -163,7 +164,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
 
   void onChangeName() {
     final category = ref.watch(categoryNotifierProvider)!;
-    showDialog(
+    showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (_) {
@@ -171,7 +172,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
         return ConfirmationDialog(
           title: s.questionChangeName,
           content: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(24),
             child: CupertinoTextField(
               controller: textController,
               autofocus: true,
@@ -182,14 +183,14 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
             ),
           ),
           confirmationText: s.save,
-          onConfirm: textController.text.isNotEmpty ? updateName : () => null,
+          onConfirm: textController.text.isNotEmpty ? updateName : () {},
         );
       },
     );
   }
 
   void onChangeColor() {
-    showDialog(
+    showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (_) {
@@ -207,7 +208,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                       height: 20,
                       color: color,
                     ),
-                    const SizedBox(height: 16.0),
+                    const SizedBox(height: 16),
                     Expanded(
                       child: ColorSelector(
                         selectedColor: color,
@@ -229,7 +230,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
   }
 
   void onChangeIcon() {
-    showDialog(
+    showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (context) {
@@ -253,15 +254,13 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                       color: category.color,
                       size: 28,
                     ),
-                    const SizedBox(height: 16.0),
+                    const SizedBox(height: 16),
                     Expanded(
-                      child: Container(
-                        child: IconSelector(
-                          selectedIcon: icon,
-                          onSelect: ref
-                              .read(categoryNotifierProvider.notifier)
-                              .changeIcon,
-                        ),
+                      child: IconSelector(
+                        selectedIcon: icon,
+                        onSelect: ref
+                            .read(categoryNotifierProvider.notifier)
+                            .changeIcon,
                       ),
                     ),
                   ],

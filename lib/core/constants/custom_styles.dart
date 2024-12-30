@@ -14,33 +14,33 @@ class CustomStyle {
 
   static const categoryCardDecoration = BoxDecoration(
     color: Colors.white,
-    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+    borderRadius: BorderRadius.all(Radius.circular(12)),
     boxShadow: [
       BoxShadow(
-        color: Color(0xff45000000),
-        offset: Offset(0.0, 4.0),
-        blurRadius: 8.0,
+        color: Color(0x45000000),
+        offset: Offset(0, 4),
+        blurRadius: 8,
       ),
     ],
   );
 
   static const inputDecoration = BoxDecoration(
     color: Color(0xFFFAFAFA),
-    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+    borderRadius: BorderRadius.all(Radius.circular(8)),
     boxShadow: [
-      BoxShadow(color: Color(0xFFE0E0E0), offset: Offset(0.0, -1.0)),
-      BoxShadow(color: Colors.white, offset: Offset(0.0, 1.0)),
+      BoxShadow(color: Color(0xFFE0E0E0), offset: Offset(0, -1)),
+      BoxShadow(color: Colors.white, offset: Offset(0, 1)),
     ],
   );
 
   static const dialogDecoration = BoxDecoration(
     color: Color(0xFFEEEEEE),
-    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+    borderRadius: BorderRadius.all(Radius.circular(12)),
     boxShadow: [
       BoxShadow(
-        color: Color(0xff45000000),
-        offset: Offset(0.0, 4.0),
-        blurRadius: 8.0,
+        color: Color(0x45000000),
+        offset: Offset(0, 4),
+        blurRadius: 8,
       ),
     ],
   );
@@ -57,13 +57,13 @@ class CustomStyle {
 
   static const textStyleTitle = TextStyle(
     color: Color(0xFF616161),
-    fontSize: 18.0,
+    fontSize: 18,
     fontWeight: FontWeight.w400,
   );
 
   static const textStyle24 = TextStyle(
     color: Colors.black,
-    fontSize: 24.0,
+    fontSize: 24,
     fontWeight: FontWeight.w400,
   );
 
@@ -74,22 +74,22 @@ class CustomStyle {
 
   static const textStyleTaskName = TextStyle(
     color: Colors.black,
-    fontSize: 16.0,
+    fontSize: 16,
     fontWeight: FontWeight.w500,
   );
 
   static const textStyleTaskFilter = TextStyle(
     color: Colors.black,
-    fontSize: 16.0,
+    fontSize: 16,
   );
 
   static const textStyleWarning = TextStyle(
     color: Colors.red,
-    fontSize: 16.0,
+    fontSize: 16,
   );
 
   static const textStyleLabelSmall = TextStyle(
     color: Color(0xFF333333),
-    fontSize: 12.0,
+    fontSize: 12,
   );
 }

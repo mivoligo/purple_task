@@ -2,13 +2,12 @@ import 'dart:ui';
 
 import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:purple_task/core/database/app_database.dart' as db;
+import 'package:purple_task/core/helpers.dart';
+import 'package:purple_task/features/todos/database/category_dao.dart';
+import 'package:purple_task/features/todos/models/category.dart';
+import 'package:purple_task/features/todos/repositories/base_category_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../../core/database/app_database.dart' as db;
-import '../../../core/helpers.dart';
-import '../database/category_dao.dart';
-import '../models/category.dart';
-import 'base_category_repository.dart';
 
 part 'drift_category_repository.g.dart';
 
@@ -49,12 +48,12 @@ class DriftCategoryRepository implements BaseCategoryRepository {
 
   @override
   void reorder({required int oldIndex, required int newIndex}) {
-    // TODO: implement reorder
+    // TODO(m): implement reorder
   }
 
   @override
   Future<Category> update({required Category category}) {
-    // TODO: implement update
+    // TODO(m): implement update
     throw UnimplementedError();
   }
 }

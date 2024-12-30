@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:purple_task/features/settings/controllers/settings/settings_controller.dart';
+import 'package:purple_task/features/todos/models/category.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../settings/controllers/settings/settings_controller.dart';
-import '../models/category.dart';
 
 part 'category_controller.g.dart';
 
@@ -14,7 +14,7 @@ class CategoryNotifier extends _$CategoryNotifier {
     state = category;
     ref
         .read(settingsNotifierProvider.notifier)
-        .setUncategorizedViewPreference(value: category == null ? true : false);
+        .setUncategorizedViewPreference(value: category == null);
   }
 
   void changeColor(Color color) {

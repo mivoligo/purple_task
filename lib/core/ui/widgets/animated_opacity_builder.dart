@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class AnimatedOpacityBuilder extends StatelessWidget {
   const AnimatedOpacityBuilder({
-    Key? key,
     required this.animation,
     required this.content,
-  }) : super(key: key);
+    super.key,
+  });
 
-  final Animation animation;
+  final Animation<double> animation;
   final Widget content;
 
   @override

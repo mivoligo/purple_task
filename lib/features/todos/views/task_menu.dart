@@ -1,18 +1,17 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../core/constants/strings/strings.dart' as s;
-import '../../../core/constants/custom_styles.dart';
-import '../controllers/categories_controller.dart';
-import '../controllers/tasks_controller.dart';
-import '../models/task.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/features/todos/controllers/categories_controller.dart';
+import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
+import 'package:purple_task/features/todos/models/task.dart';
 
 class TaskMenu extends StatelessWidget {
   const TaskMenu({
-    Key? key,
     required this.task,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Task task;
 
@@ -30,7 +29,7 @@ class TaskMenu extends StatelessWidget {
             MenuItemButton(
               child: const Text(
                 s.delete,
-                style: CustomStyle.textStyleWarning, // todo style font size
+                style: CustomStyle.textStyleWarning, // TODOstyle font size
               ),
               onPressed: () =>
                   ref.read(tasksNotifierProvider.notifier).remove(task: task),
@@ -140,7 +139,7 @@ class TaskMenu extends StatelessWidget {
     );
   }
 
-  void useSelectedDate(BuildContext context, WidgetRef ref) async {
+  Future<void> useSelectedDate(BuildContext context, WidgetRef ref) async {
     final dueDateDate = task.dueDate != null
         ? DateTime.fromMillisecondsSinceEpoch(task.dueDate!)
         : DateTime.now();
@@ -156,7 +155,7 @@ class TaskMenu extends StatelessWidget {
     if (selectedDate != null) {
       final updatedTask =
           task.copyWith(dueDate: () => selectedDate.millisecondsSinceEpoch);
-      ref.read(tasksNotifierProvider.notifier).update(task: updatedTask);
+      await ref.read(tasksNotifierProvider.notifier).update(task: updatedTask);
     }
   }
 }

@@ -2,13 +2,14 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/constants/strings/strings.dart' as s;
-import '../../../core/ui/widgets/confirmation_dialog.dart';
-import '../controllers/category_controller.dart';
-import '../controllers/tasks_controller.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/core/ui/widgets/confirmation_dialog.dart';
+import 'package:purple_task/features/todos/controllers/category_controller.dart';
+import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
 
 class UncategorizedMenu extends ConsumerWidget {
   const UncategorizedMenu({
+    super.key,
     this.iconSize,
   });
 
@@ -51,13 +52,13 @@ class UncategorizedMenu extends ConsumerWidget {
   }
 
   void _onDeleteCompletedTasks(BuildContext context, WidgetRef ref) {
-    showDialog(
+    showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (_) => ConfirmationDialog(
         title: s.questionDeleteCompleted,
         content: const Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: EdgeInsets.all(24),
           child: Text(s.infoDeleteCompleted),
         ),
         confirmationText: s.delete,
@@ -72,13 +73,13 @@ class UncategorizedMenu extends ConsumerWidget {
   }
 
   void _onDeleteAllTasks(BuildContext context, WidgetRef ref) {
-    showDialog(
+    showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (_) => ConfirmationDialog(
         title: s.questionDeleteAll,
         content: const Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: EdgeInsets.all(24),
           child: Text(s.infoDeleteAll),
         ),
         confirmationText: s.delete,

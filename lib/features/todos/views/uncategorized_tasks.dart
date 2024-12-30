@@ -2,18 +2,18 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/constants/custom_styles.dart';
-import '../../../core/constants/strings/strings.dart' as s;
-import '../controllers/tasks_controller.dart';
-import '../models/task.dart';
-import '../providers/providers.dart';
-import 'add_task_field.dart';
-import 'all_tasks.dart';
-import 'completed_tasks.dart';
-import 'planned_tasks.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
+import 'package:purple_task/features/todos/models/task.dart';
+import 'package:purple_task/features/todos/providers/providers.dart';
+import 'package:purple_task/features/todos/views/add_task_field.dart';
+import 'package:purple_task/features/todos/views/all_tasks.dart';
+import 'package:purple_task/features/todos/views/completed_tasks.dart';
+import 'package:purple_task/features/todos/views/planned_tasks.dart';
 
 class UncategorizedTasks extends ConsumerStatefulWidget {
-  const UncategorizedTasks();
+  const UncategorizedTasks({super.key});
 
   @override
   ConsumerState<UncategorizedTasks> createState() => _UncategorizedTasksState();
@@ -38,23 +38,23 @@ class _UncategorizedTasksState extends ConsumerState<UncategorizedTasks> {
                 navigationIndex = index;
               });
             },
-            destinations: [
-              const NavigationDestination(
+            destinations: const [
+              NavigationDestination(
                 label: s.toDo,
                 icon: Icon(AntIcons.edit),
               ),
-              const NavigationDestination(
+              NavigationDestination(
                 label: s.all,
                 icon: Icon(AntIcons.profile),
               ),
-              const NavigationDestination(
+              NavigationDestination(
                 label: s.completed,
                 icon: Icon(AntIcons.checkCircle),
               ),
             ],
           ),
         const Padding(
-          padding: EdgeInsets.all(4.0),
+          padding: EdgeInsets.all(4),
           child: Text(
             s.noCategory,
             style: CustomStyle.textStyleTaskFilter,
@@ -62,7 +62,7 @@ class _UncategorizedTasksState extends ConsumerState<UncategorizedTasks> {
         ),
         Expanded(child: _buildTasksList()),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: AddTaskField(
             onAddTask: (value) {
               final task = Task(

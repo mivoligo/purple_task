@@ -63,7 +63,7 @@ const String questionChangeColor = 'Change color of category';
 const String questionChangeIcon = 'Change icon of category';
 // settings
 const String settings = 'Settings';
-const String displayTimeCompleted = 'Display task\'s completion time';
+const String displayTimeCompleted = "Display task's completion time";
 const String timeFormat = 'Time format';
 const String dateFormat = 'Date format';
 const String changeFormat = 'Change format';

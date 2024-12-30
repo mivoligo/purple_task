@@ -2,15 +2,15 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/helpers.dart';
-import '../../settings/controllers/settings/settings_controller.dart';
-import '../models/task.dart';
+import 'package:purple_task/core/helpers.dart';
+import 'package:purple_task/features/settings/controllers/settings/settings_controller.dart';
+import 'package:purple_task/features/todos/models/task.dart';
 
 class DueDateIndicator extends StatelessWidget {
   const DueDateIndicator({
-    Key? key,
     required this.task,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Task task;
 

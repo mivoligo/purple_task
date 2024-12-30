@@ -1,7 +1,5 @@
+import 'package:purple_task/core/constants/hive_names.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../core/constants/hive_names.dart';
-
 
 class AppVersionRepository {
   AppVersionRepository({required this.asyncPrefs});
@@ -14,9 +12,9 @@ class AppVersionRepository {
     final currentVersion = await getAppVersion();
 
     if (currentVersion == null) {
-      asyncPrefs.setInt(appVersionKey, 1);
+      await asyncPrefs.setInt(appVersionKey, 1);
     } else {
-      asyncPrefs.setInt(appVersionKey, currentVersion + 1);
+      await asyncPrefs.setInt(appVersionKey, currentVersion + 1);
     }
   }
 }

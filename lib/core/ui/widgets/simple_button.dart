@@ -61,9 +61,8 @@ class SimpleButton extends StatelessWidget {
         ),
         shape: RoundedRectangleBorder(
           borderRadius: const BorderRadius.all(Radius.circular(6)),
-          side: isOutlined
-              ? BorderSide(width: 1, color: foregroundColor)
-              : BorderSide.none,
+          side:
+              isOutlined ? BorderSide(color: foregroundColor) : BorderSide.none,
         ),
       ),
       child: child(),

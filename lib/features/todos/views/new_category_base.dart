@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/custom_styles.dart';
-import '../../../core/constants/strings/strings.dart' as s;
-import '../../../core/ui/widgets/simple_button.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/core/ui/widgets/simple_button.dart';
 
 class NewCategoryBase extends StatelessWidget {
-  NewCategoryBase({
-    Key? key,
+  const NewCategoryBase({
     required this.customWidget,
     required this.color,
-    this.onSubmitted,
     required this.onNext,
-    // required this.onCancel,
+    required this.focusNode,
+    super.key,
     this.textEditingController,
     this.okButtonText = s.next,
-    required this.focusNode,
-  }) : super(key: key);
+  });
 
   final Widget customWidget;
   final Color color;
-  final Function? onSubmitted;
   final VoidCallback onNext;
-  // final VoidCallback onCancel;
   final TextEditingController? textEditingController;
   final String okButtonText;
   final FocusNode focusNode;
@@ -59,7 +55,7 @@ class NewCategoryBase extends StatelessWidget {
                   child: Column(
                     children: [
                       const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                        padding: EdgeInsets.symmetric(vertical: 8),
                         child: Text(
                           s.newCategory,
                           style: CustomStyle.textStyleTitle,
@@ -67,7 +63,7 @@ class NewCategoryBase extends StatelessWidget {
                       ),
                       customWidget,
                       Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(12),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

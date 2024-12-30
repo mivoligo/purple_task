@@ -1,17 +1,15 @@
 import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
+import 'package:purple_task/core/constants/hive_names.dart';
+import 'package:purple_task/core/database/app_database.dart' as db;
+import 'package:purple_task/core/helpers.dart';
+import 'package:purple_task/features/todos/database/category_dao.dart';
+import 'package:purple_task/features/todos/models/category.dart';
+import 'package:purple_task/features/todos/models/category_entity.dart';
+import 'package:purple_task/features/todos/repositories/drift_category_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
-import '../../../core/database/app_database.dart' as db;
-import '../../features/todos/database/category_dao.dart';
-import '../../features/todos/models/category.dart';
-import '../../features/todos/models/category_entity.dart';
-import '../../features/todos/repositories/drift_category_repository.dart';
-import '../constants/hive_names.dart';
-import '../helpers.dart';
 
 part 'migrator.g.dart';
 
@@ -23,7 +21,7 @@ class SettingsMigrator {
 
   final SharedPreferencesAsync asyncPrefs;
 
-  final Box settingsBox;
+  final Box<dynamic> settingsBox;
 
   Future<void> migrateSettingsFromHiveToSharedPreferences() async {
     await Future.wait([
@@ -40,7 +38,7 @@ class SettingsMigrator {
     if (currentSetting == null) {
       return;
     }
-    await asyncPrefs.setString(dateFormatKey, currentSetting);
+    await asyncPrefs.setString(dateFormatKey, currentSetting as String);
   }
 
   Future<void> _migrateTimeFormat() async {
@@ -48,7 +46,7 @@ class SettingsMigrator {
     if (currentSetting == null) {
       return;
     }
-    await asyncPrefs.setString(timeFormatKey, currentSetting);
+    await asyncPrefs.setString(timeFormatKey, currentSetting as String);
   }
 
   Future<void> _migrateDisplayTaskDoneTimePref() async {
@@ -56,7 +54,7 @@ class SettingsMigrator {
     if (currentSetting == null) {
       return;
     }
-    await asyncPrefs.setBool(displayTaskDonePrefKey, currentSetting);
+    await asyncPrefs.setBool(displayTaskDonePrefKey, currentSetting as bool);
   }
 }
 
@@ -76,7 +74,7 @@ class CategoriesMigrator {
       ..sort((a, b) => a.id.compareTo(b.id));
 
     for (final category in currentCategories) {
-      categoryDao.addCategory(
+      await categoryDao.addCategory(
         db.CategoriesCompanion(
           id: Value(category.id),
           name: Value(category.name),

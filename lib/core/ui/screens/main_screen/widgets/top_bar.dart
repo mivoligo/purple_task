@@ -1,9 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-
-import '../../../widgets/icon_button.dart';
-import '../../screens.dart';
-import 'greetings.dart';
+import 'package:purple_task/core/ui/screens/main_screen/widgets/greetings.dart';
+import 'package:purple_task/core/ui/screens/screens.dart';
+import 'package:purple_task/core/ui/widgets/icon_button.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({super.key});
@@ -24,7 +23,7 @@ class TopBar extends StatelessWidget {
           child: CustomIconButton(
             icon: const Icon(AntIcons.infoCircle),
             onPressed: () => Navigator.of(context).push(
-              _createRoute(AboutScreen()),
+              _createRoute(const AboutScreen()),
             ),
           ),
         ),
@@ -34,7 +33,7 @@ class TopBar extends StatelessWidget {
           child: CustomIconButton(
             icon: const Icon(AntIcons.setting),
             onPressed: () => Navigator.of(context).push(
-              _createRoute(Settings()),
+              _createRoute(const Settings()),
             ),
           ),
         ),
@@ -43,7 +42,7 @@ class TopBar extends StatelessWidget {
   }
 }
 
-Route _createRoute(Widget target) {
+Route<void> _createRoute(Widget target) {
   return PageRouteBuilder(
     pageBuilder: (context, anim1, anim2) => target,
     transitionsBuilder: (context, anim1, anim2, child) {

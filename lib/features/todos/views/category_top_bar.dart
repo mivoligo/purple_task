@@ -1,17 +1,17 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/strings/strings.dart' as s;
-import '../../../core/ui/widgets/icon_button.dart';
-import '../models/category.dart';
-import 'category_menu.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/core/ui/widgets/icon_button.dart';
+import 'package:purple_task/features/todos/models/category.dart';
+import 'package:purple_task/features/todos/views/category_menu.dart';
 
 class CategoryTopBar extends StatelessWidget {
   const CategoryTopBar({
-    Key? key,
     required this.onClose,
     required this.category,
-  }) : super(key: key);
+    super.key,
+  });
 
   final VoidCallback onClose;
   final Category category;

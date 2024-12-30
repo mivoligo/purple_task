@@ -3,18 +3,22 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/constants/custom_styles.dart';
-import '../../../core/constants/strings/strings.dart' as s;
-import '../../../core/ui/widgets/animated_opacity_builder.dart';
-import '../controllers/categories_controller.dart';
-import '../models/category.dart';
-import '../providers/providers.dart';
-import 'category_details.dart';
-import 'category_element_base.dart';
-import 'category_top_bar.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/core/ui/widgets/animated_opacity_builder.dart';
+import 'package:purple_task/features/todos/controllers/categories_controller.dart';
+import 'package:purple_task/features/todos/models/category.dart';
+import 'package:purple_task/features/todos/providers/providers.dart';
+import 'package:purple_task/features/todos/views/category_details.dart';
+import 'package:purple_task/features/todos/views/category_element_base.dart';
+import 'package:purple_task/features/todos/views/category_top_bar.dart';
 
 class CategoryScreen extends ConsumerStatefulWidget {
-  const CategoryScreen({required this.category, required this.heroId});
+  const CategoryScreen({
+    required this.category,
+    required this.heroId,
+    super.key,
+  });
 
   final int heroId;
   final Category category;
@@ -26,7 +30,7 @@ class CategoryScreen extends ConsumerStatefulWidget {
 class _CategoryScreenState extends ConsumerState<CategoryScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  late Animation _fadeAnimation;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
@@ -90,7 +94,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                   ),
                 ),
                 Positioned(
-                  width: math.min((constrains.maxWidth - 24), 600),
+                  width: math.min(constrains.maxWidth - 24, 600),
                   top: 12,
                   bottom: 12,
                   child: Hero(
@@ -101,7 +105,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                   ),
                 ),
                 Positioned(
-                  width: math.min((constrains.maxWidth - 24), 600),
+                  width: math.min(constrains.maxWidth - 24, 600),
                   top: 12,
                   bottom: 12,
                   child: AnimatedOpacityBuilder(
@@ -110,9 +114,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            left: 8.0,
-                            top: 8.0,
-                            right: 8.0,
+                            left: 8,
+                            top: 8,
+                            right: 8,
                           ),
                           child: CategoryTopBar(
                             onClose: () => _animationController.reverse(),

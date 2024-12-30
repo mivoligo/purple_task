@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class AnimatedProgressBar extends StatelessWidget {
   const AnimatedProgressBar({
-    Key? key,
     required this.color,
     required this.value,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Color color;
   final double value;
@@ -14,16 +14,16 @@ class AnimatedProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey[300],
-      height: 4.0,
+      height: 4,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final _width = constraints.constrainWidth();
+          final width = constraints.constrainWidth();
           return Row(
             children: [
               AnimatedContainer(
                 duration: const Duration(milliseconds: 120),
-                width: value * _width,
-                height: 4.0,
+                width: value * width,
+                height: 4,
                 color: color,
               ),
             ],

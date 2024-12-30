@@ -1,9 +1,8 @@
 import 'dart:ui';
 
 import 'package:intl/intl.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:url_launcher/url_launcher.dart';
-
-import 'constants/strings/strings.dart' as s;
 
 extension DateTimeExtensions on DateTime {
   bool get isBeforeYesterday {
@@ -79,7 +78,7 @@ mixin TimeConverter {
     final date = DateFormat(dateFormat).format(localDateTime);
     final time = DateFormat(timeFormat).format(localDateTime);
     if (input.millisToDay().isToday || input.millisToDay().isYesterday) {
-      return '$time';
+      return time;
     }
     return '$date, $time';
   }

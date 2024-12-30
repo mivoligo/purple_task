@@ -2,13 +2,14 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-import '../../../core/constants/category_colors.dart';
-import '../../../core/helpers.dart';
+import 'package:purple_task/core/constants/category_colors.dart';
+import 'package:purple_task/core/helpers.dart';
 
 class ColorSelector extends StatefulWidget {
   const ColorSelector({
     required this.selectedColor,
     required this.onSelect,
+    super.key,
   });
 
   final Color selectedColor;

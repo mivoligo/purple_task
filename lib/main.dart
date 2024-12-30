@@ -3,24 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
-import 'app.dart';
-import 'core/constants/hive_names.dart';
-import 'features/todos/models/category_entity.dart';
-import 'features/todos/models/task_entity.dart';
+import 'package:purple_task/app.dart';
+import 'package:purple_task/core/constants/hive_names.dart';
+import 'package:purple_task/features/todos/models/category_entity.dart';
+import 'package:purple_task/features/todos/models/task_entity.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await _initHive();
 
-  // todo: Set app window size
+  // TODO(m): Set app window size
 
   runApp(
     ProviderScope(
       observers: [
         MyObserver(),
       ],
-      child: App(),
+      child: const App(),
     ),
   );
 }
@@ -33,7 +33,7 @@ Future<void> _initHive() async {
     ..registerAdapter(TaskEntityAdapter());
 
   if (await Hive.boxExists(settingsBox)) {
-    await Hive.openBox(settingsBox);
+    await Hive.openBox<dynamic>(settingsBox);
   }
   if (await Hive.boxExists(categoryBox)) {
     await Hive.openBox<CategoryEntity>(categoryBox);

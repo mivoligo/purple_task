@@ -5,11 +5,11 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../controllers/categories_controller.dart';
-import '../controllers/category_controller.dart';
-import 'category_element.dart';
-import 'category_menu.dart';
-import 'category_screen.dart';
+import 'package:purple_task/features/todos/controllers/categories_controller.dart';
+import 'package:purple_task/features/todos/controllers/category_controller.dart';
+import 'package:purple_task/features/todos/views/category_element.dart';
+import 'package:purple_task/features/todos/views/category_menu.dart';
+import 'package:purple_task/features/todos/views/category_screen.dart';
 
 class CategoryList extends ConsumerWidget {
   const CategoryList({
@@ -47,7 +47,7 @@ class CategoryList extends ConsumerWidget {
             child: Card(
               elevation: elevation,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: IntrinsicHeight(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,13 +81,13 @@ class CategoryList extends ConsumerWidget {
             !shouldPushDetails && currentCategoryInList == category;
         return Padding(
           key: Key(index.toString()),
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 8),
           child: InkWell(
             onTap: () {
               currentCategoryNotifier.setCurrentCategory(category);
               if (shouldPushDetails) {
                 Navigator.of(context).push(
-                  PageRouteBuilder(
+                  PageRouteBuilder<void>(
                     pageBuilder: (context, anim1, anim2) =>
                         CategoryScreen(category: category, heroId: category.id),
                     transitionsBuilder: (context, anim1, anim2, child) {
@@ -120,10 +120,10 @@ class CategoryList extends ConsumerWidget {
                   child: Padding(
                     padding: needsDecoration
                         ? const EdgeInsets.symmetric(
-                            vertical: 16.0,
+                            vertical: 16,
                             horizontal: 16,
                           )
-                        : const EdgeInsets.all(8.0),
+                        : const EdgeInsets.all(8),
                     child: IntrinsicHeight(
                       child: Row(
                         children: [

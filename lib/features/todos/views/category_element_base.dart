@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/ui/widgets/animated_progress_bar.dart';
-
+import 'package:purple_task/core/ui/widgets/animated_progress_bar.dart';
 
 class CategoryElementBase extends StatelessWidget {
   const CategoryElementBase({
-    super.key,
     required this.icon,
     required this.name,
     required this.description,
     required this.progress,
     required this.color,
+    super.key,
     this.iconSize,
     this.titleTextStyle,
   });

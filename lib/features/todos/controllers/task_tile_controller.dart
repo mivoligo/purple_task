@@ -1,7 +1,6 @@
+import 'package:purple_task/features/todos/controllers/task_tile_state.dart';
+import 'package:purple_task/features/todos/models/task.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../models/task.dart';
-import 'task_tile_state.dart';
 
 part 'task_tile_controller.g.dart';
 

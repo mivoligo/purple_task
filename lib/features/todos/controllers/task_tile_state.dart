@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../models/task.dart';
+import 'package:purple_task/features/todos/models/task.dart';
 
 enum TaskTileStateStatus { initial, data, editName }
 
