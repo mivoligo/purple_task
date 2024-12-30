@@ -28,6 +28,7 @@ dependencies:
   shared_preferences: ^2.3.3
   drift: ^2.22.1
   drift_flutter: ^0.2.2
+  very_good_analysis: ^7.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
