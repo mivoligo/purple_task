@@ -3,7 +3,7 @@ import 'package:drift_flutter/drift_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:purple_task/features/todos/database/category_dao.dart';
+import 'package:purple_task/features/todos/daos/category_dao.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_database.g.dart';
@@ -33,6 +33,8 @@ class Categories extends Table {
   IntColumn get color => integer()();
 
   IntColumn get icon => integer()();
+
+  IntColumn get position => integer()();
 }
 
 class TaskItemsOrder extends Table {
@@ -41,13 +43,10 @@ class TaskItemsOrder extends Table {
   IntColumn get position => integer()();
 }
 
-class CategoriesOrder extends Table {
-  IntColumn get categoryId => integer().references(Categories, #id)();
-
-  IntColumn get position => integer()();
-}
-
-@DriftDatabase(tables: [TaskItems, Categories], daos: [CategoryDao])
+@DriftDatabase(
+  tables: [TaskItems, Categories],
+  daos: [CategoryDao],
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 

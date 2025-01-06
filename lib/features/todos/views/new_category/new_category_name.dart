@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/constants/strings/strings.dart' as s;
 
-import 'package:purple_task/features/todos/views/new_category_base.dart';
+import 'package:purple_task/features/todos/views/new_category/new_category_base.dart';
 
 class CategoryName extends StatelessWidget {
   const CategoryName({

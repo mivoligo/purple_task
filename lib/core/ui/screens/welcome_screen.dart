@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:purple_task/core/constants/hive_names.dart';
-import 'package:purple_task/core/migrator/migrator.dart';
 import 'package:purple_task/core/migrator/providers/providers.dart';
 import 'package:purple_task/core/ui/screens/main_screen/widgets/animated_background.dart';
 import 'package:purple_task/core/ui/widgets/simple_button.dart';

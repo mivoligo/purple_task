@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:purple_task/features/todos/controllers/new_category_controller.dart';
 import 'package:purple_task/features/todos/controllers/new_category_state.dart';
-import 'package:purple_task/features/todos/views/new_category_color.dart';
-import 'package:purple_task/features/todos/views/new_category_icon.dart';
-import 'package:purple_task/features/todos/views/new_category_initial.dart';
-import 'package:purple_task/features/todos/views/new_category_name.dart';
-import 'package:purple_task/features/todos/views/new_category_tasks.dart';
+import 'package:purple_task/features/todos/views/new_category/new_category_color.dart';
+import 'package:purple_task/features/todos/views/new_category/new_category_icon.dart';
+import 'package:purple_task/features/todos/views/new_category/new_category_initial.dart';
+import 'package:purple_task/features/todos/views/new_category/new_category_name.dart';
+import 'package:purple_task/features/todos/views/new_category/new_category_tasks.dart';
 
 class NewCategoryScreen extends ConsumerWidget {
   NewCategoryScreen({super.key});

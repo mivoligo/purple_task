@@ -3,15 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/features/todos/controllers/new_category_controller.dart';
-import 'package:purple_task/features/todos/views/icon_selector.dart';
-import 'package:purple_task/features/todos/views/new_category_base.dart';
+import 'package:purple_task/features/todos/views/color_selector.dart';
+import 'package:purple_task/features/todos/views/new_category/new_category_base.dart';
 
-class CategoryIcon extends ConsumerWidget {
-  const CategoryIcon({
+class CategoryColor extends ConsumerWidget {
+  const CategoryColor({
     required this.name,
     required this.color,
     required this.onNext,
-    required this.selectedIcon,
     required this.focusNode,
     super.key,
   });
@@ -19,7 +18,6 @@ class CategoryIcon extends ConsumerWidget {
   final String name;
   final Color color;
   final VoidCallback onNext;
-  final int selectedIcon;
   final FocusNode focusNode;
 
   @override
@@ -33,39 +31,23 @@ class CategoryIcon extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(8, 15, 32, 4),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 2),
-                    child: Icon(
-                      IconData(
-                        selectedIcon,
-                        fontFamily: 'AntIcons',
-                        fontPackage: 'ant_icons',
-                      ),
-                      color: color,
-                      size: 38,
-                    ),
-                  ),
-                  Text(
-                    name,
-                    style: CustomStyle.textStyle24,
-                  ),
-                ],
+              padding: const EdgeInsets.fromLTRB(48, 20, 32, 4),
+              child: Text(
+                name,
+                style: CustomStyle.textStyle24,
               ),
             ),
             Expanded(
-              child: IconSelector(
-                selectedIcon: selectedIcon,
+              child: ColorSelector(
+                selectedColor: color,
                 onSelect:
-                    ref.read(newCategoryNotifierProvider.notifier).changeIcon,
+                    ref.read(newCategoryNotifierProvider.notifier).changeColor,
               ),
             ),
             const Padding(
               padding: EdgeInsets.all(2),
               child: Text(
-                s.icon,
+                s.color,
                 textAlign: TextAlign.center,
               ),
             ),

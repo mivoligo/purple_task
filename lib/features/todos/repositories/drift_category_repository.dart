@@ -4,7 +4,7 @@ import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/database/app_database.dart' as db;
 import 'package:purple_task/core/helpers.dart';
-import 'package:purple_task/features/todos/database/category_dao.dart';
+import 'package:purple_task/features/todos/daos/category_dao.dart';
 import 'package:purple_task/features/todos/models/category.dart';
 import 'package:purple_task/features/todos/repositories/base_category_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

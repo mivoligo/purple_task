@@ -199,7 +199,7 @@ class _NumberOfActiveTasksInCategoryProviderElement
 }
 
 String _$completionProgressHash() =>
-    r'9b5a3dd52dd3e2d1bbf891940a7fef2b06d4ac5d';
+    r'58c8ca783340f704a4667b6db1d7972699cf9f32';
 
 /// See also [completionProgress].
 @ProviderFor(completionProgress)

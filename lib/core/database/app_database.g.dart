@@ -33,8 +33,14 @@ class $CategoriesTable extends Categories
   late final GeneratedColumn<int> icon = GeneratedColumn<int>(
       'icon', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _positionMeta =
+      const VerificationMeta('position');
   @override
-  List<GeneratedColumn> get $columns => [id, name, color, icon];
+  late final GeneratedColumn<int> position = GeneratedColumn<int>(
+      'position', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, name, color, icon, position];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -66,6 +72,12 @@ class $CategoriesTable extends Categories
     } else if (isInserting) {
       context.missing(_iconMeta);
     }
+    if (data.containsKey('position')) {
+      context.handle(_positionMeta,
+          position.isAcceptableOrUnknown(data['position']!, _positionMeta));
+    } else if (isInserting) {
+      context.missing(_positionMeta);
+    }
     return context;
   }
 
@@ -83,6 +95,8 @@ class $CategoriesTable extends Categories
           .read(DriftSqlType.int, data['${effectivePrefix}color'])!,
       icon: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}icon'])!,
+      position: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}position'])!,
     );
   }
 
@@ -97,11 +111,13 @@ class Category extends DataClass implements Insertable<Category> {
   final String name;
   final int color;
   final int icon;
+  final int position;
   const Category(
       {required this.id,
       required this.name,
       required this.color,
-      required this.icon});
+      required this.icon,
+      required this.position});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -109,6 +125,7 @@ class Category extends DataClass implements Insertable<Category> {
     map['name'] = Variable<String>(name);
     map['color'] = Variable<int>(color);
     map['icon'] = Variable<int>(icon);
+    map['position'] = Variable<int>(position);
     return map;
   }
 
@@ -118,6 +135,7 @@ class Category extends DataClass implements Insertable<Category> {
       name: Value(name),
       color: Value(color),
       icon: Value(icon),
+      position: Value(position),
     );
   }
 
@@ -129,6 +147,7 @@ class Category extends DataClass implements Insertable<Category> {
       name: serializer.fromJson<String>(json['name']),
       color: serializer.fromJson<int>(json['color']),
       icon: serializer.fromJson<int>(json['icon']),
+      position: serializer.fromJson<int>(json['position']),
     );
   }
   @override
@@ -139,14 +158,18 @@ class Category extends DataClass implements Insertable<Category> {
       'name': serializer.toJson<String>(name),
       'color': serializer.toJson<int>(color),
       'icon': serializer.toJson<int>(icon),
+      'position': serializer.toJson<int>(position),
     };
   }
 
-  Category copyWith({int? id, String? name, int? color, int? icon}) => Category(
+  Category copyWith(
+          {int? id, String? name, int? color, int? icon, int? position}) =>
+      Category(
         id: id ?? this.id,
         name: name ?? this.name,
         color: color ?? this.color,
         icon: icon ?? this.icon,
+        position: position ?? this.position,
       );
   Category copyWithCompanion(CategoriesCompanion data) {
     return Category(
@@ -154,6 +177,7 @@ class Category extends DataClass implements Insertable<Category> {
       name: data.name.present ? data.name.value : this.name,
       color: data.color.present ? data.color.value : this.color,
       icon: data.icon.present ? data.icon.value : this.icon,
+      position: data.position.present ? data.position.value : this.position,
     );
   }
 
@@ -163,13 +187,14 @@ class Category extends DataClass implements Insertable<Category> {
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('color: $color, ')
-          ..write('icon: $icon')
+          ..write('icon: $icon, ')
+          ..write('position: $position')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, name, color, icon);
+  int get hashCode => Object.hash(id, name, color, icon, position);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -177,7 +202,8 @@ class Category extends DataClass implements Insertable<Category> {
           other.id == this.id &&
           other.name == this.name &&
           other.color == this.color &&
-          other.icon == this.icon);
+          other.icon == this.icon &&
+          other.position == this.position);
 }
 
 class CategoriesCompanion extends UpdateCompanion<Category> {
@@ -185,31 +211,37 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
   final Value<String> name;
   final Value<int> color;
   final Value<int> icon;
+  final Value<int> position;
   const CategoriesCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.color = const Value.absent(),
     this.icon = const Value.absent(),
+    this.position = const Value.absent(),
   });
   CategoriesCompanion.insert({
     this.id = const Value.absent(),
     required String name,
     required int color,
     required int icon,
+    required int position,
   })  : name = Value(name),
         color = Value(color),
-        icon = Value(icon);
+        icon = Value(icon),
+        position = Value(position);
   static Insertable<Category> custom({
     Expression<int>? id,
     Expression<String>? name,
     Expression<int>? color,
     Expression<int>? icon,
+    Expression<int>? position,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
       if (color != null) 'color': color,
       if (icon != null) 'icon': icon,
+      if (position != null) 'position': position,
     });
   }
 
@@ -217,12 +249,14 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       {Value<int>? id,
       Value<String>? name,
       Value<int>? color,
-      Value<int>? icon}) {
+      Value<int>? icon,
+      Value<int>? position}) {
     return CategoriesCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       color: color ?? this.color,
       icon: icon ?? this.icon,
+      position: position ?? this.position,
     );
   }
 
@@ -241,6 +275,9 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     if (icon.present) {
       map['icon'] = Variable<int>(icon.value);
     }
+    if (position.present) {
+      map['position'] = Variable<int>(position.value);
+    }
     return map;
   }
 
@@ -250,7 +287,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('color: $color, ')
-          ..write('icon: $icon')
+          ..write('icon: $icon, ')
+          ..write('position: $position')
           ..write(')'))
         .toString();
   }
@@ -657,12 +695,14 @@ typedef $$CategoriesTableCreateCompanionBuilder = CategoriesCompanion Function({
   required String name,
   required int color,
   required int icon,
+  required int position,
 });
 typedef $$CategoriesTableUpdateCompanionBuilder = CategoriesCompanion Function({
   Value<int> id,
   Value<String> name,
   Value<int> color,
   Value<int> icon,
+  Value<int> position,
 });
 
 final class $$CategoriesTableReferences
@@ -706,6 +746,9 @@ class $$CategoriesTableFilterComposer
   ColumnFilters<int> get icon => $composableBuilder(
       column: $table.icon, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<int> get position => $composableBuilder(
+      column: $table.position, builder: (column) => ColumnFilters(column));
+
   Expression<bool> taskItemsRefs(
       Expression<bool> Function($$TaskItemsTableFilterComposer f) f) {
     final $$TaskItemsTableFilterComposer composer = $composerBuilder(
@@ -748,6 +791,9 @@ class $$CategoriesTableOrderingComposer
 
   ColumnOrderings<int> get icon => $composableBuilder(
       column: $table.icon, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get position => $composableBuilder(
+      column: $table.position, builder: (column) => ColumnOrderings(column));
 }
 
 class $$CategoriesTableAnnotationComposer
@@ -770,6 +816,9 @@ class $$CategoriesTableAnnotationComposer
 
   GeneratedColumn<int> get icon =>
       $composableBuilder(column: $table.icon, builder: (column) => column);
+
+  GeneratedColumn<int> get position =>
+      $composableBuilder(column: $table.position, builder: (column) => column);
 
   Expression<T> taskItemsRefs<T extends Object>(
       Expression<T> Function($$TaskItemsTableAnnotationComposer a) f) {
@@ -820,24 +869,28 @@ class $$CategoriesTableTableManager extends RootTableManager<
             Value<String> name = const Value.absent(),
             Value<int> color = const Value.absent(),
             Value<int> icon = const Value.absent(),
+            Value<int> position = const Value.absent(),
           }) =>
               CategoriesCompanion(
             id: id,
             name: name,
             color: color,
             icon: icon,
+            position: position,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String name,
             required int color,
             required int icon,
+            required int position,
           }) =>
               CategoriesCompanion.insert(
             id: id,
             name: name,
             color: color,
             icon: icon,
+            position: position,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (
