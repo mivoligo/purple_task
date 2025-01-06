@@ -38,4 +38,16 @@ class CategoryDao extends DatabaseAccessor<AppDatabase>
 
   Future<bool> updateCategory(CategoriesCompanion categoriesCompanion) =>
       update(categories).replace(categoriesCompanion);
+
+  Future<void> updateCategoriesList(
+    List<CategoriesCompanion> categoriesCompanionList,
+  ) async {
+    await transaction(
+      () async {
+        for (final companion in categoriesCompanionList) {
+          await update(categories).replace(companion);
+        }
+      },
+    );
+  }
 }

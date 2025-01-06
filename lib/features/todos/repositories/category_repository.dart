@@ -64,16 +64,13 @@ class CategoryRepository extends BaseCategoryRepository {
   }
 
   @override
-  void reorder({
-    required int oldIndex,
-    required int newIndex,
-  }) {
+  Future<void> reorder({required List<Category> categories}) async {
     // final categoriesOrder =
     //     _categoriesOrderBox.get(categoriesListOrderKey, defaultValue: []);
 
-    if (oldIndex < newIndex) {
-      newIndex -= 1;
-    }
+    // if (oldIndex < newIndex) {
+    //   newIndex -= 1;
+    // }
 
     // final item = categoriesOrder!.removeAt(oldIndex);
     // categoriesOrder.insert(newIndex, item);

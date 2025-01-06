@@ -32,11 +32,69 @@ class CategoriesNotifier extends _$CategoriesNotifier {
         await ref.read(categoryRepositoryProvider).getCategories();
     await update((currentState) => [...updatedCategories]);
   }
-//
-// void reorder(int oldIndex, int newIndex) {
-//   ref
-//       .read(categoryRepositoryProvider)
-//       .reorder(oldIndex: oldIndex, newIndex: newIndex);
-//   state = ref.read(categoryRepositoryProvider).getCategories();
-// }
+
+  Future<void> reorder(
+    int oldIndex,
+    int newIndex,
+  ) async {
+    final categories = state.valueOrNull;
+
+    var newIndexLocal = newIndex;
+    final categoriesToBeUpdated = <Category>[];
+
+    if (categories != null) {
+      if (newIndex > oldIndex) {
+        newIndexLocal -= 1;
+
+        final affectedCategories =
+            categories.sublist(oldIndex, newIndexLocal + 1).toList();
+
+        for (var i = 0; i < affectedCategories.length; i++) {
+          final currentCategory = affectedCategories[i];
+
+          if (i == 0) {
+            categoriesToBeUpdated.add(
+              currentCategory.copyWith(
+                position: affectedCategories.last.position,
+              ),
+            );
+          } else {
+            categoriesToBeUpdated.add(
+              currentCategory.copyWith(
+                position: affectedCategories[i - 1].position,
+              ),
+            );
+          }
+        }
+      } else {
+        final affectedCategories =
+            categories.sublist(newIndexLocal, oldIndex + 1).toList();
+
+        for (var i = 0; i < affectedCategories.length; i++) {
+          final currentCategory = affectedCategories[i];
+          if (i == affectedCategories.length - 1) {
+            categoriesToBeUpdated.add(
+              currentCategory.copyWith(
+                position: affectedCategories.first.position,
+              ),
+            );
+          } else {
+            categoriesToBeUpdated.add(
+              currentCategory.copyWith(
+                position: affectedCategories[i + 1].position,
+              ),
+            );
+          }
+        }
+      }
+    }
+
+    await ref
+        .read(categoryRepositoryProvider)
+        .reorder(categories: categoriesToBeUpdated);
+    final updatedCategories =
+        await ref.read(categoryRepositoryProvider).getCategories();
+
+    await update((currentState) => [...updatedCategories]);
+  }
 }

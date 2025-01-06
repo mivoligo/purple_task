@@ -37,6 +37,7 @@ class DriftCategoryRepository implements BaseCategoryRepository {
             name: e.name,
             color: Color(e.color),
             icon: e.icon,
+            position: e.position,
           ),
         )
         .toList();
@@ -47,8 +48,19 @@ class DriftCategoryRepository implements BaseCategoryRepository {
       categoryDao.deleteCategory(categoryId);
 
   @override
-  void reorder({required int oldIndex, required int newIndex}) {
-    // TODO(m): implement reorder
+  Future<void> reorder({required List<Category> categories}) async {
+    final companions = categories
+        .map(
+          (category) => db.CategoriesCompanion(
+            id: Value(category.id),
+            name: Value(category.name),
+            color: Value(category.color.intValue),
+            icon: Value(category.icon),
+            position: Value(category.position),
+          ),
+        )
+        .toList();
+    await categoryDao.updateCategoriesList(companions);
   }
 
   @override
