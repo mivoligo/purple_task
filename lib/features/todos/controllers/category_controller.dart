@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:purple_task/features/settings/controllers/settings/settings_controller.dart';
+import 'package:purple_task/features/todos/controllers/categories_controller.dart';
 import 'package:purple_task/features/todos/models/category.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -31,7 +32,9 @@ class CategoryNotifier extends _$CategoryNotifier {
 
   void update() {
     if (state != null) {
-      // ref.read(categoriesNotifierProvider.notifier).update(category: state!);
+      ref
+          .read(categoriesNotifierProvider.notifier)
+          .updateCategory(category: state!);
     }
   }
 }

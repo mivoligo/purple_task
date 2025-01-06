@@ -37,8 +37,8 @@ class $CategoriesTable extends Categories
       const VerificationMeta('position');
   @override
   late final GeneratedColumn<int> position = GeneratedColumn<int>(
-      'position', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      'position', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [id, name, color, icon, position];
   @override
@@ -75,8 +75,6 @@ class $CategoriesTable extends Categories
     if (data.containsKey('position')) {
       context.handle(_positionMeta,
           position.isAcceptableOrUnknown(data['position']!, _positionMeta));
-    } else if (isInserting) {
-      context.missing(_positionMeta);
     }
     return context;
   }
@@ -96,7 +94,7 @@ class $CategoriesTable extends Categories
       icon: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}icon'])!,
       position: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}position'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}position']),
     );
   }
 
@@ -111,13 +109,13 @@ class Category extends DataClass implements Insertable<Category> {
   final String name;
   final int color;
   final int icon;
-  final int position;
+  final int? position;
   const Category(
       {required this.id,
       required this.name,
       required this.color,
       required this.icon,
-      required this.position});
+      this.position});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -125,7 +123,9 @@ class Category extends DataClass implements Insertable<Category> {
     map['name'] = Variable<String>(name);
     map['color'] = Variable<int>(color);
     map['icon'] = Variable<int>(icon);
-    map['position'] = Variable<int>(position);
+    if (!nullToAbsent || position != null) {
+      map['position'] = Variable<int>(position);
+    }
     return map;
   }
 
@@ -135,7 +135,9 @@ class Category extends DataClass implements Insertable<Category> {
       name: Value(name),
       color: Value(color),
       icon: Value(icon),
-      position: Value(position),
+      position: position == null && nullToAbsent
+          ? const Value.absent()
+          : Value(position),
     );
   }
 
@@ -147,7 +149,7 @@ class Category extends DataClass implements Insertable<Category> {
       name: serializer.fromJson<String>(json['name']),
       color: serializer.fromJson<int>(json['color']),
       icon: serializer.fromJson<int>(json['icon']),
-      position: serializer.fromJson<int>(json['position']),
+      position: serializer.fromJson<int?>(json['position']),
     );
   }
   @override
@@ -158,18 +160,22 @@ class Category extends DataClass implements Insertable<Category> {
       'name': serializer.toJson<String>(name),
       'color': serializer.toJson<int>(color),
       'icon': serializer.toJson<int>(icon),
-      'position': serializer.toJson<int>(position),
+      'position': serializer.toJson<int?>(position),
     };
   }
 
   Category copyWith(
-          {int? id, String? name, int? color, int? icon, int? position}) =>
+          {int? id,
+          String? name,
+          int? color,
+          int? icon,
+          Value<int?> position = const Value.absent()}) =>
       Category(
         id: id ?? this.id,
         name: name ?? this.name,
         color: color ?? this.color,
         icon: icon ?? this.icon,
-        position: position ?? this.position,
+        position: position.present ? position.value : this.position,
       );
   Category copyWithCompanion(CategoriesCompanion data) {
     return Category(
@@ -211,7 +217,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
   final Value<String> name;
   final Value<int> color;
   final Value<int> icon;
-  final Value<int> position;
+  final Value<int?> position;
   const CategoriesCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -224,11 +230,10 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     required String name,
     required int color,
     required int icon,
-    required int position,
+    this.position = const Value.absent(),
   })  : name = Value(name),
         color = Value(color),
-        icon = Value(icon),
-        position = Value(position);
+        icon = Value(icon);
   static Insertable<Category> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -250,7 +255,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       Value<String>? name,
       Value<int>? color,
       Value<int>? icon,
-      Value<int>? position}) {
+      Value<int?>? position}) {
     return CategoriesCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -695,14 +700,14 @@ typedef $$CategoriesTableCreateCompanionBuilder = CategoriesCompanion Function({
   required String name,
   required int color,
   required int icon,
-  required int position,
+  Value<int?> position,
 });
 typedef $$CategoriesTableUpdateCompanionBuilder = CategoriesCompanion Function({
   Value<int> id,
   Value<String> name,
   Value<int> color,
   Value<int> icon,
-  Value<int> position,
+  Value<int?> position,
 });
 
 final class $$CategoriesTableReferences
@@ -869,7 +874,7 @@ class $$CategoriesTableTableManager extends RootTableManager<
             Value<String> name = const Value.absent(),
             Value<int> color = const Value.absent(),
             Value<int> icon = const Value.absent(),
-            Value<int> position = const Value.absent(),
+            Value<int?> position = const Value.absent(),
           }) =>
               CategoriesCompanion(
             id: id,
@@ -883,7 +888,7 @@ class $$CategoriesTableTableManager extends RootTableManager<
             required String name,
             required int color,
             required int icon,
-            required int position,
+            Value<int?> position = const Value.absent(),
           }) =>
               CategoriesCompanion.insert(
             id: id,

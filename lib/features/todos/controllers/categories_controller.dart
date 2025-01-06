@@ -25,11 +25,13 @@ class CategoriesNotifier extends _$CategoriesNotifier {
         await ref.read(categoryRepositoryProvider).getCategories();
     await update((currentState) => [...updatedCategories]);
   }
-//
-// Future<void> update({required Category category}) async {
-//   await ref.read(categoryRepositoryProvider).update(category: category);
-//   state = ref.read(categoryRepositoryProvider).getCategories();
-// }
+
+  Future<void> updateCategory({required Category category}) async {
+    await ref.read(categoryRepositoryProvider).update(category: category);
+    final updatedCategories =
+        await ref.read(categoryRepositoryProvider).getCategories();
+    await update((currentState) => [...updatedCategories]);
+  }
 //
 // void reorder(int oldIndex, int newIndex) {
 //   ref

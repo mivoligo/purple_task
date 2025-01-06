@@ -34,7 +34,7 @@ class Categories extends Table {
 
   IntColumn get icon => integer()();
 
-  IntColumn get position => integer()();
+  IntColumn get position => integer().nullable()();
 }
 
 class TaskItemsOrder extends Table {
