@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:purple_task/features/todos/daos/category_dao.dart';
+import 'package:purple_task/features/todos/daos/task_dao.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_database.g.dart';
@@ -23,6 +24,8 @@ class TaskItems extends Table {
   IntColumn get dueAt => integer().nullable()();
 
   IntColumn get doneAt => integer().nullable()();
+
+  IntColumn get position => integer().nullable()();
 }
 
 class Categories extends Table {
@@ -37,15 +40,9 @@ class Categories extends Table {
   IntColumn get position => integer().nullable()();
 }
 
-class TaskItemsOrder extends Table {
-  IntColumn get taskId => integer().references(TaskItems, #id)();
-
-  IntColumn get position => integer()();
-}
-
 @DriftDatabase(
   tables: [TaskItems, Categories],
-  daos: [CategoryDao],
+  daos: [CategoryDao, TaskDao],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
@@ -67,6 +64,4 @@ class AppDatabase extends _$AppDatabase {
 }
 
 @riverpod
-AppDatabase appDatabase(Ref ref) {
-  return AppDatabase();
-}
+AppDatabase appDatabase(Ref ref) => AppDatabase();

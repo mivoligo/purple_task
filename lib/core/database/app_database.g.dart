@@ -350,9 +350,15 @@ class $TaskItemsTable extends TaskItems
   late final GeneratedColumn<int> doneAt = GeneratedColumn<int>(
       'done_at', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _positionMeta =
+      const VerificationMeta('position');
+  @override
+  late final GeneratedColumn<int> position = GeneratedColumn<int>(
+      'position', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, name, description, categoryId, createdAt, dueAt, doneAt];
+      [id, name, description, categoryId, createdAt, dueAt, doneAt, position];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -396,6 +402,10 @@ class $TaskItemsTable extends TaskItems
       context.handle(_doneAtMeta,
           doneAt.isAcceptableOrUnknown(data['done_at']!, _doneAtMeta));
     }
+    if (data.containsKey('position')) {
+      context.handle(_positionMeta,
+          position.isAcceptableOrUnknown(data['position']!, _positionMeta));
+    }
     return context;
   }
 
@@ -419,6 +429,8 @@ class $TaskItemsTable extends TaskItems
           .read(DriftSqlType.int, data['${effectivePrefix}due_at']),
       doneAt: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}done_at']),
+      position: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}position']),
     );
   }
 
@@ -436,6 +448,7 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
   final int? createdAt;
   final int? dueAt;
   final int? doneAt;
+  final int? position;
   const TaskItem(
       {required this.id,
       required this.name,
@@ -443,7 +456,8 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
       this.categoryId,
       this.createdAt,
       this.dueAt,
-      this.doneAt});
+      this.doneAt,
+      this.position});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -463,6 +477,9 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
     }
     if (!nullToAbsent || doneAt != null) {
       map['done_at'] = Variable<int>(doneAt);
+    }
+    if (!nullToAbsent || position != null) {
+      map['position'] = Variable<int>(position);
     }
     return map;
   }
@@ -484,6 +501,9 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
           dueAt == null && nullToAbsent ? const Value.absent() : Value(dueAt),
       doneAt:
           doneAt == null && nullToAbsent ? const Value.absent() : Value(doneAt),
+      position: position == null && nullToAbsent
+          ? const Value.absent()
+          : Value(position),
     );
   }
 
@@ -498,6 +518,7 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
       createdAt: serializer.fromJson<int?>(json['createdAt']),
       dueAt: serializer.fromJson<int?>(json['dueAt']),
       doneAt: serializer.fromJson<int?>(json['doneAt']),
+      position: serializer.fromJson<int?>(json['position']),
     );
   }
   @override
@@ -511,6 +532,7 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
       'createdAt': serializer.toJson<int?>(createdAt),
       'dueAt': serializer.toJson<int?>(dueAt),
       'doneAt': serializer.toJson<int?>(doneAt),
+      'position': serializer.toJson<int?>(position),
     };
   }
 
@@ -521,7 +543,8 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
           Value<int?> categoryId = const Value.absent(),
           Value<int?> createdAt = const Value.absent(),
           Value<int?> dueAt = const Value.absent(),
-          Value<int?> doneAt = const Value.absent()}) =>
+          Value<int?> doneAt = const Value.absent(),
+          Value<int?> position = const Value.absent()}) =>
       TaskItem(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -530,6 +553,7 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
         createdAt: createdAt.present ? createdAt.value : this.createdAt,
         dueAt: dueAt.present ? dueAt.value : this.dueAt,
         doneAt: doneAt.present ? doneAt.value : this.doneAt,
+        position: position.present ? position.value : this.position,
       );
   TaskItem copyWithCompanion(TaskItemsCompanion data) {
     return TaskItem(
@@ -542,6 +566,7 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       dueAt: data.dueAt.present ? data.dueAt.value : this.dueAt,
       doneAt: data.doneAt.present ? data.doneAt.value : this.doneAt,
+      position: data.position.present ? data.position.value : this.position,
     );
   }
 
@@ -554,14 +579,15 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
           ..write('categoryId: $categoryId, ')
           ..write('createdAt: $createdAt, ')
           ..write('dueAt: $dueAt, ')
-          ..write('doneAt: $doneAt')
+          ..write('doneAt: $doneAt, ')
+          ..write('position: $position')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, name, description, categoryId, createdAt, dueAt, doneAt);
+  int get hashCode => Object.hash(
+      id, name, description, categoryId, createdAt, dueAt, doneAt, position);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -572,7 +598,8 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
           other.categoryId == this.categoryId &&
           other.createdAt == this.createdAt &&
           other.dueAt == this.dueAt &&
-          other.doneAt == this.doneAt);
+          other.doneAt == this.doneAt &&
+          other.position == this.position);
 }
 
 class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
@@ -583,6 +610,7 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
   final Value<int?> createdAt;
   final Value<int?> dueAt;
   final Value<int?> doneAt;
+  final Value<int?> position;
   const TaskItemsCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -591,6 +619,7 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
     this.createdAt = const Value.absent(),
     this.dueAt = const Value.absent(),
     this.doneAt = const Value.absent(),
+    this.position = const Value.absent(),
   });
   TaskItemsCompanion.insert({
     this.id = const Value.absent(),
@@ -600,6 +629,7 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
     this.createdAt = const Value.absent(),
     this.dueAt = const Value.absent(),
     this.doneAt = const Value.absent(),
+    this.position = const Value.absent(),
   }) : name = Value(name);
   static Insertable<TaskItem> custom({
     Expression<int>? id,
@@ -609,6 +639,7 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
     Expression<int>? createdAt,
     Expression<int>? dueAt,
     Expression<int>? doneAt,
+    Expression<int>? position,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -618,6 +649,7 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
       if (createdAt != null) 'created_at': createdAt,
       if (dueAt != null) 'due_at': dueAt,
       if (doneAt != null) 'done_at': doneAt,
+      if (position != null) 'position': position,
     });
   }
 
@@ -628,7 +660,8 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
       Value<int?>? categoryId,
       Value<int?>? createdAt,
       Value<int?>? dueAt,
-      Value<int?>? doneAt}) {
+      Value<int?>? doneAt,
+      Value<int?>? position}) {
     return TaskItemsCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -637,6 +670,7 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
       createdAt: createdAt ?? this.createdAt,
       dueAt: dueAt ?? this.dueAt,
       doneAt: doneAt ?? this.doneAt,
+      position: position ?? this.position,
     );
   }
 
@@ -664,6 +698,9 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
     if (doneAt.present) {
       map['done_at'] = Variable<int>(doneAt.value);
     }
+    if (position.present) {
+      map['position'] = Variable<int>(position.value);
+    }
     return map;
   }
 
@@ -676,7 +713,8 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
           ..write('categoryId: $categoryId, ')
           ..write('createdAt: $createdAt, ')
           ..write('dueAt: $dueAt, ')
-          ..write('doneAt: $doneAt')
+          ..write('doneAt: $doneAt, ')
+          ..write('position: $position')
           ..write(')'))
         .toString();
   }
@@ -688,6 +726,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $CategoriesTable categories = $CategoriesTable(this);
   late final $TaskItemsTable taskItems = $TaskItemsTable(this);
   late final CategoryDao categoryDao = CategoryDao(this as AppDatabase);
+  late final TaskDao taskDao = TaskDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -949,6 +988,7 @@ typedef $$TaskItemsTableCreateCompanionBuilder = TaskItemsCompanion Function({
   Value<int?> createdAt,
   Value<int?> dueAt,
   Value<int?> doneAt,
+  Value<int?> position,
 });
 typedef $$TaskItemsTableUpdateCompanionBuilder = TaskItemsCompanion Function({
   Value<int> id,
@@ -958,6 +998,7 @@ typedef $$TaskItemsTableUpdateCompanionBuilder = TaskItemsCompanion Function({
   Value<int?> createdAt,
   Value<int?> dueAt,
   Value<int?> doneAt,
+  Value<int?> position,
 });
 
 final class $$TaskItemsTableReferences
@@ -1005,6 +1046,9 @@ class $$TaskItemsTableFilterComposer
 
   ColumnFilters<int> get doneAt => $composableBuilder(
       column: $table.doneAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get position => $composableBuilder(
+      column: $table.position, builder: (column) => ColumnFilters(column));
 
   $$CategoriesTableFilterComposer get categoryId {
     final $$CategoriesTableFilterComposer composer = $composerBuilder(
@@ -1054,6 +1098,9 @@ class $$TaskItemsTableOrderingComposer
   ColumnOrderings<int> get doneAt => $composableBuilder(
       column: $table.doneAt, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<int> get position => $composableBuilder(
+      column: $table.position, builder: (column) => ColumnOrderings(column));
+
   $$CategoriesTableOrderingComposer get categoryId {
     final $$CategoriesTableOrderingComposer composer = $composerBuilder(
         composer: this,
@@ -1101,6 +1148,9 @@ class $$TaskItemsTableAnnotationComposer
 
   GeneratedColumn<int> get doneAt =>
       $composableBuilder(column: $table.doneAt, builder: (column) => column);
+
+  GeneratedColumn<int> get position =>
+      $composableBuilder(column: $table.position, builder: (column) => column);
 
   $$CategoriesTableAnnotationComposer get categoryId {
     final $$CategoriesTableAnnotationComposer composer = $composerBuilder(
@@ -1153,6 +1203,7 @@ class $$TaskItemsTableTableManager extends RootTableManager<
             Value<int?> createdAt = const Value.absent(),
             Value<int?> dueAt = const Value.absent(),
             Value<int?> doneAt = const Value.absent(),
+            Value<int?> position = const Value.absent(),
           }) =>
               TaskItemsCompanion(
             id: id,
@@ -1162,6 +1213,7 @@ class $$TaskItemsTableTableManager extends RootTableManager<
             createdAt: createdAt,
             dueAt: dueAt,
             doneAt: doneAt,
+            position: position,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -1171,6 +1223,7 @@ class $$TaskItemsTableTableManager extends RootTableManager<
             Value<int?> createdAt = const Value.absent(),
             Value<int?> dueAt = const Value.absent(),
             Value<int?> doneAt = const Value.absent(),
+            Value<int?> position = const Value.absent(),
           }) =>
               TaskItemsCompanion.insert(
             id: id,
@@ -1180,6 +1233,7 @@ class $$TaskItemsTableTableManager extends RootTableManager<
             createdAt: createdAt,
             dueAt: dueAt,
             doneAt: doneAt,
+            position: position,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (
@@ -1251,7 +1305,7 @@ class $AppDatabaseManager {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appDatabaseHash() => r'18ce5c8c4d8ddbfe5a7d819d8fb7d5aca76bf416';
+String _$appDatabaseHash() => r'd45cc0b6c7795466b6a12d864805fefa097f39cd';
 
 /// See also [appDatabase].
 @ProviderFor(appDatabase)

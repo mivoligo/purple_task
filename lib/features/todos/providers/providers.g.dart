@@ -349,7 +349,7 @@ final appBackgroundColorProvider = AutoDisposeProvider<Color>.internal(
 // ignore: unused_element
 typedef AppBackgroundColorRef = AutoDisposeProviderRef<Color>;
 String _$noDueDateTasksInCategoryHash() =>
-    r'5b5a0d5dd1ed3f15b28b4a1067654bd8b6775aec';
+    r'955ab24c9ce07b80205d5ed9bb9528210c9265ca';
 
 abstract class _$NoDueDateTasksInCategory
     extends BuildlessAutoDisposeNotifier<List<Task>> {
