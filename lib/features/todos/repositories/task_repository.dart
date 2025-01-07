@@ -15,7 +15,7 @@ class TaskRepository extends BaseTaskRepository {
   @override
   Future<Task> add({required Task task}) async {
     final autoincrementKey = await _taskBox.add(task.toEntity());
-    return task.copyWith(id: autoincrementKey.toString());
+    return task.copyWith(id: autoincrementKey);
     // final taskOrder = _tasksOrderBox.get(tasksListOrderKey);
     // taskOrder?[autoincrementKey.toString()] = autoincrementKey;
     // return task;
@@ -37,7 +37,7 @@ class TaskRepository extends BaseTaskRepository {
   }
 
   @override
-  List<Task> getTasks() {
+  Future<List<Task>> getTasks() async {
     // final tasksOrder = _tasksOrderBox.get(tasksListOrderKey);
 
     // if (tasksOrder == null || tasksOrder.isEmpty) {

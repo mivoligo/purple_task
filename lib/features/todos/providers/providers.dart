@@ -14,8 +14,12 @@ part 'providers.g.dart';
 class NoDueDateTasksInCategory extends _$NoDueDateTasksInCategory {
   @override
   List<Task> build(int categoryId) {
-    final tasks = ref
-        .watch(tasksNotifierProvider)
+    final tasks = ref.watch(tasksNotifierProvider).valueOrNull;
+
+    if (tasks == null) {
+      return [];
+    }
+    final noDueDateTasks = tasks
         .where(
           (task) =>
               task.categoryId == categoryId &&
@@ -23,7 +27,7 @@ class NoDueDateTasksInCategory extends _$NoDueDateTasksInCategory {
               task.dueDate == null,
         )
         .toList();
-    return tasks;
+    return noDueDateTasks;
   }
 }
 
@@ -31,16 +35,19 @@ class NoDueDateTasksInCategory extends _$NoDueDateTasksInCategory {
 class OverdueTasksInCategory extends _$OverdueTasksInCategory {
   @override
   List<Task> build(int categoryId) {
-    final tasks = ref.watch(tasksNotifierProvider).where(
-          (task) =>
-              task.categoryId == categoryId &&
-              !task.isDone &&
-              task.dueDate != null,
-        );
+    final tasks = ref.watch(tasksNotifierProvider).valueOrNull;
+
+    if (tasks == null) {
+      return [];
+    }
+    final notDoneTasks = tasks.where(
+      (task) =>
+          task.categoryId == categoryId && !task.isDone && task.dueDate != null,
+    );
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final overdueTasks = <Task>[];
-    for (final task in tasks) {
+    for (final task in notDoneTasks) {
       final taskDueDate = task.dueDate!.millisToDay();
       if (taskDueDate.isBefore(today)) {
         overdueTasks.add(task);
@@ -57,14 +64,17 @@ class OverdueTasksInCategory extends _$OverdueTasksInCategory {
 class TodayTasksInCategory extends _$TodayTasksInCategory {
   @override
   List<Task> build(int categoryId) {
-    final tasks = ref.watch(tasksNotifierProvider).where(
-          (task) =>
-              !task.isDone &&
-              task.categoryId == categoryId &&
-              task.dueDate != null,
-        );
+    final tasks = ref.watch(tasksNotifierProvider).valueOrNull;
+
+    if (tasks == null) {
+      return [];
+    }
+    final notDoneTasks = tasks.where(
+      (task) =>
+          !task.isDone && task.categoryId == categoryId && task.dueDate != null,
+    );
     final todayTasks = <Task>[];
-    for (final task in tasks) {
+    for (final task in notDoneTasks) {
       final taskDueDate = task.dueDate!.millisToDay();
       if (taskDueDate.isToday) {
         todayTasks.add(task);
@@ -78,14 +88,17 @@ class TodayTasksInCategory extends _$TodayTasksInCategory {
 class TomorrowTasksInCategory extends _$TomorrowTasksInCategory {
   @override
   List<Task> build(int categoryId) {
-    final tasks = ref.watch(tasksNotifierProvider).where(
-          (task) =>
-              task.categoryId == categoryId &&
-              !task.isDone &&
-              task.dueDate != null,
-        );
+    final tasks = ref.watch(tasksNotifierProvider).valueOrNull;
+
+    if (tasks == null) {
+      return [];
+    }
+    final notDoneTasks = tasks.where(
+      (task) =>
+          task.categoryId == categoryId && !task.isDone && task.dueDate != null,
+    );
     final tomorrowTasks = <Task>[];
-    for (final task in tasks) {
+    for (final task in notDoneTasks) {
       final taskDueDate = task.dueDate!.millisToDay();
       if (taskDueDate.isTomorrow) {
         tomorrowTasks.add(task);
@@ -99,14 +112,17 @@ class TomorrowTasksInCategory extends _$TomorrowTasksInCategory {
 class FutureTasksInCategory extends _$FutureTasksInCategory {
   @override
   List<Task> build(int categoryId) {
-    final tasks = ref.watch(tasksNotifierProvider).where(
-          (task) =>
-              task.categoryId == categoryId &&
-              !task.isDone &&
-              task.dueDate != null,
-        );
+    final tasks = ref.watch(tasksNotifierProvider).valueOrNull;
+
+    if (tasks == null) {
+      return [];
+    }
+    final notDoneTasks = tasks.where(
+      (task) =>
+          task.categoryId == categoryId && !task.isDone && task.dueDate != null,
+    );
     final futureTasks = <Task>[];
-    for (final task in tasks) {
+    for (final task in notDoneTasks) {
       final taskDueDate = task.dueDate!.millisToDay();
       if (taskDueDate.isAfterTomorrow) {
         futureTasks.add(task);
@@ -121,14 +137,17 @@ class FutureTasksInCategory extends _$FutureTasksInCategory {
 class TodayCompletedTasksInCategory extends _$TodayCompletedTasksInCategory {
   @override
   List<Task> build(int categoryId) {
-    final tasks = ref.watch(tasksNotifierProvider).where(
-          (task) =>
-              task.categoryId == categoryId &&
-              task.isDone &&
-              task.doneTime != null,
-        );
+    final tasks = ref.watch(tasksNotifierProvider).valueOrNull;
+
+    if (tasks == null) {
+      return [];
+    }
+    final todayTasks = tasks.where(
+      (task) =>
+          task.categoryId == categoryId && task.isDone && task.doneTime != null,
+    );
     final todayCompletedTasks = <Task>[];
-    for (final task in tasks) {
+    for (final task in todayTasks) {
       final taskDoneDate = task.doneTime!.millisToDay();
       if (taskDoneDate.isToday) {
         todayCompletedTasks.add(task);
@@ -144,14 +163,17 @@ class YesterdayCompletedTasksInCategory
     extends _$YesterdayCompletedTasksInCategory {
   @override
   List<Task> build(int categoryId) {
-    final tasks = ref.watch(tasksNotifierProvider).where(
-          (task) =>
-              task.categoryId == categoryId &&
-              task.isDone &&
-              task.doneTime != null,
-        );
+    final tasks = ref.watch(tasksNotifierProvider).valueOrNull;
+
+    if (tasks == null) {
+      return [];
+    }
+    final yesterdayTasks = tasks.where(
+      (task) =>
+          task.categoryId == categoryId && task.isDone && task.doneTime != null,
+    );
     final yesterdayCompletedTasks = <Task>[];
-    for (final task in tasks) {
+    for (final task in yesterdayTasks) {
       final taskDoneDate = task.doneTime!.millisToDay();
       if (taskDoneDate.isYesterday) {
         yesterdayCompletedTasks.add(task);
@@ -166,12 +188,17 @@ class YesterdayCompletedTasksInCategory
 class PastCompletedTasksInCategory extends _$PastCompletedTasksInCategory {
   @override
   List<Task> build(int categoryId) {
-    final tasks = ref
-        .watch(tasksNotifierProvider)
-        .where((task) => task.categoryId == categoryId && task.isDone);
+    final tasks = ref.watch(tasksNotifierProvider).valueOrNull;
+
+    if (tasks == null) {
+      return [];
+    }
+
+    final doneTasks =
+        tasks.where((task) => task.categoryId == categoryId && task.isDone);
     final pastCompletedTasks = <Task>[];
     final completedTasksWithoutDoneTime = <Task>[];
-    for (final task in tasks) {
+    for (final task in doneTasks) {
       if (task.doneTime != null) {
         final taskDoneDate = task.doneTime!.millisToDay();
         if (taskDoneDate.isBeforeYesterday) {
@@ -188,16 +215,22 @@ class PastCompletedTasksInCategory extends _$PastCompletedTasksInCategory {
 
 @riverpod
 int numberOfAllActiveTasks(Ref ref) {
-  final tasks = ref.watch(tasksNotifierProvider);
+  final tasks = ref.watch(tasksNotifierProvider).valueOrNull;
+
+  if (tasks == null) {
+    return 0;
+  }
   return tasks.where((element) => !element.isDone).length;
 }
 
 @riverpod
 List<Task> uncategorizedTasks(Ref ref) {
-  return ref
-      .watch(tasksNotifierProvider)
-      .where((element) => element.categoryId == -1)
-      .toList();
+  final tasks = ref.watch(tasksNotifierProvider).valueOrNull;
+
+  if (tasks == null) {
+    return [];
+  }
+  return tasks.where((task) => task.categoryId == -1).toList();
 }
 
 @riverpod
@@ -205,8 +238,13 @@ int numberOfActiveTasksInCategory(Ref ref, int? categoryId) {
   if (categoryId == null) {
     return 0;
   }
-  return ref
-      .watch(tasksNotifierProvider)
+  final tasks = ref.watch(tasksNotifierProvider).valueOrNull;
+
+  if (tasks == null) {
+    return 0;
+  }
+
+  return tasks
       .where((task) => task.categoryId == categoryId && !task.isDone)
       .length;
 }
@@ -215,11 +253,11 @@ int numberOfActiveTasksInCategory(Ref ref, int? categoryId) {
 double completionProgress(Ref ref, int categoryId) {
   final tasks = ref.watch(tasksNotifierProvider);
   final allTasksInCategory =
-      tasks.where((task) => task.categoryId == categoryId);
+      tasks.valueOrNull?.where((task) => task.categoryId == categoryId);
   final completedTasksInCategory =
-      allTasksInCategory.where((task) => task.isDone);
-  if (allTasksInCategory.isNotEmpty) {
-    return completedTasksInCategory.length / allTasksInCategory.length;
+      allTasksInCategory?.where((task) => task.isDone);
+  if (allTasksInCategory != null && allTasksInCategory.isNotEmpty) {
+    return (completedTasksInCategory?.length ?? 0) / allTasksInCategory.length;
   }
   return 0;
 }

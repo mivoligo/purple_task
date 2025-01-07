@@ -7,30 +7,37 @@ part 'tasks_controller.g.dart';
 @riverpod
 class TasksNotifier extends _$TasksNotifier {
   @override
-  List<Task> build() {
-    return ref.watch(taskRepositoryProvider).getTasks();
-  }
+  Future<List<Task>> build() async =>
+      ref.watch(taskRepositoryProvider).getTasks();
 
   Future<void> add({required Task task}) async {
     await ref.read(taskRepositoryProvider).add(task: task);
-    state = ref.read(taskRepositoryProvider).getTasks();
+    final updatedTasks = await ref.read(taskRepositoryProvider).getTasks();
+
+    await update((currentState) => [...updatedTasks]);
   }
 
   Future<void> remove({required Task task}) async {
     await ref.read(taskRepositoryProvider).remove(task: task);
-    state = ref.read(taskRepositoryProvider).getTasks();
+    final updatedTasks = await ref.read(taskRepositoryProvider).getTasks();
+
+    await update((currentState) => [...updatedTasks]);
   }
 
-  Future<void> update({required Task task}) async {
+  Future<void> updateTask({required Task task}) async {
     await ref.read(taskRepositoryProvider).update(task: task);
-    state = ref.read(taskRepositoryProvider).getTasks();
+    final updatedTasks = await ref.read(taskRepositoryProvider).getTasks();
+
+    await update((currentState) => [...updatedTasks]);
   }
 
   Future<void> removeAllTasksForCategory({required int categoryId}) async {
     await ref
         .read(taskRepositoryProvider)
         .removeAllTasksForCategory(categoryId);
-    state = ref.read(taskRepositoryProvider).getTasks();
+    final updatedTasks = await ref.read(taskRepositoryProvider).getTasks();
+
+    await update((currentState) => [...updatedTasks]);
   }
 
   Future<void> removeCompletedTasksForCategory({
@@ -39,7 +46,9 @@ class TasksNotifier extends _$TasksNotifier {
     await ref
         .read(taskRepositoryProvider)
         .removeCompletedTasksForCategory(categoryId);
-    state = ref.read(taskRepositoryProvider).getTasks();
+    final updatedTasks = await ref.read(taskRepositoryProvider).getTasks();
+
+    await update((currentState) => [...updatedTasks]);
   }
 
   void reorder({
@@ -50,6 +59,6 @@ class TasksNotifier extends _$TasksNotifier {
           affectedTasksKeyList: affectedTasksKeyList,
           indexIncrease: indexIncrease,
         );
-    state = ref.read(taskRepositoryProvider).getTasks();
+    // state = ref.read(taskRepositoryProvider).getTasks();
   }
 }

@@ -66,7 +66,7 @@ class _TaskItemState extends State<TaskItem> {
                     dueDate: () => widget.task.dueDate,
                     doneTime: DateTime.now().millisecondsSinceEpoch,
                   );
-                  tasksController.update(task: updatedTask);
+                  tasksController.updateTask(task: updatedTask);
                 },
               ),
             ),
@@ -87,7 +87,7 @@ class _TaskItemState extends State<TaskItem> {
                                           name: value.trim(),
                                           dueDate: () => widget.task.dueDate,
                                         );
-                                        tasksController.update(
+                                        tasksController.updateTask(
                                           task: updatedTask,
                                         );
                                         tileController.collapseTile();
@@ -167,7 +167,7 @@ class _TaskItemState extends State<TaskItem> {
                                           name: _textController.text.trim(),
                                           dueDate: () => widget.task.dueDate,
                                         );
-                                        tasksController.update(
+                                        tasksController.updateTask(
                                           task: updatedTask,
                                         );
                                         tileController.collapseTile();

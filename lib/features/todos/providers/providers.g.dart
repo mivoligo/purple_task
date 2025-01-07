@@ -7,7 +7,7 @@ part of 'providers.dart';
 // **************************************************************************
 
 String _$numberOfAllActiveTasksHash() =>
-    r'5b4c2ac1e0c98b2d5462f70b1bdafdf6708a0493';
+    r'719f041b69dcf6d7eb7a7c5c1685f3f9d37f1628';
 
 /// See also [numberOfAllActiveTasks].
 @ProviderFor(numberOfAllActiveTasks)
@@ -25,7 +25,7 @@ final numberOfAllActiveTasksProvider = AutoDisposeProvider<int>.internal(
 // ignore: unused_element
 typedef NumberOfAllActiveTasksRef = AutoDisposeProviderRef<int>;
 String _$uncategorizedTasksHash() =>
-    r'c13e88f75f007a3ae6a4a38d45f3157cd63dcf99';
+    r'4013d9e97aa3b92db43ebc03e1de7430fecea4e3';
 
 /// See also [uncategorizedTasks].
 @ProviderFor(uncategorizedTasks)
@@ -43,7 +43,7 @@ final uncategorizedTasksProvider = AutoDisposeProvider<List<Task>>.internal(
 // ignore: unused_element
 typedef UncategorizedTasksRef = AutoDisposeProviderRef<List<Task>>;
 String _$numberOfActiveTasksInCategoryHash() =>
-    r'e431a7abd5fc478ecb3f7be57c85991f0339d62b';
+    r'5117cb5433e813fcbe37446632c0763e38ff9a19';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -199,7 +199,7 @@ class _NumberOfActiveTasksInCategoryProviderElement
 }
 
 String _$completionProgressHash() =>
-    r'58c8ca783340f704a4667b6db1d7972699cf9f32';
+    r'1756a0d46961b8765f18fdca1869bd71f065e82d';
 
 /// See also [completionProgress].
 @ProviderFor(completionProgress)
@@ -349,7 +349,7 @@ final appBackgroundColorProvider = AutoDisposeProvider<Color>.internal(
 // ignore: unused_element
 typedef AppBackgroundColorRef = AutoDisposeProviderRef<Color>;
 String _$noDueDateTasksInCategoryHash() =>
-    r'bc8c0ffd117837f77c75f5ecc0c810a4eceae5a5';
+    r'5b5a0d5dd1ed3f15b28b4a1067654bd8b6775aec';
 
 abstract class _$NoDueDateTasksInCategory
     extends BuildlessAutoDisposeNotifier<List<Task>> {
@@ -498,7 +498,7 @@ class _NoDueDateTasksInCategoryProviderElement
 }
 
 String _$overdueTasksInCategoryHash() =>
-    r'168c9d3232b7e533679dde656d94199704d008be';
+    r'e3bb599b9baab91c01b406ed38f8c35b772163e8';
 
 abstract class _$OverdueTasksInCategory
     extends BuildlessAutoDisposeNotifier<List<Task>> {
@@ -646,7 +646,7 @@ class _OverdueTasksInCategoryProviderElement
 }
 
 String _$todayTasksInCategoryHash() =>
-    r'05df93852677086390e6e0cb2d8c821bfae19091';
+    r'11593ab944967b182bd816511867af5510768714';
 
 abstract class _$TodayTasksInCategory
     extends BuildlessAutoDisposeNotifier<List<Task>> {
@@ -794,7 +794,7 @@ class _TodayTasksInCategoryProviderElement
 }
 
 String _$tomorrowTasksInCategoryHash() =>
-    r'0f3b9ee1e8fac2317c4ad8a184a76d11eb6f789b';
+    r'98f7e318b5401e0f31bac981dce51e9d034fa361';
 
 abstract class _$TomorrowTasksInCategory
     extends BuildlessAutoDisposeNotifier<List<Task>> {
@@ -942,7 +942,7 @@ class _TomorrowTasksInCategoryProviderElement
 }
 
 String _$futureTasksInCategoryHash() =>
-    r'e2d07f369d5773dbd7ffd5d5411d02baf2fccc32';
+    r'b41e361f4f1543603ffcbc89c642a0632fd0bea6';
 
 abstract class _$FutureTasksInCategory
     extends BuildlessAutoDisposeNotifier<List<Task>> {
@@ -1090,7 +1090,7 @@ class _FutureTasksInCategoryProviderElement
 }
 
 String _$todayCompletedTasksInCategoryHash() =>
-    r'35c3ce76db1eb5b70ac5e09bff87530d48fc33ab';
+    r'a847508c52907d12eeaf8a39e5b149191d3e50f9';
 
 abstract class _$TodayCompletedTasksInCategory
     extends BuildlessAutoDisposeNotifier<List<Task>> {
@@ -1242,7 +1242,7 @@ class _TodayCompletedTasksInCategoryProviderElement
 }
 
 String _$yesterdayCompletedTasksInCategoryHash() =>
-    r'7265171415a3900b0ef35669c2fe6d3e51b4350d';
+    r'7d280bd054d3afb9bb0736a4abdbba186b396974';
 
 abstract class _$YesterdayCompletedTasksInCategory
     extends BuildlessAutoDisposeNotifier<List<Task>> {
@@ -1395,7 +1395,7 @@ class _YesterdayCompletedTasksInCategoryProviderElement
 }
 
 String _$pastCompletedTasksInCategoryHash() =>
-    r'df7acc503bf2cb756dd55eabc0ac999faba006e1';
+    r'c218feab95a7771fe409c35ab684a2d5aef23d6d';
 
 abstract class _$PastCompletedTasksInCategory
     extends BuildlessAutoDisposeNotifier<List<Task>> {
