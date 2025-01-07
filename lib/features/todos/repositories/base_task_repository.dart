@@ -1,7 +1,7 @@
 import 'package:purple_task/features/todos/models/task.dart';
 
 abstract class BaseTaskRepository {
-  Future<Task> add({required Task task});
+  Future<int> add({required Task task});
 
   Future<Task> update({required Task task});
 

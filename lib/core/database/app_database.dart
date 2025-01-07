@@ -16,8 +16,10 @@ class TaskItems extends Table {
 
   TextColumn get description => text().nullable()();
 
+  BoolColumn get isDone => boolean()();
+
   IntColumn get categoryId =>
-      integer().nullable().references(Categories, #id)();
+      integer().references(Categories, #id)();
 
   IntColumn get createdAt => integer().nullable()();
 

@@ -7,6 +7,8 @@ class Task extends Equatable {
     required this.name,
     required this.categoryId,
     this.isDone = false,
+    this.description,
+    this.createTime,
     this.dueDate,
     this.doneTime,
     this.id,
@@ -25,8 +27,10 @@ class Task extends Equatable {
 
   final int? id;
   final String name;
+  final String? description;
   final bool isDone;
   final int categoryId;
+  final int? createTime;
   final int? dueDate;
   final int? doneTime;
   final int? position;
@@ -43,6 +47,7 @@ class Task extends Equatable {
 
   Task copyWith({
     String? name,
+    String? Function()? description,
     bool? isDone,
     int? categoryId,
     int? Function()? dueDate,
@@ -52,6 +57,7 @@ class Task extends Equatable {
   }) {
     return Task(
       name: name ?? this.name,
+      description: description != null ? description() : this.description,
       isDone: isDone ?? this.isDone,
       categoryId: categoryId ?? this.categoryId,
       dueDate: dueDate != null ? dueDate() : this.dueDate,
@@ -64,8 +70,10 @@ class Task extends Equatable {
   @override
   List<Object?> get props => [
         name,
+        description,
         isDone,
         categoryId,
+        createTime,
         dueDate,
         doneTime,
         id,

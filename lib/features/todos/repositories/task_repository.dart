@@ -13,9 +13,9 @@ class TaskRepository extends BaseTaskRepository {
   // final _tasksOrderBox = Hive.box<Map<dynamic, dynamic>>(tasksListOrderBox);
 
   @override
-  Future<Task> add({required Task task}) async {
+  Future<int> add({required Task task}) async {
     final autoincrementKey = await _taskBox.add(task.toEntity());
-    return task.copyWith(id: autoincrementKey);
+    return autoincrementKey;
     // final taskOrder = _tasksOrderBox.get(tasksListOrderKey);
     // taskOrder?[autoincrementKey.toString()] = autoincrementKey;
     // return task;

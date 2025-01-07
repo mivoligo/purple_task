@@ -325,13 +325,21 @@ class $TaskItemsTable extends TaskItems
   late final GeneratedColumn<String> description = GeneratedColumn<String>(
       'description', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _isDoneMeta = const VerificationMeta('isDone');
+  @override
+  late final GeneratedColumn<bool> isDone = GeneratedColumn<bool>(
+      'is_done', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_done" IN (0, 1))'));
   static const VerificationMeta _categoryIdMeta =
       const VerificationMeta('categoryId');
   @override
   late final GeneratedColumn<int> categoryId = GeneratedColumn<int>(
-      'category_id', aliasedName, true,
+      'category_id', aliasedName, false,
       type: DriftSqlType.int,
-      requiredDuringInsert: false,
+      requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES categories (id)'));
   static const VerificationMeta _createdAtMeta =
@@ -357,8 +365,17 @@ class $TaskItemsTable extends TaskItems
       'position', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, name, description, categoryId, createdAt, dueAt, doneAt, position];
+  List<GeneratedColumn> get $columns => [
+        id,
+        name,
+        description,
+        isDone,
+        categoryId,
+        createdAt,
+        dueAt,
+        doneAt,
+        position
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -384,11 +401,19 @@ class $TaskItemsTable extends TaskItems
           description.isAcceptableOrUnknown(
               data['description']!, _descriptionMeta));
     }
+    if (data.containsKey('is_done')) {
+      context.handle(_isDoneMeta,
+          isDone.isAcceptableOrUnknown(data['is_done']!, _isDoneMeta));
+    } else if (isInserting) {
+      context.missing(_isDoneMeta);
+    }
     if (data.containsKey('category_id')) {
       context.handle(
           _categoryIdMeta,
           categoryId.isAcceptableOrUnknown(
               data['category_id']!, _categoryIdMeta));
+    } else if (isInserting) {
+      context.missing(_categoryIdMeta);
     }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
@@ -421,8 +446,10 @@ class $TaskItemsTable extends TaskItems
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       description: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}description']),
+      isDone: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_done'])!,
       categoryId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}category_id']),
+          .read(DriftSqlType.int, data['${effectivePrefix}category_id'])!,
       createdAt: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}created_at']),
       dueAt: attachedDatabase.typeMapping
@@ -444,7 +471,8 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
   final int id;
   final String name;
   final String? description;
-  final int? categoryId;
+  final bool isDone;
+  final int categoryId;
   final int? createdAt;
   final int? dueAt;
   final int? doneAt;
@@ -453,7 +481,8 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
       {required this.id,
       required this.name,
       this.description,
-      this.categoryId,
+      required this.isDone,
+      required this.categoryId,
       this.createdAt,
       this.dueAt,
       this.doneAt,
@@ -466,9 +495,8 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
     if (!nullToAbsent || description != null) {
       map['description'] = Variable<String>(description);
     }
-    if (!nullToAbsent || categoryId != null) {
-      map['category_id'] = Variable<int>(categoryId);
-    }
+    map['is_done'] = Variable<bool>(isDone);
+    map['category_id'] = Variable<int>(categoryId);
     if (!nullToAbsent || createdAt != null) {
       map['created_at'] = Variable<int>(createdAt);
     }
@@ -491,9 +519,8 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
       description: description == null && nullToAbsent
           ? const Value.absent()
           : Value(description),
-      categoryId: categoryId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(categoryId),
+      isDone: Value(isDone),
+      categoryId: Value(categoryId),
       createdAt: createdAt == null && nullToAbsent
           ? const Value.absent()
           : Value(createdAt),
@@ -514,7 +541,8 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       description: serializer.fromJson<String?>(json['description']),
-      categoryId: serializer.fromJson<int?>(json['categoryId']),
+      isDone: serializer.fromJson<bool>(json['isDone']),
+      categoryId: serializer.fromJson<int>(json['categoryId']),
       createdAt: serializer.fromJson<int?>(json['createdAt']),
       dueAt: serializer.fromJson<int?>(json['dueAt']),
       doneAt: serializer.fromJson<int?>(json['doneAt']),
@@ -528,7 +556,8 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
       'description': serializer.toJson<String?>(description),
-      'categoryId': serializer.toJson<int?>(categoryId),
+      'isDone': serializer.toJson<bool>(isDone),
+      'categoryId': serializer.toJson<int>(categoryId),
       'createdAt': serializer.toJson<int?>(createdAt),
       'dueAt': serializer.toJson<int?>(dueAt),
       'doneAt': serializer.toJson<int?>(doneAt),
@@ -540,7 +569,8 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
           {int? id,
           String? name,
           Value<String?> description = const Value.absent(),
-          Value<int?> categoryId = const Value.absent(),
+          bool? isDone,
+          int? categoryId,
           Value<int?> createdAt = const Value.absent(),
           Value<int?> dueAt = const Value.absent(),
           Value<int?> doneAt = const Value.absent(),
@@ -549,7 +579,8 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
         id: id ?? this.id,
         name: name ?? this.name,
         description: description.present ? description.value : this.description,
-        categoryId: categoryId.present ? categoryId.value : this.categoryId,
+        isDone: isDone ?? this.isDone,
+        categoryId: categoryId ?? this.categoryId,
         createdAt: createdAt.present ? createdAt.value : this.createdAt,
         dueAt: dueAt.present ? dueAt.value : this.dueAt,
         doneAt: doneAt.present ? doneAt.value : this.doneAt,
@@ -561,6 +592,7 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
       name: data.name.present ? data.name.value : this.name,
       description:
           data.description.present ? data.description.value : this.description,
+      isDone: data.isDone.present ? data.isDone.value : this.isDone,
       categoryId:
           data.categoryId.present ? data.categoryId.value : this.categoryId,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
@@ -576,6 +608,7 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('description: $description, ')
+          ..write('isDone: $isDone, ')
           ..write('categoryId: $categoryId, ')
           ..write('createdAt: $createdAt, ')
           ..write('dueAt: $dueAt, ')
@@ -586,8 +619,8 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, name, description, categoryId, createdAt, dueAt, doneAt, position);
+  int get hashCode => Object.hash(id, name, description, isDone, categoryId,
+      createdAt, dueAt, doneAt, position);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -595,6 +628,7 @@ class TaskItem extends DataClass implements Insertable<TaskItem> {
           other.id == this.id &&
           other.name == this.name &&
           other.description == this.description &&
+          other.isDone == this.isDone &&
           other.categoryId == this.categoryId &&
           other.createdAt == this.createdAt &&
           other.dueAt == this.dueAt &&
@@ -606,7 +640,8 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
   final Value<int> id;
   final Value<String> name;
   final Value<String?> description;
-  final Value<int?> categoryId;
+  final Value<bool> isDone;
+  final Value<int> categoryId;
   final Value<int?> createdAt;
   final Value<int?> dueAt;
   final Value<int?> doneAt;
@@ -615,6 +650,7 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.description = const Value.absent(),
+    this.isDone = const Value.absent(),
     this.categoryId = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.dueAt = const Value.absent(),
@@ -625,16 +661,20 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
     this.id = const Value.absent(),
     required String name,
     this.description = const Value.absent(),
-    this.categoryId = const Value.absent(),
+    required bool isDone,
+    required int categoryId,
     this.createdAt = const Value.absent(),
     this.dueAt = const Value.absent(),
     this.doneAt = const Value.absent(),
     this.position = const Value.absent(),
-  }) : name = Value(name);
+  })  : name = Value(name),
+        isDone = Value(isDone),
+        categoryId = Value(categoryId);
   static Insertable<TaskItem> custom({
     Expression<int>? id,
     Expression<String>? name,
     Expression<String>? description,
+    Expression<bool>? isDone,
     Expression<int>? categoryId,
     Expression<int>? createdAt,
     Expression<int>? dueAt,
@@ -645,6 +685,7 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
       if (id != null) 'id': id,
       if (name != null) 'name': name,
       if (description != null) 'description': description,
+      if (isDone != null) 'is_done': isDone,
       if (categoryId != null) 'category_id': categoryId,
       if (createdAt != null) 'created_at': createdAt,
       if (dueAt != null) 'due_at': dueAt,
@@ -657,7 +698,8 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
       {Value<int>? id,
       Value<String>? name,
       Value<String?>? description,
-      Value<int?>? categoryId,
+      Value<bool>? isDone,
+      Value<int>? categoryId,
       Value<int?>? createdAt,
       Value<int?>? dueAt,
       Value<int?>? doneAt,
@@ -666,6 +708,7 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
+      isDone: isDone ?? this.isDone,
       categoryId: categoryId ?? this.categoryId,
       createdAt: createdAt ?? this.createdAt,
       dueAt: dueAt ?? this.dueAt,
@@ -685,6 +728,9 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
     }
     if (description.present) {
       map['description'] = Variable<String>(description.value);
+    }
+    if (isDone.present) {
+      map['is_done'] = Variable<bool>(isDone.value);
     }
     if (categoryId.present) {
       map['category_id'] = Variable<int>(categoryId.value);
@@ -710,6 +756,7 @@ class TaskItemsCompanion extends UpdateCompanion<TaskItem> {
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('description: $description, ')
+          ..write('isDone: $isDone, ')
           ..write('categoryId: $categoryId, ')
           ..write('createdAt: $createdAt, ')
           ..write('dueAt: $dueAt, ')
@@ -984,7 +1031,8 @@ typedef $$TaskItemsTableCreateCompanionBuilder = TaskItemsCompanion Function({
   Value<int> id,
   required String name,
   Value<String?> description,
-  Value<int?> categoryId,
+  required bool isDone,
+  required int categoryId,
   Value<int?> createdAt,
   Value<int?> dueAt,
   Value<int?> doneAt,
@@ -994,7 +1042,8 @@ typedef $$TaskItemsTableUpdateCompanionBuilder = TaskItemsCompanion Function({
   Value<int> id,
   Value<String> name,
   Value<String?> description,
-  Value<int?> categoryId,
+  Value<bool> isDone,
+  Value<int> categoryId,
   Value<int?> createdAt,
   Value<int?> dueAt,
   Value<int?> doneAt,
@@ -1009,8 +1058,7 @@ final class $$TaskItemsTableReferences
       db.categories.createAlias(
           $_aliasNameGenerator(db.taskItems.categoryId, db.categories.id));
 
-  $$CategoriesTableProcessedTableManager? get categoryId {
-    if ($_item.categoryId == null) return null;
+  $$CategoriesTableProcessedTableManager get categoryId {
     final manager = $$CategoriesTableTableManager($_db, $_db.categories)
         .filter((f) => f.id($_item.categoryId!));
     final item = $_typedResult.readTableOrNull(_categoryIdTable($_db));
@@ -1037,6 +1085,9 @@ class $$TaskItemsTableFilterComposer
 
   ColumnFilters<String> get description => $composableBuilder(
       column: $table.description, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isDone => $composableBuilder(
+      column: $table.isDone, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnFilters(column));
@@ -1089,6 +1140,9 @@ class $$TaskItemsTableOrderingComposer
   ColumnOrderings<String> get description => $composableBuilder(
       column: $table.description, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<bool> get isDone => $composableBuilder(
+      column: $table.isDone, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<int> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
@@ -1139,6 +1193,9 @@ class $$TaskItemsTableAnnotationComposer
 
   GeneratedColumn<String> get description => $composableBuilder(
       column: $table.description, builder: (column) => column);
+
+  GeneratedColumn<bool> get isDone =>
+      $composableBuilder(column: $table.isDone, builder: (column) => column);
 
   GeneratedColumn<int> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
@@ -1199,7 +1256,8 @@ class $$TaskItemsTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<String> name = const Value.absent(),
             Value<String?> description = const Value.absent(),
-            Value<int?> categoryId = const Value.absent(),
+            Value<bool> isDone = const Value.absent(),
+            Value<int> categoryId = const Value.absent(),
             Value<int?> createdAt = const Value.absent(),
             Value<int?> dueAt = const Value.absent(),
             Value<int?> doneAt = const Value.absent(),
@@ -1209,6 +1267,7 @@ class $$TaskItemsTableTableManager extends RootTableManager<
             id: id,
             name: name,
             description: description,
+            isDone: isDone,
             categoryId: categoryId,
             createdAt: createdAt,
             dueAt: dueAt,
@@ -1219,7 +1278,8 @@ class $$TaskItemsTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             required String name,
             Value<String?> description = const Value.absent(),
-            Value<int?> categoryId = const Value.absent(),
+            required bool isDone,
+            required int categoryId,
             Value<int?> createdAt = const Value.absent(),
             Value<int?> dueAt = const Value.absent(),
             Value<int?> doneAt = const Value.absent(),
@@ -1229,6 +1289,7 @@ class $$TaskItemsTableTableManager extends RootTableManager<
             id: id,
             name: name,
             description: description,
+            isDone: isDone,
             categoryId: categoryId,
             createdAt: createdAt,
             dueAt: dueAt,
