@@ -67,9 +67,3 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
     });
   }
 }
-
-@riverpod
-TaskDao taskDao(Ref ref) {
-  final database = ref.watch(appDatabaseProvider);
-  return TaskDao(database);
-}

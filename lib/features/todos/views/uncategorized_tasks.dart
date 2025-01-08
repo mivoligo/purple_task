@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:purple_task/features/todos/controllers/providers/providers.dart';
 import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
 import 'package:purple_task/features/todos/models/task.dart';
-import 'package:purple_task/features/todos/providers/providers.dart';
 import 'package:purple_task/features/todos/views/add_task_field.dart';
 import 'package:purple_task/features/todos/views/all_tasks.dart';
 import 'package:purple_task/features/todos/views/completed_tasks.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:purple_task/features/todos/providers/providers.dart';
+import 'package:purple_task/features/todos/controllers/providers/providers.dart';
 
 class AnimatedBackground extends StatelessWidget {
   const AnimatedBackground({super.key, this.child});

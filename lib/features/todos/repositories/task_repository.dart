@@ -1,14 +1,8 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:purple_task/core/constants/hive_names.dart';
-import 'package:purple_task/features/todos/daos/task_dao.dart';
 import 'package:purple_task/features/todos/models/task.dart';
 import 'package:purple_task/features/todos/models/task_entity.dart';
 import 'package:purple_task/features/todos/repositories/base_task_repository.dart';
-import 'package:purple_task/features/todos/repositories/drift_task_repository.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-part 'task_repository.g.dart';
 
 class TaskRepository extends BaseTaskRepository {
   final _taskBox = Hive.box<TaskEntity>(taskBox);
@@ -133,10 +127,4 @@ class TaskRepository extends BaseTaskRepository {
     //
     // _tasksOrderBox.put(tasksListOrderKey, tasksOrder);
   }
-}
-
-@riverpod
-BaseTaskRepository taskRepository(Ref ref) {
-  final taskDao = ref.watch(taskDaoProvider);
-  return DriftTaskRepository(taskDao: taskDao);
 }

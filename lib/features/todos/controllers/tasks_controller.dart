@@ -1,5 +1,5 @@
 import 'package:purple_task/features/todos/models/task.dart';
-import 'package:purple_task/features/todos/repositories/task_repository.dart';
+import 'package:purple_task/features/todos/repositories/providers/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'tasks_controller.g.dart';

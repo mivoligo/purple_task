@@ -1,15 +1,11 @@
 import 'dart:ui';
 
 import 'package:drift/drift.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/database/app_database.dart' as db;
 import 'package:purple_task/core/helpers.dart';
 import 'package:purple_task/features/todos/daos/category_dao.dart';
 import 'package:purple_task/features/todos/models/category.dart';
 import 'package:purple_task/features/todos/repositories/base_category_repository.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-part 'drift_category_repository.g.dart';
 
 class DriftCategoryRepository implements BaseCategoryRepository {
   DriftCategoryRepository({required this.categoryDao});
@@ -74,10 +70,4 @@ class DriftCategoryRepository implements BaseCategoryRepository {
       ),
     );
   }
-}
-
-@riverpod
-BaseCategoryRepository categoryRepository(Ref ref) {
-  final dao = ref.watch(categoryDaoProvider);
-  return DriftCategoryRepository(categoryDao: dao);
 }
