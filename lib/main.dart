@@ -5,8 +5,8 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 
 import 'package:purple_task/app.dart';
 import 'package:purple_task/core/constants/hive_names.dart';
-import 'package:purple_task/features/todos/models/category_entity.dart';
-import 'package:purple_task/features/todos/models/task_entity.dart';
+import 'package:purple_task/features/todos/models/hive_entities/category_entity.dart';
+import 'package:purple_task/features/todos/models/hive_entities/task_entity.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

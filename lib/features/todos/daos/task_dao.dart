@@ -1,7 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/database/app_database.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'task_dao.g.dart';
 
@@ -31,6 +29,16 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
         isDone: const Value(false),
         position: Value(currentMaxPosition),
       ),
+    );
+  }
+
+  Future<void> addTasksList(List<TaskItemsCompanion> companionsList) async {
+    await transaction(
+      () async {
+        for (final companion in companionsList) {
+          await addTask(companion);
+        }
+      },
     );
   }
 

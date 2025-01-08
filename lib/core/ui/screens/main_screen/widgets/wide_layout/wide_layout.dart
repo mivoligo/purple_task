@@ -96,8 +96,12 @@ class _UncategorizedCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final uncategorizedCategory = const Category.empty()
-        .copyWith(id: -1, name: noCategory, icon: AntIcons.appstore.codePoint);
+    final uncategorizedCategory = Category(
+      id: -1,
+      name: noCategory,
+      icon: AntIcons.appstore.codePoint,
+      color: Colors.deepPurple,
+    );
     return InkWell(
       onTap: () =>
           ref.read(categoryNotifierProvider.notifier).setCurrentCategory(null),

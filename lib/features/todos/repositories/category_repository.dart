@@ -1,17 +1,19 @@
 import 'package:hive/hive.dart';
 
 import 'package:purple_task/core/constants/hive_names.dart';
+import 'package:purple_task/features/todos/converters/category_to_hive_entity_converter.dart';
 import 'package:purple_task/features/todos/models/category.dart';
-import 'package:purple_task/features/todos/models/category_entity.dart';
+import 'package:purple_task/features/todos/models/hive_entities/category_entity.dart';
 import 'package:purple_task/features/todos/repositories/base_category_repository.dart';
 
-class CategoryRepository extends BaseCategoryRepository {
+class CategoryRepository extends BaseCategoryRepository
+    with CategoryToHiveEntityConverter {
   final _categoryBox = Hive.box<CategoryEntity>(categoryBox);
   // final _categoriesOrderBox = Hive.box<List<String>>(categoriesListOrderBox);
 
   @override
   Future<int> add({required Category category}) async {
-    await _categoryBox.add(category.toEntity());
+    await _categoryBox.add(categoryToEntity(category));
     // final categoryListOrder = _categoriesOrderBox.get(categoriesListOrderKey);
     // categoryListOrder?.add(category.id.toString());
     return category.id;
@@ -22,7 +24,7 @@ class CategoryRepository extends BaseCategoryRepository {
     final key = _categoryBox.values
         .firstWhere((element) => element.id == category.id)
         .key;
-    await _categoryBox.put(key, category.toEntity());
+    await _categoryBox.put(key, categoryToEntity(category));
     return category;
   }
 
@@ -47,7 +49,7 @@ class CategoryRepository extends BaseCategoryRepository {
     //   );
     // }
 
-    return Future.value(_categoryBox.values.map(Category.fromEntity).toList());
+    return Future.value(_categoryBox.values.map(entityToCategory).toList());
     // ..sort(
     //   (a, b) {
     //     final order = _categoriesOrderBox.get(categoriesListOrderKey);

@@ -1,16 +1,17 @@
 import 'package:hive/hive.dart';
 import 'package:purple_task/core/constants/hive_names.dart';
+import 'package:purple_task/features/todos/converters/task_to_hive_entity_converter.dart';
+import 'package:purple_task/features/todos/models/hive_entities/task_entity.dart';
 import 'package:purple_task/features/todos/models/task.dart';
-import 'package:purple_task/features/todos/models/task_entity.dart';
 import 'package:purple_task/features/todos/repositories/base_task_repository.dart';
 
-class TaskRepository extends BaseTaskRepository {
+class TaskRepository extends BaseTaskRepository with TaskToHiveEntityConverter {
   final _taskBox = Hive.box<TaskEntity>(taskBox);
   // final _tasksOrderBox = Hive.box<Map<dynamic, dynamic>>(tasksListOrderBox);
 
   @override
   Future<int> add({required Task task}) async {
-    final autoincrementKey = await _taskBox.add(task.toEntity());
+    final autoincrementKey = await _taskBox.add(taskToEntity(task));
     return autoincrementKey;
     // final taskOrder = _tasksOrderBox.get(tasksListOrderKey);
     // taskOrder?[autoincrementKey.toString()] = autoincrementKey;
@@ -19,7 +20,7 @@ class TaskRepository extends BaseTaskRepository {
 
   @override
   Future<void> update({required Task task}) async {
-    await _taskBox.put(task.id, task.toEntity());
+    await _taskBox.put(task.id, taskToEntity(task));
   }
 
   @override
@@ -46,7 +47,7 @@ class TaskRepository extends BaseTaskRepository {
     //   ;
     // }
 
-    final values = _taskBox.values.map(Task.fromEntity).toList();
+    final values = _taskBox.values.map(entityToTask).toList();
     // ..sort(
     //   (a, b) {
     //     final order = _tasksOrderBox.get(tasksListOrderKey);

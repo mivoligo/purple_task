@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:purple_task/core/helpers.dart';
-import 'package:purple_task/features/todos/models/category_entity.dart';
 
 class Category extends Equatable {
   const Category({
@@ -12,35 +10,11 @@ class Category extends Equatable {
     this.position,
   });
 
-  factory Category.fromEntity(CategoryEntity entity) {
-    return Category(
-      id: entity.id,
-      name: entity.name,
-      color: Color(entity.color),
-      icon: entity.icon,
-    );
-  }
-
-  const Category.empty()
-      : this(id: 0, name: '', color: Colors.deepPurple, icon: 0);
-
   final int id;
   final String name;
   final Color color;
   final int icon;
   final int? position;
-
-  @override
-  List<Object?> get props => [id, name, color, icon];
-
-  CategoryEntity toEntity() {
-    return CategoryEntity(
-      name: name,
-      color: color.intValue,
-      icon: icon,
-      id: id,
-    );
-  }
 
   Category copyWith({
     int? id,
@@ -57,4 +31,7 @@ class Category extends Equatable {
       position: position ?? this.position,
     );
   }
+
+  @override
+  List<Object?> get props => [id, name, color, icon, position];
 }

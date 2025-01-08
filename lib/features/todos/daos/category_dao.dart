@@ -33,6 +33,18 @@ class CategoryDao extends DatabaseAccessor<AppDatabase>
     );
   }
 
+  Future<void> addCategoriesList(
+    List<CategoriesCompanion> categoriesCompanionList,
+  ) async {
+    await transaction(
+      () async {
+        for (final companion in categoriesCompanionList) {
+          await addCategory(companion);
+        }
+      },
+    );
+  }
+
   Future<int> deleteCategory(int id) =>
       (delete(categories)..where((tbl) => tbl.id.equals(id))).go();
 

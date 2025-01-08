@@ -2,31 +2,31 @@ import 'package:drift/drift.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:purple_task/core/database/app_database.dart';
 import 'package:purple_task/features/todos/daos/task_dao.dart';
-import 'package:purple_task/features/todos/models/task.dart';
-import 'package:purple_task/features/todos/models/task_entity.dart';
+import 'package:purple_task/features/todos/models/hive_entities/task_entity.dart';
 
 class TasksMigrator {
   TasksMigrator({
-    required this.tasksBox,
-    required this.taskDao,
-  });
+    required Box<TaskEntity> tasksBox,
+    required TaskDao taskDao,
+  })  : _tasksBox = tasksBox,
+        _taskDao = taskDao;
 
-  final Box<TaskEntity> tasksBox;
-  final TaskDao taskDao;
+  final Box<TaskEntity> _tasksBox;
+  final TaskDao _taskDao;
 
   Future<void> migrateTasksFromHiveToDrift() async {
-    final tasks = tasksBox.values.map(Task.fromEntity).toList();
+    final companions = _tasksBox.values
+        .map(
+          (e) => TaskItemsCompanion(
+            name: Value(e.name),
+            isDone: Value(e.isDone),
+            categoryId: Value(e.categoryId),
+            dueAt: Value(e.dueDate),
+            doneAt: Value(e.doneTime),
+          ),
+        )
+        .toList(growable: false);
 
-    for (final task in tasks) {
-      await taskDao.addTask(
-        TaskItemsCompanion(
-          name: Value(task.name),
-          isDone: Value(task.isDone),
-          categoryId: Value(task.categoryId),
-          dueAt: Value(task.dueDate),
-          doneAt: Value(task.doneTime),
-        ),
-      );
-    }
+    await _taskDao.addTasksList(companions);
   }
 }
