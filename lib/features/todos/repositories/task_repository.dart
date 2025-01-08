@@ -1,9 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:purple_task/core/constants/hive_names.dart';
+import 'package:purple_task/features/todos/daos/task_dao.dart';
 import 'package:purple_task/features/todos/models/task.dart';
 import 'package:purple_task/features/todos/models/task_entity.dart';
 import 'package:purple_task/features/todos/repositories/base_task_repository.dart';
+import 'package:purple_task/features/todos/repositories/drift_task_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'task_repository.g.dart';
@@ -22,18 +24,16 @@ class TaskRepository extends BaseTaskRepository {
   }
 
   @override
-  Future<Task> update({required Task task}) async {
+  Future<void> update({required Task task}) async {
     await _taskBox.put(task.id, task.toEntity());
-    return task;
   }
 
   @override
-  Future<Task> remove({required Task task}) async {
+  Future<void> remove({required int taskId}) async {
     await _taskBox.values
-        .firstWhere((element) => element.key == task.id)
+        .firstWhere((element) => element.key == taskId)
         .delete();
     // _tasksOrderBox.get(tasksListOrderKey)?.remove(task.id.toString());
-    return task;
   }
 
   @override
@@ -92,10 +92,7 @@ class TaskRepository extends BaseTaskRepository {
   }
 
   @override
-  void reorder({
-    required List<String> affectedTasksKeyList,
-    required bool indexIncrease,
-  }) {
+  Future<void> reorder({required List<Task> affectedTasksList}) async {
     // final tasksOrder = _tasksOrderBox.get(tasksListOrderKey, defaultValue: {});
 
     // if (tasksOrder == null) {
@@ -139,4 +136,7 @@ class TaskRepository extends BaseTaskRepository {
 }
 
 @riverpod
-BaseTaskRepository taskRepository(Ref ref) => TaskRepository();
+BaseTaskRepository taskRepository(Ref ref) {
+  final taskDao = ref.watch(taskDaoProvider);
+  return DriftTaskRepository(taskDao: taskDao);
+}

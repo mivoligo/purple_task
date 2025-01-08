@@ -17,8 +17,8 @@ class TasksNotifier extends _$TasksNotifier {
     await update((currentState) => [...updatedTasks]);
   }
 
-  Future<void> remove({required Task task}) async {
-    await ref.read(taskRepositoryProvider).remove(task: task);
+  Future<void> remove({required int taskId}) async {
+    await ref.read(taskRepositoryProvider).remove(taskId: taskId);
     final updatedTasks = await ref.read(taskRepositoryProvider).getTasks();
 
     await update((currentState) => [...updatedTasks]);
@@ -51,14 +51,52 @@ class TasksNotifier extends _$TasksNotifier {
     await update((currentState) => [...updatedTasks]);
   }
 
-  void reorder({
-    required List<String> affectedTasksKeyList,
+  Future<void> reorder({
+    required List<Task> affectedTasksList,
     required bool indexIncrease,
-  }) {
-    ref.read(taskRepositoryProvider).reorder(
-          affectedTasksKeyList: affectedTasksKeyList,
-          indexIncrease: indexIncrease,
+  }) async {
+    final tasksToBeUpdated = <Task>[];
+
+    if (indexIncrease) {
+      for (var i = 0; i < affectedTasksList.length; i++) {
+        final currentTask = affectedTasksList[i];
+        if (i == 0) {
+          tasksToBeUpdated.add(
+            currentTask.copyWith(
+              position: affectedTasksList.last.position,
+            ),
+          );
+        } else {
+          tasksToBeUpdated.add(
+            currentTask.copyWith(
+              position: affectedTasksList[i - 1].position,
+            ),
+          );
+        }
+      }
+    } else {
+      for (var i = 0; i < affectedTasksList.length; i++) {
+        final currentTask = affectedTasksList[i];
+        if (i == affectedTasksList.length - 1) {
+          tasksToBeUpdated.add(
+            currentTask.copyWith(position: affectedTasksList.first.position),
+          );
+        } else {
+          tasksToBeUpdated.add(
+            currentTask.copyWith(
+              position: affectedTasksList[i + 1].position,
+            ),
+          );
+        }
+      }
+    }
+
+    await ref.read(taskRepositoryProvider).reorder(
+          affectedTasksList: tasksToBeUpdated,
         );
+    final updatedTasks = await ref.read(taskRepositoryProvider).getTasks();
+
+    await update((currentState) => [...updatedTasks]);
     // state = ref.read(taskRepositoryProvider).getTasks();
   }
 }

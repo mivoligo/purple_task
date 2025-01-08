@@ -3,9 +3,9 @@ import 'package:purple_task/features/todos/models/task.dart';
 abstract class BaseTaskRepository {
   Future<int> add({required Task task});
 
-  Future<Task> update({required Task task});
+  Future<void> update({required Task task});
 
-  Future<Task> remove({required Task task});
+  Future<void> remove({required int taskId});
 
   Future<List<Task>> getTasks();
 
@@ -13,8 +13,5 @@ abstract class BaseTaskRepository {
 
   Future<void> removeCompletedTasksForCategory(int categoryId);
 
-  void reorder({
-    required List<String> affectedTasksKeyList,
-    required bool indexIncrease,
-  });
+  Future<void> reorder({required List<Task> affectedTasksList});
 }

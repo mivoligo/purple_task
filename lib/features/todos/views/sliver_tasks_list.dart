@@ -90,7 +90,7 @@ class SliverTasksList extends ConsumerWidget {
       proxyDecorator: proxyDecorator,
       onReorder: (oldIndex, newIndex) {
         final currentItem = list[oldIndex];
-        final affectedTasksKeyList = <String>[];
+        final affectedTasksList = <Task>[];
 
         if (oldIndex < newIndex) {
           newIndex -= 1;
@@ -98,29 +98,23 @@ class SliverTasksList extends ConsumerWidget {
             // TODOdo sprawdzenia
             return;
           }
-          affectedTasksKeyList.addAll(
-            list
-                .sublist(oldIndex, newIndex + 1)
-                .where(
+          affectedTasksList.addAll(
+            list.sublist(oldIndex, newIndex + 1).where(
                   (element) => element != currentItem,
-                )
-                .map((e) => e.id.toString()),
+                ),
           );
         } else {
-          affectedTasksKeyList.addAll(
-            list
-                .sublist(newIndex, oldIndex + 1)
-                .where(
+          affectedTasksList.addAll(
+            list.sublist(newIndex, oldIndex + 1).where(
                   (element) => element != currentItem,
-                )
-                .map((e) => e.id.toString()),
+                ),
           );
         }
 
         ref.read(tasksNotifierProvider.notifier).reorder(
-          affectedTasksKeyList: [
-            currentItem.id.toString(),
-            ...affectedTasksKeyList,
+          affectedTasksList: [
+            currentItem,
+            ...affectedTasksList,
           ],
           indexIncrease: oldIndex < newIndex,
         );

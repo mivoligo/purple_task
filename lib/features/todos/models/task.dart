@@ -51,18 +51,17 @@ class Task extends Equatable {
     bool? isDone,
     int? categoryId,
     int? Function()? dueDate,
-    int? doneTime,
-    int? id,
+    int? Function()? doneTime,
     int? position,
   }) {
     return Task(
+      id: id,
       name: name ?? this.name,
       description: description != null ? description() : this.description,
       isDone: isDone ?? this.isDone,
       categoryId: categoryId ?? this.categoryId,
       dueDate: dueDate != null ? dueDate() : this.dueDate,
-      doneTime: doneTime ?? this.doneTime,
-      id: id ?? this.id,
+      doneTime: doneTime != null ? doneTime() : this.doneTime,
       position: position ?? this.position,
     );
   }

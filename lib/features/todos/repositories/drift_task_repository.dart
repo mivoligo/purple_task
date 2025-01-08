@@ -32,7 +32,7 @@ class DriftTaskRepository implements BaseTaskRepository {
             categoryId: e.categoryId,
             description: e.description,
             createTime: e.createdAt,
-            dueDate: e.doneAt,
+            dueDate: e.dueAt,
             doneTime: e.doneAt,
             isDone: e.isDone,
             position: e.position,
@@ -42,33 +42,47 @@ class DriftTaskRepository implements BaseTaskRepository {
   }
 
   @override
-  Future<Task> remove({required Task task}) {
-    // TODO: implement remove
-    throw UnimplementedError();
+  Future<void> remove({required int taskId}) => taskDao.deleteTask(taskId);
+
+  @override
+  Future<void> removeAllTasksForCategory(int categoryId) =>
+      taskDao.deleteAllTasksInCategory(categoryId);
+
+  @override
+  Future<void> removeCompletedTasksForCategory(int categoryId) =>
+      taskDao.deleteCompletedTasksInCategory(categoryId);
+
+  @override
+  Future<void> reorder({required List<Task> affectedTasksList}) async {
+    final companionsList = affectedTasksList
+        .map(
+          (e) => TaskItemsCompanion(
+            id: Value(e.id!),
+            name: Value(e.name),
+            isDone: Value(e.isDone),
+            categoryId: Value(e.categoryId),
+            position: Value(e.position),
+          ),
+        )
+        .toList();
+
+    await taskDao.updateTasksList(companionsList);
   }
 
   @override
-  Future<void> removeAllTasksForCategory(int categoryId) {
-    // TODO: implement removeAllTasksForCategory
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> removeCompletedTasksForCategory(int categoryId) {
-    // TODO: implement removeCompletedTasksForCategory
-    throw UnimplementedError();
-  }
-
-  @override
-  void reorder(
-      {required List<String> affectedTasksKeyList,
-      required bool indexIncrease}) {
-    // TODO: implement reorder
-  }
-
-  @override
-  Future<Task> update({required Task task}) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<void> update({required Task task}) async {
+    await taskDao.updateTask(
+      TaskItemsCompanion(
+        id: Value(task.id!),
+        name: Value(task.name),
+        description: Value(task.description),
+        isDone: Value(task.isDone),
+        categoryId: Value(task.categoryId),
+        createdAt: Value(task.createTime),
+        dueAt: Value(task.dueDate),
+        doneAt: Value(task.doneTime),
+        position: Value(task.position),
+      ),
+    );
   }
 }

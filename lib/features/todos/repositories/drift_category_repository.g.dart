@@ -6,22 +6,6 @@ part of 'drift_category_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$categoryDaoHash() => r'c4fcb2462e02f601d5baa8009460649a7dfaa900';
-
-/// See also [categoryDao].
-@ProviderFor(categoryDao)
-final categoryDaoProvider = AutoDisposeProvider<CategoryDao>.internal(
-  categoryDao,
-  name: r'categoryDaoProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$categoryDaoHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef CategoryDaoRef = AutoDisposeProviderRef<CategoryDao>;
 String _$categoryRepositoryHash() =>
     r'9a84ebfc74018601efe3dad32423c5669ae07c6a';
 

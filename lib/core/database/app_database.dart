@@ -18,8 +18,7 @@ class TaskItems extends Table {
 
   BoolColumn get isDone => boolean()();
 
-  IntColumn get categoryId =>
-      integer().references(Categories, #id)();
+  IntColumn get categoryId => integer().references(Categories, #id)();
 
   IntColumn get createdAt => integer().nullable()();
 
@@ -65,5 +64,5 @@ class AppDatabase extends _$AppDatabase {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 AppDatabase appDatabase(Ref ref) => AppDatabase();

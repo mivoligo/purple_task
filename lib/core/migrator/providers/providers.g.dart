@@ -42,5 +42,22 @@ final categoriesMigratorProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CategoriesMigratorRef = AutoDisposeProviderRef<CategoriesMigrator>;
+String _$tasksMigratorHash() => r'84ee3ab26917e4de6e7c737bc6c750957dae4f34';
+
+/// See also [tasksMigrator].
+@ProviderFor(tasksMigrator)
+final tasksMigratorProvider = AutoDisposeProvider<TasksMigrator>.internal(
+  tasksMigrator,
+  name: r'tasksMigratorProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$tasksMigratorHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef TasksMigratorRef = AutoDisposeProviderRef<TasksMigrator>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -77,12 +77,6 @@ class DriftCategoryRepository implements BaseCategoryRepository {
 }
 
 @riverpod
-CategoryDao categoryDao(Ref ref) {
-  final database = ref.watch(db.appDatabaseProvider);
-  return CategoryDao(database);
-}
-
-@riverpod
 BaseCategoryRepository categoryRepository(Ref ref) {
   final dao = ref.watch(categoryDaoProvider);
   return DriftCategoryRepository(categoryDao: dao);

@@ -63,8 +63,9 @@ class _TaskItemState extends State<TaskItem> {
                 onChanged: (value) {
                   final updatedTask = widget.task.copyWith(
                     isDone: value,
-                    dueDate: () => widget.task.dueDate,
-                    doneTime: DateTime.now().millisecondsSinceEpoch,
+                    doneTime: value ?? false
+                        ? () => DateTime.now().millisecondsSinceEpoch
+                        : () => null,
                   );
                   tasksController.updateTask(task: updatedTask);
                 },

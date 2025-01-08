@@ -37,6 +37,16 @@ class WelcomeScreen extends ConsumerWidget {
               },
               text: 'Press me for categories!',
             ),
+            SimpleButton(
+              onPressed: () async {
+                if (await Hive.boxExists(taskBox)) {
+                  await ref
+                      .read(tasksMigratorProvider)
+                      .migrateTasksFromHiveToDrift();
+                }
+              },
+              text: 'Press me for tasks!',
+            ),
           ],
         ),
       ),

@@ -31,8 +31,9 @@ class TaskMenu extends StatelessWidget {
                 s.delete,
                 style: CustomStyle.textStyleWarning, // TODOstyle font size
               ),
-              onPressed: () =>
-                  ref.read(tasksNotifierProvider.notifier).remove(task: task),
+              onPressed: () => ref
+                  .read(tasksNotifierProvider.notifier)
+                  .remove(taskId: task.id!),
             ),
             SubmenuButton(
               menuChildren: [
