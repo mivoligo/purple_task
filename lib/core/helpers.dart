@@ -74,9 +74,9 @@ mixin TimeConverter {
     required String timeFormat,
   }) {
     final dateTime = DateTime.fromMillisecondsSinceEpoch(input);
-    final localDateTime = dateTime.toLocal();
-    final date = DateFormat(dateFormat).format(localDateTime);
-    final time = DateFormat(timeFormat).format(localDateTime);
+
+    final date = DateFormat(dateFormat).format(dateTime);
+    final time = DateFormat(timeFormat).format(dateTime);
     if (input.millisToDay().isToday || input.millisToDay().isYesterday) {
       return time;
     }
@@ -85,7 +85,7 @@ mixin TimeConverter {
 
   static String formatDateNow(String pattern) {
     final dateTime = DateTime.now();
-    return DateFormat(pattern).format(dateTime.toLocal());
+    return DateFormat(pattern).format(dateTime);
   }
 
   static String formatDueDate(int? dateInMillis, String? dateFormat) {

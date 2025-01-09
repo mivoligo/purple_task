@@ -71,6 +71,7 @@ class _CategoryDetailsState extends ConsumerState<CategoryDetails> {
               final task = Task(
                 name: value,
                 categoryId: currentCategory.id,
+                createTime: DateTime.now().millisecondsSinceEpoch,
               );
               ref.read(tasksNotifierProvider.notifier).add(task: task);
             },

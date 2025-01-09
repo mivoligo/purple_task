@@ -86,7 +86,6 @@ class _TaskItemState extends State<TaskItem> {
                                         final updatedTask =
                                             widget.task.copyWith(
                                           name: value.trim(),
-                                          dueDate: () => widget.task.dueDate,
                                         );
                                         tasksController.updateTask(
                                           task: updatedTask,
@@ -166,7 +165,6 @@ class _TaskItemState extends State<TaskItem> {
                                         final updatedTask =
                                             widget.task.copyWith(
                                           name: _textController.text.trim(),
-                                          dueDate: () => widget.task.dueDate,
                                         );
                                         tasksController.updateTask(
                                           task: updatedTask,

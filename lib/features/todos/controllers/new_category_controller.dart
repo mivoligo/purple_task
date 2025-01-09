@@ -68,6 +68,7 @@ class NewCategoryNotifier extends _$NewCategoryNotifier {
   void _addTasksForCategory() {
     final taskNotifier = ref.read(tasksNotifierProvider.notifier);
     if (state.tasks.isNotEmpty) {
+      // TODO(m): use transaction for adding list of tasks
       for (final task in state.tasks) {
         taskNotifier.add(task: task);
       }

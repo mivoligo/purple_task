@@ -68,6 +68,7 @@ class _UncategorizedTasksState extends ConsumerState<UncategorizedTasks> {
               final task = Task(
                 name: value,
                 categoryId: -1,
+                createTime: DateTime.now().millisecondsSinceEpoch,
               );
               ref.read(tasksNotifierProvider.notifier).add(task: task);
             },
