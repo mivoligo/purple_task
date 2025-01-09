@@ -5,8 +5,9 @@ import 'package:purple_task/core/constants/category_colors.dart';
 import 'package:purple_task/features/todos/controllers/categories_controller.dart';
 import 'package:purple_task/features/todos/controllers/new_category_state.dart';
 import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
-import 'package:purple_task/features/todos/models/category.dart';
+import 'package:purple_task/features/todos/models/new_category.dart';
 import 'package:purple_task/features/todos/models/task.dart';
+import 'package:purple_task/features/todos/repositories/providers/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'new_category_controller.g.dart';
@@ -47,31 +48,33 @@ class NewCategoryNotifier extends _$NewCategoryNotifier {
     state = state.copyWith(status: NewCategoryStatus.tasks);
   }
 
-  void changeTasks(String taskName) {
-    final task = Task(name: taskName, categoryId: state.id);
-    final taskList = state.tasks;
-    taskList.add(task);
-    state = state.copyWith(tasks: state.tasks);
+  void updateNewTasksList(String taskName) {
+    state = state.copyWith(tasksNamesList: [...state.tasksNamesList, taskName]);
   }
 
-  void addNewCategory() {
-    final category = Category(
-      id: state.id,
+  Future<void> addNewCategoryAndTasks() async {
+    final newCategory = NewCategory(
       name: state.name,
       color: state.color,
       icon: state.icon,
     );
-    _addTasksForCategory();
-    ref.read(categoriesNotifierProvider.notifier).add(category: category);
+    final newCategoryId = await ref
+        .read(categoryRepositoryProvider)
+        .add(newCategory: newCategory);
+
+    await _addTasksForCategory(newCategoryId);
+    await ref.read(categoriesNotifierProvider.notifier).refreshCategories();
   }
 
-  void _addTasksForCategory() {
-    final taskNotifier = ref.read(tasksNotifierProvider.notifier);
-    if (state.tasks.isNotEmpty) {
-      // TODO(m): use transaction for adding list of tasks
-      for (final task in state.tasks) {
-        taskNotifier.add(task: task);
-      }
+  Future<void> _addTasksForCategory(int categoryId) async {
+    if (state.tasksNamesList.isNotEmpty) {
+      await ref.read(tasksNotifierProvider.notifier).addTasksList(
+            tasksList: state.tasksNamesList
+                .map(
+                  (taskName) => Task(name: taskName, categoryId: categoryId),
+                )
+                .toList(growable: false),
+          );
     }
   }
 }

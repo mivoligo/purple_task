@@ -17,6 +17,13 @@ class TasksNotifier extends _$TasksNotifier {
     await update((currentState) => [...updatedTasks]);
   }
 
+  Future<void> addTasksList({required List<Task> tasksList}) async {
+    await ref.read(taskRepositoryProvider).addTasksList(tasksList: tasksList);
+    final updatedTasks = await ref.read(taskRepositoryProvider).getTasks();
+
+    await update((currentState) => [...updatedTasks]);
+  }
+
   Future<void> remove({required int taskId}) async {
     await ref.read(taskRepositoryProvider).remove(taskId: taskId);
     final updatedTasks = await ref.read(taskRepositoryProvider).getTasks();

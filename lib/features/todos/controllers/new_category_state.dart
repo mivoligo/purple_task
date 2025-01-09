@@ -2,56 +2,49 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import 'package:purple_task/features/todos/models/task.dart';
-
 enum NewCategoryStatus { initial, name, color, icon, tasks }
 
 class NewCategoryState extends Equatable {
   const NewCategoryState({
-    required this.id,
     required this.name,
     required this.color,
     required this.icon,
-    required this.tasks,
+    required this.tasksNamesList,
     required this.status,
   });
 
   factory NewCategoryState.initial() {
     return NewCategoryState(
-      id: DateTime.now().millisecondsSinceEpoch,
       name: '',
       color: Colors.purple,
       icon: AntIcons.folder.codePoint,
-      tasks: const [],
+      tasksNamesList: const [],
       status: NewCategoryStatus.initial,
     );
   }
 
-  final int id;
   final String name;
   final Color color;
   final int icon;
-  final List<Task> tasks;
+  final List<String> tasksNamesList;
   final NewCategoryStatus status;
 
   NewCategoryState copyWith({
-    int? id,
     String? name,
     Color? color,
     int? icon,
-    List<Task>? tasks,
+    List<String>? tasksNamesList,
     NewCategoryStatus? status,
   }) {
     return NewCategoryState(
-      id: id ?? this.id,
       name: name ?? this.name,
       color: color ?? this.color,
       icon: icon ?? this.icon,
-      tasks: tasks ?? this.tasks,
+      tasksNamesList: tasksNamesList ?? this.tasksNamesList,
       status: status ?? this.status,
     );
   }
 
   @override
-  List<Object?> get props => [id, name, color, icon, tasks, status];
+  List<Object?> get props => [name, color, icon, tasksNamesList, status];
 }

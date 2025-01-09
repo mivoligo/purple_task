@@ -21,21 +21,38 @@ class DriftTaskRepository implements BaseTaskRepository {
       );
 
   @override
+  Future<void> addTasksList({required List<Task> tasksList}) async {
+    final companionsList = tasksList
+        .map(
+          (task) => TaskItemsCompanion(
+            name: Value(task.name),
+            categoryId: Value(task.categoryId),
+            description: Value(task.description),
+            createdAt: Value(task.createTime),
+            dueAt: Value(task.dueDate),
+          ),
+        )
+        .toList(growable: false);
+
+    await taskDao.addTasksList(companionsList);
+  }
+
+  @override
   Future<List<Task>> getTasks() async {
     final tasks = await taskDao.getAllTasks();
 
     return tasks
         .map(
-          (e) => Task(
-            id: e.id,
-            name: e.name,
-            categoryId: e.categoryId,
-            description: e.description,
-            createTime: e.createdAt,
-            dueDate: e.dueAt,
-            doneTime: e.doneAt,
-            isDone: e.isDone,
-            position: e.position,
+          (task) => Task(
+            id: task.id,
+            name: task.name,
+            categoryId: task.categoryId,
+            description: task.description,
+            createTime: task.createdAt,
+            dueDate: task.dueAt,
+            doneTime: task.doneAt,
+            isDone: task.isDone,
+            position: task.position,
           ),
         )
         .toList();
@@ -56,12 +73,12 @@ class DriftTaskRepository implements BaseTaskRepository {
   Future<void> reorder({required List<Task> affectedTasksList}) async {
     final companionsList = affectedTasksList
         .map(
-          (e) => TaskItemsCompanion(
-            id: Value(e.id!),
-            name: Value(e.name),
-            isDone: Value(e.isDone),
-            categoryId: Value(e.categoryId),
-            position: Value(e.position),
+          (task) => TaskItemsCompanion(
+            id: Value(task.id!),
+            name: Value(task.name),
+            isDone: Value(task.isDone),
+            categoryId: Value(task.categoryId),
+            position: Value(task.position),
           ),
         )
         .toList();

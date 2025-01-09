@@ -1,9 +1,11 @@
 import 'package:hive/hive.dart';
 
 import 'package:purple_task/core/constants/hive_names.dart';
+import 'package:purple_task/core/helpers.dart';
 import 'package:purple_task/features/todos/converters/category_to_hive_entity_converter.dart';
 import 'package:purple_task/features/todos/models/category.dart';
 import 'package:purple_task/features/todos/models/hive_entities/category_entity.dart';
+import 'package:purple_task/features/todos/models/new_category.dart';
 import 'package:purple_task/features/todos/repositories/base_category_repository.dart';
 
 class CategoryRepository extends BaseCategoryRepository
@@ -12,11 +14,18 @@ class CategoryRepository extends BaseCategoryRepository
   // final _categoriesOrderBox = Hive.box<List<String>>(categoriesListOrderBox);
 
   @override
-  Future<int> add({required Category category}) async {
-    await _categoryBox.add(categoryToEntity(category));
+  Future<int> add({required NewCategory newCategory}) async {
+    final id = await _categoryBox.add(
+      CategoryEntity(
+        name: newCategory.name,
+        color: newCategory.color.intValue,
+        icon: newCategory.icon,
+        id: 0,
+      ),
+    );
     // final categoryListOrder = _categoriesOrderBox.get(categoriesListOrderKey);
     // categoryListOrder?.add(category.id.toString());
-    return category.id;
+    return id;
   }
 
   @override

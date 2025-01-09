@@ -10,9 +10,7 @@ class CategoriesNotifier extends _$CategoriesNotifier {
   Future<List<Category>> build() async =>
       ref.watch(categoryRepositoryProvider).getCategories();
 
-  Future<void> add({required Category category}) async {
-    await ref.read(categoryRepositoryProvider).add(category: category);
-
+  Future<void> refreshCategories() async {
     final updatedCategories =
         await ref.read(categoryRepositoryProvider).getCategories();
 

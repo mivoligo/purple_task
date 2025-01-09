@@ -5,6 +5,7 @@ import 'package:purple_task/core/database/app_database.dart' as db;
 import 'package:purple_task/core/helpers.dart';
 import 'package:purple_task/features/todos/daos/category_dao.dart';
 import 'package:purple_task/features/todos/models/category.dart';
+import 'package:purple_task/features/todos/models/new_category.dart';
 import 'package:purple_task/features/todos/repositories/base_category_repository.dart';
 
 class DriftCategoryRepository implements BaseCategoryRepository {
@@ -13,12 +14,12 @@ class DriftCategoryRepository implements BaseCategoryRepository {
   final CategoryDao categoryDao;
 
   @override
-  Future<int> add({required Category category}) async =>
+  Future<int> add({required NewCategory newCategory}) async =>
       categoryDao.addCategory(
         db.CategoriesCompanion(
-          name: Value(category.name),
-          color: Value(category.color.intValue),
-          icon: Value(category.icon),
+          name: Value(newCategory.name),
+          color: Value(newCategory.color.intValue),
+          icon: Value(newCategory.icon),
         ),
       );
 
@@ -48,7 +49,7 @@ class DriftCategoryRepository implements BaseCategoryRepository {
     final companions = categories
         .map(
           (category) => db.CategoriesCompanion(
-            id: Value(category.id),
+            id: Value(category.id!),
             name: Value(category.name),
             color: Value(category.color.intValue),
             icon: Value(category.icon),
@@ -63,7 +64,7 @@ class DriftCategoryRepository implements BaseCategoryRepository {
   Future<void> update({required Category category}) async {
     await categoryDao.updateCategory(
       db.CategoriesCompanion(
-        id: Value(category.id),
+        id: Value(category.id!),
         name: Value(category.name),
         color: Value(category.color.intValue),
         icon: Value(category.icon),

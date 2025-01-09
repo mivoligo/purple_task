@@ -128,4 +128,10 @@ class TaskRepository extends BaseTaskRepository with TaskToHiveEntityConverter {
     //
     // _tasksOrderBox.put(tasksListOrderKey, tasksOrder);
   }
+
+  @override
+  Future<void> addTasksList({required List<Task> tasksList}) {
+    // TODO: implement addTasksList
+    throw UnimplementedError();
+  }
 }

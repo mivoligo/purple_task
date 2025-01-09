@@ -47,16 +47,16 @@ class NewCategoryScreen extends ConsumerWidget {
           selectedIcon: newCategoryState.icon,
         ),
       NewCategoryStatus.tasks => NewCategoryTasks(
-          tasks: newCategoryState.tasks,
-          onAddTask: newCategoryController.changeTasks,
+          tasksNamesList: newCategoryState.tasksNamesList,
+          onAddTask: newCategoryController.updateNewTasksList,
           focusNode: _focusNode,
           name: newCategoryState.name,
           color: newCategoryState.color,
-          onNext: () {
-            newCategoryController.addNewCategory();
-            // ref.watch(categoryCreatorStatusProvider) =
-            //     CategoryCreatorStatus.success;
-            Navigator.of(context).pop();
+          onNext: () async {
+            await newCategoryController.addNewCategoryAndTasks();
+            if (context.mounted) {
+              Navigator.of(context).pop();
+            }
           },
           selectedIcon: newCategoryState.icon,
         )

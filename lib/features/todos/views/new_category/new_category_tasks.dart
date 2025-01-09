@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/constants/strings/strings.dart' as s;
-import 'package:purple_task/features/todos/models/task.dart';
 import 'package:purple_task/features/todos/views/add_task_field.dart';
 import 'package:purple_task/features/todos/views/new_category/new_category_base.dart';
 
 class NewCategoryTasks extends StatefulWidget {
   const NewCategoryTasks({
-    required this.tasks,
+    required this.tasksNamesList,
     required this.name,
     required this.color,
     required this.onAddTask,
@@ -18,7 +17,7 @@ class NewCategoryTasks extends StatefulWidget {
     super.key,
   });
 
-  final List<Task> tasks;
+  final List<String> tasksNamesList;
   final String name;
   final Color color;
   final void Function(String) onAddTask;
@@ -103,14 +102,14 @@ class _NewCategoryTasksState extends State<NewCategoryTasks> {
                   controller: _scrollController,
                   child: ListView.separated(
                     controller: _scrollController,
-                    itemCount: widget.tasks.length,
+                    itemCount: widget.tasksNamesList.length,
                     separatorBuilder: (context, index) =>
                         const Divider(height: 6),
                     itemBuilder: (context, index) {
-                      final reversedList = widget.tasks.toList();
+                      final tasksNamesList = widget.tasksNamesList;
                       return ListTile(
                         contentPadding: EdgeInsets.zero,
-                        title: Text(reversedList[index].name),
+                        title: Text(tasksNamesList[index]),
                       );
                     },
                   ),
