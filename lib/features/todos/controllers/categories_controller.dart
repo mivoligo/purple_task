@@ -17,7 +17,7 @@ class CategoriesNotifier extends _$CategoriesNotifier {
     await update((currentState) => [...updatedCategories]);
   }
 
-  Future<void> remove({required int categoryId}) async {
+  Future<void> removeCategory({required int categoryId}) async {
     await ref.read(categoryRepositoryProvider).remove(categoryId: categoryId);
     final updatedCategories =
         await ref.read(categoryRepositoryProvider).getCategories();
@@ -31,7 +31,7 @@ class CategoriesNotifier extends _$CategoriesNotifier {
     await update((currentState) => [...updatedCategories]);
   }
 
-  Future<void> reorder(
+  Future<void> reorderCategories(
     int oldIndex,
     int newIndex,
   ) async {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:purple_task/features/settings/controllers/settings/settings_controller.dart';
 import 'package:purple_task/features/todos/controllers/categories_controller.dart';
 import 'package:purple_task/features/todos/models/category.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -11,11 +10,9 @@ class CategoryNotifier extends _$CategoryNotifier {
   @override
   Category? build() => null;
 
+  // ignore: use_setters_to_change_properties not needed here
   void setCurrentCategory(Category? category) {
     state = category;
-    ref
-        .read(settingsNotifierProvider.notifier)
-        .setUncategorizedViewPreference(value: category == null);
   }
 
   void changeColor(Color color) {

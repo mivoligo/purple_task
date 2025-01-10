@@ -157,7 +157,8 @@ class CategoryList extends ConsumerWidget {
           ),
         );
       },
-      onReorder: ref.read(categoriesNotifierProvider.notifier).reorder,
+      onReorder:
+          ref.read(categoriesNotifierProvider.notifier).reorderCategories,
       proxyDecorator: proxyDecorator,
     );
   }

@@ -54,7 +54,7 @@ const String deleteAllTasks = 'Delete All Tasks';
 const String deleteCategory = 'Delete Category';
 const String questionDeleteCompleted = 'Delete completed tasks?';
 const String infoDeleteCompleted =
-    'All tasks marked as completed will be deleted';
+    'All tasks marked as completed in this category will be deleted';
 const String questionDeleteAll = 'Delete all tasks?';
 const String infoDeleteAll = 'All tasks in this category will be deleted';
 const String questionDeleteCategory = 'Delete category?';
