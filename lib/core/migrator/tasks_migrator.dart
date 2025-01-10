@@ -5,7 +5,7 @@ import 'package:purple_task/features/todos/daos/task_dao.dart';
 import 'package:purple_task/features/todos/models/hive_entities/task_entity.dart';
 
 class TasksMigrator {
-  TasksMigrator({
+  const TasksMigrator({
     required Box<TaskEntity> tasksBox,
     required TaskDao taskDao,
   })  : _tasksBox = tasksBox,

@@ -5,7 +5,7 @@ import 'package:purple_task/features/todos/daos/category_dao.dart';
 import 'package:purple_task/features/todos/models/hive_entities/category_entity.dart';
 
 class CategoriesMigrator {
-  CategoriesMigrator({
+  const CategoriesMigrator({
     required Box<CategoryEntity> categoriesBox,
     required CategoryDao categoryDao,
   })  : _categoriesBox = categoriesBox,
