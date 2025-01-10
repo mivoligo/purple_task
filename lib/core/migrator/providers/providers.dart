@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:purple_task/core/constants/hive_names.dart';
+import 'package:purple_task/core/hive_legacy/hive_entities/category_entity.dart';
+import 'package:purple_task/core/hive_legacy/hive_entities/task_entity.dart';
 import 'package:purple_task/core/migrator/categories_migrator.dart';
 import 'package:purple_task/core/migrator/settings_migrator.dart';
 import 'package:purple_task/core/migrator/tasks_migrator.dart';
 import 'package:purple_task/features/todos/daos/providers/providers.dart';
-import 'package:purple_task/features/todos/models/hive_entities/category_entity.dart';
-import 'package:purple_task/features/todos/models/hive_entities/task_entity.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

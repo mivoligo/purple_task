@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart';
 import 'package:hive/hive.dart';
 import 'package:purple_task/core/database/app_database.dart' as db;
+import 'package:purple_task/core/hive_legacy/hive_entities/category_entity.dart';
 import 'package:purple_task/features/todos/daos/category_dao.dart';
-import 'package:purple_task/features/todos/models/hive_entities/category_entity.dart';
 
 class CategoriesMigrator {
   const CategoriesMigrator({

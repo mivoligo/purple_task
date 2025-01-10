@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:purple_task/core/database/app_database.dart';
+import 'package:purple_task/core/hive_legacy/hive_entities/task_entity.dart';
 import 'package:purple_task/features/todos/daos/task_dao.dart';
-import 'package:purple_task/features/todos/models/hive_entities/task_entity.dart';
 
 class TasksMigrator {
   const TasksMigrator({
