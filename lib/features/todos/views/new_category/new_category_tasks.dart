@@ -94,6 +94,11 @@ class _NewCategoryTasksState extends State<NewCategoryTasks> {
                 textAlign: TextAlign.center,
               ),
             ),
+            if (widget.tasksNamesList.isEmpty)
+              const Padding(
+                padding: EdgeInsets.all(36),
+                child: Center(child: Text(s.newCategoryTasksInfo)),
+              ),
             Expanded(
               child: Padding(
                 padding:

@@ -42,6 +42,8 @@ const String setDueDate = 'Set due date';
 const String changeCategory = 'Change category';
 const String overdue = 'Overdue';
 const String later = 'Later';
+const String newCategoryTasksInfo =
+    'You can add few tasks now or do it after finishing category creation.';
 
 // category menu items
 const String changeName = 'Change Name';
