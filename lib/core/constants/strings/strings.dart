@@ -100,3 +100,15 @@ const String sourceCode = 'View source code';
 const String sourceCodeUrl = 'https://github.com/mivoligo/purple_task';
 const String bugs = 'Report issues';
 const String bugsUrl = 'https://github.com/mivoligo/purple_task/issues';
+const String migrationTitle = 'Data migration';
+const String migrationInfo = '''
+The method for storing app data has been updated.
+By clicking the button below, the app will attempt to migrate your tasks to the new format. 
+This process should be quick. If you encounter any issues during the migration, you will have the opportunity to report the problem.
+''';
+const String startMigration = 'Start migration';
+const String migrating = 'Migrating...';
+const String continueToNext = 'Continue';
+const String tryAgain = 'Try again';
+const String problemHappened = 'An issue occurred!';
+const String reportBug = 'Report problem';

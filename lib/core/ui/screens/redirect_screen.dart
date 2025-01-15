@@ -27,7 +27,7 @@ class RedirectScreen extends ConsumerWidget {
   Route<void> _createRoute(int? appVersion) {
     Widget target() {
       if (appVersion == null) {
-        return const MainScreen();
+        return const WelcomeScreen();
       } else if (appVersion == 1) {
         return const MainScreen();
       }
