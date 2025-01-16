@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/ui/screens/main_screen/widgets/animated_background.dart';
 import 'package:purple_task/core/ui/screens/main_screen/widgets/narrow_layout/narrow_layout.dart';
 import 'package:purple_task/core/ui/screens/main_screen/widgets/wide_layout/wide_layout.dart';
+import 'package:purple_task/features/app_version/controllers/app_version_controller.dart';
 import 'package:purple_task/features/settings/models/app_window_size.dart';
 import 'package:purple_task/features/settings/models/app_window_size_plugin_based.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
 
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
+class _MainScreenState extends ConsumerState<MainScreen>
+    with WidgetsBindingObserver {
   final AppWindowSize _appWindowSize = AppWindowSizePluginBased();
   Size? _windowSize =
       WidgetsBinding.instance.platformDispatcher.implicitView?.physicalSize;
@@ -22,6 +25,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    ref.read(appVersionProvider.notifier).setAppVersion();
   }
 
   @override

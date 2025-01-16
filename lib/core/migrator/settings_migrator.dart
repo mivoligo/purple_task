@@ -19,8 +19,6 @@ class SettingsMigrator {
       _migrateTimeFormat(),
       _migrateDisplayTaskDoneTimePref(),
     ]);
-
-    await _settingsBox.deleteFromDisk();
   }
 
   Future<void> _migrateDateFormat() async {

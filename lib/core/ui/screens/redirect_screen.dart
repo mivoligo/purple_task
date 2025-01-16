@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/ui/screens/main_screen/main_screen.dart';
 import 'package:purple_task/core/ui/screens/welcome_screen.dart';
 import 'package:purple_task/features/app_version/controllers/app_version_controller.dart';
@@ -24,22 +25,14 @@ class RedirectScreen extends ConsumerWidget {
     return Container();
   }
 
-  Route<void> _createRoute(int? appVersion) {
-    Widget target() {
-      if (appVersion == null) {
-        return const WelcomeScreen();
-      } else if (appVersion == 1) {
-        return const MainScreen();
-      }
-      return const Scaffold(
-        body: Center(
-          child: Text('something went very wrong'),
-        ),
-      );
-    }
+  Route<void> _createRoute(String? appVersion) {
+    final target = switch (appVersion) {
+      s.appVersion => const MainScreen(),
+      _ => const WelcomeScreen(),
+    };
 
     return PageRouteBuilder(
-      pageBuilder: (context, anim1, anim2) => target(),
+      pageBuilder: (context, anim1, anim2) => target,
       transitionsBuilder: (context, anim1, anim2, child) {
         return FadeTransition(
           opacity: anim1,

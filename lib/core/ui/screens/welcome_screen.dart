@@ -6,11 +6,12 @@ import 'package:purple_task/core/hive_legacy/providers/providers.dart';
 import 'package:purple_task/core/migrator/views/migrate_from_hive_screen.dart';
 import 'package:purple_task/core/ui/screens/main_screen/main_screen.dart';
 import 'package:purple_task/core/ui/widgets/simple_button.dart';
+import 'package:purple_task/features/app_version/controllers/app_version_controller.dart';
 
 class WelcomeScreen extends ConsumerWidget {
   const WelcomeScreen({this.appVersion, super.key});
 
-  final int? appVersion;
+  final String? appVersion;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

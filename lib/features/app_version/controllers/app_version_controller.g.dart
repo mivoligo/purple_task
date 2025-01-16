@@ -6,12 +6,12 @@ part of 'app_version_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appVersionHash() => r'c9a6001603172fbc7808a0fe2abbeaaf55f3e80b';
+String _$appVersionHash() => r'441efc5325dfea957a7df6e0c703b6783bf4451d';
 
 /// See also [AppVersion].
 @ProviderFor(AppVersion)
 final appVersionProvider =
-    AutoDisposeAsyncNotifierProvider<AppVersion, int?>.internal(
+    AutoDisposeAsyncNotifierProvider<AppVersion, String?>.internal(
   AppVersion.new,
   name: r'appVersionProvider',
   debugGetCreateSourceHash:
@@ -20,6 +20,6 @@ final appVersionProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$AppVersion = AutoDisposeAsyncNotifier<int?>;
+typedef _$AppVersion = AutoDisposeAsyncNotifier<String?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

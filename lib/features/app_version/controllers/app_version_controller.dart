@@ -6,13 +6,12 @@ part 'app_version_controller.g.dart';
 @riverpod
 class AppVersion extends _$AppVersion {
   @override
-  Future<int?> build() async {
+  Future<String?> build() async {
     final appVersionRepository = ref.watch(appVersionRepositoryProvider);
 
     return appVersionRepository.getAppVersion();
   }
 
-  void setAppVersion() {
-    ref.read(appVersionRepositoryProvider).setAppVersion();
-  }
+  Future<void> setAppVersion() async =>
+      ref.read(appVersionRepositoryProvider).setAppVersion();
 }

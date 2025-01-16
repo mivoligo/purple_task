@@ -1,20 +1,20 @@
 import 'package:purple_task/core/constants/hive_names.dart';
+import 'package:purple_task/core/constants/strings/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppVersionRepository {
-  AppVersionRepository({required this.asyncPrefs});
+  AppVersionRepository({required SharedPreferencesAsync asyncPrefs})
+      : _asyncPrefs = asyncPrefs;
 
-  final SharedPreferencesAsync asyncPrefs;
+  final SharedPreferencesAsync _asyncPrefs;
 
-  Future<int?> getAppVersion() => asyncPrefs.getInt(appVersionKey);
+  Future<String?> getAppVersion() => _asyncPrefs.getString(appVersionKey);
 
   Future<void> setAppVersion() async {
     final currentVersion = await getAppVersion();
 
-    if (currentVersion == null) {
-      await asyncPrefs.setInt(appVersionKey, 1);
-    } else {
-      await asyncPrefs.setInt(appVersionKey, currentVersion + 1);
+    if (currentVersion != appVersion) {
+      await _asyncPrefs.setString(appVersionKey, appVersion);
     }
   }
 }
