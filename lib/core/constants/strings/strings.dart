@@ -112,3 +112,8 @@ const String continueToNext = 'Continue';
 const String tryAgain = 'Try again';
 const String problemHappened = 'An issue occurred!';
 const String reportBug = 'Report problem';
+const String changesInVersion = 'Main changes in this version:';
+const String changesUiRedesign =
+    'The UI has been redesigned to significantly enhance the viewing and organization of categories in the narrow view.';
+const String changesCategoriesReorder = 'Categories can be easily rearranged';
+const String changesTasksReorder = 'Tasks can also be reordered as needed';

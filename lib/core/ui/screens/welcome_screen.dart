@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:purple_task/core/constants/strings/strings.dart';
+import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/hive_legacy/providers/providers.dart';
-import 'package:purple_task/core/migrator/views/migrate_from_hive_page.dart';
+import 'package:purple_task/core/migrator/views/migrate_from_hive_screen.dart';
 import 'package:purple_task/core/ui/screens/main_screen/main_screen.dart';
 import 'package:purple_task/core/ui/widgets/simple_button.dart';
 
@@ -14,73 +15,74 @@ class WelcomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('${s.appName} ${s.appVersion}'),
+        centerTitle: true,
+      ),
       body: Center(
-        child: Column(
-          spacing: 16,
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(32),
-                  child: Column(
-                    children: [
-                      ...[
-                        const Text('Welcome!'),
-                        const Text('This is version 2.0 of Purple Task'),
-                      ],
-                      const Text("Main changes in this version:"),
-                      const Text(
-                        'UI was redesigned to vastly improve viewing and organizing categories in the narrow view',
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: Column(
+            spacing: 16,
+            children: [
+              Expanded(
+                child: Scrollbar(
+                  thumbVisibility: true,
+                  child: SingleChildScrollView(
+                    primary: true,
+                    child: Padding(
+                      padding: const EdgeInsets.all(32),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        spacing: 8,
+                        children: [
+                          const Text(
+                            s.changesInVersion,
+                            style: CustomStyle.textStyle20,
+                          ),
+                          const Text('- ${s.changesUiRedesign}'),
+                          const Text('- ${s.changesCategoriesReorder}'),
+                          Image.asset(
+                            'assets/images/purple-reorder-categories.gif',
+                          ),
+                          const Text('- ${s.changesTasksReorder}'),
+                          Image.asset(
+                            'assets/images/purple-reorder-tasks.gif',
+                          ),
+                        ],
                       ),
-                      const Text(
-                        'Categories now can easily be rearanged by drag&drop',
-                      ),
-                      // gif
-                      Image.asset(
-                        'assets/images/purple-reorder-categories.gif',
-                      ),
-                      const Text('The same works for ordering tasks'),
-                      // gif
-                      Image.asset(
-                        'assets/images/purple-reorder-tasks.gif',
-                        width: MediaQuery.sizeOf(context).width / 2,
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(32),
-              child: SimpleButton(
-                onPressed: () async {
-                  final hasAnyHiveBox =
-                      await ref.read(hasAnyHiveBoxProvider.future);
-                  if (context.mounted) {
-                    await Navigator.of(context)
-                        .pushReplacement(_createRoute(hasAnyHiveBox));
-                  }
-                },
-                text: continueToNext,
-                backgroundColor: Colors.green,
+              Padding(
+                padding: const EdgeInsets.all(32),
+                child: SimpleButton(
+                  onPressed: () async {
+                    final hasAnyHiveBox =
+                        await ref.read(hasAnyHiveBoxProvider.future);
+                    if (context.mounted) {
+                      await Navigator.of(context)
+                          .pushReplacement(_createRoute(hasAnyHiveBox));
+                    }
+                  },
+                  text: s.continueToNext,
+                  backgroundColor: Colors.green,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
   Route<void> _createRoute(bool hasAnyHiveBox) {
-    Widget target() {
-      if (hasAnyHiveBox) {
-        return const MigrateFromHivePage();
-      }
-      return const MainScreen();
-    }
+    final target =
+        hasAnyHiveBox ? const MigrateFromHiveScreen() : const MainScreen();
 
     return PageRouteBuilder(
-      pageBuilder: (context, anim1, anim2) => target(),
+      pageBuilder: (context, anim1, anim2) => target,
       transitionsBuilder: (context, anim1, anim2, child) {
         return FadeTransition(
           opacity: anim1,

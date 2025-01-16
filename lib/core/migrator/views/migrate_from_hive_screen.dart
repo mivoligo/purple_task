@@ -7,8 +7,8 @@ import 'package:purple_task/core/migrator/models/migration_state.dart';
 import 'package:purple_task/core/ui/screens/main_screen/main_screen.dart';
 import 'package:purple_task/core/ui/widgets/simple_button.dart';
 
-class MigrateFromHivePage extends ConsumerWidget {
-  const MigrateFromHivePage({super.key});
+class MigrateFromHiveScreen extends ConsumerWidget {
+  const MigrateFromHiveScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,31 +32,42 @@ class MigrateFromHivePage extends ConsumerWidget {
     };
 
     return Scaffold(
-      appBar: AppBar(title: const Text(migrationTitle)),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          spacing: 24,
-          children: [
-            const Text(migrationInfo),
-            if (migrationState.errorMessage != null) ...[
-              const Text(problemHappened),
-              SelectableText(
-                '${migrationState.errorMessage}',
-                style: const TextStyle(color: Colors.red),
+      appBar: AppBar(
+        title: const Text(migrationTitle),
+        centerTitle: true,
+      ),
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(32),
+              child: Column(
+                spacing: 24,
+                children: [
+                  const Text(migrationInfo),
+                  if (migrationState.errorMessage != null) ...[
+                    const Text(problemHappened),
+                    SelectableText(
+                      '${migrationState.errorMessage}',
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                    SimpleButton(
+                      onPressed: () => UrlHelper().openUrl(bugsUrl),
+                      text: reportBug,
+                      backgroundColor: Colors.orange,
+                    ),
+                  ],
+                  SimpleButton(
+                    onPressed: buttonAction,
+                    text: buttonText,
+                    backgroundColor: Colors.green,
+                  ),
+                ],
               ),
-              SimpleButton(
-                onPressed: () => UrlHelper().openUrl(bugsUrl),
-                text: reportBug,
-                backgroundColor: Colors.orange,
-              ),
-            ],
-            SimpleButton(
-              onPressed: buttonAction,
-              text: buttonText,
-              backgroundColor: Colors.green,
             ),
-          ],
+          ),
         ),
       ),
     );
