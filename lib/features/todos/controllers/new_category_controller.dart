@@ -71,7 +71,11 @@ class NewCategoryNotifier extends _$NewCategoryNotifier {
       await ref.read(tasksNotifierProvider.notifier).addTasksList(
             tasksList: state.tasksNamesList
                 .map(
-                  (taskName) => Task(name: taskName, categoryId: categoryId),
+                  (taskName) => Task(
+                    name: taskName,
+                    categoryId: categoryId,
+                    createTime: DateTime.now().millisecondsSinceEpoch,
+                  ),
                 )
                 .toList(growable: false),
           );

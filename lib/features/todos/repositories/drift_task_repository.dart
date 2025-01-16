@@ -27,6 +27,7 @@ class DriftTaskRepository implements BaseTaskRepository {
         .map(
           (task) => TaskItemsCompanion(
             name: Value(task.name),
+            isDone: Value(task.isDone),
             categoryId: Value(task.categoryId),
             description: Value(task.description),
             createdAt: Value(task.createTime),
