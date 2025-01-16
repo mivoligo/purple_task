@@ -13,6 +13,7 @@ class DriftTaskRepository implements BaseTaskRepository {
   Future<int> add({required Task task}) async => taskDao.addTask(
         TaskItemsCompanion(
           name: Value(task.name),
+          isDone: Value(task.isDone),
           categoryId: Value(task.categoryId),
           description: Value(task.description),
           createdAt: Value(task.createTime),

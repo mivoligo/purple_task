@@ -26,7 +26,6 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
 
     return into(taskItems).insert(
       companion.copyWith(
-        isDone: const Value(false),
         position: Value(currentMaxPosition),
       ),
     );

@@ -30,6 +30,7 @@ class _CompletedTasksState extends State<CompletedTasks> {
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
+      controller: _scrollController,
       child: Consumer(
         builder: (context, ref, _) {
           final todayCompletedTasks = ref
