@@ -1,4 +1,4 @@
-import 'package:purple_task/features/app_version/providers/providers.dart';
+import 'package:purple_task/features/app_version/app_version_repository/providers/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_version_controller.g.dart';

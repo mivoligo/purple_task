@@ -16,14 +16,10 @@ class App extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: const Color(0xffe83f6f),
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            selectedItemColor: Color(0xFFE83F6F),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-          ),
           tooltipTheme: TooltipThemeData(
             textStyle:
                 CustomStyle.textStyleLabelSmall.copyWith(color: Colors.white),
+            waitDuration: const Duration(milliseconds: 600),
           ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),

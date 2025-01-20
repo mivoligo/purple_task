@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/strings/strings.dart' as s;
-import 'package:purple_task/core/ui/screens/settings/widgets/date_format_selector.dart';
-import 'package:purple_task/core/ui/screens/settings/widgets/time_format_selector.dart';
 import 'package:purple_task/core/ui/widgets/dialog_base.dart';
 import 'package:purple_task/features/settings/controllers/settings_controller.dart';
+import 'package:purple_task/features/settings/views/widgets/date_format_selector.dart';
+import 'package:purple_task/features/settings/views/widgets/time_format_selector.dart';
 
-class Settings extends StatelessWidget {
-  const Settings({super.key});
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

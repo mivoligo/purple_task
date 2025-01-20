@@ -1,5 +1,5 @@
 import 'package:purple_task/features/settings/models/settings_state.dart';
-import 'package:purple_task/features/settings/providers/providers.dart';
+import 'package:purple_task/features/settings/settings_repository/providers/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'settings_controller.g.dart';
