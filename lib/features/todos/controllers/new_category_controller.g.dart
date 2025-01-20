@@ -7,7 +7,7 @@ part of 'new_category_controller.dart';
 // **************************************************************************
 
 String _$newCategoryNotifierHash() =>
-    r'60ee26f32d2ce833cf6131e93a68fc644b5dd5c5';
+    r'b993092b381d48cb85bf0990b65b4b14c085aeb0';
 
 /// See also [NewCategoryNotifier].
 @ProviderFor(NewCategoryNotifier)

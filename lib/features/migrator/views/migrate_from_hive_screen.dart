@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/strings/strings.dart';
 import 'package:purple_task/core/helpers.dart';
-import 'package:purple_task/core/migrator/controllers/controllers.dart';
-import 'package:purple_task/core/migrator/models/migration_state.dart';
 import 'package:purple_task/core/ui/screens/main_screen/main_screen.dart';
 import 'package:purple_task/core/ui/widgets/simple_button.dart';
+import 'package:purple_task/features/migrator/controllers/controllers.dart';
+import 'package:purple_task/features/migrator/models/migration_state.dart';
 
 class MigrateFromHiveScreen extends ConsumerWidget {
   const MigrateFromHiveScreen({super.key});

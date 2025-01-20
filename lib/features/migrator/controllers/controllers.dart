@@ -1,6 +1,6 @@
 import 'package:purple_task/core/hive_legacy/providers/providers.dart';
-import 'package:purple_task/core/migrator/models/migration_state.dart';
-import 'package:purple_task/core/migrator/providers/providers.dart';
+import 'package:purple_task/features/migrator/models/migration_state.dart';
+import 'package:purple_task/features/migrator/providers/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'controllers.g.dart';
