@@ -1,7 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:purple_task/core/ui/screens/about_app/about_screen.dart';
 import 'package:purple_task/core/ui/screens/main_screen/widgets/greetings.dart';
-import 'package:purple_task/core/ui/screens/screens.dart';
+import 'package:purple_task/core/ui/screens/settings/settings.dart';
 import 'package:purple_task/core/ui/widgets/icon_button.dart';
 
 class TopBar extends StatelessWidget {
@@ -13,11 +14,6 @@ class TopBar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Expanded(child: Greetings()),
-        CustomIconButton(
-          icon: const Icon(AntIcons.areaChart),
-          onPressed: () {},
-        ),
-        const SizedBox(width: 4),
         Hero(
           tag: 'about',
           child: CustomIconButton(

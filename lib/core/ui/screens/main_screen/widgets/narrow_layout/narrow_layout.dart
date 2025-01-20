@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/ui/screens/main_screen/widgets/top_bar.dart';
 import 'package:purple_task/core/ui/widgets/simple_button.dart';
-import 'package:purple_task/features/settings/controllers/settings/settings_controller.dart';
+import 'package:purple_task/features/settings/controllers/settings_controller.dart';
 import 'package:purple_task/features/settings/providers/providers.dart';
 import 'package:purple_task/features/todos/controllers/category_controller.dart';
 import 'package:purple_task/features/todos/views/add_category_button.dart';

@@ -5,7 +5,7 @@ import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/helpers.dart';
 import 'package:purple_task/core/ui/widgets/simple_button.dart';
-import 'package:purple_task/features/settings/controllers/settings/settings_controller.dart';
+import 'package:purple_task/features/settings/controllers/settings_controller.dart';
 import 'package:purple_task/features/todos/controllers/task_tile_controller.dart';
 import 'package:purple_task/features/todos/controllers/task_tile_state.dart';
 import 'package:purple_task/features/todos/controllers/tasks_controller.dart';

@@ -118,7 +118,7 @@ class UrlHelper {
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);
     } else {
-      throw 'Could not launch $url';
+      throw Exception('Could not launch $url');
     }
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:purple_task/core/helpers.dart';
-import 'package:purple_task/features/settings/controllers/settings/settings_controller.dart';
+import 'package:purple_task/features/settings/controllers/settings_controller.dart';
 import 'package:purple_task/features/todos/models/task.dart';
 
 class DueDateIndicator extends StatelessWidget {

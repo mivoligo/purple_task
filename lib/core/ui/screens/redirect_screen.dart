@@ -16,8 +16,15 @@ class RedirectScreen extends ConsumerWidget {
         return switch (next) {
           AsyncData(:final value) =>
             Navigator.of(context).pushReplacement(_createRoute(value)),
-          AsyncError() => print('jakby error'),
-          _ => print('jakby nic'),
+          AsyncError(:final error) => Scaffold(
+              body: Column(
+                children: [
+                  const Text('Something went very wrong'),
+                  Text(error.toString()),
+                ],
+              ),
+            ),
+          _ => debugPrint('wtf'),
         };
       },
     );

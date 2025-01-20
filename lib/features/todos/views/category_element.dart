@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:purple_task/core/constants/strings/strings.dart';
-import 'package:purple_task/features/todos/controllers/providers/providers.dart';
 import 'package:purple_task/features/todos/models/category.dart';
+import 'package:purple_task/features/todos/providers/providers.dart';
 import 'package:purple_task/features/todos/views/category_element_base.dart';
 
 class CategoryElement extends ConsumerWidget {

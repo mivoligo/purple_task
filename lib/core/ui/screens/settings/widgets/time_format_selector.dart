@@ -4,7 +4,7 @@ import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/constants/time_and_date_formats.dart';
 import 'package:purple_task/core/helpers.dart';
 import 'package:purple_task/core/ui/widgets/simple_button.dart';
-import 'package:purple_task/features/settings/controllers/settings/settings_controller.dart';
+import 'package:purple_task/features/settings/controllers/settings_controller.dart';
 
 class TimeFormatSelector extends StatelessWidget {
   const TimeFormatSelector({super.key});
