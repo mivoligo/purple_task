@@ -38,6 +38,7 @@ class Task extends Equatable {
       description: description != null ? description() : this.description,
       isDone: isDone ?? this.isDone,
       categoryId: categoryId ?? this.categoryId,
+      createTime: createTime,
       dueDate: dueDate != null ? dueDate() : this.dueDate,
       doneTime: doneTime != null ? doneTime() : this.doneTime,
       position: position ?? this.position,
