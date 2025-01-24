@@ -7,7 +7,7 @@ part of 'controllers.dart';
 // **************************************************************************
 
 String _$migrationStateControllerHash() =>
-    r'24b3e0b9ca5b6a582a324b84c7857ba4aaf8df14';
+    r'47077c85c1da9537825392eb503eb03daf089a5f';
 
 /// See also [MigrationStateController].
 @ProviderFor(MigrationStateController)

@@ -6,7 +6,7 @@ part of 'providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$settingsMigratorHash() => r'50c88d615bd04fb4fadc886512b2311f142104e4';
+String _$settingsMigratorHash() => r'a777daf1c374cdd9997a8c5e413358db44177e7b';
 
 /// See also [settingsMigrator].
 @ProviderFor(settingsMigrator)
@@ -59,5 +59,23 @@ final tasksMigratorProvider = AutoDisposeProvider<TasksMigrator>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef TasksMigratorRef = AutoDisposeProviderRef<TasksMigrator>;
+String _$needsMigrationFromHiveHash() =>
+    r'bd1bba51f691cc22613f08fc70fcd8d7c6d85f12';
+
+/// See also [needsMigrationFromHive].
+@ProviderFor(needsMigrationFromHive)
+final needsMigrationFromHiveProvider = AutoDisposeFutureProvider<bool>.internal(
+  needsMigrationFromHive,
+  name: r'needsMigrationFromHiveProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$needsMigrationFromHiveHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef NeedsMigrationFromHiveRef = AutoDisposeFutureProviderRef<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

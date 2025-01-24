@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:purple_task/core/constants/hive_names.dart';
+import 'package:purple_task/core/constants/key_names.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsMigrator {

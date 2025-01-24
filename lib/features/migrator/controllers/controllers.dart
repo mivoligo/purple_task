@@ -1,6 +1,7 @@
 import 'package:purple_task/core/hive_legacy/providers/providers.dart';
 import 'package:purple_task/features/migrator/models/migration_state.dart';
 import 'package:purple_task/features/migrator/providers/providers.dart';
+import 'package:purple_task/features/migrator/repositories/providers/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'controllers.g.dart';
@@ -35,6 +36,8 @@ class MigrationStateController extends _$MigrationStateController {
       if (hasTaskBox) {
         await ref.read(tasksMigratorProvider).migrateTasksFromHiveToDrift();
       }
+
+      await ref.read(migrationRepositoryProvider).markAsMigratedFromHive();
 
       state = state.copyWith(migrationStatus: MigrationStatus.success);
     } on Exception catch (e) {

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/constants/strings/strings.dart' as s;
-import 'package:purple_task/core/hive_legacy/providers/providers.dart';
 import 'package:purple_task/core/ui/screens/main_screen/main_screen.dart';
 import 'package:purple_task/core/ui/widgets/simple_button.dart';
+import 'package:purple_task/features/migrator/providers/providers.dart';
 import 'package:purple_task/features/migrator/views/migrate_from_hive_screen.dart';
 
 class WelcomeScreen extends ConsumerWidget {
@@ -59,11 +59,11 @@ class WelcomeScreen extends ConsumerWidget {
                 padding: const EdgeInsets.all(32),
                 child: SimpleButton(
                   onPressed: () async {
-                    final hasAnyHiveBox =
-                        await ref.read(hasAnyHiveBoxProvider.future);
+                    final needsMigration =
+                        await ref.read(needsMigrationFromHiveProvider.future);
                     if (context.mounted) {
                       await Navigator.of(context)
-                          .pushReplacement(_createRoute(hasAnyHiveBox));
+                          .pushReplacement(_createRoute(needsMigration));
                     }
                   },
                   text: s.continueToNext,
@@ -77,9 +77,9 @@ class WelcomeScreen extends ConsumerWidget {
     );
   }
 
-  Route<void> _createRoute(bool hasAnyHiveBox) {
+  Route<void> _createRoute(bool needsMigration) {
     final target =
-        hasAnyHiveBox ? const MigrateFromHiveScreen() : const MainScreen();
+        needsMigration ? const MigrateFromHiveScreen() : const MainScreen();
 
     return PageRouteBuilder(
       pageBuilder: (context, anim1, anim2) => target,
