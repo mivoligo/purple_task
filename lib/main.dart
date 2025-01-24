@@ -1,30 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'app.dart';
-import 'constants/constants.dart';
-import 'entities/entities.dart';
-import 'models/models.dart';
+import 'package:purple_task/app.dart';
+import 'package:purple_task/core/hive_legacy/hive_init.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final dir = await path_provider.getApplicationSupportDirectory();
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(CategoryEntityAdapter())
-    ..registerAdapter(TaskEntityAdapter());
-  // make sure hive boxes are opened before showing UI
-  await Hive.openBox(settingsBox);
-  await Hive.openBox<CategoryEntity>(categoryBox);
-  await Hive.openBox<TaskEntity>(taskBox);
+  await HiveInit().initHive();
 
-  // Set app window size
-  AppWindowSize _appWindowSize = AppWindowSizePluginBased();
-  _appWindowSize.setWindowSize();
+  // TODO(m): Set app window size
 
   runApp(
-    App(),
+    const ProviderScope(
+      child: App(),
+    ),
   );
 }
