@@ -3,7 +3,7 @@
   summary: Simple TO-DO app to help you get stuff done
   description: Purple Task is
   confinement: strict
-  base: core18
+  base: core22
 
   compression: lzo
 
