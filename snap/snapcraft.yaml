@@ -10,7 +10,7 @@
   apps:
     purple-task:
       command: to_do
-      extensions: [flutter-beta]
+      extensions: [gnome]
   parts:
     purple-task:
       source: .
