@@ -1,5 +1,5 @@
   name: purple-task
-  version: 2.0.0
+  version: 2.0.1
   summary: Simple TO-DO app to help you get stuff done
   description: Purple Task is
   confinement: strict
@@ -16,7 +16,3 @@
       source: .
       plugin: flutter
       flutter-target: lib/main.dart
-      stage-packages:
-      - libegl1
-      - libegl1-mesa
-      - libc6

@@ -2,7 +2,7 @@
 name: purple_task
 description: Simple TO-DO app to help you get stuff done
 publish_to: none
-version: 2.0.0
+version: 2.0.1
 environment:
   sdk: ^3.5.3
 dependencies:
