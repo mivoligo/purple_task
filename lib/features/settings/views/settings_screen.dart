@@ -32,15 +32,14 @@ class SettingsScreen extends StatelessWidget {
                   trailing: DateFormatSelector(),
                 ),
                 const Divider(indent: 8, endIndent: 8),
-                ListTile(
+                CheckboxListTile(
                   title: const Text(s.displayTimeCompleted),
-                  trailing: Switch(
-                    activeColor: Theme.of(context).primaryColor,
-                    value: state.value?.showDoneTime ?? false,
-                    onChanged: (value) => controller.setDisplayTaskDoneTimePref(
-                      showDoneTime: value,
-                    ),
-                  ),
+                  value: state.value?.showDoneTime,
+                  onChanged: (value) => value != null
+                      ? controller.setDisplayTaskDoneTimePref(
+                          showDoneTime: value,
+                        )
+                      : null,
                 ),
               ],
             );
