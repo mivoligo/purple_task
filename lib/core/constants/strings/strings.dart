@@ -44,6 +44,7 @@ const String overdue = 'Overdue';
 const String later = 'Later';
 const String newCategoryTasksInfo =
     'You can add few tasks now or do it after finishing category creation.';
+const String changeTaskName = 'Change name of task';
 
 // category menu items
 const String changeName = 'Change Name';

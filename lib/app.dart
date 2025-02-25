@@ -16,7 +16,7 @@ class App extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: PurpleAppTheme.lightTheme,
         darkTheme: PurpleAppTheme.darkTheme,
-        themeMode: ThemeMode.light,
+        themeMode: ThemeMode.dark,
         // theme: ThemeData(
         //   primaryColor: const Color(0xffe83f6f),
         //   tooltipTheme: TooltipThemeData(
