@@ -49,7 +49,9 @@ class _DialogBaseState extends State<DialogBase>
   @override
   Widget build(BuildContext context) {
     final appWidth = MediaQuery.sizeOf(context).width;
+
     final isWide = appWidth > 600;
+    final colorScheme = Theme.of(context).colorScheme;
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -67,7 +69,8 @@ class _DialogBaseState extends State<DialogBase>
                 child: Container(
                   decoration: isWide
                       ? CustomStyle.dialogDecoration
-                      : const BoxDecoration(color: Color(0xFFEEEEEE)),
+                          .copyWith(color: colorScheme.surface)
+                      : BoxDecoration(color: colorScheme.surface),
                 ),
               ),
             ),
@@ -92,7 +95,7 @@ class _DialogBaseState extends State<DialogBase>
                         children: [
                           CustomIconButton(
                             icon: const Icon(AntIcons.close),
-                            color: Colors.black,
+                            color: colorScheme.onSurface,
                             tooltip: s.close,
                             onPressed: () {
                               _animationController.reverse();
@@ -101,7 +104,8 @@ class _DialogBaseState extends State<DialogBase>
                           ),
                           Text(
                             widget.title,
-                            style: CustomStyle.textStyle24,
+                            style: CustomStyle.textStyle24
+                                .copyWith(color: colorScheme.onSurface),
                           ),
                           const SizedBox(width: 40),
                         ],

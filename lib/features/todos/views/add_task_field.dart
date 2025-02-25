@@ -45,12 +45,15 @@ class _AddTaskFieldState extends State<AddTaskField> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return CupertinoTextField(
       controller: _controller,
       focusNode: _focusNode,
       placeholder: s.addNewTask,
-      padding: const EdgeInsets.only(left: 20),
-      style: CustomStyle.textStyleTaskName,
+      padding: const EdgeInsets.only(left: 8),
+      style: CustomStyle.textStyleTaskName.copyWith(
+        color: colorScheme.onSurface,
+      ),
       suffix: IconButton(
         color: _hasText ? Colors.blue : Colors.grey,
         icon: const Icon(
@@ -71,7 +74,9 @@ class _AddTaskFieldState extends State<AddTaskField> {
               _focusNode.requestFocus();
             }
           : null,
-      decoration: CustomStyle.inputDecoration,
+      decoration: CustomStyle.inputDecoration.copyWith(
+        color: colorScheme.surface,
+      ),
     );
   }
 }

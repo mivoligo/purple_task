@@ -27,15 +27,16 @@ class AboutScreen extends StatelessWidget {
                 color: const Color(0xFF673AB7),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(16),
+            Padding(
+              padding: const EdgeInsets.all(16),
               child: Text(
                 s.appDescription,
                 textAlign: TextAlign.center,
-                style: CustomStyle.textStyleTaskName,
+                style: CustomStyle.textStyleTaskName
+                    .copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
             ),
-            const Divider(indent: 8, endIndent: 8),
+            const Divider(),
             Material(
               color: const Color(0xFFEEEEEE),
               child: ListTile(
@@ -44,7 +45,7 @@ class AboutScreen extends StatelessWidget {
                 onTap: () => _showLicenseDialog(context),
               ),
             ),
-            const Divider(indent: 8, endIndent: 8),
+            const Divider(),
             Material(
               color: const Color(0xFFEEEEEE),
               child: ListTile(
@@ -53,7 +54,7 @@ class AboutScreen extends StatelessWidget {
                 onTap: () => UrlHelper().openUrl(s.sourceCodeUrl),
               ),
             ),
-            const Divider(indent: 8, endIndent: 8),
+            const Divider(),
             Material(
               color: const Color(0xFFEEEEEE),
               child: ListTile(
@@ -62,7 +63,7 @@ class AboutScreen extends StatelessWidget {
                 onTap: () => UrlHelper().openUrl(s.bugsUrl),
               ),
             ),
-            const Divider(indent: 8, endIndent: 8),
+            const Divider(),
           ],
         ),
       ),

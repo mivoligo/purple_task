@@ -100,7 +100,12 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                   child: Hero(
                     tag: 'main${widget.heroId}',
                     child: Container(
-                      decoration: CustomStyle.dialogDecoration,
+                      decoration: CustomStyle.dialogDecoration.copyWith(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surface
+                            .withAlpha(180),
+                      ),
                     ),
                   ),
                 ),

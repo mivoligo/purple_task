@@ -11,6 +11,7 @@ class TimeFormatSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Consumer(
       builder: (context, ref, _) {
         final settingsState = ref.watch(settingsNotifierProvider);
@@ -26,18 +27,18 @@ class TimeFormatSelector extends StatelessWidget {
                 },
                 child: Text(
                   TimeConverter.formatDateNow(timeFormat),
-                  style: settingsState.value?.timeFormat == timeFormat
-                      ? CustomStyle.textStyleTaskName
-                          .copyWith(color: Theme.of(context).primaryColor)
-                      : CustomStyle.textStyleTaskName,
+                  // style: settingsState.value?.timeFormat == timeFormat
+                  //     ? CustomStyle.textStyleTaskName
+                  //         .copyWith(color: Theme.of(context).colorScheme.primary)
+                  //     : CustomStyle.textStyleTaskName,
                 ),
               ),
             ),
           ],
           builder: (context, controller, child) {
             return SimpleButton(
-              foregroundColor: Theme.of(context).primaryColor,
-              backgroundColor: Colors.white,
+              foregroundColor: colorScheme.surface,
+              backgroundColor: colorScheme.onSurface.withAlpha(180),
               onPressed: () {
                 if (controller.isOpen) {
                   controller.close();

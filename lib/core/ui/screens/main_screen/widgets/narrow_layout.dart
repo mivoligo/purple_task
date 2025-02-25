@@ -67,7 +67,9 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: DecoratedBox(
-                  decoration: CustomStyle.uncategorizedTasksDecoration,
+                  decoration: CustomStyle.uncategorizedTasksDecoration.copyWith(
+                    color: Theme.of(context).colorScheme.surface.withAlpha(180),
+                  ),
                   child: isUncategorizedViewPreferred
                       ? const UncategorizedTasks()
                       : const SizedBox.expand(),

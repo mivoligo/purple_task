@@ -24,7 +24,7 @@ class CategoryTopBar extends StatelessWidget {
         // Go back button
         CustomIconButton(
           icon: const Icon(AntIcons.close),
-          color: Colors.black,
+          color: Theme.of(context).colorScheme.onSurface,
           tooltip: s.close,
           onPressed: () {
             onClose();

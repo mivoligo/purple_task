@@ -19,6 +19,7 @@ class WideLayout extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentCategory = ref.watch(categoryNotifierProvider);
+    final theme = Theme.of(context);
 
     return Column(
       children: [
@@ -70,7 +71,11 @@ class WideLayout extends ConsumerWidget {
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 500),
                       child: DecoratedBox(
-                        decoration: CustomStyle.uncategorizedTasksDecoration,
+                        decoration:
+                            CustomStyle.uncategorizedTasksDecoration.copyWith(
+                          color:
+                              theme.colorScheme.surfaceContainer.withAlpha(180),
+                        ),
                         child: currentCategory != null
                             ? CategoryDetails(category: currentCategory)
                             : const UncategorizedTasks(),

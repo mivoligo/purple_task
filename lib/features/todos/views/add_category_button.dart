@@ -10,6 +10,7 @@ class AddCategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Hero(
       tag: 'new_category',
       child: SimpleButton(
@@ -17,9 +18,9 @@ class AddCategoryButton extends StatelessWidget {
         onPressed: () => Navigator.of(context).push(
           _createRoute(NewCategoryScreen()),
         ),
-        icon: const Icon(AntIcons.folderAdd, color: Colors.black87),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
+        icon: Icon(AntIcons.folderAdd, color: colorScheme.onSurface),
+        backgroundColor: colorScheme.surface,
+        foregroundColor: colorScheme.onSurface,
       ),
     );
   }

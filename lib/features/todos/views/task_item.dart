@@ -111,7 +111,12 @@ class _TaskItemState extends State<TaskItem> {
                                               .copyWith(
                                               color: Colors.grey,
                                             )
-                                          : CustomStyle.textStyleTaskName,
+                                          : CustomStyle.textStyleTaskName
+                                              .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface,
+                                            ),
                                     ),
                                   ),
                                 ),
