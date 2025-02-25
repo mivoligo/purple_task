@@ -31,6 +31,15 @@ class PurpleAppTheme {
         borderRadius: BorderRadius.all(Radius.circular(6)),
       ),
     ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: ButtonStyle(
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+          ),
+        ),
+      ),
+    ),
   );
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
@@ -62,6 +71,15 @@ class PurpleAppTheme {
       }),
       indicatorShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(6)),
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: ButtonStyle(
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+          ),
+        ),
       ),
     ),
   );

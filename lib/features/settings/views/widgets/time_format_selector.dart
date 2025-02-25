@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/constants/time_and_date_formats.dart';
 import 'package:purple_task/core/helpers.dart';
-import 'package:purple_task/core/ui/widgets/simple_button.dart';
 import 'package:purple_task/features/settings/controllers/settings_controller.dart';
 
 class TimeFormatSelector extends StatelessWidget {
@@ -11,7 +9,6 @@ class TimeFormatSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     return Consumer(
       builder: (context, ref, _) {
         final settingsState = ref.watch(settingsNotifierProvider);
@@ -21,33 +18,26 @@ class TimeFormatSelector extends StatelessWidget {
             ...timeFormats.map(
               (timeFormat) => MenuItemButton(
                 onPressed: () {
-                  controller.setTimeFormat(
-                    timeFormat: timeFormat,
-                  );
+                  controller.setTimeFormat(timeFormat: timeFormat);
                 },
                 child: Text(
                   TimeConverter.formatDateNow(timeFormat),
-                  // style: settingsState.value?.timeFormat == timeFormat
-                  //     ? CustomStyle.textStyleTaskName
-                  //         .copyWith(color: Theme.of(context).colorScheme.primary)
-                  //     : CustomStyle.textStyleTaskName,
+                  style: settingsState.value?.timeFormat == timeFormat
+                      ? const TextStyle(fontWeight: FontWeight.bold)
+                      : null,
                 ),
               ),
             ),
           ],
           builder: (context, controller, child) {
-            return SimpleButton(
-              foregroundColor: colorScheme.surface,
-              backgroundColor: colorScheme.onSurface.withAlpha(180),
+            return OutlinedButton(
               onPressed: () {
-                if (controller.isOpen) {
-                  controller.close();
-                } else {
-                  controller.open();
-                }
+                controller.isOpen ? controller.close() : controller.open();
               },
-              text: TimeConverter.formatDateNow(
-                settingsState.value?.timeFormat ?? 'Hm',
+              child: Text(
+                TimeConverter.formatDateNow(
+                  settingsState.value?.timeFormat ?? 'Hm',
+                ),
               ),
             );
           },
