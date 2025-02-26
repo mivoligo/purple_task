@@ -13,7 +13,7 @@ class AnimatedProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[300],
+      color: Theme.of(context).colorScheme.surface,
       height: 4,
       child: LayoutBuilder(
         builder: (context, constraints) {

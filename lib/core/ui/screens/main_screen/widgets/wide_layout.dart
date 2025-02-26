@@ -114,6 +114,7 @@ class _UncategorizedCard extends ConsumerWidget {
         scale: isSelected ? 1.03 : 1,
         child: Card(
           margin: EdgeInsets.zero,
+          color: Theme.of(context).colorScheme.surface.withAlpha(221),
           shape: isSelected
               ? RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),

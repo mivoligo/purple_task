@@ -20,9 +20,7 @@ class PurpleAppTheme {
       ),
     ),
     navigationBarTheme: const NavigationBarThemeData(
-      // indicatorColor: Color(0x42BA68C8),
       indicatorColor: Colors.black54,
-      surfaceTintColor: Colors.white,
       iconTheme:
           WidgetStateProperty.fromMap(<WidgetStatesConstraint, IconThemeData?>{
         WidgetState.selected: IconThemeData(color: Colors.white),
@@ -80,7 +78,6 @@ class PurpleAppTheme {
     ),
     navigationBarTheme: const NavigationBarThemeData(
       indicatorColor: Colors.white54,
-      surfaceTintColor: Colors.black,
       iconTheme:
           WidgetStateProperty.fromMap(<WidgetStatesConstraint, IconThemeData?>{
         WidgetState.selected: IconThemeData(color: Colors.black),
