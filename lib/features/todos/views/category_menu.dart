@@ -1,10 +1,10 @@
 import 'package:ant_icons/ant_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/ui/widgets/confirmation_dialog.dart';
+import 'package:purple_task/core/ui/widgets/text_change_confirmation_dialog.dart';
 import 'package:purple_task/features/todos/controllers/categories_controller.dart';
 import 'package:purple_task/features/todos/controllers/category_controller.dart';
 import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
@@ -29,14 +29,6 @@ class CategoryMenu extends ConsumerStatefulWidget {
 }
 
 class _CategoryMenuState extends ConsumerState<CategoryMenu> {
-  late final textController = TextEditingController();
-
-  @override
-  void dispose() {
-    textController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MenuAnchor(
@@ -166,24 +158,16 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
     final category = ref.watch(categoryNotifierProvider)!;
     showDialog<void>(
       context: context,
-      barrierDismissible: false,
       builder: (_) {
-        textController.text = category.name;
-        return ConfirmationDialog(
+        return TextChangeConfirmationDialog(
           title: s.questionChangeName,
-          content: Padding(
-            padding: const EdgeInsets.all(24),
-            child: CupertinoTextField(
-              controller: textController,
-              autofocus: true,
-              onSubmitted: (_) {
-                updateName();
-                Navigator.of(context).pop();
-              },
-            ),
-          ),
-          confirmationText: s.save,
-          onConfirm: textController.text.isNotEmpty ? updateName : () {},
+          initialText: category.name,
+          confirmationButtonText: s.save,
+          onConfirm: (text) {
+            ref.read(categoryNotifierProvider.notifier)
+              ..changeName(name: text)
+              ..update();
+          },
         );
       },
     );
@@ -273,11 +257,5 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
         );
       },
     );
-  }
-
-  void updateName() {
-    ref.read(categoryNotifierProvider.notifier)
-      ..changeName(name: textController.text)
-      ..update();
   }
 }
