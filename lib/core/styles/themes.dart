@@ -40,6 +40,22 @@ class PurpleAppTheme {
         ),
       ),
     ),
+    datePickerTheme: DatePickerThemeData(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      dayShape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+      ),
+      confirmButtonStyle: ButtonStyle(
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        ),
+      ),
+      cancelButtonStyle: ButtonStyle(
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        ),
+      ),
+    ),
   );
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
@@ -79,6 +95,22 @@ class PurpleAppTheme {
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),
           ),
+        ),
+      ),
+    ),
+    datePickerTheme: DatePickerThemeData(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      dayShape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+      ),
+      confirmButtonStyle: ButtonStyle(
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        ),
+      ),
+      cancelButtonStyle: ButtonStyle(
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
         ),
       ),
     ),
