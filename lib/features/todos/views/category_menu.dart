@@ -89,7 +89,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
     final category = ref.watch(categoryNotifierProvider)!;
     showDialog<void>(
       context: context,
-      barrierDismissible: false,
       builder: (_) => ConfirmationDialog(
         title: s.questionDeleteCompleted,
         content: const Padding(
@@ -111,7 +110,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
     final category = ref.watch(categoryNotifierProvider)!;
     showDialog<void>(
       context: context,
-      barrierDismissible: false,
       builder: (_) => ConfirmationDialog(
         title: s.questionDeleteAll,
         content: const Padding(
@@ -131,7 +129,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
     final category = ref.watch(categoryNotifierProvider)!;
     showDialog<void>(
       context: context,
-      barrierDismissible: false,
       builder: (_) => ConfirmationDialog(
         title: s.questionDeleteCategory,
         content: const Padding(
@@ -176,7 +173,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
   void onChangeColor() {
     showDialog<void>(
       context: context,
-      barrierDismissible: false,
       builder: (_) {
         return Consumer(
           builder: (context, ref, _) {
@@ -216,7 +212,6 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
   void onChangeIcon() {
     showDialog<void>(
       context: context,
-      barrierDismissible: false,
       builder: (context) {
         return Consumer(
           builder: (context, ref, _) {

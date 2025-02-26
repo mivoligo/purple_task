@@ -54,7 +54,6 @@ class UncategorizedMenu extends ConsumerWidget {
   void _onDeleteCompletedTasks(BuildContext context, WidgetRef ref) {
     showDialog<void>(
       context: context,
-      barrierDismissible: false,
       builder: (_) => ConfirmationDialog(
         title: s.questionDeleteCompleted,
         content: const Padding(
@@ -75,7 +74,6 @@ class UncategorizedMenu extends ConsumerWidget {
   void _onDeleteAllTasks(BuildContext context, WidgetRef ref) {
     showDialog<void>(
       context: context,
-      barrierDismissible: false,
       builder: (_) => ConfirmationDialog(
         title: s.questionDeleteAll,
         content: const Padding(

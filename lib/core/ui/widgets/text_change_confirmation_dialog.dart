@@ -64,6 +64,7 @@ class _TextChangeConfirmationDialogState
         child: CupertinoTextField(
           controller: _textController,
           autofocus: true,
+          padding: const EdgeInsets.all(8),
           style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
           onSubmitted: (value) {
             widget.onConfirm?.call(value);
@@ -94,6 +95,7 @@ class _TextChangeConfirmationDialogState
           backgroundColor: widget.confirmationButtonColor,
         ),
       ],
+      actionsAlignment: MainAxisAlignment.spaceBetween,
     );
   }
 }

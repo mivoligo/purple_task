@@ -31,7 +31,8 @@ class ConfirmationDialog extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: CustomStyle.textStyle24,
+        style: CustomStyle.textStyle24
+            .copyWith(color: Theme.of(context).colorScheme.onSurface),
       ),
       content: content,
       buttonPadding: const EdgeInsets.all(16),
@@ -52,6 +53,7 @@ class ConfirmationDialog extends StatelessWidget {
           backgroundColor: confirmationColor,
         ),
       ],
+      actionsAlignment: MainAxisAlignment.spaceBetween,
     );
   }
 }
