@@ -67,7 +67,9 @@ class _NewCategoryTasksState extends State<NewCategoryTasks> {
                   ),
                   Text(
                     widget.name,
-                    style: CustomStyle.textStyle24,
+                    style: CustomStyle.textStyle24.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ),
                 ],
               ),

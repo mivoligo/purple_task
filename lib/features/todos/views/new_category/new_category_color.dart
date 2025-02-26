@@ -34,7 +34,8 @@ class CategoryColor extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(48, 20, 32, 4),
               child: Text(
                 name,
-                style: CustomStyle.textStyle24,
+                style: CustomStyle.textStyle24
+                    .copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
             ),
             Expanded(

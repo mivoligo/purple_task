@@ -50,7 +50,9 @@ class CategoryIcon extends ConsumerWidget {
                   ),
                   Text(
                     name,
-                    style: CustomStyle.textStyle24,
+                    style: CustomStyle.textStyle24.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ),
                 ],
               ),
