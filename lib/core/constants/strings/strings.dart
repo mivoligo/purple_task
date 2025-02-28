@@ -69,7 +69,10 @@ const String settings = 'Settings';
 const String displayTimeCompleted = "Display task's completion time";
 const String timeFormat = 'Time format';
 const String dateFormat = 'Date format';
-const String changeFormat = 'Change format';
+const String themeMode = 'Theme';
+const String themeModeSystem = 'System';
+const String themeModeLight = 'Light';
+const String themeModeDark = 'Dark';
 // about app
 const String about = 'About $appName';
 const String license = 'License';

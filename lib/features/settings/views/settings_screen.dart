@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 28),
               children: [
                 const ListTile(
-                  title: Text('theme'),
+                  title: Text(s.themeMode),
                   trailing: ThemeSelector(),
                 ),
                 const Divider(indent: 8, endIndent: 8),

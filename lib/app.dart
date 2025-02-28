@@ -11,13 +11,13 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = ref.watch(appThemeProvider);
+    final themeMode = ref.watch(appThemeProvider);
     return MaterialApp(
       title: s.appName,
       debugShowCheckedModeBanner: false,
       theme: PurpleAppTheme.lightTheme,
       darkTheme: PurpleAppTheme.darkTheme,
-      themeMode: theme,
+      themeMode: themeMode,
       home: const RedirectScreen(),
     );
   }
