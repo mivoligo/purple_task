@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 
+enum AppThemeMode {
+  system,
+  light,
+  dark,
+}
+
 class PurpleAppTheme {
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,

@@ -15,12 +15,14 @@ class SettingsNotifier extends _$SettingsNotifier {
     final showDoneTime = await settingsRepository.getDisplayTaskDoneTimePref();
     final isUncategorizedViewPreferred =
         await settingsRepository.getUncategorizedViewPreference();
+    final theme = await settingsRepository.getTheme();
 
     return SettingsState(
       timeFormat: timeFormat,
       dateFormat: dateFormat,
       showDoneTime: showDoneTime,
       isUncategorizedViewPreferred: isUncategorizedViewPreferred,
+      theme: theme,
     );
   }
 
@@ -74,6 +76,16 @@ class SettingsNotifier extends _$SettingsNotifier {
       (currentState) => currentState.copyWith(
         isUncategorizedViewPreferred: updatedUncategorizedViewPreference,
       ),
+    );
+  }
+
+  Future<void> setTheme({required String value}) async {
+    ref.read(settingsRepositoryProvider).setTheme(value: value);
+
+    final updatedTheme = await ref.read(settingsRepositoryProvider).getTheme();
+
+    await update(
+      (currentState) => currentState.copyWith(theme: updatedTheme),
     );
   }
 }

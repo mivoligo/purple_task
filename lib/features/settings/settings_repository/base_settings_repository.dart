@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:purple_task/core/styles/themes.dart';
+
 abstract class BaseSettingsRepository {
   void setTimeFormat({required String value});
 
@@ -16,4 +18,8 @@ abstract class BaseSettingsRepository {
   void setUncategorizedViewPreference({required bool value});
 
   Future<bool> getUncategorizedViewPreference();
+
+  void setTheme({required String value});
+
+  Future<AppThemeMode> getTheme();
 }

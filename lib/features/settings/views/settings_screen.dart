@@ -4,6 +4,7 @@ import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/ui/widgets/dialog_base.dart';
 import 'package:purple_task/features/settings/controllers/settings_controller.dart';
 import 'package:purple_task/features/settings/views/widgets/date_format_selector.dart';
+import 'package:purple_task/features/settings/views/widgets/theme_selector.dart';
 import 'package:purple_task/features/settings/views/widgets/time_format_selector.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -22,6 +23,11 @@ class SettingsScreen extends StatelessWidget {
             return ListView(
               padding: const EdgeInsets.symmetric(horizontal: 28),
               children: [
+                const ListTile(
+                  title: Text('theme'),
+                  trailing: ThemeSelector(),
+                ),
+                const Divider(indent: 8, endIndent: 8),
                 const ListTile(
                   title: Text(s.timeFormat),
                   trailing: TimeFormatSelector(),
