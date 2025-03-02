@@ -19,7 +19,7 @@ class WideLayout extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentCategory = ref.watch(categoryNotifierProvider);
-    final theme = Theme.of(context);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Column(
       children: [
@@ -73,8 +73,7 @@ class WideLayout extends ConsumerWidget {
                       child: DecoratedBox(
                         decoration:
                             CustomStyle.uncategorizedTasksDecoration.copyWith(
-                          color:
-                              theme.colorScheme.surfaceContainer.withAlpha(180),
+                          color: colorScheme.surfaceContainer.withAlpha(180),
                         ),
                         child: currentCategory != null
                             ? CategoryDetails(category: currentCategory)

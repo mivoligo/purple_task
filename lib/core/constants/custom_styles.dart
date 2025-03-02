@@ -13,17 +13,11 @@ class CustomStyle {
   );
 
   static const inputDecoration = BoxDecoration(
-    // color: Color(0xFFFAFAFA),
     borderRadius: BorderRadius.all(Radius.circular(8)),
     border: Border.fromBorderSide(BorderSide(color: Colors.grey, width: 0.5)),
-    // boxShadow: [
-    //   BoxShadow(color: Color(0xFFE0E0E0), offset: Offset(0, -1)),
-    //   BoxShadow(color: Colors.white, offset: Offset(0, 1)),
-    // ],
   );
 
   static const dialogDecoration = BoxDecoration(
-    // color: Color(0xFFEEEEEE),
     borderRadius: BorderRadius.all(Radius.circular(12)),
     boxShadow: [
       BoxShadow(
