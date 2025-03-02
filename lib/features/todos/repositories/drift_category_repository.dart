@@ -49,7 +49,7 @@ class DriftCategoryRepository implements BaseCategoryRepository {
     final companions = categories
         .map(
           (category) => db.CategoriesCompanion(
-            id: Value(category.id!),
+            id: Value(category.id),
             name: Value(category.name),
             color: Value(category.color.intValue),
             icon: Value(category.icon),
@@ -64,7 +64,7 @@ class DriftCategoryRepository implements BaseCategoryRepository {
   Future<void> update({required Category category}) async {
     await categoryDao.updateCategory(
       db.CategoriesCompanion(
-        id: Value(category.id!),
+        id: Value(category.id),
         name: Value(category.name),
         color: Value(category.color.intValue),
         icon: Value(category.icon),
