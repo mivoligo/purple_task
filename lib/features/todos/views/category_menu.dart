@@ -1,8 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/ui/widgets/confirmation_dialog.dart';
 import 'package:purple_task/core/ui/widgets/text_change_confirmation_dialog.dart';
 import 'package:purple_task/features/todos/controllers/categories_controller.dart';
@@ -16,8 +15,8 @@ class CategoryMenu extends ConsumerStatefulWidget {
   const CategoryMenu({
     required this.category,
     required this.canDeleteCategory,
-    super.key,
     this.iconSize,
+    super.key,
   });
 
   final Category category;
@@ -31,41 +30,42 @@ class CategoryMenu extends ConsumerStatefulWidget {
 class _CategoryMenuState extends ConsumerState<CategoryMenu> {
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return MenuAnchor(
       consumeOutsideTap: true,
       menuChildren: [
         MenuItemButton(
           onPressed: onDeleteCompletedTasks,
-          child: const Text(s.deleteCompleted),
+          child: Text(tr.categoryOptionDeleteCompleted),
         ),
         MenuItemButton(
           onPressed: onDeleteAllTasks,
-          child: const Text(s.deleteAllTasks),
+          child: Text(tr.categoryOptionDeleteAllTasks),
         ),
         const PopupMenuDivider(),
         if (widget.canDeleteCategory) ...[
           MenuItemButton(
             onPressed: onDeleteCategory,
-            child: const Text(s.deleteCategory),
+            child: Text(tr.categoryOptionDeleteCategory),
           ),
           const PopupMenuDivider(),
         ],
         MenuItemButton(
           onPressed: onChangeName,
-          child: const Text(s.changeName),
+          child: Text(tr.categoryOptionChangeName),
         ),
         MenuItemButton(
           onPressed: onChangeColor,
-          child: const Text(s.changeColor),
+          child: Text(tr.categoryOptionChangeColor),
         ),
         MenuItemButton(
           onPressed: onChangeIcon,
-          child: const Text(s.changeIcon),
+          child: Text(tr.categoryOptionChangeIcon),
         ),
       ],
       builder: (context, controller, child) {
         return IconButton(
-          tooltip: s.showOptions,
+          tooltip: tr.showOptions,
           onPressed: () {
             if (controller.isOpen) {
               controller.close();
@@ -87,15 +87,16 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
 
   void onDeleteCompletedTasks() {
     final category = ref.watch(categoryNotifierProvider)!;
+    final tr = AppLocalizations.of(context);
     showDialog<void>(
       context: context,
       builder: (_) => ConfirmationDialog(
-        title: s.questionDeleteCompleted,
-        content: const Padding(
-          padding: EdgeInsets.all(24),
-          child: Text(s.infoDeleteCompleted),
+        title: tr.deleteCompletedTasksDialogTitle,
+        content: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Text(tr.deleteCompletedTasksDialogContent),
         ),
-        confirmationText: s.delete,
+        confirmationText: tr.delete,
         confirmationColor: Colors.red,
         onConfirm: () {
           ref
@@ -108,15 +109,16 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
 
   void onDeleteAllTasks() {
     final category = ref.watch(categoryNotifierProvider)!;
+    final tr = AppLocalizations.of(context);
     showDialog<void>(
       context: context,
       builder: (_) => ConfirmationDialog(
-        title: s.questionDeleteAll,
-        content: const Padding(
-          padding: EdgeInsets.all(24),
-          child: Text(s.infoDeleteAll),
+        title: tr.deleteAllTasksDialogTitle,
+        content: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Text(tr.deleteAllTasksDialogContent),
         ),
-        confirmationText: s.delete,
+        confirmationText: tr.delete,
         confirmationColor: Colors.red,
         onConfirm: () => ref
             .read(tasksNotifierProvider.notifier)
@@ -127,15 +129,17 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
 
   void onDeleteCategory() {
     final category = ref.watch(categoryNotifierProvider)!;
+    final tr = AppLocalizations.of(context);
+
     showDialog<void>(
       context: context,
       builder: (_) => ConfirmationDialog(
-        title: s.questionDeleteCategory,
-        content: const Padding(
-          padding: EdgeInsets.all(24),
-          child: Text(s.infoDeleteCategory),
+        title: tr.deleteCategoryDialogTitle,
+        content: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Text(tr.deleteCategoryDialogContent(category.name)),
         ),
-        confirmationText: s.delete,
+        confirmationText: tr.delete,
         confirmationColor: Colors.red,
         onConfirm: () {
           ref
@@ -153,13 +157,15 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
 
   void onChangeName() {
     final category = ref.watch(categoryNotifierProvider)!;
+    final tr = AppLocalizations.of(context);
+
     showDialog<void>(
       context: context,
       builder: (_) {
         return TextChangeConfirmationDialog(
-          title: s.questionChangeName,
+          title: tr.changeCategoryNameDialogTitle,
           initialText: category.name,
-          confirmationButtonText: s.save,
+          confirmationButtonText: tr.saveButton,
           onConfirm: (text) {
             ref.read(categoryNotifierProvider.notifier)
               ..changeName(name: text)
@@ -177,8 +183,10 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
         return Consumer(
           builder: (context, ref, _) {
             final color = ref.watch(categoryNotifierProvider)!.color;
+            final tr = AppLocalizations.of(context);
+
             return ConfirmationDialog(
-              title: s.questionChangeColor,
+              title: tr.changeCategoryColorDialogTitle,
               content: SizedBox(
                 width: 500,
                 height: 200,
@@ -200,7 +208,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                   ],
                 ),
               ),
-              confirmationText: s.save,
+              confirmationText: tr.saveButton,
               onConfirm: ref.read(categoryNotifierProvider.notifier).update,
             );
           },
@@ -216,9 +224,11 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
         return Consumer(
           builder: (context, ref, _) {
             final category = ref.watch(categoryNotifierProvider)!;
+            final tr = AppLocalizations.of(context);
+
             final icon = category.icon;
             return ConfirmationDialog(
-              title: s.questionChangeIcon,
+              title: tr.changeCategoryIconDialogTitle,
               content: SizedBox(
                 width: 500,
                 height: 200,
@@ -245,7 +255,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                   ],
                 ),
               ),
-              confirmationText: s.save,
+              confirmationText: tr.saveButton,
               onConfirm: ref.read(categoryNotifierProvider.notifier).update,
             );
           },

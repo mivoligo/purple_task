@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/ui/widgets/simple_button.dart';
 
 class TextChangeConfirmationDialog extends StatefulWidget {
@@ -55,6 +55,7 @@ class _TextChangeConfirmationDialogState
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       contentPadding: const EdgeInsets.symmetric(vertical: 8),
@@ -75,7 +76,7 @@ class _TextChangeConfirmationDialogState
       buttonPadding: const EdgeInsets.all(16),
       actions: [
         SimpleButton(
-          text: s.cancel,
+          text: tr.cancelButton,
           onPressed: () {
             widget.onCancel?.call();
             Navigator.of(context).pop();
