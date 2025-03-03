@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/features/todos/providers/providers.dart';
 import 'package:purple_task/features/todos/views/sliver_task_list_header.dart';
 import 'package:purple_task/features/todos/views/sliver_tasks_list.dart';
@@ -29,6 +28,7 @@ class _CompletedTasksState extends State<CompletedTasks> {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return Scrollbar(
       controller: _scrollController,
       child: Consumer(
@@ -45,16 +45,16 @@ class _CompletedTasksState extends State<CompletedTasks> {
             controller: _scrollController,
             slivers: [
               if (todayCompletedTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.completedToday),
+                SliverTaskListHeader(title: tr.completedTodayTasksHeader),
               SliverTasksList(list: todayCompletedTasks, isOrderFixed: true),
               if (yesterdayCompletedTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.completedYesterday),
+                SliverTaskListHeader(title: tr.completedYesterdayTasksHeader),
               SliverTasksList(
                 list: yesterdayCompletedTasks,
                 isOrderFixed: true,
               ),
               if (pastCompletedTasks.isNotEmpty)
-                const SliverTaskListHeader(title: s.completedEarlier),
+                SliverTaskListHeader(title: tr.completedEarlierTasksHeader),
               SliverTasksList(list: pastCompletedTasks, isOrderFixed: true),
             ],
           );

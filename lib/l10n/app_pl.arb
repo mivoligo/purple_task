@@ -4,6 +4,11 @@
       "categoryName": {}
     }
   },
+  "@categoryTasksInfo": {
+    "placeholders": {
+      "count": {}
+    }
+  },
   "@totalTasksInfo": {
     "placeholders": {
       "count": {}
@@ -23,6 +28,8 @@
   "categoryOptionDeleteAllTasks": "Usuń wszystkie zadania",
   "categoryOptionDeleteCategory": "Usuń kategorię",
   "categoryOptionDeleteCompleted": "Usuń ukończone zadania",
+  "categoryTasksInfo": "{count,plural, =0{Brak zadań} =1{1 zadanie} few{{count} zadania}  other{{count} zadań}}",
+
   "changeCategoryColorDialogTitle": "Zmień kolor kategorii",
   "changeCategoryIconDialogTitle": "Zmień ikonę kategorii",
   "changeCategoryNameDialogTitle": "Zmień nazwę kategorii",
