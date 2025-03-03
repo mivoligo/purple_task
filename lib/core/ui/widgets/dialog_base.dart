@@ -1,8 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/ui/widgets/icon_button.dart';
 
 class DialogBase extends StatefulWidget {
@@ -49,7 +48,7 @@ class _DialogBaseState extends State<DialogBase>
   @override
   Widget build(BuildContext context) {
     final appWidth = MediaQuery.sizeOf(context).width;
-
+    final tr = AppLocalizations.of(context);
     final isWide = appWidth > 600;
     final colorScheme = Theme.of(context).colorScheme;
     return SafeArea(
@@ -96,7 +95,7 @@ class _DialogBaseState extends State<DialogBase>
                           CustomIconButton(
                             icon: const Icon(AntIcons.close),
                             color: colorScheme.onSurface,
-                            tooltip: s.close,
+                            tooltip: tr.closeButton,
                             onPressed: () {
                               _animationController.reverse();
                               Navigator.of(context).pop();
