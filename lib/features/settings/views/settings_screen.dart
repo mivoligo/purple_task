@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/ui/widgets/dialog_base.dart';
 import 'package:purple_task/features/settings/controllers/settings_controller.dart';
 import 'package:purple_task/features/settings/views/widgets/date_format_selector.dart';
@@ -12,8 +12,9 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return DialogBase(
-      title: s.settings,
+      title: tr.settings,
       heroTag: 'settings',
       content: Expanded(
         child: Consumer(
@@ -23,23 +24,23 @@ class SettingsScreen extends StatelessWidget {
             return ListView(
               padding: const EdgeInsets.symmetric(horizontal: 28),
               children: [
-                const ListTile(
-                  title: Text(s.themeMode),
-                  trailing: ThemeSelector(),
+                ListTile(
+                  title: Text(tr.settingsOptionThemeMode),
+                  trailing: const ThemeSelector(),
                 ),
                 const Divider(indent: 8, endIndent: 8),
-                const ListTile(
-                  title: Text(s.timeFormat),
-                  trailing: TimeFormatSelector(),
+                ListTile(
+                  title: Text(tr.settingsOptionTimeFormat),
+                  trailing: const TimeFormatSelector(),
                 ),
                 const Divider(indent: 8, endIndent: 8),
-                const ListTile(
-                  title: Text(s.dateFormat),
-                  trailing: DateFormatSelector(),
+                ListTile(
+                  title: Text(tr.settingsOptionDateFormat),
+                  trailing: const DateFormatSelector(),
                 ),
                 const Divider(indent: 8, endIndent: 8),
                 CheckboxListTile(
-                  title: const Text(s.displayTimeCompleted),
+                  title: Text(tr.settingsOptionDisplayTimeCompleted),
                   value: state.value?.showDoneTime,
                   onChanged: (value) => value != null
                       ? controller.setDisplayTaskDoneTimePref(

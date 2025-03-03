@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/styles/providers/providers.dart';
 import 'package:purple_task/core/styles/themes.dart';
 import 'package:purple_task/features/settings/controllers/settings_controller.dart';
@@ -10,15 +10,16 @@ class ThemeSelector extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final tr = AppLocalizations.of(context);
     final settingsState = ref.watch(settingsNotifierProvider);
     final themeController = ref.watch(appThemeProvider.notifier);
 
     String themeName(AppThemeMode? themeMode) {
       return switch (themeMode) {
-        AppThemeMode.system => s.themeModeSystem,
-        AppThemeMode.light => s.themeModeLight,
-        AppThemeMode.dark => s.themeModeDark,
-        _ => s.themeModeSystem,
+        AppThemeMode.system => tr.themeModeSystem,
+        AppThemeMode.light => tr.themeModeLight,
+        AppThemeMode.dark => tr.themeModeDark,
+        _ => tr.themeModeSystem,
       };
     }
 
