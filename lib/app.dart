@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/styles/providers/providers.dart';
 import 'package:purple_task/core/styles/themes.dart';
@@ -18,6 +18,8 @@ class App extends ConsumerWidget {
       theme: PurpleAppTheme.lightTheme,
       darkTheme: PurpleAppTheme.darkTheme,
       themeMode: themeMode,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: const RedirectScreen(),
     );
   }
