@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
-
 import 'package:purple_task/features/todos/views/new_category/new_category_base.dart';
 
 class CategoryName extends StatelessWidget {
@@ -24,6 +23,7 @@ class CategoryName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final tr = AppLocalizations.of(context);
     return NewCategoryBase(
       focusNode: focusNode,
       color: color,
@@ -46,8 +46,8 @@ class CategoryName extends StatelessWidget {
                 ),
               ),
             ),
-            const Text(
-              s.categoryName,
+            Text(
+              tr.categoryNameLabel,
             ),
             const Spacer(),
           ],

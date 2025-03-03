@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/ui/widgets/simple_button.dart';
 
 class NewCategoryBase extends StatelessWidget {
@@ -10,20 +9,21 @@ class NewCategoryBase extends StatelessWidget {
     required this.color,
     required this.onNext,
     required this.focusNode,
-    super.key,
     this.textEditingController,
-    this.okButtonText = s.next,
+    this.okButtonText,
+    super.key,
   });
 
   final Widget customWidget;
   final Color color;
   final VoidCallback onNext;
   final TextEditingController? textEditingController;
-  final String okButtonText;
+  final String? okButtonText;
   final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -54,10 +54,10 @@ class NewCategoryBase extends StatelessWidget {
                   elevation: 6,
                   child: Column(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         child: Text(
-                          s.newCategory,
+                          tr.newCategoryLabel,
                           style: CustomStyle.textStyleTitle,
                         ),
                       ),
@@ -68,11 +68,11 @@ class NewCategoryBase extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SimpleButton(
-                              text: s.cancel,
+                              text: tr.cancelButton,
                               onPressed: () => Navigator.of(context).pop(),
                             ),
                             SimpleButton(
-                              text: okButtonText,
+                              text: okButtonText ?? tr.nextButton,
                               backgroundColor: Colors.green,
                               onPressed: onNext,
                               focusNode: focusNode,

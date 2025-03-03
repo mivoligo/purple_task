@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/features/todos/controllers/new_category_controller.dart';
 import 'package:purple_task/features/todos/views/icon_selector.dart';
 import 'package:purple_task/features/todos/views/new_category/new_category_base.dart';
@@ -24,6 +24,7 @@ class CategoryIcon extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final tr = AppLocalizations.of(context);
     return NewCategoryBase(
       focusNode: focusNode,
       color: color,
@@ -64,10 +65,10 @@ class CategoryIcon extends ConsumerWidget {
                     ref.read(newCategoryNotifierProvider.notifier).changeIcon,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(2),
+            Padding(
+              padding: const EdgeInsets.all(2),
               child: Text(
-                s.icon,
+                tr.newCategoryIconLabel,
                 textAlign: TextAlign.center,
               ),
             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/features/todos/views/add_task_field.dart';
 import 'package:purple_task/features/todos/views/new_category/new_category_base.dart';
 
@@ -40,11 +39,12 @@ class _NewCategoryTasksState extends State<NewCategoryTasks> {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return NewCategoryBase(
       focusNode: widget.focusNode,
       color: widget.color,
       onNext: widget.onNext,
-      okButtonText: s.finish,
+      okButtonText: tr.finishButton,
       customWidget: Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -89,17 +89,17 @@ class _NewCategoryTasksState extends State<NewCategoryTasks> {
                 },
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(2),
+            Padding(
+              padding: const EdgeInsets.all(2),
               child: Text(
-                s.taskSingularCapital,
+                tr.task,
                 textAlign: TextAlign.center,
               ),
             ),
             if (widget.tasksNamesList.isEmpty)
-              const Padding(
-                padding: EdgeInsets.all(36),
-                child: Center(child: Text(s.newCategoryTasksInfo)),
+              Padding(
+                padding: const EdgeInsets.all(36),
+                child: Center(child: Text(tr.newCategoryTasksInfo)),
               ),
             Expanded(
               child: Padding(

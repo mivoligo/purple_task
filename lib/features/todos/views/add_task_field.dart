@@ -1,9 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 
 class AddTaskField extends StatefulWidget {
   const AddTaskField({
@@ -45,11 +44,12 @@ class _AddTaskFieldState extends State<AddTaskField> {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     return CupertinoTextField(
       controller: _controller,
       focusNode: _focusNode,
-      placeholder: s.addNewTask,
+      placeholder: tr.addNewTaskInputPlaceholder,
       padding: const EdgeInsets.only(left: 8),
       style: CustomStyle.textStyleTaskName.copyWith(
         color: colorScheme.onSurface,
