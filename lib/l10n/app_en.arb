@@ -68,6 +68,7 @@
   "settings": "Settings",
   "settingsOptionDateFormat": "Date format",
   "settingsOptionDisplayTimeCompleted": "Display task's completion time",
+  "settingsOptionLanguage": "Language",
   "settingsOptionThemeMode": "Theme",
   "settingsOptionTimeFormat": "Time format",
   "showCategoriesButton": "Show categories",

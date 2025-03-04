@@ -60,4 +60,16 @@ class SharedPrefSettingsRepository implements BaseSettingsRepository {
   Future<void> setTheme({required String value}) async {
     await _asyncPrefs.setString(themeKey, value);
   }
+
+  @override
+  Future<String?> getLocale() async {
+    final savedLocale = await _asyncPrefs.getString(localeKey);
+
+    return savedLocale;
+  }
+
+  @override
+  Future<void> setLocale({required String value}) async {
+    await _asyncPrefs.setString(localeKey, value);
+  }
 }

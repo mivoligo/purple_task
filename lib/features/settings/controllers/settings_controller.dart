@@ -16,6 +16,7 @@ class SettingsNotifier extends _$SettingsNotifier {
     final isUncategorizedViewPreferred =
         await settingsRepository.getUncategorizedViewPreference();
     final theme = await settingsRepository.getTheme();
+    final locale = await settingsRepository.getLocale();
 
     return SettingsState(
       timeFormat: timeFormat,
@@ -23,11 +24,12 @@ class SettingsNotifier extends _$SettingsNotifier {
       showDoneTime: showDoneTime,
       isUncategorizedViewPreferred: isUncategorizedViewPreferred,
       theme: theme,
+      locale: locale,
     );
   }
 
   Future<void> setTimeFormat({required String timeFormat}) async {
-    ref.read(settingsRepositoryProvider).setTimeFormat(value: timeFormat);
+    await ref.read(settingsRepositoryProvider).setTimeFormat(value: timeFormat);
 
     final updatedTimeFormat =
         await ref.read(settingsRepositoryProvider).getTimeFormat();
@@ -38,7 +40,7 @@ class SettingsNotifier extends _$SettingsNotifier {
   }
 
   Future<void> setDateFormat({required String dateFormat}) async {
-    ref.read(settingsRepositoryProvider).setDateFormat(value: dateFormat);
+    await ref.read(settingsRepositoryProvider).setDateFormat(value: dateFormat);
 
     final updatedDateFormat =
         await ref.read(settingsRepositoryProvider).getDateFormat();
@@ -49,7 +51,7 @@ class SettingsNotifier extends _$SettingsNotifier {
   }
 
   Future<void> setDisplayTaskDoneTimePref({required bool showDoneTime}) async {
-    ref
+    await ref
         .read(settingsRepositoryProvider)
         .setDisplayTaskDoneTimePref(value: showDoneTime);
 
@@ -64,7 +66,7 @@ class SettingsNotifier extends _$SettingsNotifier {
   }
 
   Future<void> setUncategorizedViewPreference({required bool value}) async {
-    ref
+    await ref
         .read(settingsRepositoryProvider)
         .setUncategorizedViewPreference(value: value);
 
@@ -80,12 +82,23 @@ class SettingsNotifier extends _$SettingsNotifier {
   }
 
   Future<void> setTheme({required String value}) async {
-    ref.read(settingsRepositoryProvider).setTheme(value: value);
+    await ref.read(settingsRepositoryProvider).setTheme(value: value);
 
     final updatedTheme = await ref.read(settingsRepositoryProvider).getTheme();
 
     await update(
       (currentState) => currentState.copyWith(theme: updatedTheme),
+    );
+  }
+
+  Future<void> setLocale({required String value}) async {
+    await ref.read(settingsRepositoryProvider).setLocale(value: value);
+
+    final updatedLocale =
+        await ref.read(settingsRepositoryProvider).getLocale();
+
+    await update(
+      (currentState) => currentState.copyWith(locale: updatedLocale),
     );
   }
 }

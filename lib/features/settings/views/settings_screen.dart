@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/ui/widgets/dialog_base.dart';
 import 'package:purple_task/features/settings/controllers/settings_controller.dart';
 import 'package:purple_task/features/settings/views/widgets/date_format_selector.dart';
+import 'package:purple_task/features/settings/views/widgets/language_selector.dart';
 import 'package:purple_task/features/settings/views/widgets/theme_selector.dart';
 import 'package:purple_task/features/settings/views/widgets/time_format_selector.dart';
 
@@ -21,9 +22,15 @@ class SettingsScreen extends StatelessWidget {
           builder: (context, ref, _) {
             final state = ref.watch(settingsNotifierProvider);
             final controller = ref.watch(settingsNotifierProvider.notifier);
+
             return ListView(
               padding: const EdgeInsets.symmetric(horizontal: 28),
               children: [
+                ListTile(
+                  title: Text(tr.settingsOptionLanguage),
+                  trailing: const LanguageSelector(),
+                ),
+                const Divider(indent: 8, endIndent: 8),
                 ListTile(
                   title: Text(tr.settingsOptionThemeMode),
                   trailing: const ThemeSelector(),

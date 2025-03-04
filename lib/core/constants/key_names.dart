@@ -8,3 +8,4 @@ const String uncategorizedViewPreferenceKey = 'uncategorized_view_pref';
 const String appVersionKey = 'app_version';
 const String migratedFromHiveKey = 'migrated_from_hive';
 const String themeKey = 'theme';
+const String localeKey = 'locale';

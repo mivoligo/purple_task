@@ -8,6 +8,7 @@ class SettingsState extends Equatable {
     required this.showDoneTime,
     required this.isUncategorizedViewPreferred,
     required this.theme,
+    required this.locale,
   });
 
   final String timeFormat;
@@ -15,6 +16,7 @@ class SettingsState extends Equatable {
   final bool showDoneTime;
   final bool isUncategorizedViewPreferred;
   final AppThemeMode theme;
+  final String? locale;
 
   SettingsState copyWith({
     String? timeFormat,
@@ -22,6 +24,7 @@ class SettingsState extends Equatable {
     bool? showDoneTime,
     bool? isUncategorizedViewPreferred,
     AppThemeMode? theme,
+    String? locale,
   }) {
     return SettingsState(
       timeFormat: timeFormat ?? this.timeFormat,
@@ -30,6 +33,7 @@ class SettingsState extends Equatable {
       isUncategorizedViewPreferred:
           isUncategorizedViewPreferred ?? this.isUncategorizedViewPreferred,
       theme: theme ?? this.theme,
+      locale: locale ?? this.locale,
     );
   }
 
@@ -40,5 +44,6 @@ class SettingsState extends Equatable {
         showDoneTime,
         isUncategorizedViewPreferred,
         theme,
+        locale,
       ];
 }
