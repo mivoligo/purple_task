@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/helpers.dart';
 import 'package:purple_task/core/ui/widgets/text_change_confirmation_dialog.dart';
 import 'package:purple_task/features/settings/controllers/settings_controller.dart';
@@ -16,6 +16,7 @@ class TaskItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final tr = AppLocalizations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     final tasksController = ref.watch(tasksNotifierProvider.notifier);
     final settings = ref.watch(settingsNotifierProvider);
@@ -81,7 +82,7 @@ class TaskItem extends ConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 4),
                       child: Text(
-                        '${s.completed}: ${TimeConverter.millisToDateAndTime(
+                        '${tr.completedTasksHeader}: ${TimeConverter.millisToDateAndTime(
                           task.doneTime!,
                           dateFormat: settings.value?.dateFormat ?? 'd MMM y',
                           timeFormat: settings.value?.timeFormat ?? 'Hm',
@@ -107,10 +108,11 @@ class TaskItem extends ConsumerWidget {
     showDialog<void>(
       context: context,
       builder: (_) {
+        final tr = AppLocalizations.of(context);
         return TextChangeConfirmationDialog(
           initialText: task.name,
-          title: s.changeTaskName,
-          confirmationButtonText: s.save,
+          title: tr.changeTaskName,
+          confirmationButtonText: tr.saveButton,
           onConfirm: (newTaskName) {
             final updatedTask = task.copyWith(
               name: newTaskName,

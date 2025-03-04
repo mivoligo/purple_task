@@ -1,9 +1,9 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
-
-import 'package:purple_task/core/helpers.dart';
 import 'package:purple_task/features/settings/controllers/settings_controller.dart';
 import 'package:purple_task/features/todos/models/task.dart';
 
@@ -34,9 +34,10 @@ class DueDateIndicator extends StatelessWidget {
             ),
             const SizedBox(width: 2),
             Text(
-              TimeConverter.formatDueDate(
+              _formatDueDate(
                 task.dueDate,
                 dateFormatSetting,
+                AppLocalizations.of(context),
               ),
               style: CustomStyle.textStyleLabelSmall.copyWith(
                 color: task.isDone
@@ -48,5 +49,32 @@ class DueDateIndicator extends StatelessWidget {
         );
       },
     );
+  }
+
+  String _formatDueDate(
+    int? dateInMillis,
+    String? dateFormat,
+    AppLocalizations tr,
+  ) {
+    if (dateInMillis != null) {
+      final now = DateTime.now();
+      final yesterdayDate = DateTime(now.year, now.month, now.day - 1);
+      final todayDate = DateTime(now.year, now.month, now.day);
+      final tomorrowDate = DateTime(now.year, now.month, now.day + 1);
+      final dueDateTime = DateTime.fromMillisecondsSinceEpoch(dateInMillis);
+      final dueDate =
+          DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
+
+      if (dueDate == todayDate) {
+        return tr.today;
+      } else if (dueDate == tomorrowDate) {
+        return tr.tomorrow;
+      } else if (dueDate == yesterdayDate) {
+        return tr.yesterday;
+      } else {
+        return DateFormat(dateFormat).format(dueDate);
+      }
+    }
+    return tr.noDate;
   }
 }

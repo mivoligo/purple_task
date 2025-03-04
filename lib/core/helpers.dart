@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:intl/intl.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:url_launcher/url_launcher.dart';
 
 extension DateTimeExtensions on DateTime {
@@ -86,30 +85,6 @@ mixin TimeConverter {
   static String formatDateNow(String pattern) {
     final dateTime = DateTime.now();
     return DateFormat(pattern).format(dateTime);
-  }
-
-// todo translations
-  static String formatDueDate(int? dateInMillis, String? dateFormat) {
-    if (dateInMillis != null) {
-      final now = DateTime.now();
-      final yesterdayDate = DateTime(now.year, now.month, now.day - 1);
-      final todayDate = DateTime(now.year, now.month, now.day);
-      final tomorrowDate = DateTime(now.year, now.month, now.day + 1);
-      final dueDateTime = DateTime.fromMillisecondsSinceEpoch(dateInMillis);
-      final dueDate =
-          DateTime(dueDateTime.year, dueDateTime.month, dueDateTime.day);
-
-      if (dueDate == todayDate) {
-        return s.today;
-      } else if (dueDate == tomorrowDate) {
-        return s.tomorrow;
-      } else if (dueDate == yesterdayDate) {
-        return s.yesterday;
-      } else {
-        return DateFormat(dateFormat).format(dueDate);
-      }
-    }
-    return s.noDate;
   }
 }
 
