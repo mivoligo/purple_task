@@ -1,5 +1,6 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/ui/screens/about_app/about_screen.dart';
 import 'package:purple_task/core/ui/screens/main_screen/widgets/greetings.dart';
 import 'package:purple_task/core/ui/widgets/icon_button.dart';
@@ -10,6 +11,7 @@ class TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -18,6 +20,7 @@ class TopBar extends StatelessWidget {
           tag: 'about',
           child: CustomIconButton(
             icon: const Icon(AntIcons.infoCircle),
+            tooltip: tr.aboutAppViewTitle,
             onPressed: () => Navigator.of(context).push(
               _createRoute(const AboutScreen()),
             ),
@@ -28,6 +31,7 @@ class TopBar extends StatelessWidget {
           tag: 'settings',
           child: CustomIconButton(
             icon: const Icon(AntIcons.setting),
+            tooltip: tr.settings,
             onPressed: () => Navigator.of(context).push(
               _createRoute(const SettingsScreen()),
             ),
