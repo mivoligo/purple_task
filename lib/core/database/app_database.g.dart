@@ -808,7 +808,7 @@ final class $$CategoriesTableReferences
 
   $$TaskItemsTableProcessedTableManager get taskItemsRefs {
     final manager = $$TaskItemsTableTableManager($_db, $_db.taskItems)
-        .filter((f) => f.categoryId.id($_item.id));
+        .filter((f) => f.categoryId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_taskItemsRefsTable($_db));
     return ProcessedTableManager(
@@ -997,7 +997,8 @@ class $$CategoriesTableTableManager extends RootTableManager<
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (taskItemsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Category, $CategoriesTable,
+                            TaskItem>(
                         currentTable: table,
                         referencedTable:
                             $$CategoriesTableReferences._taskItemsRefsTable(db),
@@ -1059,8 +1060,10 @@ final class $$TaskItemsTableReferences
           $_aliasNameGenerator(db.taskItems.categoryId, db.categories.id));
 
   $$CategoriesTableProcessedTableManager get categoryId {
+    final $_column = $_itemColumn<int>('category_id')!;
+
     final manager = $$CategoriesTableTableManager($_db, $_db.categories)
-        .filter((f) => f.id($_item.categoryId!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_categoryIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
