@@ -15,7 +15,7 @@ dependencies:
 #      ref: 85dde09b702a0cb1f5e1392d2f030bdc3d4e5be3
   ant_icons:
     path: packages/ant_icons
-  collection: 1.19.0
+  collection: ^1.19.0
   drift: ^2.22.1
   drift_flutter: ^0.2.2
   equatable: ^2.0.0
