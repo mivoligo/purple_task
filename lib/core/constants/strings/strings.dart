@@ -1,7 +1,6 @@
 const String appName = 'Purple Task';
-const String appVersion = '2.0.1';
+const String appVersion = '2.1.0';
 
-// about app
 const String licenseShort = 'MIT License';
 const String mitLicense = '''
 MIT License
@@ -28,6 +27,11 @@ SOFTWARE.
 ''';
 const String sourceCodeUrl = 'https://github.com/mivoligo/purple_task';
 const String bugsUrl = 'https://github.com/mivoligo/purple_task/issues';
+const String contributingUrl =
+    'https://github.com/mivoligo/purple_task?tab=readme-ov-file#contributing';
+const String helpWithTranslationTitle = 'Help with translation';
+const String helpWithTranslationSubtitle =
+    'If you are able to help with translating the app, please contact me. You can find the details on GitHub.';
 const String migrationTitle = 'Data migration';
 const String migrationInfo = '''
 The method for storing app data has been updated.
@@ -41,7 +45,11 @@ const String tryAgain = 'Try again';
 const String problemHappened = 'An issue occurred!';
 const String reportBug = 'Report problem';
 const String changesInVersion = 'Main changes in this version:';
+const String changesInPreviousVersions = 'Main changes in previous versions:';
 const String changesUiRedesign =
     'The UI has been redesigned to significantly enhance the viewing and organization of categories in the narrow view.';
 const String changesCategoriesReorder = 'Categories can be easily rearranged';
 const String changesTasksReorder = 'Tasks can also be reordered as needed';
+const String changesThemeChange = 'Added theme mode switch in Settings.';
+const String changesLocalization =
+    "Added localization support.\nOnly couple languages for now but if you like to help and have some experience translating apps, please contact me.\nYou can find the details on project's GitHub page.";

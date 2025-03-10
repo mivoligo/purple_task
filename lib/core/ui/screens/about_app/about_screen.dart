@@ -65,6 +65,17 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             const Divider(),
+            Material(
+              color: const Color(0xFFEEEEEE),
+              child: ListTile(
+                leading: const Icon(Icons.language),
+                title: const Text(s.helpWithTranslationTitle),
+                subtitle: const Text(s.helpWithTranslationSubtitle),
+                trailing: const Icon(AntIcons.arrowRight),
+                onTap: () => UrlHelper().openUrl(s.contributingUrl),
+              ),
+            ),
+            const Divider(),
           ],
         ),
       ),

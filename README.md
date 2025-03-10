@@ -59,7 +59,7 @@ $ snap install purple-task
 
 ## Contributing
 - Feel free to report issues or help with existing.
-- If you like to help with translation, please [drop me an email](mailto:mivoligo@gmail.com).
+- If you could help with translation, please [drop me an email](mailto:mivoligo@gmail.com).
 
 
 ---

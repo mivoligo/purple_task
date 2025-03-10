@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/constants/strings/strings.dart' as s;
@@ -14,6 +15,8 @@ class WelcomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final tr = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('${s.appName} ${s.appVersion}'),
@@ -36,9 +39,18 @@ class WelcomeScreen extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         spacing: 8,
                         children: [
-                          const Text(
+                          Text(
                             s.changesInVersion,
-                            style: CustomStyle.textStyle20,
+                            style: CustomStyle.textStyle20
+                                .copyWith(color: colorScheme.onSurface),
+                          ),
+                          const Text('- ${s.changesThemeChange}'),
+                          const Text('- ${s.changesLocalization}'),
+                          Image.asset('assets/images/purple-change-theme.gif'),
+                          Text(
+                            s.changesInPreviousVersions,
+                            style: CustomStyle.textStyle20
+                                .copyWith(color: colorScheme.onSurface),
                           ),
                           const Text('- ${s.changesUiRedesign}'),
                           const Text('- ${s.changesCategoriesReorder}'),
@@ -66,7 +78,7 @@ class WelcomeScreen extends ConsumerWidget {
                           .pushReplacement(_createRoute(needsMigration));
                     }
                   },
-                  text: s.continueToNext,
+                  text: tr.continueButton,
                   backgroundColor: Colors.green,
                 ),
               ),
