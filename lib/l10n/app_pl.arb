@@ -68,7 +68,7 @@
   "@deleteCategoryDialogContent": {
     "placeholders": {
       "categoryName": {
-        "type": "String"
+        "type": "Object"
       }
     }
   },
