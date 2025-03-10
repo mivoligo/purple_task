@@ -31,7 +31,9 @@
   "categoryTasksInfo": "{count, plural, zero{Brak zadań} one{1 zadanie} few{{count} zadania} many{{count} zadań} other{{count} zadań}}",
   "@categoryTasksInfo": {
     "placeholders": {
-      "count": {}
+      "count": {
+        "type": "num"
+      }
     }
   },
   "changeCategoryColorDialogTitle": "Zmień kolor kategorii",
@@ -65,7 +67,9 @@
   "deleteCategoryDialogContent": "Ta kategoria ({categoryName}) i wszystkie zadania w niej zawarte zostaną usunięte",
   "@deleteCategoryDialogContent": {
     "placeholders": {
-      "categoryName": {}
+      "categoryName": {
+        "type": "String"
+      }
     }
   },
   "deleteCategoryDialogTitle": "Usunąć kategorię?",
@@ -147,7 +151,9 @@
   "totalTasksInfo": "{count, plural, zero{Nic do zrobienia...Wspaniale!} one{Zostało Ci jedno zadanie do zrobienia} few{Zostało Ci {count} zadania do zrobienia} many{Zostało Ci {count} zadań do zrobienia} other{Zostało Ci {count} zadań do zrobienia}}",
   "@totalTasksInfo": {
     "placeholders": {
-      "count": {}
+      "count": {
+        "type": "num"
+      }
     }
   },
   "yesterday": "Wczoraj",
