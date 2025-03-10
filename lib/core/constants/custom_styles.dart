@@ -12,29 +12,12 @@ class CustomStyle {
     ),
   );
 
-  static const categoryCardDecoration = BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.all(Radius.circular(12)),
-    boxShadow: [
-      BoxShadow(
-        color: Color(0x45000000),
-        offset: Offset(0, 4),
-        blurRadius: 8,
-      ),
-    ],
-  );
-
   static const inputDecoration = BoxDecoration(
-    color: Color(0xFFFAFAFA),
     borderRadius: BorderRadius.all(Radius.circular(8)),
-    boxShadow: [
-      BoxShadow(color: Color(0xFFE0E0E0), offset: Offset(0, -1)),
-      BoxShadow(color: Colors.white, offset: Offset(0, 1)),
-    ],
+    border: Border.fromBorderSide(BorderSide(color: Colors.grey, width: 0.5)),
   );
 
   static const dialogDecoration = BoxDecoration(
-    color: Color(0xFFEEEEEE),
     borderRadius: BorderRadius.all(Radius.circular(12)),
     boxShadow: [
       BoxShadow(
@@ -46,7 +29,6 @@ class CustomStyle {
   );
 
   static const uncategorizedTasksDecoration = BoxDecoration(
-    color: Colors.white70,
     borderRadius: BorderRadius.only(
       topLeft: Radius.circular(12),
       topRight: Radius.circular(12),
@@ -79,7 +61,6 @@ class CustomStyle {
   );
 
   static const textStyleTaskFilter = TextStyle(
-    color: Colors.black,
     fontSize: 16,
   );
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/features/todos/providers/providers.dart';
 import 'package:purple_task/features/todos/views/sliver_task_list_header.dart';
 import 'package:purple_task/features/todos/views/sliver_tasks_list.dart';
@@ -31,6 +30,7 @@ class _AllTasksState extends State<AllTasks> {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return Consumer(
       builder: (context, ref, _) {
         final todayCompletedTasks =
@@ -57,25 +57,23 @@ class _AllTasksState extends State<AllTasks> {
           slivers: [
             SliverTasksList(list: noDueDateTasks),
             if (overdueTasks.isNotEmpty)
-              const SliverTaskListHeader(title: s.overdue),
+              SliverTaskListHeader(title: tr.overdueTasksHeader),
             SliverTasksList(list: overdueTasks, isOrderFixed: true),
-            if (todayTasks.isNotEmpty)
-              const SliverTaskListHeader(title: s.today),
+            if (todayTasks.isNotEmpty) SliverTaskListHeader(title: tr.today),
             SliverTasksList(list: todayTasks),
             if (tomorrowTasks.isNotEmpty)
-              const SliverTaskListHeader(title: s.tomorrow),
+              SliverTaskListHeader(title: tr.tomorrow),
             SliverTasksList(list: tomorrowTasks),
-            if (futureTasks.isNotEmpty)
-              const SliverTaskListHeader(title: s.later),
+            if (futureTasks.isNotEmpty) SliverTaskListHeader(title: tr.later),
             SliverTasksList(list: futureTasks, isOrderFixed: true),
             if (todayCompletedTasks.isNotEmpty)
-              const SliverTaskListHeader(title: s.completedToday),
+              SliverTaskListHeader(title: tr.completedTodayTasksHeader),
             SliverTasksList(list: todayCompletedTasks, isOrderFixed: true),
             if (yesterdayCompletedTasks.isNotEmpty)
-              const SliverTaskListHeader(title: s.completedYesterday),
+              SliverTaskListHeader(title: tr.completedYesterdayTasksHeader),
             SliverTasksList(list: yesterdayCompletedTasks, isOrderFixed: true),
             if (pastCompletedTasks.isNotEmpty)
-              const SliverTaskListHeader(title: s.completedEarlier),
+              SliverTaskListHeader(title: tr.completedEarlierTasksHeader),
             SliverTasksList(list: pastCompletedTasks, isOrderFixed: true),
           ],
         );

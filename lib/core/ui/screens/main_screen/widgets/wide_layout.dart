@@ -1,8 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
-import 'package:purple_task/core/constants/strings/strings.dart';
 import 'package:purple_task/core/ui/screens/main_screen/widgets/top_bar.dart';
 import 'package:purple_task/features/todos/controllers/category_controller.dart';
 import 'package:purple_task/features/todos/models/category.dart';
@@ -19,6 +19,7 @@ class WideLayout extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentCategory = ref.watch(categoryNotifierProvider);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Column(
       children: [
@@ -70,7 +71,10 @@ class WideLayout extends ConsumerWidget {
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 500),
                       child: DecoratedBox(
-                        decoration: CustomStyle.uncategorizedTasksDecoration,
+                        decoration:
+                            CustomStyle.uncategorizedTasksDecoration.copyWith(
+                          color: colorScheme.surfaceContainer.withAlpha(180),
+                        ),
                         child: currentCategory != null
                             ? CategoryDetails(category: currentCategory)
                             : const UncategorizedTasks(),
@@ -96,9 +100,11 @@ class _UncategorizedCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final tr = AppLocalizations.of(context);
+
     final uncategorizedCategory = Category(
       id: -1,
-      name: noCategory,
+      name: tr.noCategoryHeader,
       icon: AntIcons.appstore.codePoint,
       color: Colors.deepPurple,
     );
@@ -109,6 +115,7 @@ class _UncategorizedCard extends ConsumerWidget {
         scale: isSelected ? 1.03 : 1,
         child: Card(
           margin: EdgeInsets.zero,
+          color: Theme.of(context).colorScheme.surface.withAlpha(221),
           shape: isSelected
               ? RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),

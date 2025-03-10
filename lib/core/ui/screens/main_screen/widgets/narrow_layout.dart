@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/ui/screens/main_screen/widgets/top_bar.dart';
@@ -46,6 +47,7 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     final isUncategorizedViewPreferred =
         ref.watch(isUncategorizedViewPreferredProvider);
     if (isUncategorizedViewPreferred) {
@@ -67,7 +69,9 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: DecoratedBox(
-                  decoration: CustomStyle.uncategorizedTasksDecoration,
+                  decoration: CustomStyle.uncategorizedTasksDecoration.copyWith(
+                    color: Theme.of(context).colorScheme.surface.withAlpha(180),
+                  ),
                   child: isUncategorizedViewPreferred
                       ? const UncategorizedTasks()
                       : const SizedBox.expand(),
@@ -88,8 +92,8 @@ class _NarrowLayoutState extends ConsumerState<NarrowLayout>
                   SimpleButton(
                     isOutlined: true,
                     text: isUncategorizedViewPreferred
-                        ? 'Show categories'
-                        : 'Hide categories',
+                        ? tr.showCategoriesButton
+                        : tr.hideCategoriesButton,
                     onPressed: () {
                       if (isUncategorizedViewPreferred) {
                         ref

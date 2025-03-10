@@ -105,7 +105,8 @@ class CategoryList extends ConsumerWidget {
               child: Transform.scale(
                 scale: needsDecoration ? 1.03 : 1,
                 child: Card(
-                  elevation: needsDecoration ? 1 : 1,
+                  color: Theme.of(context).colorScheme.surface.withAlpha(221),
+                  elevation: 1,
                   margin: EdgeInsets.zero,
                   shape: needsDecoration
                       ? RoundedRectangleBorder(
@@ -119,10 +120,7 @@ class CategoryList extends ConsumerWidget {
                       : null,
                   child: Padding(
                     padding: needsDecoration
-                        ? const EdgeInsets.symmetric(
-                            vertical: 16,
-                            horizontal: 16,
-                          )
+                        ? const EdgeInsets.all(16)
                         : const EdgeInsets.all(8),
                     child: IntrinsicHeight(
                       child: Row(

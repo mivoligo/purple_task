@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/features/todos/providers/providers.dart';
 import 'package:purple_task/features/todos/views/sliver_task_list_header.dart';
 import 'package:purple_task/features/todos/views/sliver_tasks_list.dart';
@@ -29,6 +28,7 @@ class _PlannedTasksState extends State<PlannedTasks> {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return Consumer(
       builder: (context, ref, _) {
         final noDueDateTasks =
@@ -47,16 +47,14 @@ class _PlannedTasksState extends State<PlannedTasks> {
           slivers: [
             SliverTasksList(list: noDueDateTasks),
             if (overdueTasks.isNotEmpty)
-              const SliverTaskListHeader(title: s.overdue),
+              SliverTaskListHeader(title: tr.overdueTasksHeader),
             SliverTasksList(list: overdueTasks, isOrderFixed: true),
-            if (todayTasks.isNotEmpty)
-              const SliverTaskListHeader(title: s.today),
+            if (todayTasks.isNotEmpty) SliverTaskListHeader(title: tr.today),
             SliverTasksList(list: todayTasks),
             if (tomorrowTasks.isNotEmpty)
-              const SliverTaskListHeader(title: s.tomorrow),
+              SliverTaskListHeader(title: tr.tomorrow),
             SliverTasksList(list: tomorrowTasks),
-            if (futureTasks.isNotEmpty)
-              const SliverTaskListHeader(title: s.later),
+            if (futureTasks.isNotEmpty) SliverTaskListHeader(title: tr.later),
             SliverTasksList(list: futureTasks, isOrderFixed: true),
           ],
         );

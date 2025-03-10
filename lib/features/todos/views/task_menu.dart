@@ -1,8 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/features/todos/controllers/categories_controller.dart';
 import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
 import 'package:purple_task/features/todos/models/task.dart';
@@ -17,6 +17,7 @@ class TaskMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return Consumer(
       builder: (context, ref, _) {
         final categories = ref.watch(categoriesNotifierProvider);
@@ -27,9 +28,9 @@ class TaskMenu extends StatelessWidget {
           consumeOutsideTap: true,
           menuChildren: [
             MenuItemButton(
-              child: const Text(
-                s.delete,
-                style: CustomStyle.textStyleWarning, // TODOstyle font size
+              child: Text(
+                tr.delete,
+                style: CustomStyle.textStyleWarning, // TODO style font size
               ),
               onPressed: () => ref
                   .read(tasksNotifierProvider.notifier)
@@ -47,7 +48,7 @@ class TaskMenu extends StatelessWidget {
                           ),
                         );
                   },
-                  child: const Text(s.today),
+                  child: Text(tr.today),
                 ),
                 MenuItemButton(
                   onPressed: () {
@@ -59,13 +60,13 @@ class TaskMenu extends StatelessWidget {
                           ),
                         );
                   },
-                  child: const Text(s.tomorrow),
+                  child: Text(tr.tomorrow),
                 ),
                 MenuItemButton(
                   onPressed: () {
                     useSelectedDate(context, ref);
                   },
-                  child: const Text(s.customDate),
+                  child: Text(tr.customDate),
                 ),
                 MenuItemButton(
                   onPressed: () {
@@ -73,10 +74,10 @@ class TaskMenu extends StatelessWidget {
                         .read(tasksNotifierProvider.notifier)
                         .updateTask(task: task.copyWith(dueDate: () => null));
                   },
-                  child: const Text(s.noDate),
+                  child: Text(tr.noDate),
                 ),
               ],
-              child: const Text('Set due date'),
+              child: Text(tr.setDueDate),
             ),
             if (otherCategories != null && otherCategories.isNotEmpty)
               SubmenuButton(
@@ -109,7 +110,7 @@ class TaskMenu extends StatelessWidget {
                   if (task.categoryId != -1)
                     MenuItemButton(
                       leadingIcon: const SizedBox(width: 24),
-                      child: const Text(s.noCategory),
+                      child: Text(tr.noCategoryHeader),
                       onPressed: () {
                         ref
                             .read(tasksNotifierProvider.notifier)
@@ -117,7 +118,7 @@ class TaskMenu extends StatelessWidget {
                       },
                     ),
                 ],
-                child: const Text(s.changeCategory),
+                child: Text(tr.taskOptionMoveToCategory),
               ),
           ],
           builder: (context, controller, child) {
@@ -141,6 +142,7 @@ class TaskMenu extends StatelessWidget {
   }
 
   Future<void> useSelectedDate(BuildContext context, WidgetRef ref) async {
+    final tr = AppLocalizations.of(context);
     final dueDateDate = task.dueDate != null
         ? DateTime.fromMillisecondsSinceEpoch(task.dueDate!)
         : DateTime.now();
@@ -149,9 +151,9 @@ class TaskMenu extends StatelessWidget {
       initialDate: dueDateDate,
       firstDate: DateTime(2020),
       lastDate: DateTime(2100),
-      helpText: s.dueDate,
-      cancelText: s.cancel,
-      confirmText: s.save,
+      helpText: tr.dueDate,
+      cancelText: tr.cancelButton,
+      confirmText: tr.saveButton,
     );
     if (selectedDate != null) {
       final updatedTask =

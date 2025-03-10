@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
-
 import 'package:purple_task/features/todos/views/new_category/new_category_base.dart';
 
 class CategoryName extends StatelessWidget {
@@ -22,6 +22,8 @@ class CategoryName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final tr = AppLocalizations.of(context);
     return NewCategoryBase(
       focusNode: focusNode,
       color: color,
@@ -34,18 +36,18 @@ class CategoryName extends StatelessWidget {
               child: CupertinoTextField(
                 autofocus: true,
                 textInputAction: TextInputAction.done,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.all(8),
                 onSubmitted: (_) => onSubmitted(),
                 onChanged: onNameChanged,
-                style: CustomStyle.textStyle20,
-                decoration: CustomStyle.inputDecoration,
+                style: CustomStyle.textStyle20
+                    .copyWith(color: colorScheme.onSurface),
+                decoration: CustomStyle.inputDecoration.copyWith(
+                  color: colorScheme.surface,
+                ),
               ),
             ),
-            const Text(
-              s.categoryName,
+            Text(
+              tr.categoryNameLabel,
             ),
             const Spacer(),
           ],

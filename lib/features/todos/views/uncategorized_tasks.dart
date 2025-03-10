@@ -1,9 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:purple_task/core/constants/custom_styles.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
 import 'package:purple_task/features/todos/models/task.dart';
 import 'package:purple_task/features/todos/providers/providers.dart';
@@ -24,6 +23,7 @@ class _UncategorizedTasksState extends ConsumerState<UncategorizedTasks> {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     final uncategorizedTasks = ref.watch(uncategorizedTasksProvider);
 
     return Column(
@@ -38,25 +38,25 @@ class _UncategorizedTasksState extends ConsumerState<UncategorizedTasks> {
                 navigationIndex = index;
               });
             },
-            destinations: const [
+            destinations: [
               NavigationDestination(
-                label: s.toDo,
-                icon: Icon(AntIcons.edit),
+                label: tr.toDoTasksHeader,
+                icon: const Icon(AntIcons.edit),
               ),
               NavigationDestination(
-                label: s.all,
-                icon: Icon(AntIcons.profile),
+                label: tr.allTasksHeader,
+                icon: const Icon(AntIcons.profile),
               ),
               NavigationDestination(
-                label: s.completed,
-                icon: Icon(AntIcons.checkCircle),
+                label: tr.completedTasksHeader,
+                icon: const Icon(AntIcons.checkCircle),
               ),
             ],
           ),
-        const Padding(
-          padding: EdgeInsets.all(4),
+        Padding(
+          padding: const EdgeInsets.all(4),
           child: Text(
-            s.noCategory,
+            tr.noCategoryHeader,
             style: CustomStyle.textStyleTaskFilter,
           ),
         ),

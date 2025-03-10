@@ -1,8 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/ui/widgets/icon_button.dart';
 
 class DialogBase extends StatefulWidget {
@@ -49,7 +48,9 @@ class _DialogBaseState extends State<DialogBase>
   @override
   Widget build(BuildContext context) {
     final appWidth = MediaQuery.sizeOf(context).width;
+    final tr = AppLocalizations.of(context);
     final isWide = appWidth > 600;
+    final colorScheme = Theme.of(context).colorScheme;
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -67,7 +68,8 @@ class _DialogBaseState extends State<DialogBase>
                 child: Container(
                   decoration: isWide
                       ? CustomStyle.dialogDecoration
-                      : const BoxDecoration(color: Color(0xFFEEEEEE)),
+                          .copyWith(color: colorScheme.surface)
+                      : BoxDecoration(color: colorScheme.surface),
                 ),
               ),
             ),
@@ -92,8 +94,8 @@ class _DialogBaseState extends State<DialogBase>
                         children: [
                           CustomIconButton(
                             icon: const Icon(AntIcons.close),
-                            color: Colors.black,
-                            tooltip: s.close,
+                            color: colorScheme.onSurface,
+                            tooltip: tr.closeButton,
                             onPressed: () {
                               _animationController.reverse();
                               Navigator.of(context).pop();
@@ -101,7 +103,8 @@ class _DialogBaseState extends State<DialogBase>
                           ),
                           Text(
                             widget.title,
-                            style: CustomStyle.textStyle24,
+                            style: CustomStyle.textStyle24
+                                .copyWith(color: colorScheme.onSurface),
                           ),
                           const SizedBox(width: 40),
                         ],

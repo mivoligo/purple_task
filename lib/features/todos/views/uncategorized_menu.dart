@@ -1,8 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/ui/widgets/confirmation_dialog.dart';
 import 'package:purple_task/features/todos/controllers/category_controller.dart';
 import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
@@ -17,21 +16,22 @@ class UncategorizedMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final tr = AppLocalizations.of(context);
     return MenuAnchor(
       consumeOutsideTap: true,
       menuChildren: [
         MenuItemButton(
-          child: const Text(s.deleteCompleted),
+          child: Text(tr.categoryOptionDeleteCompleted),
           onPressed: () => _onDeleteCompletedTasks(context, ref),
         ),
         MenuItemButton(
-          child: const Text(s.deleteAllTasks),
+          child: Text(tr.categoryOptionDeleteAllTasks),
           onPressed: () => _onDeleteAllTasks(context, ref),
         ),
       ],
       builder: (context, controller, child) {
         return IconButton(
-          tooltip: s.showOptions,
+          tooltip: tr.showOptions,
           onPressed: () {
             if (controller.isOpen) {
               controller.close();
@@ -52,16 +52,16 @@ class UncategorizedMenu extends ConsumerWidget {
   }
 
   void _onDeleteCompletedTasks(BuildContext context, WidgetRef ref) {
+    final tr = AppLocalizations.of(context);
     showDialog<void>(
       context: context,
-      barrierDismissible: false,
       builder: (_) => ConfirmationDialog(
-        title: s.questionDeleteCompleted,
-        content: const Padding(
-          padding: EdgeInsets.all(24),
-          child: Text(s.infoDeleteCompleted),
+        title: tr.deleteCompletedTasksDialogTitle,
+        content: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Text(tr.deleteCompletedTasksDialogContent),
         ),
-        confirmationText: s.delete,
+        confirmationText: tr.delete,
         confirmationColor: Colors.red,
         onConfirm: () {
           ref
@@ -73,16 +73,16 @@ class UncategorizedMenu extends ConsumerWidget {
   }
 
   void _onDeleteAllTasks(BuildContext context, WidgetRef ref) {
+    final tr = AppLocalizations.of(context);
     showDialog<void>(
       context: context,
-      barrierDismissible: false,
       builder: (_) => ConfirmationDialog(
-        title: s.questionDeleteAll,
-        content: const Padding(
-          padding: EdgeInsets.all(24),
-          child: Text(s.infoDeleteAll),
+        title: tr.deleteAllTasksDialogTitle,
+        content: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Text(tr.deleteAllTasksDialogContent),
         ),
-        confirmationText: s.delete,
+        confirmationText: tr.delete,
         confirmationColor: Colors.red,
         onConfirm: () => ref
             .read(tasksNotifierProvider.notifier)

@@ -1,10 +1,9 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:purple_task/core/constants/custom_styles.dart';
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/ui/widgets/animated_opacity_builder.dart';
 import 'package:purple_task/features/todos/controllers/categories_controller.dart';
 import 'package:purple_task/features/todos/models/category.dart';
@@ -54,21 +53,15 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     final currentCategory = ref
         .watch(categoriesNotifierProvider)
         .valueOrNull
         ?.firstWhere((element) => element.id == widget.category.id);
-    // final categoryColor = currentCategory?.color;
     final activeTasksNumber =
         ref.watch(numberOfActiveTasksInCategoryProvider(currentCategory?.id));
     final progress =
         ref.watch(completionProgressProvider(currentCategory?.id ?? 0));
-
-    final description = switch (activeTasksNumber) {
-      0 => '$activeTasksNumber ${s.taskPlural}',
-      1 => '$activeTasksNumber ${s.taskSingular}',
-      _ => '$activeTasksNumber ${s.taskPlural}',
-    };
 
     return SafeArea(
       child: Scaffold(
@@ -100,7 +93,12 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                   child: Hero(
                     tag: 'main${widget.heroId}',
                     child: Container(
-                      decoration: CustomStyle.dialogDecoration,
+                      decoration: CustomStyle.dialogDecoration.copyWith(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surface
+                            .withAlpha(180),
+                      ),
                     ),
                   ),
                 ),
@@ -132,7 +130,8 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
                                 child: CategoryElementBase(
                                   icon: currentCategory.icon,
                                   name: currentCategory.name,
-                                  description: description,
+                                  description:
+                                      tr.categoryTasksInfo(activeTasksNumber),
                                   progress: progress,
                                   color: currentCategory.color,
                                   iconSize: 28,

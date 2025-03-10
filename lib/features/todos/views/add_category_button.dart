@@ -1,7 +1,6 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:purple_task/core/constants/strings/strings.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/ui/widgets/simple_button.dart';
 import 'package:purple_task/features/todos/views/new_category/new_category_screen.dart';
 
@@ -10,16 +9,18 @@ class AddCategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final tr = AppLocalizations.of(context);
     return Hero(
       tag: 'new_category',
       child: SimpleButton(
-        text: addCategory,
+        text: tr.addCategoryButton,
         onPressed: () => Navigator.of(context).push(
           _createRoute(NewCategoryScreen()),
         ),
-        icon: const Icon(AntIcons.folderAdd, color: Colors.black87),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
+        icon: Icon(AntIcons.folderAdd, color: colorScheme.onSurface),
+        backgroundColor: colorScheme.surface,
+        foregroundColor: colorScheme.onSurface,
       ),
     );
   }

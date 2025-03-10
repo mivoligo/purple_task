@@ -1,6 +1,6 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/core/helpers.dart';
@@ -12,8 +12,9 @@ class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return DialogBase(
-      title: s.about,
+      title: tr.aboutAppViewTitle,
       heroTag: 'about',
       content: Expanded(
         child: ListView(
@@ -27,42 +28,54 @@ class AboutScreen extends StatelessWidget {
                 color: const Color(0xFF673AB7),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(16),
+            Padding(
+              padding: const EdgeInsets.all(16),
               child: Text(
-                s.appDescription,
+                tr.appDescription,
                 textAlign: TextAlign.center,
-                style: CustomStyle.textStyleTaskName,
+                style: CustomStyle.textStyleTaskName
+                    .copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
             ),
-            const Divider(indent: 8, endIndent: 8),
+            const Divider(),
             Material(
               color: const Color(0xFFEEEEEE),
               child: ListTile(
-                title: const Text(s.license),
+                title: Text(tr.license),
                 trailing: const Text(s.licenseShort),
                 onTap: () => _showLicenseDialog(context),
               ),
             ),
-            const Divider(indent: 8, endIndent: 8),
+            const Divider(),
             Material(
               color: const Color(0xFFEEEEEE),
               child: ListTile(
-                title: const Text(s.sourceCode),
+                title: Text(tr.sourceCode),
                 trailing: const Icon(AntIcons.arrowRight),
                 onTap: () => UrlHelper().openUrl(s.sourceCodeUrl),
               ),
             ),
-            const Divider(indent: 8, endIndent: 8),
+            const Divider(),
             Material(
               color: const Color(0xFFEEEEEE),
               child: ListTile(
-                title: const Text(s.bugs),
+                title: Text(tr.reportIssuesButton),
                 trailing: const Icon(AntIcons.arrowRight),
                 onTap: () => UrlHelper().openUrl(s.bugsUrl),
               ),
             ),
-            const Divider(indent: 8, endIndent: 8),
+            const Divider(),
+            Material(
+              color: const Color(0xFFEEEEEE),
+              child: ListTile(
+                leading: const Icon(Icons.language),
+                title: const Text(s.helpWithTranslationTitle),
+                subtitle: const Text(s.helpWithTranslationSubtitle),
+                trailing: const Icon(AntIcons.arrowRight),
+                onTap: () => UrlHelper().openUrl(s.contributingUrl),
+              ),
+            ),
+            const Divider(),
           ],
         ),
       ),
@@ -70,6 +83,7 @@ class AboutScreen extends StatelessWidget {
   }
 
   Future<void> _showLicenseDialog(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return showDialog(
       context: context,
       builder: (_) {
@@ -79,7 +93,7 @@ class AboutScreen extends StatelessWidget {
           ),
           actions: [
             SimpleButton(
-              text: s.close,
+              text: tr.closeButton,
               onPressed: Navigator.of(context).pop,
             ),
           ],

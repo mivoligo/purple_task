@@ -1,8 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:purple_task/core/constants/strings/strings.dart' as s;
 import 'package:purple_task/features/todos/controllers/categories_controller.dart';
 import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
 import 'package:purple_task/features/todos/models/category.dart';
@@ -26,6 +25,7 @@ class _CategoryDetailsState extends ConsumerState<CategoryDetails> {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     final currentCategory = ref
         .watch(categoriesNotifierProvider)
         .valueOrNull
@@ -46,18 +46,18 @@ class _CategoryDetailsState extends ConsumerState<CategoryDetails> {
               _navigationIndex = index;
             });
           },
-          destinations: const [
+          destinations: [
             NavigationDestination(
-              label: s.toDo,
-              icon: Icon(AntIcons.edit),
+              label: tr.toDoTasksHeader,
+              icon: const Icon(AntIcons.edit),
             ),
             NavigationDestination(
-              label: s.all,
-              icon: Icon(AntIcons.profile),
+              label: tr.allTasksHeader,
+              icon: const Icon(AntIcons.profile),
             ),
             NavigationDestination(
-              label: s.completed,
-              icon: Icon(AntIcons.checkCircle),
+              label: tr.completedTasksHeader,
+              icon: const Icon(AntIcons.checkCircle),
             ),
           ],
         ),
