@@ -1,0 +1,93 @@
+{
+  "@deleteCategoryDialogContent": {
+    "placeholders": {
+      "categoryName": {
+        "type": "Object"
+      }
+    }
+  },
+  "@categoryTasksInfo": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "@totalTasksInfo": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "aboutAppViewTitle": "Om Purple Task",
+  "addCategoryButton": "Tilføj kategori",
+  "addNewTaskInputPlaceholder": "Tilføj ny opgave",
+  "allTasksHeader": "Alle",
+  "appDescription": "Simpel to-do app til at hjælpe med at få ting klaret",
+  "cancelButton": "Annuller",
+  "category": "Kategori",
+  "categoryNameLabel": "Navn",
+  "categoryOptionChangeColor": "Ændre farve",
+  "categoryOptionChangeIcon": "Ændre ikon",
+  "categoryOptionChangeName": "Ændre navn",
+  "categoryOptionDeleteAllTasks": "Slet alle opgaver",
+  "categoryOptionDeleteCategory": "Slet kategori",
+  "categoryTasksInfo": "{count,plural, =0{Ingen opgaver tilbage} =1{1 opgave tilbage} other{{count} opgaver tilbage}}",
+  "categoryOptionDeleteCompleted": "Slet udførte opgaver",
+  "changeCategoryColorDialogTitle": "Ændre farve på kategori",
+  "changeCategoryIconDialogTitle": "Ændre ikon på kategori",
+  "changeCategoryNameDialogTitle": "Ændre navn på kategori",
+  "changeTaskName": "Ændre navn på opgave",
+  "closeButton": "Luk",
+  "completedEarlierTasksHeader": "Tidligere udført",
+  "completedTasksHeader": "Udført",
+  "completedTodayTasksHeader": "Udført i dag",
+  "completedYesterdayTasksHeader": "Udført i går",
+  "continueButton": "Fortsæt",
+  "customDate": "Brugerdefineret dato",
+  "delete": "Slet",
+  "deleteAllTasksDialogContent": "Alle opgaver i denne kateogiry vil blive slettet",
+  "deleteAllTasksDialogTitle": "Slet alle opgaver?",
+  "deleteCategoryDialogContent": "Denne kategori ({categoryName}) og alle opgaver i den vil blive slettet",
+  "deleteCategoryDialogTitle": "Slet kategori?",
+  "deleteCompletedTasksDialogContent": "Alle opgaver markeret som udført i denne kategori vil blive slettet",
+  "deleteCompletedTasksDialogTitle": "Slet udførte opgaver?",
+  "dueDate": "Forfaldsdato",
+  "errorInformation": "En fejl opstod!",
+  "finishButton": "Afslut",
+  "greetings": "Hej",
+  "hideCategoriesButton": "Skjul kategorier",
+  "later": "Senere",
+  "license": "Licens",
+  "newCategoryColorLabel": "Farve",
+  "newCategoryIconLabel": "Ikon",
+  "newCategoryLabel": "Ny kategori",
+  "newCategoryTasksInfo": "Du kan tilføje nogle opgaver nu, eller gøre det senere efter at have færdiggjort opretningen af kategorien.",
+  "nextButton": "Næste",
+  "noCategoryHeader": "Ukategoriseret",
+  "noDate": "Ingen dato",
+  "overdueTasksHeader": "Forfaldne",
+  "reportIssuesButton": "Reportér problemer",
+  "saveButton": "Gem",
+  "setDueDate": "Sæt forfaldsdato",
+  "settings": "Indstillinger",
+  "settingsOptionDateFormat": "Datoformat",
+  "settingsOptionDisplayTimeCompleted": "Vis tidspunkt for opgavens udførelse",
+  "settingsOptionLanguage": "Sprog",
+  "settingsOptionThemeMode": "Tema",
+  "settingsOptionTimeFormat": "Tidsformat",
+  "showCategoriesButton": "Vis kategorier",
+  "showOptions": "Vis muligheder",
+  "sourceCode": "Se kildekoden",
+  "task": "Opgave",
+  "taskOptionMoveToCategory": "Flyt til kategori",
+  "themeModeDark": "Mørk",
+  "themeModeLight": "Lys",
+  "themeModeSystem": "System",
+  "toDoTasksHeader": "To Do",
+  "today": "I dag",
+  "tomorrow": "I morgen",
+  "totalTasksInfo": "{count,plural, =0{Intet at lave... Perfekt!} =1{Du har 1 opgave at udføre} other{Du har {count} opgaver at udføre}}",
+  "yesterday": "I går"
+}
