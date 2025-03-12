@@ -1,0 +1,93 @@
+{
+  "@deleteCategoryDialogContent": {
+    "placeholders": {
+      "categoryName": {
+        "type": "Object"
+      }
+    }
+  },
+  "@categoryTasksInfo": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "@totalTasksInfo": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "aboutAppViewTitle": "Tungkol sa Purple Task",
+  "addCategoryButton": "Magdagdag ng kategorya",
+  "addNewTaskInputPlaceholder": "Magdagdag ng task",
+  "allTasksHeader": "Lahat",
+  "appDescription": "Simpleng TO-DO app para tulungan kang matapos ang gawain",
+  "cancelButton": "Kanselahin",
+  "category": "Kategorya",
+  "categoryNameLabel": "Pangalan",
+  "categoryOptionChangeColor": "Palitan ang kulay",
+  "categoryOptionChangeIcon": "Palitan ang icon",
+  "categoryOptionChangeName": "Palitan ang pangalan",
+  "categoryOptionDeleteAllTasks": "Tanggalin lahat ng mga task",
+  "categoryOptionDeleteCategory": "Tanggalin ang kategorya",
+  "categoryTasksInfo": "{count,plural, =0{Wala nang task} =1{1 task natitira} other{{count} mga tasks natitira}}",
+  "categoryOptionDeleteCompleted": "Tanggalin ang tapos na mga task",
+  "changeCategoryColorDialogTitle": "Palitan ang kulay ng kategorya",
+  "changeCategoryIconDialogTitle": "Palitan ang icon ng kategorya",
+  "changeCategoryNameDialogTitle": "Palitan ang pangalan ng kategorya",
+  "changeTaskName": "Palitan ang pangalan ng task",
+  "closeButton": "Isara",
+  "completedEarlierTasksHeader": "Natapos kanina",
+  "completedTasksHeader": "Natapos",
+  "completedTodayTasksHeader": "Natapos ngayon",
+  "completedYesterdayTasksHeader": "Natapos kahapon",
+  "continueButton": "Magpatuloy",
+  "customDate": "Custom na date",
+  "delete": "Tanggalin",
+  "deleteAllTasksDialogContent": "Lahat ng task sa kategoryang ito ay matatanggal",
+  "deleteAllTasksDialogTitle": "Tanggalin lahat ng mga task?",
+  "deleteCategoryDialogContent": "Ang kategoryang ito ({categoryName}) at lahat ng tasks nito ay matatanggal",
+  "deleteCategoryDialogTitle": "Tanggalin ang kategorya?",
+  "deleteCompletedTasksDialogContent": "Lahat ng task na may markang tapos sa kategoryang ito ay matatanggal",
+  "deleteCompletedTasksDialogTitle": "Tanggalin lahat ng natapos na mga task?",
+  "dueDate": "Takdang Petsa",
+  "errorInformation": "May nag-occur na issue!",
+  "finishButton": "Tapos",
+  "greetings": "Kumusta",
+  "hideCategoriesButton": "Itago ang mga kategorya",
+  "later": "Mamaya",
+  "license": "Lisensya",
+  "newCategoryColorLabel": "Kulay",
+  "newCategoryIconLabel": "Icon",
+  "newCategoryLabel": "Bagong Kategorya",
+  "newCategoryTasksInfo": "Pwede kang magdagdag ng ilang task o gawin it pagtapos makagawa ng kategorya.",
+  "nextButton": "Susunod",
+  "noCategoryHeader": "Walang Kategorya",
+  "noDate": "Walang Petsa",
+  "overdueTasksHeader": "Overdue",
+  "reportIssuesButton": "Magreport ng issues",
+  "saveButton": "Isave",
+  "setDueDate": "Magset ng takdang petsa",
+  "settings": "Settings",
+  "settingsOptionDateFormat": "Format ng Date",
+  "settingsOptionDisplayTimeCompleted": "Ipakita ang petsa kung kailan natapos ang task",
+  "settingsOptionLanguage": "Wika",
+  "settingsOptionThemeMode": "Tema",
+  "settingsOptionTimeFormat": "Format ng Oras",
+  "showCategoriesButton": "Ipakita ang mga kategorya",
+  "showOptions": "Ipakita ang mga option",
+  "sourceCode": "Tignan ang source code",
+  "task": "Task",
+  "taskOptionMoveToCategory": "Pumunta sa kategorya",
+  "themeModeDark": "Dark",
+  "themeModeLight": "Light",
+  "themeModeSystem": "System",
+  "toDoTasksHeader": "Gagawin",
+  "today": "Ngayon",
+  "tomorrow": "Bukas",
+  "totalTasksInfo": "{count,plural, =0{Walang gagawin...Ayos!} =1{Meron kang 1 task na kailangang tapusin} other{Meron kang {count} tasks na kailangang tapusin}}",
+  "yesterday": "Kahapon"
+}
