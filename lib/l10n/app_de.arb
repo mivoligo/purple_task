@@ -1,0 +1,93 @@
+{
+  "@deleteCategoryDialogContent": {
+    "placeholders": {
+      "categoryName": {
+        "type": "Object"
+      }
+    }
+  },
+  "@categoryTasksInfo": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "@totalTasksInfo": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "aboutAppViewTitle": "Über Purple Task",
+  "addCategoryButton": "Kategorie hinzufügen",
+  "addNewTaskInputPlaceholder": "Neue Aufgabe hinzufügen",
+  "allTasksHeader": "Alle",
+  "appDescription": "Eine einfache To-do App um Aufgaben abhaken zu können",
+  "cancelButton": "Abbrechen",
+  "category": "Kategorie",
+  "categoryNameLabel": "Name",
+  "categoryOptionChangeColor": "Farbe ändern",
+  "categoryOptionChangeIcon": "Icon ändern",
+  "categoryOptionChangeName": "Namen ändern",
+  "categoryOptionDeleteAllTasks": "Alle Aufgaben löschen",
+  "categoryOptionDeleteCategory": "Kategorie löschen",
+  "categoryTasksInfo": "{count,plural, =0{Keine Aufgaben übrig} =1{1 Aufgabe übrig} other{{count} Aufgaben übrig}}",
+  "categoryOptionDeleteCompleted": "Erledigte Aufgaben löschen",
+  "changeCategoryColorDialogTitle": "Farbe der Kategorie ändern",
+  "changeCategoryIconDialogTitle": "Icon der Kategorie ändern",
+  "changeCategoryNameDialogTitle": "Namen der Kategorie ändern",
+  "changeTaskName": "Name der Aufgabe ändern",
+  "closeButton": "Schließen",
+  "completedEarlierTasksHeader": "Vorher erledigt",
+  "completedTasksHeader": "Erledigt",
+  "completedTodayTasksHeader": "Heute erledigt",
+  "completedYesterdayTasksHeader": "Gestern erledigt",
+  "continueButton": "Weiter",
+  "customDate": "Benutzerdefiniertes Datum",
+  "delete": "Löschen",
+  "deleteAllTasksDialogContent": "Alle Aufgaben in dieser Kategorie werden gelöscht",
+  "deleteAllTasksDialogTitle": "Alle Aufgaben löschen?",
+  "deleteCategoryDialogContent": "Diese Kategorie ({categoryName}) und alle darin enthaltenen Aufgaben werden gelöscht",
+  "deleteCategoryDialogTitle": "Kategorie löschen?",
+  "deleteCompletedTasksDialogContent": "Alle als erledigt markierten Aufgaben in dieser Kategorie werden gelöscht",
+  "deleteCompletedTasksDialogTitle": "Erledigte Aufgaben löschen?",
+  "dueDate": "Fälligkeitsdatum",
+  "errorInformation": "Ein Problem ist aufgetreten!",
+  "finishButton": "Fertig",
+  "greetings": "Hallo",
+  "hideCategoriesButton": "Kategorien ausblenden",
+  "later": "Später",
+  "license": "Lizenz",
+  "newCategoryColorLabel": "Farbe",
+  "newCategoryIconLabel": "Symbol",
+  "newCategoryLabel": "Neue Kategorie",
+  "newCategoryTasksInfo": "Sie können jetzt einige Aufgaben hinzufügen oder dies nach der Kategorierstellung tun.",
+  "nextButton": "Weiter",
+  "noCategoryHeader": "Ohne Kategorie",
+  "noDate": "Kein Datum",
+  "overdueTasksHeader": "Überfällig",
+  "reportIssuesButton": "Probleme melden",
+  "saveButton": "Speichern",
+  "setDueDate": "Fälligkeitsdatum festlegen",
+  "settings": "Einstellungen",
+  "settingsOptionDateFormat": "Datumsformat",
+  "settingsOptionDisplayTimeCompleted": "Abschlusszeit der Aufgabe anzeigen",
+  "settingsOptionLanguage": "Sprache",
+  "settingsOptionThemeMode": "Theme",
+  "settingsOptionTimeFormat": "Zeitformat",
+  "showCategoriesButton": "Kategorien anzeigen",
+  "showOptions": "Optionen anzeigen",
+  "sourceCode": "Quellcode anzeigen",
+  "task": "Aufgabe",
+  "taskOptionMoveToCategory": "In Kategorie verschieben",
+  "themeModeDark": "Dunkel",
+  "themeModeLight": "Hell",
+  "themeModeSystem": "System",
+  "toDoTasksHeader": "To-do",
+  "today": "Heute",
+  "tomorrow": "Morgen",
+  "totalTasksInfo": "{count,plural, =0{Nichts zu tun... Super!} =1{Du hast 1 Aufgabe zu erledigen} other{Du hast {count} Aufgaben zu erledigen}}",
+  "yesterday": "Gestern"
+}
