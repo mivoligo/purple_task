@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/features/todos/controllers/new_category_controller.dart';
 import 'package:purple_task/features/todos/views/icon_selector.dart';
 import 'package:purple_task/features/todos/views/new_category/new_category_base.dart';
+import 'package:purple_task/l10n/app_localizations.dart';
 
 class CategoryIcon extends ConsumerWidget {
   const CategoryIcon({

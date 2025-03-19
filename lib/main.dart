@@ -9,7 +9,7 @@ void main() async {
 
   await HiveInit().initHive();
 
-  // TODO(m): Set app window size
+  // TODO(Michal): Set app window size
 
   runApp(
     const ProviderScope(

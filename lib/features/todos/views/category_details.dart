@@ -1,6 +1,5 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/features/todos/controllers/categories_controller.dart';
 import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
@@ -10,6 +9,7 @@ import 'package:purple_task/features/todos/views/add_task_field.dart';
 import 'package:purple_task/features/todos/views/all_tasks.dart';
 import 'package:purple_task/features/todos/views/completed_tasks.dart';
 import 'package:purple_task/features/todos/views/planned_tasks.dart';
+import 'package:purple_task/l10n/app_localizations.dart';
 
 class CategoryDetails extends ConsumerStatefulWidget {
   const CategoryDetails({required this.category, super.key});

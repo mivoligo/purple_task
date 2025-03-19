@@ -3,3 +3,7 @@ linter:
   rules:
     public_member_api_docs: false
     library_private_types_in_public_api: false
+
+analyzer:
+  exclude:
+    - "lib/core/constants/strings/strings.dart"

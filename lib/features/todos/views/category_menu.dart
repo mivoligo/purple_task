@@ -1,6 +1,5 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/ui/widgets/confirmation_dialog.dart';
 import 'package:purple_task/core/ui/widgets/text_change_confirmation_dialog.dart';
@@ -10,6 +9,7 @@ import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
 import 'package:purple_task/features/todos/models/category.dart';
 import 'package:purple_task/features/todos/views/color_selector.dart';
 import 'package:purple_task/features/todos/views/icon_selector.dart';
+import 'package:purple_task/l10n/app_localizations.dart';
 
 class CategoryMenu extends ConsumerStatefulWidget {
   const CategoryMenu({
