@@ -42,10 +42,7 @@ class UncategorizedMenu extends ConsumerWidget {
               controller.open();
             }
           },
-          icon: Icon(
-            AntIcons.menu,
-            size: iconSize,
-          ),
+          icon: Icon(AntIcons.menuOutlined, size: iconSize),
         );
       },
     );

@@ -132,7 +132,7 @@ class TaskMenu extends StatelessWidget {
                 }
               },
               icon: const Icon(
-                AntIcons.menu,
+                AntIcons.menuOutlined,
                 size: 16,
               ),
             );

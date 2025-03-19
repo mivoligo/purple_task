@@ -26,7 +26,7 @@ class DueDateIndicator extends StatelessWidget {
         return Row(
           children: [
             Icon(
-              AntIcons.calendarOutline,
+              AntIcons.calendarFilled,
               size: 14,
               color: task.isDone
                   ? colorScheme.onSurface.withAlpha(180)

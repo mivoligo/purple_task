@@ -41,15 +41,15 @@ class _UncategorizedTasksState extends ConsumerState<UncategorizedTasks> {
             destinations: [
               NavigationDestination(
                 label: tr.toDoTasksHeader,
-                icon: const Icon(AntIcons.edit),
+                icon: const Icon(AntIcons.editFilled),
               ),
               NavigationDestination(
                 label: tr.allTasksHeader,
-                icon: const Icon(AntIcons.profile),
+                icon: const Icon(AntIcons.profileFilled),
               ),
               NavigationDestination(
                 label: tr.completedTasksHeader,
-                icon: const Icon(AntIcons.checkCircle),
+                icon: const Icon(AntIcons.checkCircleFilled),
               ),
             ],
           ),

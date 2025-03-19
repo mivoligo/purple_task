@@ -19,7 +19,7 @@ class TopBar extends StatelessWidget {
         Hero(
           tag: 'about',
           child: CustomIconButton(
-            icon: const Icon(AntIcons.infoCircle),
+            icon: const Icon(AntIcons.infoCircleFilled),
             tooltip: tr.aboutAppViewTitle,
             onPressed: () => Navigator.of(context).push(
               _createRoute(const AboutScreen()),
@@ -30,7 +30,7 @@ class TopBar extends StatelessWidget {
         Hero(
           tag: 'settings',
           child: CustomIconButton(
-            icon: const Icon(AntIcons.setting),
+            icon: const Icon(AntIcons.settingFilled),
             tooltip: tr.settings,
             onPressed: () => Navigator.of(context).push(
               _createRoute(const SettingsScreen()),

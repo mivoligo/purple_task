@@ -105,7 +105,7 @@ class _UncategorizedCard extends ConsumerWidget {
     final uncategorizedCategory = Category(
       id: -1,
       name: tr.noCategoryHeader,
-      icon: AntIcons.appstore.codePoint,
+      icon: AntIcons.appstoreFilled.codePoint,
       color: Colors.deepPurple,
     );
     return InkWell(

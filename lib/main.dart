@@ -11,9 +11,5 @@ void main() async {
 
   // TODO(Michal): Set app window size
 
-  runApp(
-    const ProviderScope(
-      child: App(),
-    ),
-  );
+  runApp(const ProviderScope(child: App()));
 }

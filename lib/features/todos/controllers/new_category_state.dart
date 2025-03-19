@@ -17,7 +17,7 @@ class NewCategoryState extends Equatable {
     return NewCategoryState(
       name: '',
       color: Colors.purple,
-      icon: AntIcons.folder.codePoint,
+      icon: AntIcons.folderFilled.codePoint,
       tasksNamesList: const [],
       status: NewCategoryStatus.initial,
     );

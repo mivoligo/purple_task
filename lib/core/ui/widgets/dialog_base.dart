@@ -93,7 +93,7 @@ class _DialogBaseState extends State<DialogBase>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomIconButton(
-                            icon: const Icon(AntIcons.close),
+                            icon: const Icon(AntIcons.closeOutlined),
                             color: colorScheme.onSurface,
                             tooltip: tr.closeButton,
                             onPressed: () {

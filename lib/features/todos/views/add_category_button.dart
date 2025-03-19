@@ -18,7 +18,7 @@ class AddCategoryButton extends StatelessWidget {
         onPressed: () => Navigator.of(context).push(
           _createRoute(NewCategoryScreen()),
         ),
-        icon: Icon(AntIcons.folderAdd, color: colorScheme.onSurface),
+        icon: Icon(AntIcons.folderAddFilled, color: colorScheme.onSurface),
         backgroundColor: colorScheme.surface,
         foregroundColor: colorScheme.onSurface,
       ),

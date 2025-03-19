@@ -51,7 +51,7 @@ class AboutScreen extends StatelessWidget {
               color: const Color(0xFFEEEEEE),
               child: ListTile(
                 title: Text(tr.sourceCode),
-                trailing: const Icon(AntIcons.arrowRight),
+                trailing: const Icon(AntIcons.arrowRightOutlined),
                 onTap: () => UrlHelper().openUrl(s.sourceCodeUrl),
               ),
             ),
@@ -60,7 +60,7 @@ class AboutScreen extends StatelessWidget {
               color: const Color(0xFFEEEEEE),
               child: ListTile(
                 title: Text(tr.reportIssuesButton),
-                trailing: const Icon(AntIcons.arrowRight),
+                trailing: const Icon(AntIcons.arrowRightOutlined),
                 onTap: () => UrlHelper().openUrl(s.bugsUrl),
               ),
             ),
@@ -71,7 +71,7 @@ class AboutScreen extends StatelessWidget {
                 leading: const Icon(Icons.language),
                 title: const Text(s.helpWithTranslationTitle),
                 subtitle: const Text(s.helpWithTranslationSubtitle),
-                trailing: const Icon(AntIcons.arrowRight),
+                trailing: const Icon(AntIcons.arrowRightOutlined),
                 onTap: () => UrlHelper().openUrl(s.contributingUrl),
               ),
             ),

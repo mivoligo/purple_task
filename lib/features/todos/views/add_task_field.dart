@@ -56,9 +56,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
       ),
       suffix: IconButton(
         color: _hasText ? Colors.blue : Colors.grey,
-        icon: const Icon(
-          AntIcons.plusCircle,
-        ),
+        icon: const Icon(AntIcons.plusCircleFilled),
         onPressed: _hasText
             ? () {
                 widget.onAddTask(_controller.text);

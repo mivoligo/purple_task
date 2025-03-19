@@ -23,7 +23,7 @@ class CategoryTopBar extends StatelessWidget {
       children: [
         // Go back button
         CustomIconButton(
-          icon: const Icon(AntIcons.close),
+          icon: const Icon(AntIcons.closeOutlined),
           color: Theme.of(context).colorScheme.onSurface,
           tooltip: tr.closeButton,
           onPressed: () {

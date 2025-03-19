@@ -1,4 +1,5 @@
 import 'package:ant_icons/ant_icons.dart';
+import 'package:ant_icons/icon_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/ui/widgets/confirmation_dialog.dart';
@@ -76,10 +77,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
               controller.open();
             }
           },
-          icon: Icon(
-            AntIcons.menu,
-            size: widget.iconSize,
-          ),
+          icon: Icon(AntIcons.menuOutlined, size: widget.iconSize),
         );
       },
     );
@@ -235,11 +233,7 @@ class _CategoryMenuState extends ConsumerState<CategoryMenu> {
                 child: Column(
                   children: [
                     Icon(
-                      IconData(
-                        icon,
-                        fontFamily: 'AntIcons',
-                        fontPackage: 'ant_icons',
-                      ),
+                      AntIconData(icon),
                       color: category.color,
                       size: 28,
                     ),

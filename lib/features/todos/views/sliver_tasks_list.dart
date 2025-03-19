@@ -39,7 +39,7 @@ class SliverTasksList extends ConsumerWidget {
               child: Row(
                 children: [
                   Expanded(child: TaskItem(task: list[index])),
-                  const Icon(AntIcons.menu, size: 16),
+                  const Icon(AntIcons.menuOutlined, size: 16),
                   const SizedBox(width: 16),
                 ],
               ),

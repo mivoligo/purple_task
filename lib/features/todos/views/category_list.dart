@@ -56,10 +56,7 @@ class CategoryList extends ConsumerWidget {
                       const VerticalDivider(),
                       IconButton(
                         onPressed: () {},
-                        icon: const Icon(
-                          AntIcons.menu,
-                          size: 16,
-                        ),
+                        icon: const Icon(AntIcons.menuOutlined, size: 16),
                       ),
                     ],
                   ),

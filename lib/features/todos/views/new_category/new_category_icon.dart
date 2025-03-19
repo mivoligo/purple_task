@@ -1,3 +1,4 @@
+import 'package:ant_icons/icon_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
@@ -40,11 +41,7 @@ class CategoryIcon extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 2),
                     child: Icon(
-                      IconData(
-                        selectedIcon,
-                        fontFamily: 'AntIcons',
-                        fontPackage: 'ant_icons',
-                      ),
+                      AntIconData(selectedIcon),
                       color: color,
                       size: 38,
                     ),

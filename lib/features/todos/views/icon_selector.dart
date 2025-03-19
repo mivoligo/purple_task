@@ -1,3 +1,4 @@
+import 'package:ant_icons/icon_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -79,11 +80,7 @@ class _IconSelectorState extends State<IconSelector> {
                           onFocusChange: (value) => widget.onSelect(icon),
                           onTap: () => widget.onSelect(icon),
                           child: Icon(
-                            IconData(
-                              categoryIcons[index],
-                              fontFamily: 'AntIcons',
-                              fontPackage: 'ant_icons',
-                            ),
+                            AntIconData(categoryIcons[index]),
                             color: Colors.grey.shade800,
                             size: isSelected ? 30 : 24,
                           ),

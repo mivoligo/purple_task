@@ -1,3 +1,4 @@
+import 'package:ant_icons/icon_data.dart';
 import 'package:flutter/material.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/features/todos/views/add_task_field.dart';
@@ -56,11 +57,7 @@ class _NewCategoryTasksState extends State<NewCategoryTasks> {
                   Padding(
                     padding: const EdgeInsets.only(right: 2),
                     child: Icon(
-                      IconData(
-                        widget.selectedIcon,
-                        fontFamily: 'AntIcons',
-                        fontPackage: 'ant_icons',
-                      ),
+                      AntIconData(widget.selectedIcon),
                       color: widget.color,
                       size: 38,
                     ),
