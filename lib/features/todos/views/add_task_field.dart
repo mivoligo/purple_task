@@ -1,8 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
+import 'package:purple_task/l10n/app_localizations.dart';
 
 class AddTaskField extends StatefulWidget {
   const AddTaskField({
@@ -56,9 +56,7 @@ class _AddTaskFieldState extends State<AddTaskField> {
       ),
       suffix: IconButton(
         color: _hasText ? Colors.blue : Colors.grey,
-        icon: const Icon(
-          AntIcons.plusCircle,
-        ),
+        icon: const Icon(AntIcons.plusCircleFilled),
         onPressed: _hasText
             ? () {
                 widget.onAddTask(_controller.text);

@@ -1,8 +1,8 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/ui/widgets/icon_button.dart';
+import 'package:purple_task/l10n/app_localizations.dart';
 
 class DialogBase extends StatefulWidget {
   const DialogBase({
@@ -93,7 +93,7 @@ class _DialogBaseState extends State<DialogBase>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomIconButton(
-                            icon: const Icon(AntIcons.close),
+                            icon: const Icon(AntIcons.closeOutlined),
                             color: colorScheme.onSurface,
                             tooltip: tr.closeButton,
                             onPressed: () {

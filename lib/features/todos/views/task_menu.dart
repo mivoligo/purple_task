@@ -1,11 +1,11 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/features/todos/controllers/categories_controller.dart';
 import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
 import 'package:purple_task/features/todos/models/task.dart';
+import 'package:purple_task/l10n/app_localizations.dart';
 
 class TaskMenu extends StatelessWidget {
   const TaskMenu({
@@ -30,7 +30,8 @@ class TaskMenu extends StatelessWidget {
             MenuItemButton(
               child: Text(
                 tr.delete,
-                style: CustomStyle.textStyleWarning, // TODO style font size
+                // TODO(Michal): Style font size
+                style: CustomStyle.textStyleWarning,
               ),
               onPressed: () => ref
                   .read(tasksNotifierProvider.notifier)
@@ -131,7 +132,7 @@ class TaskMenu extends StatelessWidget {
                 }
               },
               icon: const Icon(
-                AntIcons.menu,
+                AntIcons.menuOutlined,
                 size: 16,
               ),
             );

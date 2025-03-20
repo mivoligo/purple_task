@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/helpers.dart';
@@ -8,6 +7,7 @@ import 'package:purple_task/features/settings/controllers/settings_controller.da
 import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
 import 'package:purple_task/features/todos/models/task.dart';
 import 'package:purple_task/features/todos/views/due_date_indicator.dart';
+import 'package:purple_task/l10n/app_localizations.dart';
 
 class TaskItem extends ConsumerWidget {
   const TaskItem({required this.task, super.key});
@@ -20,6 +20,14 @@ class TaskItem extends ConsumerWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final tasksController = ref.watch(tasksNotifierProvider.notifier);
     final settings = ref.watch(settingsNotifierProvider);
+    final formattedDate = task.doneTime != null
+        ? TimeConverter.millisToDateAndTime(
+            task.doneTime!,
+            dateFormat: settings.value?.dateFormat ?? 'd MMM y',
+            timeFormat: settings.value?.timeFormat ?? 'Hm',
+          )
+        : null;
+
     return Row(
       children: [
         Padding(
@@ -82,11 +90,7 @@ class TaskItem extends ConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 4),
                       child: Text(
-                        '${tr.completedTasksHeader}: ${TimeConverter.millisToDateAndTime(
-                          task.doneTime!,
-                          dateFormat: settings.value?.dateFormat ?? 'd MMM y',
-                          timeFormat: settings.value?.timeFormat ?? 'Hm',
-                        )}',
+                        '${tr.completedTasksHeader}: $formattedDate',
                         style: CustomStyle.textStyleLabelSmall.copyWith(
                           color: colorScheme.onSurface.withAlpha(180),
                         ),

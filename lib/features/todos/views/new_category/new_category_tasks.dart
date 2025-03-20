@@ -1,8 +1,9 @@
+import 'package:ant_icons/icon_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/features/todos/views/add_task_field.dart';
 import 'package:purple_task/features/todos/views/new_category/new_category_base.dart';
+import 'package:purple_task/l10n/app_localizations.dart';
 
 class NewCategoryTasks extends StatefulWidget {
   const NewCategoryTasks({
@@ -56,11 +57,7 @@ class _NewCategoryTasksState extends State<NewCategoryTasks> {
                   Padding(
                     padding: const EdgeInsets.only(right: 2),
                     child: Icon(
-                      IconData(
-                        widget.selectedIcon,
-                        fontFamily: 'AntIcons',
-                        fontPackage: 'ant_icons',
-                      ),
+                      AntIconData(widget.selectedIcon),
                       color: widget.color,
                       size: 38,
                     ),

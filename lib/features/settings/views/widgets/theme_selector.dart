@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/styles/providers/providers.dart';
 import 'package:purple_task/core/styles/themes.dart';
 import 'package:purple_task/features/settings/controllers/settings_controller.dart';
+import 'package:purple_task/l10n/app_localizations.dart';
 
 class ThemeSelector extends ConsumerWidget {
   const ThemeSelector({super.key});

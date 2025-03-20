@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/ui/screens/main_screen/widgets/top_bar.dart';
@@ -10,6 +9,7 @@ import 'package:purple_task/features/todos/controllers/category_controller.dart'
 import 'package:purple_task/features/todos/views/add_category_button.dart';
 import 'package:purple_task/features/todos/views/category_list.dart';
 import 'package:purple_task/features/todos/views/uncategorized_tasks.dart';
+import 'package:purple_task/l10n/app_localizations.dart';
 
 class NarrowLayout extends ConsumerStatefulWidget {
   const NarrowLayout({super.key});

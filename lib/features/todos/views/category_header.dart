@@ -1,3 +1,4 @@
+import 'package:ant_icons/icon_data.dart';
 import 'package:flutter/material.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/ui/widgets/animated_progress_bar.dart';
@@ -29,11 +30,7 @@ class CategoryHeader extends StatelessWidget {
             Align(
               alignment: Alignment.topLeft,
               child: Icon(
-                IconData(
-                  category.icon,
-                  fontFamily: 'AntIcons',
-                  fontPackage: 'ant_icons',
-                ),
+                AntIconData(category.icon),
                 size: 42,
                 color: category.color,
               ),

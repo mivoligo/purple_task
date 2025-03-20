@@ -84,7 +84,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                           onTap: () => widget.onSelect(color),
                           child: isSelected
                               ? const Icon(
-                                  AntIcons.checkOutline,
+                                  AntIcons.checkOutlined,
                                   color: Colors.white,
                                 )
                               : null,

@@ -1,6 +1,5 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/constants/custom_styles.dart';
 import 'package:purple_task/core/ui/screens/main_screen/widgets/top_bar.dart';
@@ -12,6 +11,7 @@ import 'package:purple_task/features/todos/views/category_element.dart';
 import 'package:purple_task/features/todos/views/category_list.dart';
 import 'package:purple_task/features/todos/views/uncategorized_menu.dart';
 import 'package:purple_task/features/todos/views/uncategorized_tasks.dart';
+import 'package:purple_task/l10n/app_localizations.dart';
 
 class WideLayout extends ConsumerWidget {
   const WideLayout({super.key});
@@ -105,7 +105,7 @@ class _UncategorizedCard extends ConsumerWidget {
     final uncategorizedCategory = Category(
       id: -1,
       name: tr.noCategoryHeader,
-      icon: AntIcons.appstore.codePoint,
+      icon: AntIcons.appstoreFilled.codePoint,
       color: Colors.deepPurple,
     );
     return InkWell(

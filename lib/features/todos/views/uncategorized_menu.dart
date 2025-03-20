@@ -1,10 +1,10 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purple_task/core/ui/widgets/confirmation_dialog.dart';
 import 'package:purple_task/features/todos/controllers/category_controller.dart';
 import 'package:purple_task/features/todos/controllers/tasks_controller.dart';
+import 'package:purple_task/l10n/app_localizations.dart';
 
 class UncategorizedMenu extends ConsumerWidget {
   const UncategorizedMenu({
@@ -42,10 +42,7 @@ class UncategorizedMenu extends ConsumerWidget {
               controller.open();
             }
           },
-          icon: Icon(
-            AntIcons.menu,
-            size: iconSize,
-          ),
+          icon: Icon(AntIcons.menuOutlined, size: iconSize),
         );
       },
     );
